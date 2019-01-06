@@ -72,7 +72,7 @@
         "serverlessIDE.templatePattern": {
           "type": "string",
           "description": "Serverless IDE template path pattern",
-          "default": "template.yaml"
+          "default": "*.sam.yaml"
         },
         "serverlessIDE.trace.server": {
           "type": "string",
@@ -83,36 +83,6 @@
           ],
           "default": "off",
           "description": "Traces the communication between VSCode and the language server service."
-        },
-        "serverlessIDE.schemas": {
-          "type": "object",
-          "default": {},
-          "description": "Associate schemas to Yaml files in the current workspace"
-        },
-        "serverlessIDE.format.enable": {
-          "type": "boolean",
-          "default": false,
-          "description": "Enable/disable default YAML formatter (requires restart)"
-        },
-        "serverlessIDE.format.singleQuote": {
-          "type": "boolean",
-          "default": false,
-          "description": "Use single quotes instead of double quotes"
-        },
-        "serverlessIDE.format.bracketSpacing": {
-          "type": "boolean",
-          "default": true,
-          "description": "Print spaces between brackets in objects"
-        },
-        "serverlessIDE.format.proseWrap": {
-          "type": "string",
-          "default": "preserve",
-          "enum": [
-            "preserve",
-            "never",
-            "always"
-          ],
-          "description": "Always: wrap prose if it exeeds the print width, Never: never wrap the prose, Preserve: wrap prose as-is"
         },
         "serverlessIDE.validate": {
           "type": "boolean",
@@ -129,6 +99,18 @@
           "default": true,
           "description": "Enable/disable completion feature"
         }
+      }
+    },
+    "configurationDefaults": {
+      "[yaml]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.quickSuggestions": {
+          "other": true,
+          "comments": false,
+          "strings": true
+        },
+        "editor.autoIndent": false
       }
     }
   },
