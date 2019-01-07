@@ -1,2 +1,4 @@
-node_modules/
-out/
+**/node_modules
+node_modules
+**/out
+*.log

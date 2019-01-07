@@ -1,137 +1,17 @@
 {
-  "name": "vscode-serverless-ide-complete",
-  "displayName": "Serverless IDE complete",
-  "description": "Serverless IDE autocomplete plugin with AWS SAM support",
-  "author": "Pavel Vlasov <freakycue@gmail.com>",
-  "license": "MIT",
-  "version": "0.2.0",
-  "preview": true,
-  "bugs": "https://github.com/redhat-developer/vscode-yaml/issues",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/redhat-developer/vscode-yaml"
-  },
-  "icon": "icon/icon128.png",
+  "name": "root",
+  "private": true,
   "engines": {
     "vscode": "^1.22.0"
   },
-  "categories": [
-    "Programming Languages",
-    "Linters",
-    "Snippets",
-    "Formatters"
-  ],
-  "activationEvents": [
-    "onLanguage:yaml"
-  ],
-  "keywords": [
-    "kubernetes",
-    "kedge",
-    "yaml",
-    "autocompletion",
-    "validation"
-  ],
-  "main": "./out/src/extension",
-  "contributes": {
-    "languages": [
-      {
-        "id": "yaml",
-        "aliases": [
-          "YAML",
-          "yaml"
-        ],
-        "extensions": [
-          ".yml",
-          ".yaml"
-        ],
-        "filenames": [],
-        "firstLine": "^#cloud-config",
-        "configuration": "./language-configuration.json"
-      }
-    ],
-    "grammars": [
-      {
-        "language": "yaml",
-        "scopeName": "source.yaml",
-        "path": "./syntaxes/yaml.tmLanguage.json"
-      }
-    ],
-    "yamlValidation": [],
-    "configuration": {
-      "type": "object",
-      "title": "Serverless IDE configuration",
-      "properties": {
-        "serverlessIDE.provider": {
-          "type": "string",
-          "enum": [
-            "aws-sam"
-          ],
-          "description": "Serverless IDE provider",
-          "default": "aws-sam"
-        },
-        "serverlessIDE.templatePattern": {
-          "type": "string",
-          "description": "Serverless IDE template path pattern",
-          "default": "*.sam.yaml"
-        },
-        "serverlessIDE.trace.server": {
-          "type": "string",
-          "enum": [
-            "off",
-            "messages",
-            "verbose"
-          ],
-          "default": "off",
-          "description": "Traces the communication between VSCode and the language server service."
-        },
-        "serverlessIDE.validate": {
-          "type": "boolean",
-          "default": true,
-          "description": "Enable/disable validation feature"
-        },
-        "serverlessIDE.hover": {
-          "type": "boolean",
-          "default": true,
-          "description": "Enable/disable hover feature"
-        },
-        "serverlessIDE.completion": {
-          "type": "boolean",
-          "default": true,
-          "description": "Enable/disable completion feature"
-        }
-      }
-    },
-    "configurationDefaults": {
-      "[yaml]": {
-        "editor.insertSpaces": true,
-        "editor.tabSize": 2,
-        "editor.quickSuggestions": {
-          "other": true,
-          "comments": false,
-          "strings": true
-        },
-        "editor.autoIndent": false
-      }
-    }
-  },
-  "scripts": {
-    "vscode:prepublish": "tsc -p ./",
-    "compile": "tsc -watch -p ./",
-    "update-vscode": "node ./node_modules/vscode/bin/install",
-    "postinstall": "node ./node_modules/vscode/bin/install",
-    "test": "mocha --ui tdd out/test/extension.test.js"
-  },
   "devDependencies": {
-    "@types/mocha": "^2.2.33",
-    "@types/node": "^6.0.52",
-    "ts-node": "^3.3.0",
-    "typescript": "3.0.0-dev.20180626",
-    "vscode": "^1.1.17"
+    "lerna": "^3.0.0-rc.0"
   },
-  "dependencies": {
-    "vscode-languageclient": "3.5.1",
-    "vscode-nls": "^3.2.1",
-    "vscode-uri": "^1.0.5",
-    "yaml-language-server": "0.2.0"
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "update-vscode": "node ./node_modules/vscode/bin/install",
+    "postinstall": "node ./node_modules/vscode/bin/install"
   }
 }
