@@ -1,5 +1,5 @@
 {
-  "name": "root",
+  "name": "serverless-ide",
   "private": true,
   "engines": {
     "vscode": "^1.22.0"
@@ -7,9 +7,15 @@
   "devDependencies": {
     "lerna": "^3.0.0-rc.0"
   },
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/@serverless-ide/language-server",
+      "**/@serverless-ide/language-server/**"
+    ]
+  },
   "scripts": {
     "update-vscode": "node ./node_modules/vscode/bin/install",
     "postinstall": "node ./node_modules/vscode/bin/install"

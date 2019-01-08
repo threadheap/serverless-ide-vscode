@@ -1,10 +1,10 @@
 {
-  "name": "vscode-serverless-ide-complete",
+  "name": "@serverless-ide/client",
   "displayName": "Serverless IDE complete",
   "description": "Serverless IDE autocomplete plugin with AWS SAM support",
   "author": "Pavel Vlasov <freakycue@gmail.com>",
   "license": "MIT",
-  "version": "0.2.0",
+  "version": "0.0.0",
   "preview": true,
   "bugs": "https://github.com/redhat-developer/vscode-yaml/issues",
   "repository": {
@@ -31,7 +31,7 @@
     "autocompletion",
     "validation"
   ],
-  "main": "./out/src/extension",
+  "main": "./out/extension",
   "contributes": {
     "languages": [
       {
@@ -116,7 +116,8 @@
   },
   "scripts": {
     "vscode:prepublish": "tsc -p ./",
-    "compile": "tsc -watch -p ./",
+    "compile": "tsc -p ./",
+    "watch": "yarn compile --watch",
     "test": "mocha --ui tdd out/test/extension.test.js"
   },
   "devDependencies": {
@@ -130,6 +131,6 @@
     "vscode-languageclient": "3.5.1",
     "vscode-nls": "^3.2.1",
     "vscode-uri": "^1.0.5",
-    "yaml-language-server": "0.2.0"
+    "@serverless-ide/language-server": "0.0.0"
   }
 }

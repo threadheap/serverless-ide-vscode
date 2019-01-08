@@ -1,0 +1,50 @@
+{
+  "name": "@serverless-ide/language-server",
+  "description": "Serverless IDE language server",
+  "version": "0.0.0",
+  "author": "Pavel Vlasov <freakycue@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": "*"
+  },
+  "bin": {
+    "serverless-ide-language-server": "./out/server/src/server.js"
+  },
+  "keywords": [
+    "yaml",
+    "LSP"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/threadheap/serverless-ide-language-server.git"
+  },
+  "dependencies": {
+    "js-yaml": "^3.12.0",
+    "jsonc-parser": "^1.0.3",
+    "prettier": "^1.15.2",
+    "request-light": "^0.2.3",
+    "vscode-json-languageservice": "3.0.12",
+    "vscode-languageserver": "^4.0.0",
+    "vscode-languageserver-types": "^3.6.1",
+    "vscode-nls": "^3.2.2",
+    "vscode-uri": "^1.0.6",
+    "yaml-ast-parser": "0.0.40"
+  },
+  "devDependencies": {
+    "@types/mocha": "2.2.48",
+    "@types/node": "^9.4.7",
+    "@types/prettier": "^1.13.2",
+    "coveralls": "^3.0.0",
+    "mocha": "5.0.4",
+    "mocha-lcov-reporter": "^1.3.0",
+    "nyc": "^11.6.0",
+    "source-map-support": "^0.5.4",
+    "ts-node": "^5.0.1",
+    "typescript": "^2.7.2"
+  },
+  "scripts": {
+    "compile": "tsc -p .",
+    "watch": "tsc --watch -p .",
+    "test": "mocha --require ts-node/register --ui tdd ./test/*.test.ts"
+  }
+}
