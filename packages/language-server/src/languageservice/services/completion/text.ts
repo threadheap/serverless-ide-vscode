@@ -1,4 +1,5 @@
 import { JSONSchema } from "../../jsonSchema";
+import { RUNTIMES } from "./constants";
 
 export const getInsertTextForPlainText = (text: string): string => {
   return text.replace(/[\\\$\}]/g, "\\$&"); // escape $, \ and }
@@ -196,6 +197,25 @@ export const getInsertTextForArray = (
   return { insertText, insertIndex };
 };
 
+export const getInsertTextForDefaultProperties = (
+  key: string,
+  propertySchema: JSONSchema,
+  insertIndex: number = 1
+): string => {
+  if (!propertySchema) {
+    return "";
+  }
+
+  switch (key) {
+    case "Runtime":
+      if (propertySchema.type === "string") {
+        return ` \${${insertIndex}|${RUNTIMES.join(",")}|}`;
+      }
+    default:
+      return "";
+  }
+};
+
 export const getInsertTextForProperty = (
   key: string,
   propertySchema: JSONSchema,
@@ -209,8 +229,12 @@ export const getInsertTextForProperty = (
   // }
   let resultText = propertyText + ":";
 
-  let value: string;
-  if (propertySchema) {
+  let value: string = getInsertTextForDefaultProperties(
+    key,
+    propertySchema,
+    insertIndex
+  );
+  if (!value && propertySchema) {
     if (propertySchema.default !== undefined) {
       value = ` \${${insertIndex}:${propertySchema.default}}`;
     } else if (propertySchema.properties) {

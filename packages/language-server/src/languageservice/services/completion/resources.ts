@@ -5,7 +5,6 @@ import {
 import { CompletionsCollector } from "./../../jsonContributions";
 import { JSONSchema } from "../../jsonSchema";
 import { SingleYAMLDocument } from "../../parser/yamlParser";
-import { PropertyASTNode } from "../../parser/jsonParser";
 import { ResolvedSchema } from "../jsonSchemaService";
 import { forEach } from "lodash";
 import { getInsertTextForObject } from "./text";
@@ -25,7 +24,6 @@ const getResourceType = (schema: JSONSchema): string | null => {
 export const getResourcesCompletions = (
   schema: ResolvedSchema,
   doc: SingleYAMLDocument,
-  node: PropertyASTNode,
   offset: number,
   separatorAfter: string,
   collector: CompletionsCollector,
