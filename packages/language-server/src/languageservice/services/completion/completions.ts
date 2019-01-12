@@ -14,6 +14,7 @@ import {
 import * as textCompletions from "./text";
 import * as helpers from "./helpers";
 import * as nls from "vscode-nls";
+import { getResourcesCompletions } from "./resources";
 
 const localize = nls.loadMessageBundle();
 
@@ -188,6 +189,14 @@ export const getValueCompletions = (
     const parent = node.parent as PropertyASTNode;
 
     if (parent && parent.key.value === "Resources") {
+      getResourcesCompletions(
+        schema,
+        doc,
+        parent,
+        offset,
+        separatorAfter,
+        collector
+      );
     }
   }
 };

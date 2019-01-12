@@ -14,7 +14,44 @@ export const getInsertTextForValue = (
   } else if (text === "[]") {
     return "[\n\t$1\n]" + separatorAfter;
   }
-  return this.getInsertTextForPlainText(text + separatorAfter);
+  return getInsertTextForPlainText(text + separatorAfter);
+};
+
+export const getInsertTextForString = (
+  schema: JSONSchema,
+  insertIndex: number = 1
+): string => {
+  if (schema.enum) {
+    if (schema.enum.length === 1) {
+      return schema.enum[0];
+    }
+    return `\${${insertIndex}|${schema.enum.join(",")}|}`;
+  }
+
+  return schema.default || `\$${insertIndex}`;
+};
+
+export const getPropertyType = (propertySchema: JSONSchema): string => {
+  let type = Array.isArray(propertySchema.type)
+    ? propertySchema.type[0]
+    : propertySchema.type;
+
+  if (!type) {
+    if (propertySchema.properties) {
+      type = "object";
+    }
+    if (propertySchema.items) {
+      type = "array";
+    }
+    if (propertySchema.anyOf && propertySchema.anyOf.length > 0) {
+      type = "anyOf";
+    }
+    if (propertySchema.oneOf && propertySchema.oneOf.length > 0) {
+      type = "oneOf";
+    }
+  }
+
+  return type;
 };
 
 export const getInsertTextForObject = (
@@ -29,69 +66,68 @@ export const getInsertTextForObject = (
     return { insertText, insertIndex };
   }
 
-  Object.keys(schema.properties).forEach((key: string) => {
-    let propertySchema = schema.properties[key];
-    let type = Array.isArray(propertySchema.type)
-      ? propertySchema.type[0]
-      : propertySchema.type;
-    if (!type) {
-      if (propertySchema.properties) {
-        type = "object";
+  const requiredProperties = schema.required || [];
+
+  requiredProperties.forEach(key => {
+    const propertySchema = schema.properties[key];
+    const type = getPropertyType(propertySchema);
+
+    switch (type) {
+      case "boolean":
+      case "number":
+      case "integer":
+        insertText += `${indent}${key}: \$${insertIndex++}\n`;
+        break;
+      case "string":
+        insertText += `${indent}${key}: ${getInsertTextForString(
+          schema.properties[key],
+          insertIndex++
+        )}\n`;
+        break;
+      case "array":
+        let arrayInsertResult = getInsertTextForArray(
+          propertySchema.items,
+          separatorAfter,
+          `${indent}\t`,
+          insertIndex++
+        );
+        insertIndex = arrayInsertResult.insertIndex;
+        insertText += `${indent}${key}:\n${indent}\t- ${
+          arrayInsertResult.insertText
+        }\n`;
+        break;
+      case "object": {
+        let objectInsertResult = getInsertTextForObject(
+          propertySchema,
+          separatorAfter,
+          `${indent}\t`,
+          insertIndex++
+        );
+        insertIndex = objectInsertResult.insertIndex;
+        insertText += `${indent}${key}:\n${objectInsertResult.insertText}\n`;
+        break;
       }
-      if (propertySchema.items) {
-        type = "array";
-      }
-      if (propertySchema.anyOf && propertySchema.anyOf.length > 0) {
-        type = "anyOf";
-      }
-      if (propertySchema.oneOf && propertySchema.oneOf.length > 0) {
-        type = "oneOf";
+      case "anyOf":
+      case "oneOf": {
+        insertText += `${indent}${getInsertTextForProperty(
+          key,
+          propertySchema[type][0],
+          false,
+          separatorAfter,
+          insertIndex++
+        )}\n`;
+        break;
       }
     }
-    if (schema.required && schema.required.indexOf(key) > -1) {
-      switch (type) {
-        case "boolean":
-        case "string":
-        case "number":
-        case "integer":
-          insertText += `${indent}${key}: \$${insertIndex++}\n`;
-          break;
-        case "array":
-          let arrayInsertResult = this.getInsertTextForArray(
-            propertySchema.items,
-            separatorAfter,
-            `${indent}\t`,
-            insertIndex++
-          );
-          insertIndex = arrayInsertResult.insertIndex;
-          insertText += `${indent}${key}:\n${indent}\t- ${
-            arrayInsertResult.insertText
-          }\n`;
-          break;
-        case "object": {
-          let objectInsertResult = this.getInsertTextForObject(
-            propertySchema,
-            separatorAfter,
-            `${indent}\t`,
-            insertIndex++
-          );
-          insertIndex = objectInsertResult.insertIndex;
-          insertText += `${indent}${key}:\n${objectInsertResult.insertText}\n`;
-          break;
-        }
-        case "anyOf":
-        case "oneOf": {
-          insertText += `${indent}${this.getInsertTextForProperty(
-            key,
-            propertySchema[type][0],
-            false,
-            separatorAfter,
-            insertIndex++
-          )}\n`;
-          break;
-        }
-      }
-    } else if (propertySchema.default !== undefined) {
+  });
+
+  Object.keys(schema.properties).forEach((key: string) => {
+    let propertySchema = schema.properties[key];
+    const type = getPropertyType(propertySchema);
+    if (
+      requiredProperties.indexOf(key) === -1 &&
+      propertySchema.default !== undefined
+    ) {
       switch (type) {
         case "boolean":
         case "string":
@@ -108,6 +144,7 @@ export const getInsertTextForObject = (
       }
     }
   });
+
   if (insertText.trim().length === 0) {
     insertText = `${indent}\$${insertIndex++}\n`;
   }
@@ -146,7 +183,7 @@ export const getInsertTextForArray = (
       insertText = `\${${insertIndex++}:null}`;
       break;
     case "object":
-      let objectInsertResult = this.getInsertTextForObject(
+      let objectInsertResult = getInsertTextForObject(
         schema,
         separatorAfter,
         `${indent}\t`,
@@ -166,24 +203,23 @@ export const getInsertTextForProperty = (
   separatorAfter: string,
   insertIndex: number = 1
 ): string => {
-  let propertyText = this.getInsertTextForValue(key, "");
+  let propertyText = getInsertTextForValue(key, "");
   // if (!addValue) {
   // 	return propertyText;
   // }
   let resultText = propertyText + ":";
 
-  let value;
+  let value: string;
   if (propertySchema) {
     if (propertySchema.default !== undefined) {
       value = ` \${${insertIndex}:${propertySchema.default}}`;
     } else if (propertySchema.properties) {
       return `${resultText}\n${
-        this.getInsertTextForObject(propertySchema, separatorAfter).insertText
+        getInsertTextForObject(propertySchema, separatorAfter).insertText
       }`;
     } else if (propertySchema.items) {
       return `${resultText}\n\t- ${
-        this.getInsertTextForArray(propertySchema.items, separatorAfter)
-          .insertText
+        getInsertTextForArray(propertySchema.items, separatorAfter).insertText
       }`;
     } else {
       var type = Array.isArray(propertySchema.type)
@@ -194,7 +230,7 @@ export const getInsertTextForProperty = (
           value = ` $${insertIndex}`;
           break;
         case "string":
-          value = ` $${insertIndex}`;
+          value = ` ${getInsertTextForString(propertySchema, insertIndex)}`;
           break;
         case "object":
           value = "\n\t";
