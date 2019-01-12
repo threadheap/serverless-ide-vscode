@@ -8,10 +8,22 @@
 			"group": "build"
 		},
 		{
+			"label": "compile",
+			"type": "shell",
+			"command": "lerna run --scope @serverless-ide/client compile; and lerna run --scope @serverless-ide/language-server compile",
+			"group": "build"
+		},
+		{
 			"label": "Compile client",
 			"type": "shell",
 			"command": "lerna run --scope @serverless-ide/client compile",
 			"group": "build"
-		}
+		},
+		{
+			"label": "Compile server",
+			"type": "shell",
+			"command": "lerna run --scope @serverless-ide/language-server compile",
+			"group": "build"
+		},
 	]
 }

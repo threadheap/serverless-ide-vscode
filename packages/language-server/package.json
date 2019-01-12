@@ -8,7 +8,7 @@
     "node": "*"
   },
   "bin": {
-    "serverless-ide-language-server": "./out/server/src/server.js"
+    "@serverless-ide/language-server": "./out/server.js"
   },
   "keywords": [
     "yaml",

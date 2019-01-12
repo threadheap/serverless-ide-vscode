@@ -13,7 +13,7 @@
 			"stopOnEntry": false,
 			"sourceMaps": true,
 			"outFiles": ["${workspaceRoot}/packages/client/out/**/*.js"],
-			"preLaunchTask": "Compile client"
+			"preLaunchTask": "compile"
 		},
 		{
 			"name": "Attach Server",
