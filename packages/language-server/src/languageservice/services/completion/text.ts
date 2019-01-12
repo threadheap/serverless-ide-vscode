@@ -72,6 +72,16 @@ export const getInsertTextForObject = (
   requiredProperties.forEach(key => {
     const propertySchema = schema.properties[key];
     const type = getPropertyType(propertySchema);
+    const defaultPropertyValue = getInsertTextForDefaultProperty(
+      key,
+      propertySchema,
+      insertIndex++
+    );
+
+    if (defaultPropertyValue) {
+      insertText += `${indent}${key}: ${defaultPropertyValue}`;
+      return;
+    }
 
     switch (type) {
       case "boolean":
@@ -131,9 +141,9 @@ export const getInsertTextForObject = (
     ) {
       switch (type) {
         case "boolean":
-        case "string":
         case "number":
         case "integer":
+        case "string":
           insertText += `${indent}${key}: \${${insertIndex++}:${
             propertySchema.default
           }}\n`;
@@ -197,7 +207,7 @@ export const getInsertTextForArray = (
   return { insertText, insertIndex };
 };
 
-export const getInsertTextForDefaultProperties = (
+export const getInsertTextForDefaultProperty = (
   key: string,
   propertySchema: JSONSchema,
   insertIndex: number = 1
@@ -229,7 +239,7 @@ export const getInsertTextForProperty = (
   // }
   let resultText = propertyText + ":";
 
-  let value: string = getInsertTextForDefaultProperties(
+  let value: string = getInsertTextForDefaultProperty(
     key,
     propertySchema,
     insertIndex
