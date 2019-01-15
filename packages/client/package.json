@@ -117,8 +117,7 @@
   "scripts": {
     "vscode:prepublish": "tsc -p ./",
     "compile": "tsc -p ./",
-    "watch": "yarn compile --watch",
-    "test": "mocha --ui tdd out/test/extension.test.js"
+    "watch": "yarn compile --watch"
   },
   "devDependencies": {
     "@types/node": "^6.0.52",
