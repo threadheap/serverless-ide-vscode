@@ -121,10 +121,9 @@
     "test": "mocha --ui tdd out/test/extension.test.js"
   },
   "devDependencies": {
-    "@types/mocha": "^2.2.33",
     "@types/node": "^6.0.52",
     "ts-node": "^3.3.0",
-    "typescript": "3.0.0-dev.20180626",
+    "typescript": "^3.2.2",
     "vscode": "^1.1.17"
   },
   "dependencies": {

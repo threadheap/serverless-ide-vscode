@@ -22,22 +22,22 @@ import {
 } from "request-light";
 import path = require("path");
 import fs = require("fs");
-import URI from "./languageservice/utils/uri";
+import URI from "./language-service/utils/uri";
 import * as URL from "url";
-import Strings = require("./languageservice/utils/strings");
+import Strings = require("./language-service/utils/strings");
 import {
   getLineOffsets,
   removeDuplicatesObj
-} from "./languageservice/utils/arrayUtils";
+} from "./language-service/utils/arrayUtils";
 import {
   getLanguageService as getCustomLanguageService,
   LanguageSettings,
   CustomFormatterOptions
-} from "./languageservice/languageService";
+} from "./language-service/languageService";
 import * as nls from "vscode-nls";
-import { CustomSchemaProvider } from "./languageservice/services/jsonSchemaService";
-import { parse as parseYAML } from "./languageservice/parser/yamlParser";
-import { JSONSchema } from "./languageservice/jsonSchema";
+import { CustomSchemaProvider } from "./language-service/services/jsonSchemaService";
+import { parse as parseYAML } from "./language-service/parser/yamlParser";
+import { JSONSchema } from "./language-service/jsonSchema";
 nls.config(<any>process.env["VSCODE_NLS_CONFIG"]);
 
 interface ISchemaAssociations {
@@ -258,8 +258,7 @@ connection.onDidChangeConfiguration(change => {
   schemaConfigurationSettings = [
     {
       fileMatch: [yamlTemplatePattern],
-      url:
-        "https://raw.githubusercontent.com/threadheap/aws-sam-json-schema/master/schema.json"
+      schema: require("@serverless-ide/sam-schema/schema.json")
     }
   ];
 
