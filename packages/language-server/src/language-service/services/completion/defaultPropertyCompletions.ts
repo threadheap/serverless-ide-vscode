@@ -4,7 +4,6 @@ import {
   InsertTextFormat
 } from "vscode-languageserver-types";
 import { CompletionsCollector } from "./../../jsonContributions";
-import { logObject } from "../../utils/objects";
 import { RUNTIMES } from "./constants";
 
 export const getDefaultPropertyCompletions = (

@@ -219,7 +219,7 @@ export const getInsertTextForDefaultProperty = (
   switch (key) {
     case "Runtime":
       if (propertySchema.type === "string") {
-        return ` \${${insertIndex}|${RUNTIMES.join(",")}|}`;
+        return `\${${insertIndex}|${RUNTIMES.join(",")}|}`;
       }
     default:
       return "";
