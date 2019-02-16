@@ -6019,7 +6019,8 @@
                 },
                 "Properties": {
                     "additionalProperties": false,
-                    "properties": {},
+                    "properties": {
+                    },
                     "type": "object"
                 },
                 "Type": {
@@ -12441,7 +12442,8 @@
         },
         "AWS::EC2::Instance.NoDevice": {
             "additionalProperties": false,
-            "properties": {},
+            "properties": {
+            },
             "type": "object"
         },
         "AWS::EC2::Instance.PrivateIpAddressSpecification": {
@@ -34098,20 +34100,31 @@
                                 }
                             ]
                         },
-                        "MethodSettings": {
-                            "type": "object"
-                        },
                         "Name": {
                             "type": "string"
                         },
                         "StageName": {
-                            "type": "string"
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "object"
+                                }
+                            ]
                         },
                         "Variables": {
                             "additionalProperties": false,
                             "patternProperties": {
                                 "^[a-zA-Z0-9]+$": {
-                                    "type": "string"
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "object"
+                                        }
+                                    ]
                                 }
                             },
                             "type": "object"
@@ -34150,8 +34163,7 @@
             },
             "required": [
                 "Bucket",
-                "Key",
-                "Version"
+                "Key"
             ],
             "type": "object"
         },
@@ -34185,105 +34197,129 @@
                     "type": "object"
                 },
                 "Properties": {
-                    "additionalProperties": false,
-                    "properties": {
-                        "CodeUri": {
+                    "allOf": [
+                        {
                             "anyOf": [
                                 {
-                                    "type": [
-                                        "string"
-                                    ]
+                                    "properties": {
+                                        "InlineCode": {
+                                            "type": "string"
+                                        }
+                                    }
                                 },
                                 {
-                                    "$ref": "#/definitions/AWS::Serverless::Function.S3Location"
+                                    "properties": {
+                                        "CodeUri": {
+                                            "anyOf": [
+                                                {
+                                                    "type": [
+                                                        "string"
+                                                    ]
+                                                },
+                                                {
+                                                    "$ref": "#/definitions/AWS::Serverless::Function.S3Location"
+                                                }
+                                            ]
+                                        }
+                                    }
                                 }
                             ]
                         },
-                        "DeadLetterQueue": {
-                            "$ref": "#/definitions/AWS::Serverless::Function.DeadLetterQueue"
-                        },
-                        "Description": {
-                            "type": "string"
-                        },
-                        "Environment": {
-                            "$ref": "#/definitions/AWS::Serverless::Function.FunctionEnvironment"
-                        },
-                        "Events": {
-                            "additionalProperties": false,
-                            "patternProperties": {
-                                "^[a-zA-Z0-9]+$": {
-                                    "$ref": "#/definitions/AWS::Serverless::Function.EventSource"
-                                }
-                            },
-                            "type": "object"
-                        },
-                        "FunctionName": {
-                            "type": "string"
-                        },
-                        "Handler": {
-                            "type": "string"
-                        },
-                        "KmsKeyArn": {
-                            "type": "string"
-                        },
-                        "MemorySize": {
-                            "type": "number"
-                        },
-                        "Policies": {
-                            "anyOf": [
-                                {
-                                    "type": [
-                                        "string"
-                                    ]
+                        {
+                            "properties": {
+                                "DeadLetterQueue": {
+                                    "$ref": "#/definitions/AWS::Serverless::Function.DeadLetterQueue"
                                 },
-                                {
-                                    "items": {
-                                        "type": "string"
-                                    },
-                                    "type": "array"
-                                },
-                                {
-                                    "$ref": "#/definitions/AWS::Serverless::Function.IAMPolicyDocument"
-                                },
-                                {
-                                    "items": {
-                                        "$ref": "#/definitions/AWS::Serverless::Function.IAMPolicyDocument"
-                                    },
-                                    "type": "array"
-                                }
-                            ]
-                        },
-                        "Role": {
-                            "type": "string"
-                        },
-                        "Runtime": {
-                            "type": "string"
-                        },
-                        "Tags": {
-                            "additionalProperties": false,
-                            "patternProperties": {
-                                "^[a-zA-Z0-9]+$": {
+                                "Description": {
                                     "type": "string"
+                                },
+                                "Environment": {
+                                    "$ref": "#/definitions/AWS::Serverless::Function.FunctionEnvironment"
+                                },
+                                "Events": {
+                                    "additionalProperties": false,
+                                    "patternProperties": {
+                                        "^[a-zA-Z0-9]+$": {
+                                            "$ref": "#/definitions/AWS::Serverless::Function.EventSource"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "FunctionName": {
+                                    "type": "string"
+                                },
+                                "Handler": {
+                                    "type": "string"
+                                },
+                                "KmsKeyArn": {
+                                    "type": "string"
+                                },
+                                "MemorySize": {
+                                    "type": "number"
+                                },
+                                "Policies": {
+                                    "anyOf": [
+                                        {
+                                            "type": [
+                                                "string"
+                                            ]
+                                        },
+                                        {
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "type": "array"
+                                        },
+                                        {
+                                            "$ref": "#/definitions/AWS::Serverless::Function.IAMPolicyDocument"
+                                        },
+                                        {
+                                            "items": {
+                                                "$ref": "#/definitions/AWS::Serverless::Function.IAMPolicyDocument"
+                                            },
+                                            "type": "array"
+                                        }
+                                    ]
+                                },
+                                "Role": {
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "object"
+                                        }
+                                    ]
+                                },
+                                "Runtime": {
+                                    "type": "string"
+                                },
+                                "Tags": {
+                                    "additionalProperties": false,
+                                    "patternProperties": {
+                                        "^[a-zA-Z0-9]+$": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "Timeout": {
+                                    "type": "number"
+                                },
+                                "Tracing": {
+                                    "type": "string"
+                                },
+                                "VpcConfig": {
+                                    "$ref": "#/definitions/AWS::Serverless::Function.VpcConfig"
                                 }
                             },
+                            "required": [
+                                "Handler",
+                                "Runtime"
+                            ],
                             "type": "object"
-                        },
-                        "Timeout": {
-                            "type": "number"
-                        },
-                        "Tracing": {
-                            "type": "string"
-                        },
-                        "VpcConfig": {
-                            "$ref": "#/definitions/AWS::Serverless::Function.VpcConfig"
                         }
-                    },
-                    "required": [
-                        "CodeUri",
-                        "Handler",
-                        "Runtime"
-                    ],
-                    "type": "object"
+                    ]
                 },
                 "Type": {
                     "enum": [
@@ -34323,7 +34359,14 @@
                     "type": "string"
                 },
                 "RestApiId": {
-                    "type": "string"
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "object"
+                        }
+                    ]
                 }
             },
             "required": [
@@ -34398,10 +34441,10 @@
                             "$ref": "#/definitions/AWS::Serverless::Function.SNSEvent"
                         },
                         {
-                            "$ref": "#/definitions/AWS::Serverless::Function.SQSEvent"
+                            "$ref": "#/definitions/AWS::Serverless::Function.KinesisEvent"
                         },
                         {
-                            "$ref": "#/definitions/AWS::Serverless::Function.KinesisEvent"
+                            "$ref": "#/definitions/AWS::Serverless::Function.SQSEvent"
                         },
                         {
                             "$ref": "#/definitions/AWS::Serverless::Function.DynamoDBEvent"
@@ -34414,6 +34457,9 @@
                         },
                         {
                             "$ref": "#/definitions/AWS::Serverless::Function.CloudWatchEventEvent"
+                        },
+                        {
+                            "$ref": "#/definitions/AWS::Serverless::Function.LogEvent"
                         },
                         {
                             "$ref": "#/definitions/AWS::Serverless::Function.IoTRuleEvent"
@@ -34455,7 +34501,10 @@
             "additionalProperties": false,
             "properties": {
                 "Statement": {
-                    "type": "object"
+                    "items": {
+                        "type": "object"
+                    },
+                    "type": "array"
                 }
             },
             "required": [
@@ -34497,11 +34546,34 @@
             ],
             "type": "object"
         },
+        "AWS::Serverless::Function.LogEvent": {
+            "additionalProperties": false,
+            "properties": {
+                "FilterPattern": {
+                    "type": "string"
+                },
+                "LogGroupName": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "LogGroupName",
+                "FilterPattern"
+            ],
+            "type": "object"
+        },
         "AWS::Serverless::Function.S3Event": {
             "additionalProperties": false,
             "properties": {
                 "Bucket": {
-                    "type": "string"
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "object"
+                        }
+                    ]
                 },
                 "Events": {
                     "anyOf": [
@@ -34543,8 +34615,7 @@
             },
             "required": [
                 "Bucket",
-                "Key",
-                "Version"
+                "Key"
             ],
             "type": "object"
         },
@@ -34552,7 +34623,14 @@
             "additionalProperties": false,
             "properties": {
                 "S3Key": {
-                    "type": "string"
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "object"
+                        }
+                    ]
                 }
             },
             "required": [
@@ -34579,7 +34657,14 @@
                     "type": "number"
                 },
                 "Queue": {
-                    "type": "string"
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "object"
+                        }
+                    ]
                 }
             },
             "required": [
@@ -34614,6 +34699,12 @@
                 "SubnetIds": {
                     "items": {
                         "type": "string"
+                    },
+                    "type": "array"
+                },
+                "SubnetIdsUsingRef": {
+                    "items": {
+                        "type": "object"
                     },
                     "type": "array"
                 }
@@ -34661,6 +34752,9 @@
                         },
                         "ProvisionedThroughput": {
                             "$ref": "#/definitions/AWS::Serverless::SimpleTable.ProvisionedThroughput"
+                        },
+                        "SSESpecification": {
+                            "$ref": "#/definitions/AWS::Serverless::SimpleTable.SSESpecification"
                         }
                     },
                     "type": "object"
@@ -34704,6 +34798,18 @@
             },
             "required": [
                 "WriteCapacityUnits"
+            ],
+            "type": "object"
+        },
+        "AWS::Serverless::SimpleTable.SSESpecification": {
+            "additionalProperties": false,
+            "properties": {
+                "SSEEnabled": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "SSEEnabled"
             ],
             "type": "object"
         },
@@ -37656,29 +37762,7 @@
                         "List<AWS::EC2::Volume::Id>",
                         "List<AWS::EC2::VPC::Id>",
                         "List<AWS::Route53::HostedZone::Id>",
-                        "List<String>",
-                        "AWS::SSM::Parameter::Name",
-                        "AWS::SSM::Parameter::Value<String>",
-                        "AWS::SSM::Parameter::Value<List<String>>",
-                        "AWS::SSM::Parameter::Value<CommaDelimitedList>",
-                        "AWS::SSM:Parameter::Value<AWS::EC2::AvailabilityZone::Name>",
-                        "AWS::SSM:Parameter::Value<AWS::EC2::Image::Id>",
-                        "AWS::SSM:Parameter::Value<AWS::EC2::Instance::Id>",
-                        "AWS::SSM:Parameter::Value<AWS::EC2::SecurityGroup::GroupName>",
-                        "AWS::SSM:Parameter::Value<AWS::EC2::SecurityGroup::Id>",
-                        "AWS::SSM:Parameter::Value<AWS::EC2::Subnet::Id>",
-                        "AWS::SSM:Parameter::Value<AWS::EC2::Volume::Id>",
-                        "AWS::SSM:Parameter::Value<AWS::EC2::VPC::Id>",
-                        "AWS::SSM:Parameter::Value<AWS::Route53::HostedZone::Id>",
-                        "AWS::SSM:Parameter::Value<List<AWS::EC2::AvailabilityZone::Name>>",
-                        "AWS::SSM:Parameter::Value<List<AWS::EC2::Image::Id>>",
-                        "AWS::SSM:Parameter::Value<List<AWS::EC2::Instance::Id>>",
-                        "AWS::SSM:Parameter::Value<List<AWS::EC2::SecurityGroup::GroupName>>",
-                        "AWS::SSM:Parameter::Value<List<AWS::EC2::SecurityGroup::Id>>",
-                        "AWS::SSM:Parameter::Value<List<AWS::EC2::Subnet::Id>>",
-                        "AWS::SSM:Parameter::Value<List<AWS::EC2::Volume::Id>>",
-                        "AWS::SSM:Parameter::Value<List<AWS::EC2::VPC::Id>>",
-                        "AWS::SSM:Parameter::Value<List<AWS::Route53::HostedZone::Id>>"
+                        "List<String>"
                     ],
                     "type": "string"
                 }
@@ -37695,13 +37779,16 @@
                     "type": "string"
                 },
                 "Value": {
-                    "type": "string"
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "object"
+                        }
+                    ]
                 }
             },
-            "required": [
-                "Key",
-                "Value"
-            ],
             "type": "object"
         }
     },
@@ -37725,6 +37812,202 @@
             "description": "Template description",
             "maxLength": 1024,
             "type": "string"
+        },
+        "Globals": {
+            "additionalProperties": false,
+            "properties": {
+                "Api": {
+                    "additionalProperties": false,
+                    "properties": {
+                        "BinaryMediaTypes": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "CacheClusterEnabled": {
+                            "type": "boolean"
+                        },
+                        "CacheClusterSize": {
+                            "type": "string"
+                        },
+                        "DefinitionUri": {
+                            "anyOf": [
+                                {
+                                    "type": [
+                                        "string"
+                                    ]
+                                },
+                                {
+                                    "$ref": "#/definitions/AWS::Serverless::Api.S3Location"
+                                }
+                            ]
+                        },
+                        "EndpointConfiguration": {
+                            "$ref": "#/definitions/AWS::ApiGateway::DomainName.EndpointConfiguration"
+                        },
+                        "MethodSettings": {
+                            "items": {
+                                "$ref": "#/definitions/AWS::ApiGateway::Stage.MethodSetting"
+                            },
+                            "type": "array"
+                        },
+                        "Name": {
+                            "type": "string"
+                        },
+                        "Variables": {
+                            "additionalProperties": false,
+                            "patternProperties": {
+                                "^[a-zA-Z0-9]+$": {
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "object"
+                                        }
+                                    ]
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
+                "Function": {
+                    "additionalProperties": false,
+                    "allOf": [
+                        {
+                            "anyOf": [
+                                {
+                                    "properties": {
+                                        "InlineCode": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                {
+                                    "properties": {
+                                        "CodeUri": {
+                                            "anyOf": [
+                                                {
+                                                    "type": [
+                                                        "string"
+                                                    ]
+                                                },
+                                                {
+                                                    "$ref": "#/definitions/AWS::Serverless::Function.S3Location"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "properties": {
+                                "DeadLetterQueue": {
+                                    "$ref": "#/definitions/AWS::Serverless::Function.DeadLetterQueue"
+                                },
+                                "Description": {
+                                    "type": "string"
+                                },
+                                "Environment": {
+                                    "$ref": "#/definitions/AWS::Serverless::Function.FunctionEnvironment"
+                                },
+                                "Events": {
+                                    "additionalProperties": false,
+                                    "patternProperties": {
+                                        "^[a-zA-Z0-9]+$": {
+                                            "$ref": "#/definitions/AWS::Serverless::Function.EventSource"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "FunctionName": {
+                                    "type": "string"
+                                },
+                                "Handler": {
+                                    "type": "string"
+                                },
+                                "KmsKeyArn": {
+                                    "type": "string"
+                                },
+                                "MemorySize": {
+                                    "type": "number"
+                                },
+                                "Policies": {
+                                    "anyOf": [
+                                        {
+                                            "type": [
+                                                "string"
+                                            ]
+                                        },
+                                        {
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "type": "array"
+                                        },
+                                        {
+                                            "$ref": "#/definitions/AWS::Serverless::Function.IAMPolicyDocument"
+                                        },
+                                        {
+                                            "items": {
+                                                "$ref": "#/definitions/AWS::Serverless::Function.IAMPolicyDocument"
+                                            },
+                                            "type": "array"
+                                        }
+                                    ]
+                                },
+                                "Role": {
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "object"
+                                        }
+                                    ]
+                                },
+                                "Runtime": {
+                                    "type": "string"
+                                },
+                                "Tags": {
+                                    "additionalProperties": false,
+                                    "patternProperties": {
+                                        "^[a-zA-Z0-9]+$": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "Timeout": {
+                                    "type": "number"
+                                },
+                                "Tracing": {
+                                    "type": "string"
+                                },
+                                "VpcConfig": {
+                                    "$ref": "#/definitions/AWS::Serverless::Function.VpcConfig"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    ],
+                    "type": "object"
+                },
+                "SimpleTable": {
+                    "additionalProperties": false,
+                    "properties": {
+                        "SSESpecification": {
+                            "$ref": "#/definitions/AWS::Serverless::SimpleTable.SSESpecification"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object"
         },
         "Mappings": {
             "additionalProperties": false,
@@ -38644,15 +38927,6 @@
                             "$ref": "#/definitions/AWS::SecretsManager::SecretTargetAttachment"
                         },
                         {
-                            "$ref": "#/definitions/AWS::Serverless::Api"
-                        },
-                        {
-                            "$ref": "#/definitions/AWS::Serverless::Function"
-                        },
-                        {
-                            "$ref": "#/definitions/AWS::Serverless::SimpleTable"
-                        },
-                        {
                             "$ref": "#/definitions/AWS::ServiceCatalog::AcceptedPortfolioShare"
                         },
                         {
@@ -38759,6 +39033,15 @@
                         },
                         {
                             "$ref": "#/definitions/Alexa::ASK::Skill"
+                        },
+                        {
+                            "$ref": "#/definitions/AWS::Serverless::Api"
+                        },
+                        {
+                            "$ref": "#/definitions/AWS::Serverless::Function"
+                        },
+                        {
+                            "$ref": "#/definitions/AWS::Serverless::SimpleTable"
                         }
                     ]
                 }
@@ -38766,135 +39049,15 @@
             "type": "object"
         },
         "Transform": {
-            "enum": [
-                "AWS::Serverless-2016-10-31"
-            ],
-            "type": "string"
-        },
-        "Globals": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "Api": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "EndpointConfiguration": {
-                            "$ref": "#/definitions/AWS::ApiGateway::DomainName.EndpointConfiguration"
-                        },
-                        "MethodSettings": {
-                            "type": "object"
-                        },
-                        "BinaryMediaTypes": {
-                            "items": {
-                                "type": "string"
-                            },
-                            "type": "array"
-                        },
-                        "Name": {
-                            "type": "string"
-                        },
-                        "DefinitionUri": {
-                            "anyOf": [
-                                {
-                                    "type": [
-                                        "string"
-                                    ]
-                                },
-                                {
-                                    "$ref": "#/definitions/AWS::Serverless::Api.S3Location"
-                                }
-                            ]
-                        },
-                        "CacheClusterEnabled": {
-                            "type": "boolean"
-                        },
-                        "CacheClusterSize": {
-                            "type": "string"
-                        },
-                        "Variables": {
-                            "additionalProperties": false,
-                            "patternProperties": {
-                                "^[a-zA-Z0-9]+$": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                },
-                "Function": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "Handler": {
-                            "type": "string"
-                        },
-                        "Runtime": {
-                            "type": "string"
-                        },
-                        "CodeUri": {
-                            "anyOf": [
-                                {
-                                    "type": [
-                                        "string"
-                                    ]
-                                },
-                                {
-                                    "$ref": "#/definitions/AWS::Serverless::Function.S3Location"
-                                }
-                            ]
-                        },
-                        "DeadLetterQueue": {
-                            "$ref": "#/definitions/AWS::Serverless::Function.DeadLetterQueue"
-                        },
-                        "Description": {
-                            "type": "string"
-                        },
-                        "MemorySize": {
-                            "type": "number"
-                        },
-                        "Timeout": {
-                            "type": "number"
-                        },
-                        "VpcConfig": {
-                            "$ref": "#/definitions/AWS::Serverless::Function.VpcConfig"
-                        },
-                        "Environment": {
-                            "$ref": "#/definitions/AWS::Serverless::Function.FunctionEnvironment"
-                        },
-                        "Tags": {
-                            "additionalProperties": false,
-                            "patternProperties": {
-                                "^[a-zA-Z0-9]+$": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        },
-                        "Tracing": {
-                            "type": "string"
-                        },
-                        "KmsKeyArn": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "SimpleTable": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                        "SSESpecification": {
-                            "$ref": "#/definitions/AWS::DAX::Cluster.SSESpecification"
-                        }
-                    }
-                }
-            }
+            "type": [
+                "object",
+                "string"
+            ]
         }
     },
     "required": [
-        "Transform",
-        "Resources"
+        "Resources",
+        "Transform"
     ],
     "type": "object"
 }

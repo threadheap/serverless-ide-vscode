@@ -585,6 +585,10 @@
   version "23.3.12"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.3.12.tgz#7e0ced251fa94c3bc2d1023d4b84b2992fa06376"
 
+"@types/json-stable-stringify@^1.0.32":
+  version "1.0.32"
+  resolved "https://registry.yarnpkg.com/@types/json-stable-stringify/-/json-stable-stringify-1.0.32.tgz#121f6917c4389db3923640b2e68de5fa64dda88e"
+
 "@types/lodash@^4.14.119":
   version "4.14.119"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.119.tgz#be847e5f4bc3e35e46d041c394ead8b603ad8b39"
@@ -3471,6 +3475,12 @@ json-stable-stringify-without-jsonify@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/json-stable-stringify-without-jsonify/-/json-stable-stringify-without-jsonify-1.0.1.tgz#9db7b59496ad3f3cfef30a75142d2d930ad72651"
 
+json-stable-stringify@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/json-stable-stringify/-/json-stable-stringify-1.0.1.tgz#9a759d39c5f2ff503fd5300646ed445f88c4f9af"
+  dependencies:
+    jsonify "~0.0.0"
+
 json-stringify-safe@^5.0.1, json-stringify-safe@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz#1296a2d58fd45f19a0f6ce01d65701e2c735b6eb"
@@ -3498,6 +3508,10 @@ jsonfile@^4.0.0:
   resolved "https://registry.yarnpkg.com/jsonfile/-/jsonfile-4.0.0.tgz#8771aae0799b64076b76640fca058f9c10e33ecb"
   optionalDependencies:
     graceful-fs "^4.1.6"
+
+jsonify@~0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/jsonify/-/jsonify-0.0.0.tgz#2c74b6ee41d93ca51b7b5aaee8f503631d252a73"
 
 jsonparse@^1.2.0:
   version "1.3.1"

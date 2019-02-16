@@ -1,4 +1,4 @@
-redhat-developer/vscode-yaml
+@serverless-ide/client
 
 THIRD-PARTY SOFTWARE NOTICES AND INFORMATION
 Do Not Translate or Localize
@@ -10,7 +10,7 @@ This project incorporates components from the projects listed below. The origina
 
 %% textmate/yaml.tmbundle NOTICES AND INFORMATION BEGIN HERE
 =========================================
-Copyright (c) 2015 FichteFoll <fichtefoll2@googlemail.com>
+Copyright (c) 2019 FichteFoll <fichtefoll2@googlemail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -35,7 +35,7 @@ END OF textmate/yaml.tmbundle NOTICES AND INFORMATION
 =========================================
 MIT License
 
-Copyright (c) 2015 - present Microsoft Corporation
+Copyright (c) 2019 - present Microsoft Corporation
 
 All rights reserved.
 

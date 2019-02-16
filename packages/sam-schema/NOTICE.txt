@@ -1,7 +1,7 @@
 =========================================================================
 NOTICE file for use with, and corresponding to Section 4 of,            
 the Apache License, Version 2.0,                                  
-in this case for the aws-sam-json-schema project.                     
+in this case for the @serverless-ide/sam-schema project.                     
 =========================================================================
 
    This product includes software developed by
