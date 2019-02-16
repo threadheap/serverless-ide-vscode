@@ -3,6 +3,7 @@
   "displayName": "Serverless IDE complete",
   "description": "Serverless IDE autocomplete plugin with AWS SAM support",
   "author": "Pavel Vlasov <freakycue@gmail.com>",
+  "publisher": "ThreadHeap",
   "license": "MIT",
   "version": "0.0.0",
   "preview": true,
@@ -11,7 +12,7 @@
     "type": "git",
     "url": "https://github.com/redhat-developer/vscode-yaml"
   },
-  "icon": "icon/icon128.png",
+  "icon": "icon/icon.png",
   "engines": {
     "vscode": "^1.22.0"
   },
@@ -25,8 +26,11 @@
     "onLanguage:yaml"
   ],
   "keywords": [
-    "kubernetes",
-    "kedge",
+    "aws",
+    "sam",
+    "cloudformation",
+    "cfn",
+    "serverless",
     "yaml",
     "autocompletion",
     "validation"
