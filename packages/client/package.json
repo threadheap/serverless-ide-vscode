@@ -5,7 +5,7 @@
   "author": "Pavel Vlasov <freakycue@gmail.com>",
   "publisher": "ThreadHeap",
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "preview": true,
   "bugs": "https://github.com/redhat-developer/vscode-yaml/issues",
   "repository": {
@@ -131,7 +131,7 @@
     "vscode": "^1.1.17"
   },
   "dependencies": {
-    "@serverless-ide/language-server": "^1.0.0",
+    "@serverless-ide/language-server": "^0.1.0",
     "vscode-languageclient": "3.5.1",
     "vscode-nls": "^3.2.1",
     "vscode-uri": "^1.0.5"
