@@ -77,7 +77,7 @@ Refer to VS Code [documentation](https://code.visualstudio.com/docs/extensions/d
 
 To obtain and install the latest release from github you can:
 
--   First download the latest \*.vsix file from [Github Releases section](https://github.com/redhat-developer/vscode-yaml/releases)
+-   First download the latest \*.vsix file from [Github Releases section](https://github.com/threadheap/serverless-ide-vscode/releases)
 -   Inside of VSCode navigate to the extension tab and click the three elipses (...).
 -   Click install from VSIX and provide the location of the \*.vsix that was downloaded
 

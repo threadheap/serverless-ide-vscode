@@ -7,10 +7,10 @@
   "license": "MIT",
   "version": "0.1.1",
   "preview": true,
-  "bugs": "https://github.com/redhat-developer/vscode-yaml/issues",
+  "bugs": "https://github.com/threadheap/serverless-ide-vscode/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/redhat-developer/vscode-yaml"
+    "url": "https://github.com/threadheap/serverless-ide-vscode"
   },
   "icon": "icon/icon.png",
   "engines": {
