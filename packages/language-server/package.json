@@ -48,5 +48,8 @@
     "watch": "tsc --watch -p .",
     "test": "jest"
   },
-  "gitHead": "008016f2eecda089b65a69c48a417a5dc4e7a8ec"
+  "publishConfig": {
+		"access": "public"
+	},
+  "gitHead": "4bc5eddda35b9e7cc28f2580da1960b017881f33"
 }
