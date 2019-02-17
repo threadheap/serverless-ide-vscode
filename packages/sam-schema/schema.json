@@ -39049,10 +39049,10 @@
             "type": "object"
         },
         "Transform": {
-            "type": [
-                "object",
-                "string"
-            ]
+            "enum": [
+                "AWS::Serverless-2016-10-31"
+            ],
+            "type": "string"
         }
     },
     "required": [

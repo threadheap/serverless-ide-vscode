@@ -138,6 +138,8 @@ const mergeSchemas = (cfnSchema: any, samSchema: any): any => {
 		}
 	};
 
+	schema.properties.Transform = samSchema.properties.Transform;
+
 	if (schema.required.indexOf('Transform') === -1) {
 		schema.required.push('Transform');
 	}
