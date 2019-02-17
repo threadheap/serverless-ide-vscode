@@ -47,5 +47,6 @@
     "compile": "tsc -p .",
     "watch": "tsc --watch -p .",
     "test": "jest"
-  }
+  },
+  "gitHead": "008016f2eecda089b65a69c48a417a5dc4e7a8ec"
 }

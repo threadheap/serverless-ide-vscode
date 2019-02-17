@@ -26,5 +26,6 @@
     "watch": "rm -rf ./out && yarn build --watch",
     "generate": "yarn build && node out/index.js",
     "prepublish": "yarn build"
-  }
+  },
+  "gitHead": "008016f2eecda089b65a69c48a417a5dc4e7a8ec"
 }
