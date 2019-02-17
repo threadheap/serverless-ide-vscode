@@ -119,9 +119,10 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "tsc -p ./",
+    "vscode:prepublish": "yarn compile",
     "compile": "tsc -p ./",
-    "watch": "yarn compile --watch"
+    "watch": "yarn compile --watch",
+    "prepublish": "yarn compile"
   },
   "devDependencies": {
     "@types/node": "^6.0.52",
