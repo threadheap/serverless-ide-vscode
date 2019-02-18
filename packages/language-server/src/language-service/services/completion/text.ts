@@ -104,7 +104,7 @@ export const getInsertTextForObject = (
 				let arrayInsertResult = getInsertTextForArray(
 					propertySchema.items,
 					separatorAfter,
-					`${indent}\t`,
+					`  ${indent}`,
 					insertIndex++
 				);
 				insertIndex = arrayInsertResult.insertIndex;
@@ -287,8 +287,11 @@ export const getInsertTextForProperty = (
 			}`;
 		} else if (propertySchema.items) {
 			return `${resultText}\n\t- ${
-				getInsertTextForArray(propertySchema.items, separatorAfter)
-					.insertText
+				getInsertTextForArray(
+					propertySchema.items,
+					separatorAfter,
+					'  '
+				).insertText
 			}`;
 		} else {
 			var type = Array.isArray(propertySchema.type)

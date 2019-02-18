@@ -11,7 +11,14 @@
     "@serverless-ide/language-server": "./out/server.js"
   },
   "keywords": [
+    "aws",
+    "sam",
+    "cloudformation",
+    "cfn",
+    "serverless",
     "yaml",
+    "autocompletion",
+    "validation",
     "LSP"
   ],
   "repository": {

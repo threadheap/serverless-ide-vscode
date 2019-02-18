@@ -5,7 +5,15 @@
   "main": "index.js",
   "repository": "git@github.com:threadheap/aws-sam-json-schema.git",
   "author": "Pavel Vlasov <freakycue@gmail.com>",
-  "license": "Apache-2.0",
+  "keywords": [
+    "aws",
+    "sam",
+    "cloudformation",
+    "json",
+    "schema",
+    "validation"
+  ],
+  "license": "MIT",
   "private": false,
   "dependencies": {
     "json-stable-stringify": "^1.0.1",
@@ -25,7 +33,7 @@
     "build": "rm -rf ./out && tsc -p .",
     "watch": "rm -rf ./out && yarn build --watch",
     "generate": "yarn build && node out/index.js",
-    "prepublish": "yarn build"
+    "prepublish": "yarn generate"
   },
   "publishConfig": {
     "access": "public"

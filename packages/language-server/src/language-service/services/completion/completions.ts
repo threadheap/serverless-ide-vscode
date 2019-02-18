@@ -14,8 +14,7 @@ import {
 import * as textCompletions from './text';
 import * as helpers from './helpers';
 import * as nls from 'vscode-nls';
-import { getResourcesCompletions } from './resources';
-import { logObject } from '../../utils/objects';
+import { addPatternPropertiesCompletions } from './pattern-properties';
 import { getDefaultPropertyCompletions } from './defaultPropertyCompletions';
 
 const localize = nls.loadMessageBundle();
@@ -135,10 +134,24 @@ export const getValueCompletions = (
 		document,
 		offsetForSeparator
 	);
-	if (node && (parentKey !== null || node.type === 'array')) {
+	if (
+		node &&
+		(parentKey !== null || node.type === 'array' || node.type === 'object')
+	) {
 		let matchingSchemas = doc.getMatchingSchemas(schema.schema);
 
 		matchingSchemas.forEach(s => {
+			if (
+				s.schema.patternProperties &&
+				s.node.location === node.location
+			) {
+				addPatternPropertiesCompletions(
+					s.schema.patternProperties,
+					collector,
+					separatorAfter
+				);
+			}
+
 			if (s.node === node && !s.inverted && s.schema) {
 				if (s.schema.items) {
 					if (Array.isArray(s.schema.items)) {
@@ -196,20 +209,6 @@ export const getValueCompletions = (
 				}
 			}
 		});
-	}
-
-	if (node.type === 'object') {
-		const parent = node.parent as PropertyASTNode;
-
-		if (parent && parent.key && parent.key.value === 'Resources') {
-			getResourcesCompletions(
-				schema,
-				doc,
-				offset,
-				separatorAfter,
-				collector
-			);
-		}
 	}
 };
 
