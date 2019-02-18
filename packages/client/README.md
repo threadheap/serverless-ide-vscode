@@ -6,6 +6,8 @@ Provides comprehensive AWS SAM (Serverless Application Model) and Cloudformation
 
 ## Features
 
+![Demo](https://raw.githubusercontent.com/threadheap/serverless-ide-vscode/master/packages/client/demo/demo.gif)
+
 1. Validation:
     - Detects whether the entire file is valid SAM template
     - Detects errors such as:
@@ -72,14 +74,6 @@ Refer to VS Code [documentation](https://code.visualstudio.com/docs/extensions/d
 1. Open `packages/sam-schema`
 2. Make changes and run `yarn generate` to update schema
 3. Check changes with `Launch Extension` command
-
-### Installation from Github Release
-
-To obtain and install the latest release from github you can:
-
--   First download the latest \*.vsix file from [Github Releases section](https://github.com/threadheap/serverless-ide-vscode/releases)
--   Inside of VSCode navigate to the extension tab and click the three elipses (...).
--   Click install from VSIX and provide the location of the \*.vsix that was downloaded
 
 ## License
 
