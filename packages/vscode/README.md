@@ -6,7 +6,7 @@ Provides comprehensive AWS SAM (Serverless Application Model) and Cloudformation
 
 ## Features
 
-![Demo](https://raw.githubusercontent.com/threadheap/serverless-ide-vscode/master/packages/client/demo/demo.gif)
+![Demo](https://raw.githubusercontent.com/threadheap/serverless-ide-vscode/master/packages/vscode/demo/demo.gif)
 
 1. Validation:
     - Detects whether the entire file is valid SAM template
