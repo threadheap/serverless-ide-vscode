@@ -2,3 +2,5 @@
 node_modules
 **/out
 *.log
+package-lock.json
+*.vsix

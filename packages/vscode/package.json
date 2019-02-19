@@ -1,7 +1,7 @@
 {
-  "name": "@serverless-ide/client",
-  "displayName": "Serverless IDE complete",
-  "description": "Serverless IDE autocomplete plugin with AWS SAM support",
+  "name": "serverless-ide-vscode",
+  "displayName": "Serverless IDE",
+  "description": "Enhanced support for AWS SAM and CloudFormation",
   "author": "Pavel Vlasov <freakycue@gmail.com>",
   "publisher": "ThreadHeap",
   "license": "MIT",
@@ -119,10 +119,12 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "yarn compile",
+    "vscode:prepublish": "rm -rf node_modules && npm install && yarn compile",
     "compile": "tsc -p ./",
     "watch": "yarn compile --watch",
-    "prepublish": "yarn compile"
+    "prepublish": "yarn compile",
+    "marketplace:package": "vsce package",
+    "marketplace:publish": "vsce publish"
   },
   "devDependencies": {
     "@types/node": "^6.0.52",

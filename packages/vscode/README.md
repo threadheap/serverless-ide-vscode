@@ -75,6 +75,12 @@ Refer to VS Code [documentation](https://code.visualstudio.com/docs/extensions/d
 2. Make changes and run `yarn generate` to update schema
 3. Check changes with `Launch Extension` command
 
+## Credits
+
+Projects is a hard fork of [vscode-yaml](https://github.com/redhat-developer/vscode-yaml)
+and [yaml-language-server](https://github.com/redhat-developer/yaml-language-server) that is
+tuned for better support of AWS CloudFormation templates.
+
 ## License
 
 MIT
