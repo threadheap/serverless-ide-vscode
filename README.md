@@ -1,4 +1,4 @@
-[![Marketplace Version](https://vsmarketplacebadge.apphb.com/version/threadheap.serverless-ide.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=threadheap.serverless-ide)
+[![Marketplace Version](https://vsmarketplacebadge.apphb.com/version/ThreadHeap.serverless-ide-vscode.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
 
 # Serverless IDE: Enahnced support of AWS SAM in Visual Studio Code
 
@@ -17,7 +17,7 @@ Provides comprehensive AWS SAM (Serverless Application Model) and Cloudformation
         - Node is not a valid child node
 2. Auto completion (<kbd>Ctrl</kbd> + <kbd>Space</kbd>):
     - Auto completes on all commands
-    - Scalar nodes autocomplete to schema's defaults if they exist
+    - Auto completes CloudFormation resources
 3. Formatter:
     - Allows for formatting the current file
 
