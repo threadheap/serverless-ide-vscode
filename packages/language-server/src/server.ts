@@ -111,14 +111,6 @@ connection.onInitialize(
 		workspaceFolders = params['workspaceFolders'];
 		workspaceRoot = URI.parse(params.rootPath);
 
-		function hasClientCapability(...keys: string[]) {
-			let c = params.capabilities;
-			for (let i = 0; c && i < keys.length; i++) {
-				c = c[keys[i]];
-			}
-			return !!c;
-		}
-
 		hasWorkspaceFolderCapability =
 			capabilities.workspace && !!capabilities.workspace.workspaceFolders;
 		return {
@@ -203,14 +195,15 @@ export let customLanguageService = getCustomLanguageService(
 	[]
 );
 
+interface ProvidersConfig {
+	['aws-sam']?: string;
+	['aws-cloudformation']?: string;
+}
+
 // The settings interface describes the server relevant settings part
 interface Settings {
 	serverlessIDE: {
-		templatePattern: string;
-		format: CustomFormatterOptions & {
-			enable: boolean;
-		};
-		schemas: JSONSchemaSettings[];
+		providers: ProvidersConfig;
 		validate: boolean;
 		hover: boolean;
 		completion: boolean;
@@ -221,13 +214,7 @@ interface Settings {
 	};
 }
 
-interface JSONSchemaSettings {
-	fileMatch?: string[];
-	url?: string;
-	schema?: JSONSchema;
-}
-
-let yamlTemplatePattern: string = void 0;
+let providersConfig: ProvidersConfig = void 0;
 let schemaAssociations: ISchemaAssociations = void 0;
 let schemaConfigurationSettings = [];
 let yamlShouldValidate = true;
@@ -261,19 +248,29 @@ connection.onDidChangeConfiguration(change => {
 	);
 
 	if (settings.serverlessIDE) {
-		yamlTemplatePattern = settings.serverlessIDE.templatePattern;
+		providersConfig = settings.serverlessIDE.providers;
 		yamlShouldValidate = settings.serverlessIDE.validate;
 		yamlShouldHover = settings.serverlessIDE.hover;
 		yamlShouldCompletion = settings.serverlessIDE.completion;
 	}
 
 	// add default schema
-	schemaConfigurationSettings = [
-		{
-			fileMatch: [yamlTemplatePattern],
+	schemaConfigurationSettings = [];
+
+	if (providersConfig['aws-sam']) {
+		schemaConfigurationSettings.push({
+			fileMatch: [providersConfig['aws-sam']],
 			schema: require('@serverless-ide/sam-schema/schema.json')
-		}
-	];
+		});
+	}
+
+	if (providersConfig['aws-cloudformation']) {
+		schemaConfigurationSettings.push({
+			fileMatch: [providersConfig['aws-cloudformation']],
+			url:
+				'https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json'
+		});
+	}
 
 	updateConfiguration();
 });

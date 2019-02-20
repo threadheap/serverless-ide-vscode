@@ -8,11 +8,11 @@
 			"request": "launch",
 			"runtimeExecutable": "${execPath}",
 			"args": [
-				"--extensionDevelopmentPath=${workspaceRoot}/packages/client"
+				"--extensionDevelopmentPath=${workspaceRoot}/packages/vscode"
 			],
 			"stopOnEntry": false,
 			"sourceMaps": true,
-			"outFiles": ["${workspaceRoot}/packages/client/out/**/*.js"],
+			"outFiles": ["${workspaceRoot}/packages/vscode/out/**/*.js"],
 			"preLaunchTask": "compile"
 		},
 		{
