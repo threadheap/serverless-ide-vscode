@@ -4,19 +4,19 @@
 		{
 			"label": "Watch client",
 			"type": "shell",
-			"command": "lerna run --scope @serverless-ide/client watch",
+			"command": "lerna run --scope serverless-ide-vscode watch",
 			"group": "build"
 		},
 		{
 			"label": "compile",
 			"type": "shell",
-			"command": "lerna run --scope @serverless-ide/client compile; and lerna run --scope @serverless-ide/language-server compile",
+			"command": "lerna run --scope serverless-ide-vscode compile; and lerna run --scope @serverless-ide/language-server compile",
 			"group": "build"
 		},
 		{
 			"label": "Compile client",
 			"type": "shell",
-			"command": "lerna run --scope @serverless-ide/client compile",
+			"command": "lerna run --scope serverless-ide-vscode compile",
 			"group": "build"
 		},
 		{
@@ -24,6 +24,6 @@
 			"type": "shell",
 			"command": "lerna run --scope @serverless-ide/language-server compile",
 			"group": "build"
-		},
+		}
 	]
 }

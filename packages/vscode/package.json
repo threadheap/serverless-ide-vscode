@@ -65,18 +65,19 @@
       "type": "object",
       "title": "Serverless IDE configuration",
       "properties": {
-        "serverlessIDE.provider": {
-          "type": "string",
-          "enum": [
-            "aws-sam"
-          ],
-          "description": "Serverless IDE provider",
-          "default": "aws-sam"
-        },
-        "serverlessIDE.templatePattern": {
-          "type": "string",
-          "description": "Serverless IDE template path pattern",
-          "default": "*.sam.yaml"
+        "serverlessIDE.providers": {
+          "description": "Serverless IDE providers configuration",
+          "type": "object",
+          "additionalProperties": false,
+          "patternProperties": {
+            "^(aws-sam|aws-cloudformation)$": {
+              "type": "string"
+            }
+          },
+          "default": {
+            "aws-sam": "*.sam.yaml",
+            "aws-cloudformation": "*.cf.yaml"
+          }
         },
         "serverlessIDE.trace.server": {
           "type": "string",
