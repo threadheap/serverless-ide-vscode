@@ -55,7 +55,7 @@ All contributions are welcome!
 4. Compile Typescript
 
 ```sh
-    lerna compile
+    lerna run compile
 ```
 
 #### Developing the client side
