@@ -8,7 +8,6 @@ import {
 	InitializeParams,
 	InitializeResult,
 	NotificationType,
-	RequestType,
 	Position,
 	ProposedFeatures,
 	CompletionList
@@ -27,7 +26,6 @@ import {
 	LanguageSettings
 } from './language-service/languageService';
 import * as nls from 'vscode-nls';
-import { CustomSchemaProvider } from './language-service/services/jsonSchemaService';
 import { parse as parseYAML } from './language-service/parser/yamlParser';
 nls.config(<any>process.env['VSCODE_NLS_CONFIG']);
 
@@ -38,18 +36,6 @@ interface ISchemaAssociations {
 namespace SchemaAssociationNotification {
 	export const type: NotificationType<{}, {}> = new NotificationType(
 		'json/schemaAssociations'
-	);
-}
-
-namespace DynamicCustomSchemaRequestRegistration {
-	export const type: NotificationType<{}, {}> = new NotificationType(
-		'yaml/registerCustomSchemaRequest'
-	);
-}
-
-namespace CustomSchemaRequest {
-	export const type: RequestType<{}, {}, {}, {}> = new RequestType(
-		'custom/schema/request'
 	);
 }
 
@@ -108,14 +94,19 @@ export const customLanguageService = getCustomLanguageService(
 );
 
 interface ProvidersConfig {
-	['aws-sam']?: string;
-	['aws-cloudformation']?: string;
+	['aws-sam']?: {
+		pattern?: string;
+	};
+	['aws-cloudformation']?: {
+		pattern?: string;
+	};
 }
 
 // The settings interface describes the server relevant settings part
 interface Settings {
 	serverlessIDE: {
 		providers: ProvidersConfig;
+		templatePattern?: string;
 		validate: boolean;
 		hover: boolean;
 		completion: boolean;
@@ -159,7 +150,10 @@ connection.onDidChangeConfiguration(change => {
 		settings.http && settings.http.proxyStrictSSL
 	);
 
+	let templatePattern;
+
 	if (settings.serverlessIDE) {
+		templatePattern = settings.serverlessIDE.templatePattern;
 		providersConfig = settings.serverlessIDE.providers;
 		yamlShouldValidate = settings.serverlessIDE.validate;
 		yamlShouldHover = settings.serverlessIDE.hover;
@@ -169,16 +163,23 @@ connection.onDidChangeConfiguration(change => {
 	// add default schema
 	schemaConfigurationSettings = [];
 
-	if (providersConfig['aws-sam']) {
+	if (providersConfig['aws-sam'] && providersConfig['aws-sam'].pattern) {
 		schemaConfigurationSettings.push({
-			fileMatch: [providersConfig['aws-sam']],
+			fileMatch: [
+				templatePattern
+					? templatePattern
+					: providersConfig['aws-sam'].pattern
+			],
 			schema: require('@serverless-ide/sam-schema/schema.json')
 		});
 	}
 
-	if (providersConfig['aws-cloudformation']) {
+	if (
+		providersConfig['aws-cloudformation'] &&
+		providersConfig['aws-cloudformation'].pattern
+	) {
 		schemaConfigurationSettings.push({
-			fileMatch: [providersConfig['aws-cloudformation']],
+			fileMatch: [providersConfig['aws-cloudformation'].pattern],
 			url:
 				'https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json'
 		});

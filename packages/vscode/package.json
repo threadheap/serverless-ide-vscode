@@ -72,13 +72,34 @@
           "additionalProperties": false,
           "patternProperties": {
             "^(aws-sam|aws-cloudformation)$": {
-              "type": "string"
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "pattern": {
+                  "type": "string"
+                }
+              }
             }
           },
           "default": {
-            "aws-sam": "*.sam.yaml",
-            "aws-cloudformation": "*.cf.yaml"
+            "aws-sam": {
+              "pattern": "*.sam.yaml"
+            },
+            "aws-cloudformation": {
+              "pattern": "*.cf.yaml"
+            }
           }
+        },
+        "serverlessIDE.provider": {
+          "description": "[DEPERECATED] Use `providers` property instead",
+          "type": "string",
+          "enum": [
+            "aws-sam"
+          ]
+        },
+        "serverlessIDE.templatePattern": {
+          "description": "[DEPERECATED] Use `providers` property instead",
+          "type": "string"
         },
         "serverlessIDE.trace.server": {
           "type": "string",

@@ -1,8 +1,5 @@
 import { YAMLDocument } from './parser/yamlParser';
-import {
-	JSONSchemaService,
-	CustomSchemaProvider
-} from './services/jsonSchemaService';
+import { JSONSchemaService } from './services/jsonSchemaService';
 import {
 	TextDocument,
 	Position,
@@ -134,7 +131,7 @@ export function getLanguageService(
 	const schemaService = new JSONSchemaService(workspaceContext);
 
 	let completer = new YAMLCompletion(schemaService, contributions, promise);
-	let hover = new YAMLHover(schemaService, contributions, promise);
+	let hover = new YAMLHover(schemaService);
 	let yamlDocumentSymbols = new YAMLDocumentSymbols();
 	let yamlValidation = new YAMLValidation(schemaService, promise);
 
