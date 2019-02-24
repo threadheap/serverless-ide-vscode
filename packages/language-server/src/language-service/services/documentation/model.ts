@@ -1,34 +1,25 @@
 export const LIST_TYPE: 'List' = 'List';
+export const MAP_TYPE: 'Map' = 'Map';
+export const STRING_TYPE = 'String';
+export const INTEGER_TYPE = 'Integer';
+export const BOOLEAN_TYPE = 'Boolean';
 
-export type SinglePrimitiveType = {
-	PrimitiveType: string;
-};
-
-export type SingleType = {
-	Type: string;
-};
-
-export type ArrayPrimitiveType = {
-	Type: typeof LIST_TYPE;
-	PrimitiveType: string;
-};
-
-export type ArrayType = {
-	Type: typeof LIST_TYPE;
-	PrimitiveItemType: string;
-};
+export type PrimitiveType =
+	| typeof STRING_TYPE
+	| typeof INTEGER_TYPE
+	| typeof BOOLEAN_TYPE;
 
 export type ItemType = {
-	Type?: string;
+	Type?: typeof LIST_TYPE | typeof MAP_TYPE | string;
 	ItemType?: string;
-	PrimitiveType?: string;
-	PrimitiveItemType?: string;
+	PrimitiveType?: PrimitiveType;
+	PrimitiveItemType?: typeof STRING_TYPE | typeof INTEGER_TYPE;
 };
 
 export type Property = {
 	Documentation: string;
 	Required: boolean;
-	UpdateType: 'Mutable' | 'Immutable' | 'Conditional';
+	UpdateType?: 'Mutable' | 'Immutable' | 'Conditional';
 	DuplicatesAllowed?: boolean;
 } & ItemType;
 

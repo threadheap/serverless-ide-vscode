@@ -4,29 +4,60 @@ import {
 	ResourceSpecification,
 	ItemType,
 	PropertySpecification,
-	Property
+	Property,
+	PrimitiveType
 } from './model';
 import Cache = require('lru-cache');
 import map = require('lodash/map');
+import SamSpecification from './samDocumentation';
+
+const isPropertyKey = (propertyName: string | void): boolean => {
+	return propertyName && propertyName.startsWith('AWS::');
+};
+
+const getPropertyNameFromKey = (propertyName: string): string => {
+	if (isPropertyKey(propertyName)) {
+		return propertyName.split('.')[1];
+	}
+
+	return propertyName;
+};
 
 const getItemType = (item: ItemType, docsUrl?: string): string => {
-	const wrap = (typeName: string) => {
-		if (docsUrl) {
-			return `[${typeName}](${docsUrl})`;
+	const wrap = (typeName?: string, primitiveType?: PrimitiveType) => {
+		let typeNameStr = '';
+		let primitiveTypeStr = '';
+
+		if (typeName && primitiveType) {
+			primitiveTypeStr = ` | ${primitiveType}`;
+			typeNameStr = getPropertyNameFromKey(typeName);
+		} else if (primitiveType) {
+			primitiveTypeStr = primitiveType;
+		} else if (typeName) {
+			typeNameStr = getPropertyNameFromKey(typeName);
 		}
-		return typeName;
+
+		if (docsUrl && typeNameStr) {
+			return `[${typeNameStr}](${docsUrl})${primitiveTypeStr}`;
+		}
+		return `${typeNameStr}${primitiveTypeStr}`;
 	};
 
 	if (item.Type === 'List') {
-		return `[ ${wrap(item.PrimitiveItemType || item.ItemType)} ]`;
+		return `[ ${wrap(item.ItemType, item.PrimitiveItemType)} ]`;
+	} else if (item.Type === 'Map') {
+		return `{[key: String]: ${wrap(
+			item.ItemType,
+			item.PrimitiveItemType
+		)}}`;
 	} else {
-		return wrap(item.PrimitiveType || item.Type);
+		return wrap(item.Type, item.PrimitiveType);
 	}
 };
 
 export class DocumentationService {
+	public sourcePromise: Promise<Specification>;
 	private sourceUrl: string;
-	private sourcePromise: Promise<Specification>;
 	private cache: Cache.Cache<string, string> = new Cache({
 		max: 500
 	});
@@ -40,7 +71,11 @@ export class DocumentationService {
 		const docStr = await requestService(this.sourceUrl);
 
 		try {
-			return JSON.parse(docStr) as Specification;
+			const doc = JSON.parse(docStr) as Specification;
+			Object.assign(doc.PropertyTypes, SamSpecification.PropertyTypes);
+			Object.assign(doc.ResourceTypes, SamSpecification.ResourceTypes);
+
+			return doc;
 		} catch (err) {
 			return {
 				PropertyTypes: {},
@@ -70,49 +105,58 @@ export class DocumentationService {
 		propertyName: string,
 		property: Property
 	): Promise<string> {
-		const typeName = property.Type || property.ItemType;
-
-		if (typeName && typeName !== 'List') {
+		try {
+			const typeKey = property.ItemType || property.Type;
 			const propertySpecification = await this.getProperty(
-				`${resourceType}.${propertyName}`
+				isPropertyKey(typeKey)
+					? typeKey
+					: `${resourceType}.${propertyName}`
 			);
 
-			if (propertySpecification) {
-				return getItemType(
-					property,
-					propertySpecification.Documentation
-				);
-			}
+			return getItemType(
+				property,
+				propertySpecification && propertySpecification.Documentation
+			);
+		} catch (err) {
+			console.error(err);
 		}
-
-		return getItemType(property);
 	}
 
 	async getPropertyDocumentation(
 		resourceType: string,
 		propertyName: string
 	): Promise<string | void> {
-		const fullPropertyName = `${resourceType}.${propertyName}`;
-
 		const resource = await this.getResource(resourceType);
-		const property = await this.getProperty(fullPropertyName);
 
-		if (resource && property) {
-			return [
-				`[${resourceType}](${
-					resource.Documentation
-				}) / Properties / [${propertyName}](${property.Documentation})`,
-				'\n',
-				'-----',
-				map(
-					property.Properties,
-					(nestedProperty, nestedPropertyName) => {
-						return `- [${nestedPropertyName}](${
-							nestedProperty.Documentation
-						}): ${getItemType(nestedProperty)}`;
-					}
-				).join('\n')
-			].join('\n');
+		if (resource && resource.Properties[propertyName]) {
+			const resourceProperty = resource.Properties[propertyName];
+			const propertyKey =
+				resourceProperty.ItemType || resourceProperty.Type;
+			const property = await this.getProperty(
+				`${resourceType}.${getPropertyNameFromKey(propertyKey)}`
+			);
+
+			if (property) {
+				return [
+					`[${resourceType}](${
+						resource.Documentation
+					}) / Properties / [${propertyName}](${
+						property.Documentation
+					})`,
+					'\n',
+					'-----',
+					map(
+						property.Properties,
+						(nestedProperty, nestedPropertyName) => {
+							return `- [${nestedPropertyName}](${
+								nestedProperty.Documentation
+							}): ${getItemType(nestedProperty)}`;
+						}
+					).join('\n')
+				].join('\n');
+			} else {
+				return `${propertyName}: ${getItemType(resourceProperty)}`;
+			}
 		}
 	}
 
