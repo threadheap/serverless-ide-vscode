@@ -6,7 +6,7 @@
   "publisher": "ThreadHeap",
   "license": "MIT",
   "version": "0.1.6",
-  "preview": true,
+  "preview": false,
   "bugs": "https://github.com/threadheap/serverless-ide-vscode/issues",
   "repository": {
     "type": "git",
@@ -17,6 +17,7 @@
     "vscode": "^1.22.0"
   },
   "categories": [
+    "Other",
     "Programming Languages",
     "Linters",
     "Snippets",
