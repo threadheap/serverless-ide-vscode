@@ -66,39 +66,18 @@
       "type": "object",
       "title": "Serverless IDE configuration",
       "properties": {
-        "serverlessIDE.providers": {
-          "description": "Serverless IDE providers configuration",
-          "type": "object",
-          "additionalProperties": false,
-          "patternProperties": {
-            "^(aws-sam|aws-cloudformation)$": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "pattern": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "default": {
-            "aws-sam": {
-              "pattern": "*.sam.yaml"
-            },
-            "aws-cloudformation": {
-              "pattern": "*.cf.yaml"
-            }
-          }
-        },
-        "serverlessIDE.provider": {
-          "description": "[DEPERECATED] Use `providers` property instead",
+        "serverlessIDE.SAM.templatePattern": {
+          "description": "Template pattern for AWS SAM configuration files",
           "type": "string",
-          "enum": [
-            "aws-sam"
-          ]
+          "default": "*.sam.yaml"
+        },
+        "serverlessIDE.CloudFormation.templatePattern": {
+          "description": "Template pattern for AWS CloudFormation configuration files",
+          "type": "string",
+          "default": "*.cf.yaml"
         },
         "serverlessIDE.templatePattern": {
-          "description": "[DEPERECATED] Use `providers` property instead",
+          "description": "[DEPERECATED] Use `SAM` and `CloudFormation` settings instead",
           "type": "string"
         },
         "serverlessIDE.trace.server": {

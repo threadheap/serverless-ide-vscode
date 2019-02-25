@@ -93,19 +93,16 @@ export const customLanguageService = getCustomLanguageService(
 	[]
 );
 
-interface ProvidersConfig {
-	['aws-sam']?: {
-		pattern?: string;
-	};
-	['aws-cloudformation']?: {
-		pattern?: string;
-	};
+const defaultSAMTemplatePattern = '*.sam.yaml';
+interface ProviderConfig {
+	templatePattern?: string;
 }
 
 // The settings interface describes the server relevant settings part
 interface Settings {
 	serverlessIDE: {
-		providers: ProvidersConfig;
+		SAM?: ProviderConfig;
+		CloudFormation?: ProviderConfig;
 		templatePattern?: string;
 		validate: boolean;
 		hover: boolean;
@@ -117,7 +114,9 @@ interface Settings {
 	};
 }
 
-let providersConfig: ProvidersConfig = void 0;
+let samConfig: ProviderConfig = void 0;
+let templatePattern: string = void 0;
+let cloudFormationConfig: ProviderConfig = void 0;
 let schemaAssociations: ISchemaAssociations = void 0;
 let schemaConfigurationSettings = [];
 let yamlShouldValidate = true;
@@ -150,11 +149,10 @@ connection.onDidChangeConfiguration(change => {
 		settings.http && settings.http.proxyStrictSSL
 	);
 
-	let templatePattern;
-
 	if (settings.serverlessIDE) {
+		samConfig = settings.serverlessIDE.SAM;
+		cloudFormationConfig = settings.serverlessIDE.CloudFormation;
 		templatePattern = settings.serverlessIDE.templatePattern;
-		providersConfig = settings.serverlessIDE.providers;
 		yamlShouldValidate = settings.serverlessIDE.validate;
 		yamlShouldHover = settings.serverlessIDE.hover;
 		yamlShouldCompletion = settings.serverlessIDE.completion;
@@ -163,23 +161,23 @@ connection.onDidChangeConfiguration(change => {
 	// add default schema
 	schemaConfigurationSettings = [];
 
-	if (providersConfig['aws-sam'] && providersConfig['aws-sam'].pattern) {
+	if (
+		(samConfig && samConfig.templatePattern) ||
+		(templatePattern && templatePattern !== defaultSAMTemplatePattern)
+	) {
 		schemaConfigurationSettings.push({
 			fileMatch: [
-				templatePattern
+				templatePattern && templatePattern !== defaultSAMTemplatePattern
 					? templatePattern
-					: providersConfig['aws-sam'].pattern
+					: samConfig.templatePattern
 			],
 			schema: require('@serverless-ide/sam-schema/schema.json')
 		});
 	}
 
-	if (
-		providersConfig['aws-cloudformation'] &&
-		providersConfig['aws-cloudformation'].pattern
-	) {
+	if (cloudFormationConfig && cloudFormationConfig.templatePattern) {
 		schemaConfigurationSettings.push({
-			fileMatch: [providersConfig['aws-cloudformation'].pattern],
+			fileMatch: [cloudFormationConfig.templatePattern],
 			url:
 				'https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json'
 		});
