@@ -118,7 +118,7 @@ const samSpecification: Specification = {
 				}
 			},
 			Attributes: {
-				Ref: {
+				Arn: {
 					PrimitiveType: STRING_TYPE
 				}
 			}
@@ -163,7 +163,7 @@ const samSpecification: Specification = {
 				}
 			},
 			Attributes: {
-				Ref: {
+				Arn: {
 					PrimitiveType: STRING_TYPE
 				}
 			}
@@ -205,7 +205,7 @@ const samSpecification: Specification = {
 				}
 			},
 			Attributes: {
-				Ref: {
+				Arn: {
 					PrimitiveType: STRING_TYPE
 				}
 			}
@@ -253,7 +253,7 @@ const samSpecification: Specification = {
 				}
 			},
 			Attributes: {
-				Ref: {
+				Arn: {
 					PrimitiveType: STRING_TYPE
 				}
 			}
@@ -395,7 +395,7 @@ const samSpecification: Specification = {
 				}
 			},
 			Attributes: {
-				Ref: {
+				Arn: {
 					PrimitiveType: STRING_TYPE
 				}
 			}
