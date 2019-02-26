@@ -38,6 +38,8 @@ The following settings are supported:
 
 Feature requests and feedback are very appreciated
 
-Feel free to raise a feature request in [the project repository](https://github.com/threadheap/serverless-ide-vscode/issues)
-Check out [public roadmap board](https://github.com/threadheap/serverless-ide-vscode/projects/1?add_cards_query=is%3Aopen) and vote for new features
-DM or follow on [twitter](https://twitter.com/pvl4sov) or [medium](https://medium.com/@pvlasov)
+Feel free to raise a feature request in [the project repository](https://github.com/threadheap/serverless-ide-vscode/issues).
+
+Check out [public roadmap board](https://github.com/threadheap/serverless-ide-vscode/projects/1?add_cards_query=is%3Aopen) and vote for new features.
+
+DM or follow me on [twitter](https://twitter.com/pvl4sov) or [medium](https://medium.com/@pvlasov)
