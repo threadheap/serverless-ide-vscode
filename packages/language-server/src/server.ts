@@ -8,36 +8,25 @@ import {
 	InitializeParams,
 	InitializeResult,
 	NotificationType,
-	RequestType,
 	Position,
 	ProposedFeatures,
 	CompletionList
 } from 'vscode-languageserver';
 
-import {
-	xhr,
-	XHRResponse,
-	configure as configureHttpRequests,
-	getErrorStatusDescription
-} from 'request-light';
 import path = require('path');
-import fs = require('fs');
+import { configure as configureHttpRequests } from 'request-light';
 import URI from './language-service/utils/uri';
 import * as URL from 'url';
-import Strings = require('./language-service/utils/strings');
 import {
 	getLineOffsets,
 	removeDuplicatesObj
 } from './language-service/utils/arrayUtils';
 import {
 	getLanguageService as getCustomLanguageService,
-	LanguageSettings,
-	CustomFormatterOptions
+	LanguageSettings
 } from './language-service/languageService';
 import * as nls from 'vscode-nls';
-import { CustomSchemaProvider } from './language-service/services/jsonSchemaService';
 import { parse as parseYAML } from './language-service/parser/yamlParser';
-import { JSONSchema } from './language-service/jsonSchema';
 nls.config(<any>process.env['VSCODE_NLS_CONFIG']);
 
 interface ISchemaAssociations {
@@ -47,36 +36,6 @@ interface ISchemaAssociations {
 namespace SchemaAssociationNotification {
 	export const type: NotificationType<{}, {}> = new NotificationType(
 		'json/schemaAssociations'
-	);
-}
-
-namespace DynamicCustomSchemaRequestRegistration {
-	export const type: NotificationType<{}, {}> = new NotificationType(
-		'yaml/registerCustomSchemaRequest'
-	);
-}
-
-namespace VSCodeContentRequest {
-	export const type: RequestType<{}, {}, {}, {}> = new RequestType(
-		'vscode/content'
-	);
-}
-
-namespace CustomSchemaContentRequest {
-	export const type: RequestType<{}, {}, {}, {}> = new RequestType(
-		'custom/schema/content'
-	);
-}
-
-namespace CustomSchemaRequest {
-	export const type: RequestType<{}, {}, {}, {}> = new RequestType(
-		'custom/schema/request'
-	);
-}
-
-namespace ColorSymbolRequest {
-	export const type: RequestType<{}, {}, {}, {}> = new RequestType(
-		'json/colorSymbols'
 	);
 }
 
@@ -103,12 +62,10 @@ let hasWorkspaceFolderCapability = false;
 // After the server has started the client sends an initilize request. The server receives
 // in the passed params the rootPath of the workspace plus the client capabilities.
 let capabilities;
-let workspaceFolders = [];
 let workspaceRoot: URI;
 connection.onInitialize(
 	(params: InitializeParams): InitializeResult => {
 		capabilities = params.capabilities;
-		workspaceFolders = params['workspaceFolders'];
 		workspaceRoot = URI.parse(params.rootPath);
 
 		hasWorkspaceFolderCapability =
@@ -131,79 +88,22 @@ let workspaceContext = {
 	}
 };
 
-let schemaRequestService = (uri: string): Thenable<string> => {
-	//For the case when we are multi root and specify a workspace location
-	if (hasWorkspaceFolderCapability) {
-		for (let folder in workspaceFolders) {
-			let currFolder = workspaceFolders[folder];
-			let currFolderUri = currFolder['uri'];
-			let currFolderName = currFolder['name'];
-
-			let isUriRegex = new RegExp('^(?:[a-z]+:)?//', 'i');
-			if (uri.indexOf(currFolderName) !== -1 && !uri.match(isUriRegex)) {
-				let beforeFolderName = currFolderUri.split(currFolderName)[0];
-				let uriSplit = uri.split(currFolderName);
-				uriSplit.shift();
-				let afterFolderName = uriSplit.join(currFolderName);
-				uri = beforeFolderName + currFolderName + afterFolderName;
-			}
-		}
-	}
-	if (Strings.startsWith(uri, 'file://')) {
-		let fsPath = URI.parse(uri).fsPath;
-		return new Promise<string>((c, e) => {
-			fs.readFile(fsPath, 'UTF-8', (err, result) => {
-				err ? e('') : c(result.toString());
-			});
-		});
-	} else if (Strings.startsWith(uri, 'vscode://')) {
-		return connection.sendRequest(VSCodeContentRequest.type, uri).then(
-			responseText => {
-				return responseText;
-			},
-			error => {
-				return error.message;
-			}
-		);
-	} else {
-		let scheme = URI.parse(uri).scheme.toLowerCase();
-		if (scheme !== 'http' && scheme !== 'https') {
-			// custom scheme
-			return <Thenable<string>>(
-				connection.sendRequest(CustomSchemaContentRequest.type, uri)
-			);
-		}
-	}
-	let headers = { 'Accept-Encoding': 'gzip, deflate' };
-	return xhr({ url: uri, followRedirects: 5, headers }).then(
-		response => {
-			return response.responseText;
-		},
-		(error: XHRResponse) => {
-			return Promise.reject(
-				error.responseText ||
-					getErrorStatusDescription(error.status) ||
-					error.toString()
-			);
-		}
-	);
-};
-
-export let customLanguageService = getCustomLanguageService(
-	schemaRequestService,
+export const customLanguageService = getCustomLanguageService(
 	workspaceContext,
 	[]
 );
 
-interface ProvidersConfig {
-	['aws-sam']?: string;
-	['aws-cloudformation']?: string;
+const defaultSAMTemplatePattern = '*.sam.yaml';
+interface ProviderConfig {
+	templatePattern?: string;
 }
 
 // The settings interface describes the server relevant settings part
 interface Settings {
 	serverlessIDE: {
-		providers: ProvidersConfig;
+		SAM?: ProviderConfig;
+		CloudFormation?: ProviderConfig;
+		templatePattern?: string;
 		validate: boolean;
 		hover: boolean;
 		completion: boolean;
@@ -214,7 +114,9 @@ interface Settings {
 	};
 }
 
-let providersConfig: ProvidersConfig = void 0;
+let samConfig: ProviderConfig = void 0;
+let templatePattern: string = void 0;
+let cloudFormationConfig: ProviderConfig = void 0;
 let schemaAssociations: ISchemaAssociations = void 0;
 let schemaConfigurationSettings = [];
 let yamlShouldValidate = true;
@@ -222,22 +124,22 @@ let yamlShouldHover = true;
 let yamlShouldCompletion = true;
 let schemaStoreSettings = [];
 const customTags = [
-	'!And sequence',
-	'!Equals sequence',
-	'!If sequence',
-	'!Not sequence',
-	'!Or sequence',
+	'!And',
+	'!If',
+	'!Not',
+	'!Equals',
+	'!Or',
+	'!FindInMap',
 	'!Base64',
-	'!Cidr sequence',
-	'!FindInMap sequence',
+	'!Cidr',
+	'!Ref',
+	'!Sub',
 	'!GetAtt',
 	'!GetAZs',
 	'!ImportValue',
-	'!Join sequence',
-	'!Select sequence',
-	'!Split sequence',
-	'!Sub',
-	'!Ref'
+	'!Select',
+	'!Split',
+	'!Join'
 ];
 
 connection.onDidChangeConfiguration(change => {
@@ -248,7 +150,9 @@ connection.onDidChangeConfiguration(change => {
 	);
 
 	if (settings.serverlessIDE) {
-		providersConfig = settings.serverlessIDE.providers;
+		samConfig = settings.serverlessIDE.SAM;
+		cloudFormationConfig = settings.serverlessIDE.CloudFormation;
+		templatePattern = settings.serverlessIDE.templatePattern;
 		yamlShouldValidate = settings.serverlessIDE.validate;
 		yamlShouldHover = settings.serverlessIDE.hover;
 		yamlShouldCompletion = settings.serverlessIDE.completion;
@@ -257,16 +161,23 @@ connection.onDidChangeConfiguration(change => {
 	// add default schema
 	schemaConfigurationSettings = [];
 
-	if (providersConfig['aws-sam']) {
+	if (
+		(samConfig && samConfig.templatePattern) ||
+		(templatePattern && templatePattern !== defaultSAMTemplatePattern)
+	) {
 		schemaConfigurationSettings.push({
-			fileMatch: [providersConfig['aws-sam']],
+			fileMatch: [
+				templatePattern && templatePattern !== defaultSAMTemplatePattern
+					? templatePattern
+					: samConfig.templatePattern
+			],
 			schema: require('@serverless-ide/sam-schema/schema.json')
 		});
 	}
 
-	if (providersConfig['aws-cloudformation']) {
+	if (cloudFormationConfig && cloudFormationConfig.templatePattern) {
 		schemaConfigurationSettings.push({
-			fileMatch: [providersConfig['aws-cloudformation']],
+			fileMatch: [cloudFormationConfig.templatePattern],
 			url:
 				'https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json'
 		});
@@ -278,15 +189,6 @@ connection.onDidChangeConfiguration(change => {
 connection.onNotification(SchemaAssociationNotification.type, associations => {
 	schemaAssociations = associations;
 	updateConfiguration();
-});
-
-connection.onNotification(DynamicCustomSchemaRequestRegistration.type, () => {
-	const schemaProvider = (resource =>
-		connection.sendRequest(
-			CustomSchemaRequest.type,
-			resource
-		)) as CustomSchemaProvider;
-	customLanguageService.registerCustomSchemaProvider(schemaProvider);
 });
 
 function updateConfiguration() {

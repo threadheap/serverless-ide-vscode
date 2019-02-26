@@ -1,0 +1,6 @@
+# Change log
+
+## v0.2.0 (February 26, 2019)
+
+- Support for CloudFormation templates
+- At glance documentation for AWS resources

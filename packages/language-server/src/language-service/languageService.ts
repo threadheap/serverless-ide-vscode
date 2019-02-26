@@ -1,8 +1,5 @@
 import { YAMLDocument } from './parser/yamlParser';
-import {
-	JSONSchemaService,
-	CustomSchemaProvider
-} from './services/jsonSchemaService';
+import { JSONSchemaService } from './services/jsonSchemaService';
 import {
 	TextDocument,
 	Position,
@@ -112,7 +109,6 @@ export interface CustomFormatterOptions {
 
 export interface LanguageService {
 	configure(settings): void;
-	registerCustomSchemaProvider(schemaProvider: CustomSchemaProvider): void; // Register a custom schema provider
 	doComplete(
 		document: TextDocument,
 		position: Position,
@@ -126,20 +122,16 @@ export interface LanguageService {
 }
 
 export function getLanguageService(
-	schemaRequestService,
 	workspaceContext,
 	contributions,
 	promiseConstructor?
 ): LanguageService {
-	let promise = promiseConstructor || Promise;
+	const promise = promiseConstructor || Promise;
 
-	let schemaService = new JSONSchemaService(
-		schemaRequestService,
-		workspaceContext
-	);
+	const schemaService = new JSONSchemaService(workspaceContext);
 
 	let completer = new YAMLCompletion(schemaService, contributions, promise);
-	let hover = new YAMLHover(schemaService, contributions, promise);
+	let hover = new YAMLHover(schemaService);
 	let yamlDocumentSymbols = new YAMLDocumentSymbols();
 	let yamlValidation = new YAMLValidation(schemaService, promise);
 
@@ -162,11 +154,6 @@ export function getLanguageService(
 					? settings['customTags']
 					: [];
 			completer.configure(settings, customTagsSetting);
-		},
-		registerCustomSchemaProvider: (
-			schemaProvider: CustomSchemaProvider
-		) => {
-			schemaService.registerCustomSchemaProvider(schemaProvider);
 		},
 		doComplete: completer.doComplete.bind(completer),
 		doResolve: completer.doResolve.bind(completer),
