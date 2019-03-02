@@ -1,7 +1,7 @@
 import { TextDocument } from 'vscode-languageserver';
 import { getLanguageService } from '../languageService';
 import { workspaceContext } from './testHelper';
-import { parse as parseYAML } from '../parser/yamlParser';
+import { parse as parseYAML } from '../parser';
 
 let languageService = getLanguageService(workspaceContext, [], null);
 
@@ -36,8 +36,8 @@ describe('Validation', function() {
 	}
 
 	//Validating basic nodes
-	describe('Test that validation throws error when schema is not found', function() {
-		it('Basic test', done => {
+	describe('Test that validation throws error when schema is not found', () => {
+		test('Basic test', done => {
 			let content = `testing: true`;
 			let validator = parseSetup(content);
 			validator

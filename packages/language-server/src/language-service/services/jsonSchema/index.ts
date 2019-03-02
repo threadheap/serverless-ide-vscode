@@ -1,17 +1,19 @@
 'use strict';
 
 import * as Json from 'jsonc-parser';
-import { JSONSchema, JSONSchemaMap } from '../jsonSchema';
+import { JSONSchema, JSONSchemaMap } from '../../jsonSchema';
+import { SingleYAMLDocument } from './../../parser';
 import URI from 'vscode-uri';
-import * as Strings from '../utils/strings';
+import * as Strings from '../../utils/strings';
 import {
 	WorkspaceContextService,
 	PromiseConstructor,
 	Thenable
-} from '../languageService';
-import requestService from './requestService';
+} from '../../languageService';
+import requestService from '../request';
 
 import * as nls from 'vscode-nls';
+import { applyDocumentMutations } from './mutation';
 const localize = nls.loadMessageBundle();
 
 /**
@@ -81,7 +83,18 @@ export interface IJSONSchemaService {
 	/**
 	 * Looks up the appropriate schema for the given URI
 	 */
-	getSchemaForResource(resource: string): Thenable<ResolvedSchema>;
+	getSchemaForResource(resource: string): Thenable<ResolvedSchema | null>;
+
+	/**
+	 *
+	 * Looks up the appropriate schema for a single yaml document
+	 * and applies real time mutations
+	 */
+	getSchemaForDocument(
+		documentUri: string,
+		yamlDocument: SingleYAMLDocument,
+		documentIndex: number
+	): Promise<ResolvedSchema | void>;
 
 	/**
 	 * Returns all registered schema ids
@@ -439,49 +452,46 @@ export class JSONSchemaService implements IJSONSchemaService {
 		return this.promise.resolve(null);
 	}
 
-	public loadSchema(url: string): Thenable<UnresolvedSchema> {
-		return requestService(url).then(
-			content => {
-				if (!content) {
-					let errorMessage = localize(
-						'json.schema.nocontent',
-						"Unable to load schema from '{0}': No content.",
-						toDisplayString(url)
-					);
-					return new UnresolvedSchema(<JSONSchema>{}, [errorMessage]);
-				}
-
-				let schemaContent: JSONSchema = {};
-				let jsonErrors = [];
-				schemaContent = Json.parse(content, jsonErrors);
-				let errors = jsonErrors.length
-					? [
-							localize(
-								'json.schema.invalidFormat',
-								"Unable to parse content from '{0}': {1}.",
-								toDisplayString(url),
-								getParseErrorMessage(jsonErrors[0])
-							)
-					  ]
-					: [];
-				return new UnresolvedSchema(schemaContent, errors);
-			},
-			(error: any) => {
+	public async loadSchema(url: string): Promise<UnresolvedSchema> {
+		try {
+			const content = await requestService(url);
+			if (!content) {
 				let errorMessage = localize(
-					'json.schema.unabletoload',
-					"Unable to load schema from '{0}': {1}",
-					toDisplayString(url),
-					error.toString()
+					'json.schema.nocontent',
+					"Unable to load schema from '{0}': No content.",
+					toDisplayString(url)
 				);
 				return new UnresolvedSchema(<JSONSchema>{}, [errorMessage]);
 			}
-		);
+			let schemaContent: JSONSchema = {};
+			let jsonErrors = [];
+			schemaContent = Json.parse(content, jsonErrors);
+			let errors = jsonErrors.length
+				? [
+						localize(
+							'json.schema.invalidFormat',
+							"Unable to parse content from '{0}': {1}.",
+							toDisplayString(url),
+							getParseErrorMessage(jsonErrors[0])
+						)
+				  ]
+				: [];
+			return new UnresolvedSchema(schemaContent, errors);
+		} catch (error) {
+			let errorMessage_1 = localize(
+				'json.schema.unabletoload',
+				"Unable to load schema from '{0}': {1}",
+				toDisplayString(url),
+				error.toString()
+			);
+			return new UnresolvedSchema(<JSONSchema>{}, [errorMessage_1]);
+		}
 	}
 
-	public resolveSchemaContent(
+	public async resolveSchemaContent(
 		schemaToResolve: UnresolvedSchema,
 		schemaURL: string
-	): Thenable<ResolvedSchema> {
+	): Promise<ResolvedSchema> {
 		let resolveErrors: string[] = schemaToResolve.errors.slice(0);
 		let schema = schemaToResolve.schema;
 		let contextService = this.contextService;
@@ -529,33 +539,32 @@ export class JSONSchemaService implements IJSONSchemaService {
 			delete node.$ref;
 		};
 
-		let resolveExternalLink = (
+		let resolveExternalLink = async (
 			node: any,
 			uri: string,
 			linkPath: string,
 			parentSchemaURL: string
-		): Thenable<any> => {
+		): Promise<any> => {
 			if (contextService && !/^\w+:\/\/.*/.test(uri)) {
 				uri = contextService.resolveRelativePath(uri, parentSchemaURL);
 			}
 			uri = this.normalizeId(uri);
-			return this.getOrAddSchemaHandle(uri)
-				.getUnresolvedSchema()
-				.then(unresolvedSchema => {
-					if (unresolvedSchema.errors.length) {
-						let loc = linkPath ? uri + '#' + linkPath : uri;
-						resolveErrors.push(
-							localize(
-								'json.schema.problemloadingref',
-								"Problems loading reference '{0}': {1}",
-								loc,
-								unresolvedSchema.errors[0]
-							)
-						);
-					}
-					resolveLink(node, unresolvedSchema.schema, linkPath);
-					return resolveRefs(node, unresolvedSchema.schema, uri);
-				});
+			const unresolvedSchema = await this.getOrAddSchemaHandle(
+				uri
+			).getUnresolvedSchema();
+			if (unresolvedSchema.errors.length) {
+				let loc = linkPath ? uri + '#' + linkPath : uri;
+				resolveErrors.push(
+					localize(
+						'json.schema.problemloadingref',
+						"Problems loading reference '{0}': {1}",
+						loc,
+						unresolvedSchema.errors[0]
+					)
+				);
+			}
+			resolveLink(node, unresolvedSchema.schema, linkPath);
+			return resolveRefs(node, unresolvedSchema.schema, uri);
 		};
 
 		let resolveRefs = (
@@ -636,24 +645,48 @@ export class JSONSchemaService implements IJSONSchemaService {
 			return this.promise.all(openPromises);
 		};
 
-		return resolveRefs(schema, schema, schemaURL).then(
-			_ => new ResolvedSchema(schema, resolveErrors)
-		);
+		await resolveRefs(schema, schema, schemaURL);
+		return new ResolvedSchema(schema, resolveErrors);
 	}
 
-	public getSchemaForResource(resource: string): Thenable<ResolvedSchema> {
-		const resolveSchema = () => {
-			// check for matching file names, last to first
-			for (let i = this.filePatternAssociations.length - 1; i >= 0; i--) {
-				let entry = this.filePatternAssociations[i];
-				if (entry.matchesPattern(resource)) {
-					return entry.getCombinedSchema(this).getResolvedSchema();
-				}
+	public async getSchemaForResource(
+		resource: string
+	): Promise<ResolvedSchema> {
+		// check for matching file names, last to first
+		for (let i = this.filePatternAssociations.length - 1; i >= 0; i--) {
+			let entry = this.filePatternAssociations[i];
+			if (entry.matchesPattern(resource)) {
+				return await entry.getCombinedSchema(this).getResolvedSchema();
 			}
-			return this.promise.resolve(null);
-		};
+		}
+		return null;
+	}
 
-		return resolveSchema();
+	public async getSchemaForDocument(
+		documentUri: string,
+		yamlDocument: SingleYAMLDocument,
+		documentIndex: number
+	): Promise<ResolvedSchema | void> {
+		const schema = await this.getSchemaForResource(documentUri);
+
+		/**
+		 * Probably redundant code
+		 * most likely there won't be more than one schema
+		 * per file type
+		 */
+		if (
+			schema &&
+			schema.schema &&
+			schema.schema.schemaSequence &&
+			schema.schema.schemaSequence[documentIndex]
+		) {
+			return applyDocumentMutations(
+				new ResolvedSchema(schema.schema.schemaSequence[documentIndex]),
+				yamlDocument
+			);
+		}
+
+		return applyDocumentMutations(schema, yamlDocument);
 	}
 
 	public createCombinedSchema(

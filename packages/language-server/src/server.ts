@@ -26,7 +26,7 @@ import {
 	LanguageSettings
 } from './language-service/languageService';
 import * as nls from 'vscode-nls';
-import { parse as parseYAML } from './language-service/parser/yamlParser';
+import { parse as parseYAML } from './language-service/parser';
 nls.config(<any>process.env['VSCODE_NLS_CONFIG']);
 
 interface ISchemaAssociations {

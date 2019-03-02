@@ -1,6 +1,6 @@
-import * as Parser from '../parser/jsonParser';
-import * as SchemaService from './jsonSchemaService';
-import { DocumentationService } from './documentation';
+import * as Parser from '../../parser/jsonParser';
+import * as SchemaService from '../jsonSchema';
+import { DocumentationService } from '../documentation';
 
 import {
 	Hover,
@@ -9,8 +9,9 @@ import {
 	Range,
 	MarkedString
 } from 'vscode-languageserver-types';
-import { matchOffsetToDocument } from '../utils/arrayUtils';
-import { LanguageSettings } from '../languageService';
+import { matchOffsetToDocument } from '../../utils/arrayUtils';
+import { LanguageSettings } from '../../languageService';
+import { YAMLDocument } from '../../parser';
 
 const createHover = (contents: MarkedString[], hoverRange: Range): Hover => {
 	let result: Hover = {
@@ -109,7 +110,7 @@ export class YAMLHover {
 	public async doHover(
 		document: TextDocument,
 		position: Position,
-		doc
+		doc: YAMLDocument
 	): Promise<Hover> {
 		if (!this.shouldHover || !document) {
 			return Promise.resolve(void 0);
@@ -128,7 +129,6 @@ export class YAMLHover {
 		if (currentDoc === null) {
 			return Promise.resolve(void 0);
 		}
-		const currentDocIndex = doc.documents.indexOf(currentDoc);
 		let node = currentDoc.getNodeFromOffset(offset);
 
 		if (

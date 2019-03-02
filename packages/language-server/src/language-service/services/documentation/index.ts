@@ -1,4 +1,4 @@
-import requestService from '../requestService';
+import requestService from '../request';
 import {
 	Specification,
 	ResourceSpecification,

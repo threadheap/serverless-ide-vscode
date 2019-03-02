@@ -1,7 +1,7 @@
 import { TextDocument } from 'vscode-languageserver';
 import { getLanguageService } from '../languageService';
 import { workspaceContext } from './testHelper';
-import { parse as parseYAML } from '../parser/yamlParser';
+import { parse as parseYAML } from '../parser';
 
 let languageService = getLanguageService(workspaceContext, [], null);
 

@@ -1,5 +1,5 @@
-import { YAMLDocument } from './parser/yamlParser';
-import { JSONSchemaService } from './services/jsonSchemaService';
+import { YAMLDocument } from './parser';
+import { JSONSchemaService } from './services/jsonSchema';
 import {
 	TextDocument,
 	Position,

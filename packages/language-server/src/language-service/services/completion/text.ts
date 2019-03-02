@@ -1,6 +1,5 @@
 import { JSONSchema } from '../../jsonSchema';
 import { RUNTIMES } from './constants';
-import { logObject } from '../../utils/objects';
 
 export const getInsertTextForPlainText = (text: string): string => {
 	return text.replace(/[\\\$\}]/g, '\\$&'); // escape $, \ and }

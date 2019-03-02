@@ -4,8 +4,8 @@ import {
 	CompletionsCollector
 } from './../../jsonContributions';
 import { ASTNode, PropertyASTNode } from './../../parser/jsonParser';
-import { ResolvedSchema } from '../jsonSchemaService';
-import { SingleYAMLDocument } from '../../parser/yamlParser';
+import { ResolvedSchema } from '../jsonSchema';
+import { SingleYAMLDocument } from '../../parser';
 import {
 	CompletionItemKind,
 	TextDocument,
