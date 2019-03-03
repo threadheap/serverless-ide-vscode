@@ -1,217 +1,217 @@
-import { TextDocument } from 'vscode-languageserver';
-import { getLanguageService } from '../languageService';
-import { workspaceContext } from './testHelper';
-import { parse as parseYAML } from '../parser';
-import { getLineOffsets } from '../utils/arrayUtils';
+import { TextDocument } from "vscode-languageserver"
+import { getLanguageService } from "../languageService"
+import { parse as parseYAML } from "../parser"
+import { getLineOffsets } from "../utils/arrayUtils"
+import { workspaceContext } from "./testHelper"
 
-let languageService = getLanguageService(workspaceContext, [], null);
+const languageService = getLanguageService(workspaceContext, [])
 
-let uri = 'http://json.schemastore.org/composer';
-let languageSettings = {
+const uri = "http://json.schemastore.org/composer"
+const languageSettings = {
 	schemas: [],
 	completion: true
-};
-let fileMatch = ['*.yml', '*.yaml'];
-languageSettings.schemas.push({ uri, fileMatch: fileMatch });
-languageService.configure(languageSettings);
+}
+const fileMatch = ["*.yml", "*.yaml"]
+languageSettings.schemas.push({ uri, fileMatch })
+languageService.configure(languageSettings)
 
 function setup(content: string) {
 	return TextDocument.create(
-		'file://~/Desktop/vscode-k8s/test.yaml',
-		'yaml',
+		"file://~/Desktop/vscode-k8s/test.yaml",
+		"yaml",
 		0,
 		content
-	);
+	)
 }
 
 function parseSetup(content: string, position) {
-	let testTextDocument = setup(content);
+	const testTextDocument = setup(content)
 	return completionHelper(
 		testTextDocument,
 		testTextDocument.positionAt(position)
-	);
+	)
 }
 
-describe('yamlCompletion with composer', function() {
-	describe('doComplete', function() {
-		it('Array autocomplete without word', done => {
-			let content = 'authors:\n  - ';
-			let completion = parseSetup(content, 14);
+describe("yamlCompletion with composer", () => {
+	describe("doComplete", () => {
+		it("Array autocomplete without word", done => {
+			const content = "authors:\n  - "
+			const completion = parseSetup(content, 14)
 			completion
-				.then(function(result) {
-					expect(result.items).not.toHaveLength(0);
+				.then(result => {
+					expect(result.items).not.toHaveLength(0)
 				})
-				.then(done, done);
-		});
+				.then(done, done)
+		})
 
-		it('Array autocomplete without word on array symbol', done => {
-			let content = 'authors:\n  -';
-			let completion = parseSetup(content, 13);
+		it("Array autocomplete without word on array symbol", done => {
+			const content = "authors:\n  -"
+			const completion = parseSetup(content, 13)
 			completion
-				.then(function(result) {
-					expect(result.items).not.toHaveLength(0);
+				.then(result => {
+					expect(result.items).not.toHaveLength(0)
 				})
-				.then(done, done);
-		});
+				.then(done, done)
+		})
 
-		it('Array autocomplete without word on space before array symbol', done => {
-			let content = 'authors:\n  - name: test\n  ';
-			let completion = parseSetup(content, 24);
+		it("Array autocomplete without word on space before array symbol", done => {
+			const content = "authors:\n  - name: test\n  "
+			const completion = parseSetup(content, 24)
 			completion
-				.then(function(result) {
-					expect(result.items).not.toHaveLength(0);
+				.then(result => {
+					expect(result.items).not.toHaveLength(0)
 				})
-				.then(done, done);
-		});
+				.then(done, done)
+		})
 
-		it('Array autocomplete with letter', done => {
-			let content = 'authors:\n  - n';
-			let completion = parseSetup(content, 14);
+		it("Array autocomplete with letter", done => {
+			const content = "authors:\n  - n"
+			const completion = parseSetup(content, 14)
 			completion
-				.then(function(result) {
-					expect(result.items).not.toHaveLength(0);
+				.then(result => {
+					expect(result.items).not.toHaveLength(0)
 				})
-				.then(done, done);
-		});
+				.then(done, done)
+		})
 
-		it('Array autocomplete without word (second item)', done => {
-			let content = 'authors:\n  - name: test\n    ';
-			let completion = parseSetup(content, 32);
+		it("Array autocomplete without word (second item)", done => {
+			const content = "authors:\n  - name: test\n    "
+			const completion = parseSetup(content, 32)
 			completion
-				.then(function(result) {
-					expect(result.items).not.toHaveLength(0);
+				.then(result => {
+					expect(result.items).not.toHaveLength(0)
 				})
-				.then(done, done);
-		});
+				.then(done, done)
+		})
 
-		it('Array autocomplete with letter (second item)', done => {
-			let content = 'authors:\n  - name: test\n    e';
-			let completion = parseSetup(content, 27);
+		it("Array autocomplete with letter (second item)", done => {
+			const content = "authors:\n  - name: test\n    e"
+			const completion = parseSetup(content, 27)
 			completion
-				.then(function(result) {
-					expect(result.items).not.toHaveLength(0);
+				.then(result => {
+					expect(result.items).not.toHaveLength(0)
 				})
-				.then(done, done);
-		});
+				.then(done, done)
+		})
 
-		it('Autocompletion after array', done => {
-			let content = 'authors:\n  - name: test\n';
-			let completion = parseSetup(content, 24);
+		it("Autocompletion after array", done => {
+			const content = "authors:\n  - name: test\n"
+			const completion = parseSetup(content, 24)
 			completion
-				.then(function(result) {
-					expect(result.items).not.toHaveLength(0);
+				.then(result => {
+					expect(result.items).not.toHaveLength(0)
 				})
-				.then(done, done);
-		});
+				.then(done, done)
+		})
 
-		it('Autocompletion after array with depth', done => {
-			let content = 'archive:\n  exclude:\n  - test\n';
-			let completion = parseSetup(content, 29);
+		it("Autocompletion after array with depth", done => {
+			const content = "archive:\n  exclude:\n  - test\n"
+			const completion = parseSetup(content, 29)
 			completion
-				.then(function(result) {
-					expect(result.items).not.toHaveLength(0);
+				.then(result => {
+					expect(result.items).not.toHaveLength(0)
 				})
-				.then(done, done);
-		});
+				.then(done, done)
+		})
 
-		it('Autocompletion after array with depth', done => {
-			let content =
-				'autoload:\n  classmap:\n  - test\n  exclude-from-classmap:\n  - test\n  ';
-			let completion = parseSetup(content, 70);
+		it("Autocompletion after array with depth", done => {
+			const content =
+				"autoload:\n  classmap:\n  - test\n  exclude-from-classmap:\n  - test\n  "
+			const completion = parseSetup(content, 70)
 			completion
-				.then(function(result) {
-					expect(result.items).not.toHaveLength(0);
+				.then(result => {
+					expect(result.items).not.toHaveLength(0)
 				})
-				.then(done, done);
-		});
-	});
+				.then(done, done)
+		})
+	})
 
-	describe('Failure tests', function() {
-		it('Autocompletion has no results on value when they are not available', done => {
-			let content = 'time: ';
-			let completion = parseSetup(content, 6);
+	describe("Failure tests", () => {
+		it("Autocompletion has no results on value when they are not available", done => {
+			const content = "time: "
+			const completion = parseSetup(content, 6)
 			completion
-				.then(function(result) {
-					expect(result.items).toHaveLength(0);
+				.then(result => {
+					expect(result.items).toHaveLength(0)
 				})
-				.then(done, done);
-		});
+				.then(done, done)
+		})
 
-		it('Autocompletion has no results on value when they are not available (with depth)', done => {
-			let content = 'archive:\n  exclude:\n    - test\n    ';
-			let completion = parseSetup(content, 33);
+		it("Autocompletion has no results on value when they are not available (with depth)", done => {
+			const content = "archive:\n  exclude:\n    - test\n    "
+			const completion = parseSetup(content, 33)
 			completion
-				.then(function(result) {
-					expect(result.items).toHaveLength(0);
+				.then(result => {
+					expect(result.items).toHaveLength(0)
 				})
-				.then(done, done);
-		});
-	});
-});
+				.then(done, done)
+		})
+	})
+})
 
 function is_EOL(c) {
-	return c === 0x0a /* LF */ || c === 0x0d /* CR */;
+	return c === 0x0a /* LF */ || c === 0x0d /* CR */
 }
 
 function completionHelper(document: TextDocument, textDocumentPosition) {
-	//Get the string we are looking at via a substring
-	let linePos = textDocumentPosition.line;
-	let position = textDocumentPosition;
-	let lineOffset = getLineOffsets(document.getText());
-	let start = lineOffset[linePos]; //Start of where the autocompletion is happening
-	let end = 0; //End of where the autocompletion is happening
+	// Get the string we are looking at via a substring
+	const linePos = textDocumentPosition.line
+	const position = textDocumentPosition
+	const lineOffset = getLineOffsets(document.getText())
+	const start = lineOffset[linePos] // Start of where the autocompletion is happening
+	let end = 0 // End of where the autocompletion is happening
 	if (lineOffset[linePos + 1]) {
-		end = lineOffset[linePos + 1];
+		end = lineOffset[linePos + 1]
 	} else {
-		end = document.getText().length;
+		end = document.getText().length
 	}
 
 	while (end - 1 >= 0 && is_EOL(document.getText().charCodeAt(end - 1))) {
-		end--;
+		end--
 	}
 
-	let textLine = document.getText().substring(start, end);
+	const textLine = document.getText().substring(start, end)
 
-	//Check if the string we are looking at is a node
-	if (textLine.indexOf(':') === -1) {
-		//We need to add the ":" to load the nodes
+	// Check if the string we are looking at is a node
+	if (textLine.indexOf(":") === -1) {
+		// We need to add the ":" to load the nodes
 
-		let newText = '';
+		let newText = ""
 
-		//This is for the empty line case
-		let trimmedText = textLine.trim();
+		// This is for the empty line case
+		const trimmedText = textLine.trim()
 		if (
 			trimmedText.length === 0 ||
-			(trimmedText.length === 1 && trimmedText[0] === '-')
+			(trimmedText.length === 1 && trimmedText[0] === "-")
 		) {
-			//Add a temp node that is in the document but we don't use at all.
+			// Add a temp node that is in the document but we don't use at all.
 			newText =
 				document.getText().substring(0, start + textLine.length) +
-				(trimmedText[0] === '-' && !textLine.endsWith(' ') ? ' ' : '') +
-				'holder:\r\n' +
+				(trimmedText[0] === "-" && !textLine.endsWith(" ") ? " " : "") +
+				"holder:\r\n" +
 				document
 					.getText()
 					.substr(
 						lineOffset[linePos + 1] || document.getText().length
-					);
-			//For when missing semi colon case
+					)
+			// For when missing semi colon case
 		} else {
-			//Add a semicolon to the end of the current line so we can validate the node
+			// Add a semicolon to the end of the current line so we can validate the node
 			newText =
 				document.getText().substring(0, start + textLine.length) +
-				':\r\n' +
+				":\r\n" +
 				document
 					.getText()
 					.substr(
 						lineOffset[linePos + 1] || document.getText().length
-					);
+					)
 		}
-		let jsonDocument = parseYAML(newText);
-		return languageService.doComplete(document, position, jsonDocument);
+		const jsonDocument = parseYAML(newText)
+		return languageService.doComplete(document, position, jsonDocument)
 	} else {
-		//All the nodes are loaded
-		position.character = position.character - 1;
-		let jsonDocument = parseYAML(document.getText());
-		return languageService.doComplete(document, position, jsonDocument);
+		// All the nodes are loaded
+		position.character = position.character - 1
+		const jsonDocument = parseYAML(document.getText())
+		return languageService.doComplete(document, position, jsonDocument)
 	}
 }

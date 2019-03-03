@@ -46,6 +46,7 @@
         "watch": "tsc --watch -p .",
         "lint:types": "tsc --noEmit",
         "lint:ts": "tslint -p ./",
+        "lint:ts:fix": "tslint -p ./ --fix",
         "test": "jest"
     },
     "publishConfig": {

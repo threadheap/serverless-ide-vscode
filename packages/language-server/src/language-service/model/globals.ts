@@ -1,36 +1,36 @@
-import { Segment } from 'vscode-json-languageservice';
+import { Segment } from "vscode-json-languageservice"
 
-export const API: 'Api' = 'Api';
-export const FUNCTION: 'Function' = 'Function';
-export const SIMPLE_TABLE: 'SimpleTable' = 'SimpleTable';
+export const API: "Api" = "Api"
+export const FUNCTION: "Function" = "Function"
+export const SIMPLE_TABLE: "SimpleTable" = "SimpleTable"
 
-export type GlobalKeyType = typeof API | typeof FUNCTION | typeof SIMPLE_TABLE;
+export type GlobalKeyType = typeof API | typeof FUNCTION | typeof SIMPLE_TABLE
 
 export const GlobalKeys = {
 	[API]: {
-		resourceType: 'AWS::Serverless::Api'
+		resourceType: "AWS::Serverless::Api"
 	},
 	[FUNCTION]: {
-		resourceType: 'AWS::Serverless::Function'
+		resourceType: "AWS::Serverless::Function"
 	},
 	[SIMPLE_TABLE]: {
-		resourceType: 'AWS::Serverless::SimpleTable'
+		resourceType: "AWS::Serverless::SimpleTable"
 	}
-};
-
-export interface GlobalConfigItem {
-	resourceType: string;
-	properties: Segment[];
 }
 
-export type GlobalsConfig = {
-	[API]: GlobalConfigItem;
-	[FUNCTION]: GlobalConfigItem;
-	[SIMPLE_TABLE]: GlobalConfigItem;
-};
+export interface GlobalConfigItem {
+	resourceType: string
+	properties: Segment[]
+}
 
-const KEYS = [API, FUNCTION, SIMPLE_TABLE];
+export interface GlobalsConfig {
+	[API]: GlobalConfigItem
+	[FUNCTION]: GlobalConfigItem
+	[SIMPLE_TABLE]: GlobalConfigItem
+}
+
+const KEYS = [API, FUNCTION, SIMPLE_TABLE]
 
 export const isEmpty = (globalsConfig: GlobalsConfig): boolean => {
-	return KEYS.every(key => globalsConfig[key].properties.length === 0);
-};
+	return KEYS.every(key => globalsConfig[key].properties.length === 0)
+}

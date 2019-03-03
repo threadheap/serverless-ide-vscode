@@ -1,4 +1,4 @@
-import { xhr, getErrorStatusDescription, XHROptions } from 'request-light';
+import { getErrorStatusDescription, xhr, XHROptions } from "request-light"
 
 export default async (
 	uri: string,
@@ -10,17 +10,17 @@ export default async (
 				{
 					url: uri,
 					followRedirects: 5,
-					headers: { 'Accept-Encoding': 'gzip, deflate' }
+					headers: { "Accept-Encoding": "gzip, deflate" }
 				},
 				options
 			)
-		);
-		return response.responseText;
+		)
+		return response.responseText
 	} catch (error) {
 		return (
 			error.responseText ||
 			getErrorStatusDescription(error.status) ||
 			error.toString()
-		);
+		)
 	}
-};
+}

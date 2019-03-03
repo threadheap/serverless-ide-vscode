@@ -1,70 +1,64 @@
-'use strict';
+"use strict"
 
-import * as Parser from '../../parser/jsonParser';
-import * as SchemaService from '../jsonSchema';
+import { PromiseConstructor } from "vscode-json-languageservice"
 import {
-	JSONWorkerContribution,
-	CompletionsCollector
-} from '../../jsonContributions';
-import { PromiseConstructor, Thenable } from 'vscode-json-languageservice';
+	CompletionsCollector,
+	JSONWorkerContribution
+} from "../../jsonContributions"
+import * as Parser from "../../parser/jsonParser"
+import * as SchemaService from "../jsonSchema"
 
 import {
 	CompletionItem,
-	CompletionItemKind,
 	CompletionList,
-	TextDocument,
 	Position,
 	Range,
-	TextEdit,
-	InsertTextFormat
-} from 'vscode-languageserver-types';
+	TextDocument,
+	TextEdit
+} from "vscode-languageserver-types"
 
-import { matchOffsetToDocument } from '../../utils/arrayUtils';
-import { LanguageSettings } from '../../languageService';
-import { YAMLDocument } from '../../parser';
-import * as textCompletions from './text';
-import * as completions from './completions';
-import * as helpers from './helpers';
+import { LanguageSettings } from "../../languageService"
+import { YAMLDocument } from "../../parser"
+import { matchOffsetToDocument } from "../../utils/arrayUtils"
+import * as completions from "./completions"
+import * as helpers from "./helpers"
 
 export class YAMLCompletion {
-	private schemaService: SchemaService.IJSONSchemaService;
-	private contributions: JSONWorkerContribution[];
-	private promise: PromiseConstructor;
-	private customTags: Array<String>;
-	private completion: boolean;
+	private schemaService: SchemaService.IJSONSchemaService
+	private contributions: JSONWorkerContribution[]
+	private promise: PromiseConstructor
+	private customTags: string[]
+	private completion: boolean
 
 	constructor(
 		schemaService: SchemaService.IJSONSchemaService,
 		contributions: JSONWorkerContribution[] = [],
 		promiseConstructor?: PromiseConstructor
 	) {
-		this.schemaService = schemaService;
-		this.contributions = contributions;
-		this.promise = promiseConstructor || Promise;
-		this.customTags = [];
-		this.completion = true;
+		this.schemaService = schemaService
+		this.contributions = contributions
+		this.promise = promiseConstructor || Promise
+		this.customTags = []
+		this.completion = true
 	}
 
-	public configure(
-		languageSettings: LanguageSettings,
-		customTags: Array<String>
-	) {
+	public configure(languageSettings: LanguageSettings, customTags: string[]) {
 		if (languageSettings) {
-			this.completion = languageSettings.completion;
+			this.completion = languageSettings.completion
 		}
-		this.customTags = customTags;
+		this.customTags = customTags
 	}
 
-	public doResolve(item: CompletionItem): Thenable<CompletionItem> {
+	public doResolve(item: CompletionItem): Promise<CompletionItem> {
 		for (let i = this.contributions.length - 1; i >= 0; i--) {
 			if (this.contributions[i].resolveCompletion) {
-				let resolver = this.contributions[i].resolveCompletion(item);
+				const resolver = this.contributions[i].resolveCompletion(item)
 				if (resolver) {
-					return resolver;
+					return resolver
 				}
 			}
 		}
-		return this.promise.resolve(item);
+		return Promise.resolve(item)
 	}
 
 	public async doComplete(
@@ -72,143 +66,145 @@ export class YAMLCompletion {
 		position: Position,
 		doc: YAMLDocument
 	): Promise<CompletionList> {
-		let result: CompletionList = {
+		const result: CompletionList = {
 			items: [],
 			isIncomplete: false
-		};
+		}
 
 		if (!this.completion) {
-			return Promise.resolve(result);
+			return Promise.resolve(result)
 		}
 
-		let offset = document.offsetAt(position);
-		if (document.getText()[offset] === ':') {
-			return Promise.resolve(result);
+		const offset = document.offsetAt(position)
+		if (document.getText()[offset] === ":") {
+			return Promise.resolve(result)
 		}
 
-		let currentDoc = matchOffsetToDocument(offset, doc);
-		if (currentDoc === null) {
-			return Promise.resolve(result);
+		const currentDoc = matchOffsetToDocument(offset, doc)
+		if (!currentDoc) {
+			return Promise.resolve(result)
 		}
-		const currentDocIndex = doc.documents.indexOf(currentDoc);
-		let node = currentDoc.getNodeFromOffsetEndInclusive(offset);
+		const currentDocIndex = doc.documents.indexOf(currentDoc)
+		let node = currentDoc.getNodeFromOffsetEndInclusive(offset)
 		if (helpers.isInComment(document, node ? node.start : 0, offset)) {
-			return Promise.resolve(result);
+			return Promise.resolve(result)
 		}
 
-		let currentWord = helpers.getCurrentWord(document, offset);
+		const currentWord = helpers.getCurrentWord(document, offset)
 
-		let overwriteRange = null;
-		if (node && node.type === 'null') {
-			let nodeStartPos = document.positionAt(node.start);
-			nodeStartPos.character += 1;
-			let nodeEndPos = document.positionAt(node.end);
-			nodeEndPos.character += 1;
-			overwriteRange = Range.create(nodeStartPos, nodeEndPos);
+		let overwriteRange = null
+		if (node && node.type === "null") {
+			const nodeStartPos = document.positionAt(node.start)
+			nodeStartPos.character += 1
+			const nodeEndPos = document.positionAt(node.end)
+			nodeEndPos.character += 1
+			overwriteRange = Range.create(nodeStartPos, nodeEndPos)
 		} else if (
 			node &&
-			(node.type === 'string' ||
-				node.type === 'number' ||
-				node.type === 'boolean')
+			(node.type === "string" ||
+				node.type === "number" ||
+				node.type === "boolean")
 		) {
 			overwriteRange = Range.create(
 				document.positionAt(node.start),
 				document.positionAt(node.end)
-			);
+			)
 		} else {
-			let overwriteStart = offset - currentWord.length;
+			let overwriteStart = offset - currentWord.length
 			if (
 				overwriteStart > 0 &&
 				document.getText()[overwriteStart - 1] === '"'
 			) {
-				overwriteStart--;
+				overwriteStart--
 			}
 			overwriteRange = Range.create(
 				document.positionAt(overwriteStart),
 				position
-			);
+			)
 		}
 
-		let proposed: { [key: string]: CompletionItem } = {};
-		let collector: CompletionsCollector = {
+		const proposed: { [key: string]: CompletionItem } = {}
+		const collector: CompletionsCollector = {
 			add: (suggestion: CompletionItem) => {
-				let existing = proposed[suggestion.label];
+				const existing = proposed[suggestion.label]
 				if (!existing) {
-					proposed[suggestion.label] = suggestion;
+					proposed[suggestion.label] = suggestion
 					if (overwriteRange) {
 						suggestion.textEdit = TextEdit.replace(
 							overwriteRange,
 							suggestion.insertText
-						);
+						)
 					}
-					result.items.push(suggestion);
+					result.items.push(suggestion)
 				} else if (!existing.documentation) {
-					existing.documentation = suggestion.documentation;
+					existing.documentation = suggestion.documentation
 				}
 			},
 			setAsIncomplete: () => {
-				result.isIncomplete = true;
+				result.isIncomplete = true
 			},
 			error: (message: string) => {
-				console.error(message);
+				// tslint:disable-next-line: no-console
+				console.error(message)
 			},
 			log: (message: string) => {
-				console.log(message);
+				// tslint:disable-next-line: no-console
+				console.log(message)
 			},
 			getNumberOfProposals: () => {
-				return result.items.length;
+				return result.items.length
 			}
-		};
+		}
 
 		const schema = await this.schemaService.getSchemaForDocument(
 			document.uri,
 			currentDoc,
 			currentDocIndex
-		);
+		)
 
 		if (!schema) {
-			return Promise.resolve(result);
+			return Promise.resolve(result)
 		}
 
-		let collectionPromises: Thenable<any>[] = [];
+		const collectionPromises: Array<Promise<any>> = []
 
-		let addValue = true;
+		let addValue = true
 
-		let currentProperty: Parser.PropertyASTNode = null;
+		let currentProperty: Parser.PropertyASTNode = null
 		if (node) {
-			if (node.type === 'string') {
-				let stringNode = <Parser.StringASTNode>node;
+			if (node.type === "string") {
+				const stringNode = node as Parser.StringASTNode
 				if (stringNode.isKey) {
 					addValue = !(
 						node.parent &&
-						(<Parser.PropertyASTNode>node.parent).value
-					);
+						(node.parent as Parser.PropertyASTNode).value
+					)
 					currentProperty = node.parent
-						? <Parser.PropertyASTNode>node.parent
-						: null;
+						? (node.parent as Parser.PropertyASTNode)
+						: null
 					if (node.parent) {
-						node = node.parent.parent;
+						node = node.parent.parent
 					}
 				}
 			}
 		}
 
 		// proposals for properties
-		if (node && node.type === 'object') {
+		if (node && node.type === "object") {
 			// don't suggest properties that are already present
-			let properties = (<Parser.ObjectASTNode>node).properties;
+			const properties = (node as Parser.ObjectASTNode).properties
 			properties.forEach(p => {
 				if (!currentProperty || currentProperty !== p) {
-					proposed[p.key.value] = CompletionItem.create('__');
+					proposed[p.key.value] = CompletionItem.create("__")
 				}
-			});
+			})
 
-			let separatorAfter = '';
+			let separatorAfter = ""
 			if (addValue) {
 				separatorAfter = helpers.evaluateSeparatorAfter(
 					document,
 					document.offsetAt(overwriteRange.end)
-				);
+				)
 			}
 
 			// property proposals with schema
@@ -219,22 +215,22 @@ export class YAMLCompletion {
 				addValue,
 				collector,
 				separatorAfter
-			);
+			)
 
-			let location = node.getPath();
+			const location = node.getPath()
 			this.contributions.forEach(contribution => {
-				let collectPromise = contribution.collectPropertyCompletions(
+				const collectPromise = contribution.collectPropertyCompletions(
 					document.uri,
 					location,
 					currentWord,
 					addValue,
 					false,
 					collector
-				);
+				)
 				if (collectPromise) {
-					collectionPromises.push(collectPromise);
+					collectionPromises.push(collectPromise)
 				}
-			});
+			})
 		}
 
 		// property proposal for values
@@ -245,7 +241,7 @@ export class YAMLCompletion {
 			offset,
 			document,
 			collector
-		);
+		)
 		if (this.contributions.length > 0) {
 			completions.getContributedValueCompletions(
 				this.contributions,
@@ -254,17 +250,14 @@ export class YAMLCompletion {
 				document,
 				collector,
 				collectionPromises
-			);
+			)
 		}
 		if (this.customTags.length > 0) {
-			completions.getCustomTagValueCompletions(
-				collector,
-				this.customTags
-			);
+			completions.getCustomTagValueCompletions(collector, this.customTags)
 		}
 
 		return this.promise.all(collectionPromises).then(() => {
-			return result;
-		});
+			return result
+		})
 	}
 }

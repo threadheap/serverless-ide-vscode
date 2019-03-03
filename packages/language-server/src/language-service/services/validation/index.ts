@@ -1,28 +1,23 @@
-'use strict';
+"use strict"
 
-import { JSONSchemaService } from '../jsonSchema';
-import { DiagnosticSeverity, TextDocument } from 'vscode-languageserver-types';
-import { PromiseConstructor, LanguageSettings } from '../../languageService';
-import { YAMLDocument, Problem } from '../../parser';
-import { ErrorCode } from '../../parser/jsonParser';
+import { DiagnosticSeverity, TextDocument } from "vscode-languageserver-types"
+import { LanguageSettings } from "../../languageService"
+import { Problem, YAMLDocument } from "../../parser"
+import { ErrorCode } from "../../parser/jsonParser"
+import { JSONSchemaService } from "../jsonSchema"
 
 export class YAMLValidation {
-	private jsonSchemaService: JSONSchemaService;
-	private promise: PromiseConstructor;
-	private validationEnabled: boolean;
+	private jsonSchemaService: JSONSchemaService
+	private validationEnabled: boolean
 
-	public constructor(
-		jsonSchemaService: JSONSchemaService,
-		promiseConstructor: PromiseConstructor
-	) {
-		this.jsonSchemaService = jsonSchemaService;
-		this.promise = promiseConstructor;
-		this.validationEnabled = true;
+	public constructor(jsonSchemaService: JSONSchemaService) {
+		this.jsonSchemaService = jsonSchemaService
+		this.validationEnabled = true
 	}
 
 	public configure(shouldValidate: LanguageSettings) {
 		if (shouldValidate) {
-			this.validationEnabled = shouldValidate.validate;
+			this.validationEnabled = shouldValidate.validate
 		}
 	}
 
@@ -31,11 +26,11 @@ export class YAMLValidation {
 		yamlDocument: YAMLDocument
 	) {
 		if (!this.validationEnabled) {
-			return this.promise.resolve([]);
+			return Promise.resolve([])
 		}
 
-		const diagnostics = [];
-		const added = {};
+		const diagnostics = []
+		const added = {}
 
 		await Promise.all(
 			yamlDocument.documents.map(async (currentDoc, documentIndex) => {
@@ -43,12 +38,12 @@ export class YAMLValidation {
 					textDocument.uri,
 					currentDoc,
 					documentIndex
-				);
+				)
 
 				if (schema) {
 					const currentDocProblems = currentDoc.getValidationProblems(
 						schema.schema
-					);
+					)
 					currentDocProblems.forEach(problem => {
 						currentDoc.errors.push({
 							location: {
@@ -57,8 +52,8 @@ export class YAMLValidation {
 							},
 							message: problem.message,
 							code: ErrorCode.Undefined
-						});
-					});
+						})
+					})
 
 					if (schema && schema.errors.length > 0) {
 						schema.errors.forEach(error => {
@@ -75,44 +70,44 @@ export class YAMLValidation {
 									}
 								},
 								message: error
-							});
-						});
+							})
+						})
 					}
 				}
 			})
-		);
+		)
 
 		const addProblem = (
 			{ message, location }: Problem,
 			severity: number
 		) => {
 			const signature =
-				location.start + ' ' + location.end + ' ' + message;
+				location.start + " " + location.end + " " + message
 			// remove duplicated messages
 			if (!added[signature]) {
-				added[signature] = true;
+				added[signature] = true
 				const range = {
 					start: textDocument.positionAt(location.start),
 					end: textDocument.positionAt(location.end)
-				};
+				}
 				diagnostics.push({
 					severity,
 					range,
-					message: message
-				});
+					message
+				})
 			}
-		};
+		}
 
 		yamlDocument.documents.forEach(doc => {
 			doc.errors.forEach(error => {
-				addProblem(error, DiagnosticSeverity.Error);
-			});
+				addProblem(error, DiagnosticSeverity.Error)
+			})
 
 			doc.warnings.forEach(warning => {
-				addProblem(warning, DiagnosticSeverity.Warning);
-			});
-		});
+				addProblem(warning, DiagnosticSeverity.Warning)
+			})
+		})
 
-		return diagnostics;
+		return diagnostics
 	}
 }

@@ -1,22 +1,22 @@
+import * as URL from "url"
 import {
-	IPCMessageReader,
-	IPCMessageWriter,
 	createConnection,
 	IConnection,
-	TextDocumentSyncKind,
-	InitializeResult
-} from 'vscode-languageserver';
-import * as URL from 'url';
+	InitializeResult,
+	IPCMessageReader,
+	IPCMessageWriter,
+	TextDocumentSyncKind
+} from "vscode-languageserver"
 
 // Create a connection for the server.
-let connection: IConnection = null;
-if (process.argv.indexOf('--stdio') == -1) {
+let connection: IConnection = null
+if (process.argv.indexOf("--stdio") === -1) {
 	connection = createConnection(
 		new IPCMessageReader(process),
 		new IPCMessageWriter(process)
-	);
+	)
 } else {
-	connection = createConnection();
+	connection = createConnection()
 }
 
 // After the server has started the client sends an initialize request. The server receives
@@ -32,12 +32,12 @@ connection.onInitialize(
 					resolveProvider: false
 				}
 			}
-		};
+		}
 	}
-);
+)
 
 export let workspaceContext = {
 	resolveRelativePath: (relativePath: string, resource: string) => {
-		return URL.resolve(resource, relativePath);
+		return URL.resolve(resource, relativePath)
 	}
-};
+}
