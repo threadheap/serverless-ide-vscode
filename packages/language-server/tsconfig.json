@@ -7,6 +7,6 @@
 		"sourceMap": true,
 		"outDir": "./out"
 	},
-	"exclude": ["node_modules"],
+	"exclude": ["node_modules", "**/node_modules/**", "**/__tests__/**"],
 	"include": ["src"]
 }

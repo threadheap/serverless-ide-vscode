@@ -1,63 +1,55 @@
 {
-  "name": "@serverless-ide/language-server",
-  "description": "Serverless IDE language server",
-  "version": "0.2.0",
-  "author": "Pavel Vlasov <freakycue@gmail.com>",
-  "license": "MIT",
-  "engines": {
-    "node": "*"
-  },
-  "keywords": [
-    "aws",
-    "sam",
-    "cloudformation",
-    "cfn",
-    "serverless",
-    "yaml",
-    "autocompletion",
-    "validation",
-    "LSP"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/threadheap/serverless-ide-language-server.git"
-  },
-  "dependencies": {
-    "@serverless-ide/sam-schema": "^0.2.0",
-    "js-yaml": "^3.12.0",
-    "jsdom": "^13.2.0",
-    "jsonc-parser": "^1.0.3",
-    "lru-cache": "^5.1.1",
-    "prettier": "^1.15.2",
-    "request-light": "^0.2.3",
-    "vscode-json-languageservice": "3.0.12",
-    "vscode-languageserver": "^4.0.0",
-    "vscode-languageserver-types": "^3.6.1",
-    "vscode-nls": "^3.2.2",
-    "vscode-uri": "^1.0.6",
-    "yaml-ast-parser": "0.0.40"
-  },
-  "devDependencies": {
-    "@types/jest": "^23.3.12",
-    "@types/jsdom": "^12.2.2",
-    "@types/lru-cache": "^4.1.1",
-    "@types/node": "^9.4.7",
-    "@types/prettier": "^1.13.2",
-    "coveralls": "^3.0.0",
-    "jest": "^23.6.0",
-    "nyc": "^11.6.0",
-    "source-map-support": "^0.5.4",
-    "ts-jest": "^23.10.5",
-    "ts-node": "^5.0.1",
-    "typescript": "^3.2.2"
-  },
-  "scripts": {
-    "compile": "tsc -p .",
-    "watch": "tsc --watch -p .",
-    "test": "jest"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "gitHead": "4bc5eddda35b9e7cc28f2580da1960b017881f33"
+    "name": "@serverless-ide/language-server",
+    "description": "Serverless IDE language server",
+    "version": "0.2.0",
+    "author": "Pavel Vlasov <freakycue@gmail.com>",
+    "license": "MIT",
+    "engines": {
+        "node": "*"
+    },
+    "keywords": [
+        "aws",
+        "sam",
+        "cloudformation",
+        "cfn",
+        "serverless",
+        "yaml",
+        "autocompletion",
+        "validation",
+        "LSP"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/threadheap/serverless-ide-language-server.git"
+    },
+    "dependencies": {
+        "@serverless-ide/sam-schema": "^0.2.0",
+        "js-yaml": "^3.12.0",
+        "jsonc-parser": "^1.0.3",
+        "lru-cache": "^5.1.1",
+        "prettier": "^1.15.2",
+        "request-light": "^0.2.3",
+        "vscode-json-languageservice": "3.0.12",
+        "vscode-languageserver": "^4.0.0",
+        "vscode-languageserver-types": "^3.6.1",
+        "vscode-nls": "^3.2.2",
+        "vscode-uri": "^1.0.6",
+        "yaml-ast-parser": "0.0.40"
+    },
+    "devDependencies": {
+        "@types/lru-cache": "^4.1.1",
+        "@types/node": "^9.4.7",
+        "source-map-support": "^0.5.4"
+    },
+    "scripts": {
+        "compile": "tsc -p .",
+        "watch": "tsc --watch -p .",
+        "lint:types": "tsc --noEmit",
+        "lint:ts": "tslint -p ./",
+        "test": "jest"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "gitHead": "4bc5eddda35b9e7cc28f2580da1960b017881f33"
 }
