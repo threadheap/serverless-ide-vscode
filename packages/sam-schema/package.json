@@ -1,42 +1,45 @@
 {
-  "name": "@serverless-ide/sam-schema",
-  "version": "0.2.0",
-  "description": "Json schema for AWS SAM template configuration",
-  "main": "index.js",
-  "repository": "git@github.com:threadheap/aws-sam-json-schema.git",
-  "author": "Pavel Vlasov <freakycue@gmail.com>",
-  "keywords": [
-    "aws",
-    "sam",
-    "cloudformation",
-    "json",
-    "schema",
-    "validation"
-  ],
-  "license": "MIT",
-  "private": false,
-  "dependencies": {
-    "json-stable-stringify": "^1.0.1",
-    "lodash": "^4.17.11",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.2",
-    "typescript": "^3.2.2"
-  },
-  "devDependencies": {
-    "@types/json-stable-stringify": "^1.0.32",
-    "@types/lodash": "^4.14.119",
-    "@types/node": "^10.12.18",
-    "@types/request": "^2.48.1",
-    "@types/request-promise": "^4.1.42"
-  },
-  "scripts": {
-    "build": "rm -rf ./out && tsc -p .",
-    "watch": "rm -rf ./out && yarn build --watch",
-    "generate": "yarn build && node out/index.js",
-    "prepublish": "yarn generate"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "gitHead": "4bc5eddda35b9e7cc28f2580da1960b017881f33"
+    "name": "@serverless-ide/sam-schema",
+    "version": "0.2.1",
+    "description": "Json schema for AWS SAM template configuration",
+    "main": "index.js",
+    "repository": "git@github.com:threadheap/aws-sam-json-schema.git",
+    "author": "Pavel Vlasov <freakycue@gmail.com>",
+    "keywords": [
+        "aws",
+        "sam",
+        "cloudformation",
+        "json",
+        "schema",
+        "validation"
+    ],
+    "license": "MIT",
+    "private": false,
+    "dependencies": {
+        "json-stable-stringify": "^1.0.1",
+        "lodash": "^4.17.11",
+        "request": "^2.88.0",
+        "request-promise": "^4.2.2",
+        "typescript": "^3.2.2"
+    },
+    "devDependencies": {
+        "@types/json-stable-stringify": "^1.0.32",
+        "@types/lodash": "^4.14.119",
+        "@types/node": "^10.12.18",
+        "@types/request": "^2.48.1",
+        "@types/request-promise": "^4.1.42"
+    },
+    "scripts": {
+        "build": "rm -rf ./out && tsc -p .",
+        "lint:types": "tsc --noEmit",
+        "lint:ts": "tslint -p ./",
+        "lint:ts:fix": "tslint -p ./ --fix",
+        "watch": "rm -rf ./out && yarn build --watch",
+        "generate": "yarn build && node out/index.js",
+        "prepublish": "yarn generate"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "gitHead": "4bc5eddda35b9e7cc28f2580da1960b017881f33"
 }

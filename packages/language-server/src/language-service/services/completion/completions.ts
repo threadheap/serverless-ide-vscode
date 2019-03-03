@@ -1,23 +1,27 @@
-import { JSONSchema } from './../../jsonSchema';
-import {
-	JSONWorkerContribution,
-	CompletionsCollector
-} from './../../jsonContributions';
-import { ASTNode, PropertyASTNode } from './../../parser/jsonParser';
-import { ResolvedSchema } from '../jsonSchemaService';
-import { SingleYAMLDocument } from '../../parser/yamlParser';
 import {
 	CompletionItemKind,
-	TextDocument,
-	InsertTextFormat
-} from 'vscode-languageserver-types';
-import * as textCompletions from './text';
-import * as helpers from './helpers';
-import * as nls from 'vscode-nls';
-import { addPatternPropertiesCompletions } from './pattern-properties';
-import { getDefaultPropertyCompletions } from './defaultPropertyCompletions';
+	InsertTextFormat,
+	TextDocument
+} from "vscode-languageserver-types"
+import * as nls from "vscode-nls"
+import { SingleYAMLDocument } from "../../parser"
+import { ResolvedSchema } from "../jsonSchema"
+import {
+	CompletionsCollector,
+	JSONWorkerContribution
+} from "./../../jsonContributions"
+import { JSONSchema } from "./../../jsonSchema"
+import {
+	ASTNode,
+	ObjectASTNode,
+	PropertyASTNode
+} from "./../../parser/jsonParser"
+import { getDefaultPropertyCompletions } from "./defaultPropertyCompletions"
+import * as helpers from "./helpers"
+import { addPatternPropertiesCompletions } from "./pattern-properties"
+import * as textCompletions from "./text"
 
-const localize = nls.loadMessageBundle();
+const localize = nls.loadMessageBundle()
 
 export const getPropertyCompletions = (
 	schema: ResolvedSchema,
@@ -27,16 +31,16 @@ export const getPropertyCompletions = (
 	collector: CompletionsCollector,
 	separatorAfter: string
 ): void => {
-	let matchingSchemas = doc.getMatchingSchemas(schema.schema);
+	const matchingSchemas = doc.getMatchingSchemas(schema.schema)
 	matchingSchemas.forEach(s => {
 		if (s.node === node && !s.inverted) {
-			let schemaProperties = s.schema.properties;
+			const schemaProperties = s.schema.properties
 			if (schemaProperties) {
 				Object.keys(schemaProperties).forEach((key: string) => {
-					let propertySchema = schemaProperties[key];
+					const propertySchema = schemaProperties[key]
 					if (
 						!propertySchema.deprecationMessage &&
-						!propertySchema['doNotSuggest']
+						!propertySchema.doNotSuggest
 					) {
 						collector.add({
 							kind: CompletionItemKind.Property,
@@ -48,10 +52,10 @@ export const getPropertyCompletions = (
 								separatorAfter
 							),
 							insertTextFormat: InsertTextFormat.Snippet,
-							documentation: propertySchema.description || ''
-						});
+							documentation: propertySchema.description || ""
+						})
 					}
-				});
+				})
 			}
 			// Error fix
 			// If this is a array of string/boolean/number
@@ -59,16 +63,16 @@ export const getPropertyCompletions = (
 			//    - item1
 			// it will treated as a property key since `:` has been appended
 			if (
-				node.type === 'object' &&
+				node.type === "object" &&
 				node.parent &&
-				node.parent.type === 'array' &&
-				s.schema.type !== 'object'
+				node.parent.type === "array" &&
+				s.schema.type !== "object"
 			) {
-				addSchemaValueCompletions(s.schema, collector, separatorAfter);
+				addSchemaValueCompletions(s.schema, collector, separatorAfter)
 			}
 		}
-	});
-};
+	})
+}
 
 export const getValueCompletions = (
 	schema: ResolvedSchema,
@@ -78,67 +82,66 @@ export const getValueCompletions = (
 	document: TextDocument,
 	collector: CompletionsCollector
 ): void => {
-	let offsetForSeparator = offset;
-	let parentKey: string = null;
-	let valueNode: ASTNode = null;
+	let offsetForSeparator = offset
+	let parentKey: string = null
+	let valueNode: ASTNode = null
 
-	getDefaultPropertyCompletions(node, collector);
+	getDefaultPropertyCompletions(node, collector)
 
 	if (
 		node &&
-		(node.type === 'string' ||
-			node.type === 'number' ||
-			node.type === 'boolean')
+		(node.type === "string" ||
+			node.type === "number" ||
+			node.type === "boolean")
 	) {
-		offsetForSeparator = node.end;
-		valueNode = node;
-		node = node.parent;
+		offsetForSeparator = node.end
+		valueNode = node
+		node = node.parent
 	}
 
-	if (node && node.type === 'null') {
-		let nodeParent = node.parent;
+	if (node && node.type === "null") {
+		const nodeParent = node.parent
 
 		/*
 		 * This is going to be an object for some reason and we need to find the property
 		 * Its an issue with the null node
 		 */
-		if (nodeParent && nodeParent.type === 'object') {
-			for (let prop in nodeParent['properties']) {
-				let currNode = nodeParent['properties'][prop];
-				if (currNode.key && currNode.key.location === node.location) {
-					node = currNode;
+		if (nodeParent && nodeParent.type === "object") {
+			;(nodeParent as ObjectASTNode).properties.forEach(prop => {
+				if (prop.key && prop.key.location === node.location) {
+					node = prop
 				}
-			}
+			})
 		}
 	}
 
 	if (!node) {
-		addSchemaValueCompletions(schema.schema, collector, '');
-		return;
+		addSchemaValueCompletions(schema.schema, collector, "")
+		return
 	}
 
 	if (
-		node.type === 'property' &&
-		offset > (<PropertyASTNode>node).colonOffset
+		node.type === "property" &&
+		offset > (node as PropertyASTNode).colonOffset
 	) {
-		let propertyNode = <PropertyASTNode>node;
-		let valueNode = propertyNode.value;
-		if (valueNode && offset > valueNode.end) {
-			return; // we are past the value node
+		const propertyNode = node as PropertyASTNode
+		const propertyValueNode = propertyNode.value
+		if (propertyValueNode && offset > propertyValueNode.end) {
+			return // we are past the value node
 		}
-		parentKey = propertyNode.key.value;
-		node = node.parent;
+		parentKey = propertyNode.key.value
+		node = node.parent
 	}
 
-	let separatorAfter = helpers.evaluateSeparatorAfter(
+	const separatorAfter = helpers.evaluateSeparatorAfter(
 		document,
 		offsetForSeparator
-	);
+	)
 	if (
 		node &&
-		(parentKey !== null || node.type === 'array' || node.type === 'object')
+		(parentKey !== null || node.type === "array" || node.type === "object")
 	) {
-		let matchingSchemas = doc.getMatchingSchemas(schema.schema);
+		const matchingSchemas = doc.getMatchingSchemas(schema.schema)
 
 		matchingSchemas.forEach(s => {
 			if (
@@ -149,26 +152,26 @@ export const getValueCompletions = (
 					s.schema.patternProperties,
 					collector,
 					separatorAfter
-				);
+				)
 			}
 
 			if (s.node === node && !s.inverted && s.schema) {
 				if (s.schema.items) {
 					if (Array.isArray(s.schema.items)) {
-						let index = helpers.findItemAtOffset(
+						const index = helpers.findItemAtOffset(
 							node,
 							document,
 							offset
-						);
+						)
 						if (index < s.schema.items.length) {
 							addSchemaValueCompletions(
 								s.schema.items[index],
 								collector,
 								separatorAfter,
 								true
-							);
+							)
 						}
-					} else if (s.schema.items.type === 'object') {
+					} else if (s.schema.items.type === "object") {
 						collector.add({
 							kind: helpers.getSuggestionKind(
 								s.schema.items.type
@@ -176,8 +179,8 @@ export const getValueCompletions = (
 							label: `- (array item)`,
 							documentation: `Create an item of an array${
 								s.schema.description === undefined
-									? ''
-									: '(' + s.schema.description + ')'
+									? ""
+									: "(" + s.schema.description + ")"
 							}`,
 							insertText: `- ${textCompletions
 								.getInsertTextForObject(
@@ -186,31 +189,31 @@ export const getValueCompletions = (
 								)
 								.insertText.trimLeft()}`,
 							insertTextFormat: InsertTextFormat.Snippet
-						});
+						})
 					} else {
 						addSchemaValueCompletions(
 							s.schema.items,
 							collector,
 							separatorAfter,
 							true
-						);
+						)
 					}
 				}
 				if (s.schema.properties) {
-					let propertySchema = s.schema.properties[parentKey];
+					const propertySchema = s.schema.properties[parentKey]
 					if (propertySchema) {
 						addSchemaValueCompletions(
 							propertySchema,
 							collector,
 							separatorAfter,
 							false
-						);
+						)
 					}
 				}
 			}
-		});
+		})
 	}
-};
+}
 
 export const getContributedValueCompletions = (
 	contributions: JSONWorkerContribution[],
@@ -218,63 +221,63 @@ export const getContributedValueCompletions = (
 	offset: number,
 	document: TextDocument,
 	collector: CompletionsCollector,
-	collectionPromises: Thenable<any>[]
+	collectionPromises: Array<Promise<any>>
 ) => {
 	if (!node) {
 		contributions.forEach(contribution => {
-			let collectPromise = contribution.collectDefaultCompletions(
+			const collectPromise = contribution.collectDefaultCompletions(
 				document.uri,
 				collector
-			);
+			)
 			if (collectPromise) {
-				collectionPromises.push(collectPromise);
+				collectionPromises.push(collectPromise)
 			}
-		});
+		})
 	} else {
 		if (
-			node.type === 'string' ||
-			node.type === 'number' ||
-			node.type === 'boolean' ||
-			node.type === 'null'
+			node.type === "string" ||
+			node.type === "number" ||
+			node.type === "boolean" ||
+			node.type === "null"
 		) {
-			node = node.parent;
+			node = node.parent
 		}
 		if (
-			node.type === 'property' &&
-			offset > (<PropertyASTNode>node).colonOffset
+			node.type === "property" &&
+			offset > (node as PropertyASTNode).colonOffset
 		) {
-			let parentKey = (<PropertyASTNode>node).key.value;
+			const parentKey = (node as PropertyASTNode).key.value
 
-			let valueNode = (<PropertyASTNode>node).value;
+			const valueNode = (node as PropertyASTNode).value
 			if (!valueNode || offset <= valueNode.end) {
-				let location = node.parent.getPath();
+				const location = node.parent.getPath()
 				contributions.forEach(contribution => {
-					let collectPromise = contribution.collectValueCompletions(
+					const collectPromise = contribution.collectValueCompletions(
 						document.uri,
 						location,
 						parentKey,
 						collector
-					);
+					)
 					if (collectPromise) {
-						collectionPromises.push(collectPromise);
+						collectionPromises.push(collectPromise)
 					}
-				});
+				})
 			}
 		}
 	}
-};
+}
 
 export const getCustomTagValueCompletions = (
 	collector: CompletionsCollector,
-	customTags: Array<String>
+	customTags: string[]
 ) => {
 	customTags.forEach(customTagItem => {
-		let tagItemSplit = customTagItem.split(' ');
+		const tagItemSplit = customTagItem.split(" ")
 		if (tagItemSplit && tagItemSplit[0]) {
-			addCustomTagValueCompletion(collector, ' ', tagItemSplit[0]);
+			addCustomTagValueCompletion(collector, " ", tagItemSplit[0])
 		}
-	});
-};
+	})
+}
 
 export const addSchemaValueCompletions = (
 	schema: JSONSchema,
@@ -282,23 +285,23 @@ export const addSchemaValueCompletions = (
 	separatorAfter: string,
 	forArrayItem = false
 ): void => {
-	let types: { [type: string]: boolean } = {};
+	const types: { [type: string]: boolean } = {}
 	addSchemaValueCompletionsCore(
 		schema,
 		collector,
 		types,
 		separatorAfter,
 		forArrayItem
-	);
+	)
 
-	if (types['boolean']) {
-		addBooleanValueCompletion(true, collector, separatorAfter);
-		addBooleanValueCompletion(false, collector, separatorAfter);
+	if (types.boolean) {
+		addBooleanValueCompletion(true, collector, separatorAfter)
+		addBooleanValueCompletion(false, collector, separatorAfter)
 	}
-	if (types['null']) {
-		addNullValueCompletion(collector, separatorAfter);
+	if (types.null) {
+		addNullValueCompletion(collector, separatorAfter)
 	}
-};
+}
 
 export const addSchemaValueCompletionsCore = (
 	schema: JSONSchema,
@@ -313,9 +316,9 @@ export const addSchemaValueCompletionsCore = (
 		separatorAfter,
 		0,
 		forArrayItem
-	);
-	addEnumValueCompletions(schema, collector, separatorAfter, forArrayItem);
-	collectTypes(schema, types);
+	)
+	addEnumValueCompletions(schema, collector, separatorAfter, forArrayItem)
+	collectTypes(schema, types)
 	if (Array.isArray(schema.allOf)) {
 		schema.allOf.forEach(s =>
 			addSchemaValueCompletionsCore(
@@ -325,7 +328,7 @@ export const addSchemaValueCompletionsCore = (
 				separatorAfter,
 				forArrayItem
 			)
-		);
+		)
 	}
 	if (Array.isArray(schema.anyOf)) {
 		schema.anyOf.forEach(s =>
@@ -336,7 +339,7 @@ export const addSchemaValueCompletionsCore = (
 				separatorAfter,
 				forArrayItem
 			)
-		);
+		)
 	}
 	if (Array.isArray(schema.oneOf)) {
 		schema.oneOf.forEach(s =>
@@ -347,9 +350,9 @@ export const addSchemaValueCompletionsCore = (
 				separatorAfter,
 				forArrayItem
 			)
-		);
+		)
 	}
-};
+}
 
 export const addDefaultValueCompletions = (
 	schema: JSONSchema,
@@ -358,13 +361,13 @@ export const addDefaultValueCompletions = (
 	arrayDepth = 0,
 	forArrayItem = false
 ): void => {
-	let hasProposals = false;
+	let hasProposals = false
 	if (schema.default) {
-		let type = schema.type;
-		let value = schema.default;
+		let type = schema.type
+		let value = schema.default
 		for (let i = arrayDepth; i > 0; i--) {
-			value = [value];
-			type = 'array';
+			value = [value]
+			type = "array"
 		}
 		collector.add({
 			kind: helpers.getSuggestionKind(type),
@@ -378,9 +381,9 @@ export const addDefaultValueCompletions = (
 				  )}`
 				: textCompletions.getInsertTextForValue(value, separatorAfter),
 			insertTextFormat: InsertTextFormat.Snippet,
-			detail: localize('json.suggest.default', 'Default value')
-		});
-		hasProposals = true;
+			detail: localize("json.suggest.default", "Default value")
+		})
+		hasProposals = true
 	}
 	if (!hasProposals && schema.items && !Array.isArray(schema.items)) {
 		addDefaultValueCompletions(
@@ -388,9 +391,9 @@ export const addDefaultValueCompletions = (
 			collector,
 			separatorAfter,
 			arrayDepth + 1
-		);
+		)
 	}
-};
+}
 
 export const addEnumValueCompletions = (
 	schema: JSONSchema,
@@ -400,10 +403,10 @@ export const addEnumValueCompletions = (
 ): void => {
 	if (Array.isArray(schema.enum)) {
 		for (let i = 0, length = schema.enum.length; i < length; i++) {
-			let enm = schema.enum[i];
-			let documentation = schema.description;
+			const enm = schema.enum[i]
+			let documentation = schema.description
 			if (schema.enumDescriptions && i < schema.enumDescriptions.length) {
-				documentation = schema.enumDescriptions[i];
+				documentation = schema.enumDescriptions[i]
 			}
 			collector.add({
 				kind: helpers.getSuggestionKind(schema.type),
@@ -421,22 +424,22 @@ export const addEnumValueCompletions = (
 					  ),
 				insertTextFormat: InsertTextFormat.Snippet,
 				documentation
-			});
+			})
 		}
 	}
-};
+}
 
 export const collectTypes = (
 	schema: JSONSchema,
 	types: { [type: string]: boolean }
 ) => {
-	let type = schema.type;
+	const type = schema.type
 	if (Array.isArray(type)) {
-		type.forEach(t => (types[t] = true));
+		type.forEach(t => (types[t] = true))
 	} else {
-		types[type] = true;
+		types[type] = true
 	}
-};
+}
 
 export const addBooleanValueCompletion = (
 	value: boolean,
@@ -444,29 +447,29 @@ export const addBooleanValueCompletion = (
 	separatorAfter: string
 ): void => {
 	collector.add({
-		kind: helpers.getSuggestionKind('boolean'),
-		label: value ? 'true' : 'false',
+		kind: helpers.getSuggestionKind("boolean"),
+		label: value ? "true" : "false",
 		insertText: textCompletions.getInsertTextForValue(
 			value,
 			separatorAfter
 		),
 		insertTextFormat: InsertTextFormat.Snippet,
-		documentation: ''
-	});
-};
+		documentation: ""
+	})
+}
 
 export const addNullValueCompletion = (
 	collector: CompletionsCollector,
 	separatorAfter: string
 ): void => {
 	collector.add({
-		kind: helpers.getSuggestionKind('null'),
-		label: 'null',
-		insertText: 'null' + separatorAfter,
+		kind: helpers.getSuggestionKind("null"),
+		label: "null",
+		insertText: "null" + separatorAfter,
 		insertTextFormat: InsertTextFormat.Snippet,
-		documentation: ''
-	});
-};
+		documentation: ""
+	})
+}
 
 export const addCustomTagValueCompletion = (
 	collector: CompletionsCollector,
@@ -474,10 +477,10 @@ export const addCustomTagValueCompletion = (
 	label: string
 ): void => {
 	collector.add({
-		kind: helpers.getSuggestionKind('string'),
-		label: label,
+		kind: helpers.getSuggestionKind("string"),
+		label,
 		insertText: label + separatorAfter,
 		insertTextFormat: InsertTextFormat.Snippet,
-		documentation: ''
-	});
-};
+		documentation: ""
+	})
+}

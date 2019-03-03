@@ -1,159 +1,99 @@
-import { YAMLDocument } from './parser/yamlParser';
-import { JSONSchemaService } from './services/jsonSchemaService';
 import {
-	TextDocument,
-	Position,
 	CompletionList,
-	Diagnostic
-} from 'vscode-languageserver-types';
-import { JSONSchema } from './jsonSchema';
-import { YAMLDocumentSymbols } from './services/documentSymbols';
-import { YAMLCompletion } from './services/completion';
-import { YAMLHover } from './services/hover';
-import { YAMLValidation } from './services/validation';
+	Diagnostic,
+	Position,
+	TextDocument
+} from "vscode-languageserver-types"
+import { JSONSchema } from "./jsonSchema"
+import { YAMLDocument } from "./parser"
+import { YAMLCompletion } from "./services/completion"
+import { YAMLDocumentSymbols } from "./services/documentSymbols"
+import { YAMLHover } from "./services/hover"
+import { JSONSchemaService } from "./services/jsonSchema"
+import { YAMLValidation } from "./services/validation"
 
 export interface LanguageSettings {
-	validate?: boolean; //Setting for whether we want to validate the schema
-	hover?: boolean; //Setting for whether we want to have hover results
-	completion?: boolean; //Setting for whether we want to have completion results
-	isKubernetes?: boolean; //If true then its validating against kubernetes
-	schemas?: any[]; //List of schemas,
-	customTags?: Array<String>; //Array of Custom Tags
-}
-
-export interface PromiseConstructor {
-	/**
-	 * Creates a new Promise.
-	 * @param executor A callback used to initialize the promise. This callback is passed two arguments:
-	 * a resolve callback used resolve the promise with a value or the result of another promise,
-	 * and a reject callback used to reject the promise with a provided reason or error.
-	 */
-	new <T>(
-		executor: (
-			resolve: (value?: T | Thenable<T>) => void,
-			reject: (reason?: any) => void
-		) => void
-	): Thenable<T>;
-
-	/**
-	 * Creates a Promise that is resolved with an array of results when all of the provided Promises
-	 * resolve, or rejected when any Promise is rejected.
-	 * @param values An array of Promises.
-	 * @returns A new Promise.
-	 */
-	all<T>(values: Array<T | Thenable<T>>): Thenable<T[]>;
-	/**
-	 * Creates a new rejected promise for the provided reason.
-	 * @param reason The reason the promise was rejected.
-	 * @returns A new rejected Promise.
-	 */
-	reject<T>(reason: any): Thenable<T>;
-
-	/**
-	 * Creates a new resolved promise for the provided value.
-	 * @param value A promise.
-	 * @returns A promise whose internal state matches the provided promise.
-	 */
-	resolve<T>(value: T | Thenable<T>): Thenable<T>;
-}
-
-export interface Thenable<R> {
-	/**
-	 * Attaches callbacks for the resolution and/or rejection of the Promise.
-	 * @param onfulfilled The callback to execute when the Promise is resolved.
-	 * @param onrejected The callback to execute when the Promise is rejected.
-	 * @returns A Promise for the completion of which ever callback is executed.
-	 */
-	then<TResult>(
-		onfulfilled?: (value: R) => TResult | Thenable<TResult>,
-		onrejected?: (reason: any) => TResult | Thenable<TResult>
-	): Thenable<TResult>;
-	then<TResult>(
-		onfulfilled?: (value: R) => TResult | Thenable<TResult>,
-		onrejected?: (reason: any) => void
-	): Thenable<TResult>;
+	validate?: boolean // Setting for whether we want to validate the schema
+	hover?: boolean // Setting for whether we want to have hover results
+	completion?: boolean // Setting for whether we want to have completion results
+	isKubernetes?: boolean // If true then its validating against kubernetes
+	schemas?: any[] // List of schemas,
+	customTags?: string[] // Array of Custom Tags
 }
 
 export interface WorkspaceContextService {
-	resolveRelativePath(relativePath: string, resource: string): string;
+	resolveRelativePath(relativePath: string, resource: string): string
 }
 /**
  * The schema request service is used to fetch schemas. The result should the schema file comment, or,
  * in case of an error, a displayable error string
  */
-export interface SchemaRequestService {
-	(uri: string): Thenable<string>;
-}
+export type SchemaRequestService = (uri: string) => Promise<string>
 
 export interface SchemaConfiguration {
 	/**
 	 * The URI of the schema, which is also the identifier of the schema.
 	 */
-	uri: string;
+	uri: string
 	/**
 	 * A list of file names that are associated to the schema. The '*' wildcard can be used. For example '*.schema.json', 'package.json'
 	 */
-	fileMatch?: string[];
+	fileMatch?: string[]
 	/**
 	 * The schema for the given URI.
 	 * If no schema is provided, the schema will be fetched with the schema request service (if available).
 	 */
-	schema?: JSONSchema;
+	schema?: JSONSchema
 }
 
 export interface CustomFormatterOptions {
-	singleQuote?: boolean;
-	bracketSpacing?: boolean;
-	proseWrap?: string;
+	singleQuote?: boolean
+	bracketSpacing?: boolean
+	proseWrap?: string
 }
 
 export interface LanguageService {
-	configure(settings): void;
+	configure(settings): void
 	doComplete(
 		document: TextDocument,
 		position: Position,
 		doc: YAMLDocument
-	): Thenable<CompletionList>;
-	doValidation(document: TextDocument, yamlDocument): Thenable<Diagnostic[]>;
-	doHover(document: TextDocument, position: Position, doc);
-	findDocumentSymbols(document: TextDocument, doc);
-	doResolve(completionItem);
-	resetSchema(uri: string): boolean;
+	): Promise<CompletionList>
+	doValidation(document: TextDocument, yamlDocument): Promise<Diagnostic[]>
+	doHover(document: TextDocument, position: Position, doc: YAMLDocument)
+	findDocumentSymbols(document: TextDocument, doc: YAMLDocument)
+	doResolve(completionItem)
+	resetSchema(uri: string): boolean
 }
 
 export function getLanguageService(
 	workspaceContext,
-	contributions,
-	promiseConstructor?
+	contributions
 ): LanguageService {
-	const promise = promiseConstructor || Promise;
+	const schemaService = new JSONSchemaService(workspaceContext)
 
-	const schemaService = new JSONSchemaService(workspaceContext);
-
-	let completer = new YAMLCompletion(schemaService, contributions, promise);
-	let hover = new YAMLHover(schemaService);
-	let yamlDocumentSymbols = new YAMLDocumentSymbols();
-	let yamlValidation = new YAMLValidation(schemaService, promise);
+	const completer = new YAMLCompletion(schemaService, contributions)
+	const hover = new YAMLHover(schemaService)
+	const yamlDocumentSymbols = new YAMLDocumentSymbols()
+	const yamlValidation = new YAMLValidation(schemaService)
 
 	return {
 		configure: settings => {
-			schemaService.clearExternalSchemas();
+			schemaService.clearExternalSchemas()
 			if (settings.schemas) {
-				settings.schemas.forEach(settings => {
+				settings.schemas.forEach(schemaSettings => {
 					schemaService.registerExternalSchema(
-						settings.uri,
-						settings.fileMatch,
-						settings.schema
-					);
-				});
+						schemaSettings.uri,
+						schemaSettings.fileMatch,
+						schemaSettings.schema
+					)
+				})
 			}
-			yamlValidation.configure(settings);
-			hover.configure(settings);
-			let customTagsSetting =
-				settings && settings['customTags']
-					? settings['customTags']
-					: [];
-			completer.configure(settings, customTagsSetting);
+			yamlValidation.configure(settings)
+			hover.configure(settings)
+			const customTagsSetting =
+				settings && settings.customTags ? settings.customTags : []
+			completer.configure(settings, customTagsSetting)
 		},
 		doComplete: completer.doComplete.bind(completer),
 		doResolve: completer.doResolve.bind(completer),
@@ -163,5 +103,5 @@ export function getLanguageService(
 			yamlDocumentSymbols
 		),
 		resetSchema: (uri: string) => schemaService.onResourceChange(uri)
-	};
+	}
 }

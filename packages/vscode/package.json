@@ -1,151 +1,154 @@
 {
-  "name": "serverless-ide-vscode",
-  "displayName": "Serverless IDE",
-  "description": "Enhanced support for AWS SAM and CloudFormation",
-  "author": "Pavel Vlasov <freakycue@gmail.com>",
-  "publisher": "ThreadHeap",
-  "license": "MIT",
-  "version": "0.2.0",
-  "preview": false,
-  "bugs": "https://github.com/threadheap/serverless-ide-vscode/issues",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/threadheap/serverless-ide-vscode"
-  },
-  "icon": "icon/icon.png",
-  "engines": {
-    "vscode": "^1.22.0"
-  },
-  "categories": [
-    "Other",
-    "Programming Languages",
-    "Linters",
-    "Snippets",
-    "Formatters"
-  ],
-  "galleryBanner": {
-    "color": "#1b1c1d",
-    "theme": "dark"
-  },
-  "activationEvents": [
-    "onLanguage:yaml"
-  ],
-  "keywords": [
-    "aws",
-    "sam",
-    "cloudformation",
-    "cfn",
-    "serverless",
-    "yaml",
-    "autocompletion",
-    "validation"
-  ],
-  "main": "./out/extension",
-  "contributes": {
-    "languages": [
-      {
-        "id": "yaml",
-        "aliases": [
-          "YAML",
-          "yaml"
-        ],
-        "extensions": [
-          ".yml",
-          ".yaml"
-        ],
-        "filenames": [],
-        "firstLine": "^#cloud-config",
-        "configuration": "./language-configuration.json"
-      }
-    ],
-    "grammars": [
-      {
-        "language": "yaml",
-        "scopeName": "source.yaml",
-        "path": "./syntaxes/yaml.tmLanguage.json"
-      }
-    ],
-    "yamlValidation": [],
-    "configuration": {
-      "type": "object",
-      "title": "Serverless IDE configuration",
-      "properties": {
-        "serverlessIDE.SAM.templatePattern": {
-          "description": "Template pattern for AWS SAM configuration files",
-          "type": "string",
-          "default": "*.sam.yaml"
-        },
-        "serverlessIDE.CloudFormation.templatePattern": {
-          "description": "Template pattern for AWS CloudFormation configuration files",
-          "type": "string",
-          "default": "*.cf.yaml"
-        },
-        "serverlessIDE.templatePattern": {
-          "description": "[DEPERECATED] Use `SAM` and `CloudFormation` settings instead",
-          "type": "string"
-        },
-        "serverlessIDE.trace.server": {
-          "type": "string",
-          "enum": [
-            "off",
-            "messages",
-            "verbose"
-          ],
-          "default": "off",
-          "description": "Traces the communication between VSCode and the language server service."
-        },
-        "serverlessIDE.validate": {
-          "type": "boolean",
-          "default": true,
-          "description": "Enable/disable validation feature"
-        },
-        "serverlessIDE.hover": {
-          "type": "boolean",
-          "default": true,
-          "description": "Enable/disable hover feature"
-        },
-        "serverlessIDE.completion": {
-          "type": "boolean",
-          "default": true,
-          "description": "Enable/disable completion feature"
-        }
-      }
+    "name": "serverless-ide-vscode",
+    "displayName": "Serverless IDE",
+    "description": "Enhanced support for AWS SAM and CloudFormation",
+    "author": "Pavel Vlasov <freakycue@gmail.com>",
+    "publisher": "ThreadHeap",
+    "license": "MIT",
+    "version": "0.2.1",
+    "preview": false,
+    "bugs": "https://github.com/threadheap/serverless-ide-vscode/issues",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/threadheap/serverless-ide-vscode"
     },
-    "configurationDefaults": {
-      "[yaml]": {
-        "editor.insertSpaces": true,
-        "editor.tabSize": 2,
-        "editor.quickSuggestions": {
-          "other": true,
-          "comments": false,
-          "strings": true
+    "icon": "icon/icon.png",
+    "engines": {
+        "vscode": "^1.22.0"
+    },
+    "categories": [
+        "Other",
+        "Programming Languages",
+        "Linters",
+        "Snippets",
+        "Formatters"
+    ],
+    "galleryBanner": {
+        "color": "#1b1c1d",
+        "theme": "dark"
+    },
+    "activationEvents": [
+        "onLanguage:yaml"
+    ],
+    "keywords": [
+        "aws",
+        "sam",
+        "cloudformation",
+        "cfn",
+        "serverless",
+        "yaml",
+        "autocompletion",
+        "validation"
+    ],
+    "main": "./out/extension",
+    "contributes": {
+        "languages": [
+            {
+                "id": "yaml",
+                "aliases": [
+                    "YAML",
+                    "yaml"
+                ],
+                "extensions": [
+                    ".yml",
+                    ".yaml"
+                ],
+                "filenames": [],
+                "firstLine": "^#cloud-config",
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "yaml",
+                "scopeName": "source.yaml",
+                "path": "./syntaxes/yaml.tmLanguage.json"
+            }
+        ],
+        "yamlValidation": [],
+        "configuration": {
+            "type": "object",
+            "title": "Serverless IDE configuration",
+            "properties": {
+                "serverlessIDE.SAM.templatePattern": {
+                    "description": "Template pattern for AWS SAM configuration files",
+                    "type": "string",
+                    "default": "*.sam.yaml"
+                },
+                "serverlessIDE.CloudFormation.templatePattern": {
+                    "description": "Template pattern for AWS CloudFormation configuration files",
+                    "type": "string",
+                    "default": "*.cf.yaml"
+                },
+                "serverlessIDE.templatePattern": {
+                    "description": "[DEPERECATED] Use `SAM` and `CloudFormation` settings instead",
+                    "type": "string"
+                },
+                "serverlessIDE.trace.server": {
+                    "type": "string",
+                    "enum": [
+                        "off",
+                        "messages",
+                        "verbose"
+                    ],
+                    "default": "off",
+                    "description": "Traces the communication between VSCode and the language server service."
+                },
+                "serverlessIDE.validate": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable/disable validation feature"
+                },
+                "serverlessIDE.hover": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable/disable hover feature"
+                },
+                "serverlessIDE.completion": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable/disable completion feature"
+                }
+            }
         },
-        "editor.autoIndent": false
-      }
-    }
-  },
-  "scripts": {
-    "vscode:prepublish": "rm -rf node_modules && npm install && yarn compile",
-    "compile": "tsc -p ./",
-    "watch": "yarn compile --watch",
-    "prepublish": "yarn compile",
-    "marketplace:package": "vsce package",
-    "marketplace:publish": "vsce publish"
-  },
-  "devDependencies": {
-    "@types/node": "^6.0.52",
-    "ts-node": "^3.3.0",
-    "typescript": "^3.2.2",
-    "vscode": "^1.1.17"
-  },
-  "dependencies": {
-    "@serverless-ide/language-server": "^0.2.0",
-    "vscode-languageclient": "3.5.1",
-    "vscode-nls": "^3.2.1",
-    "vscode-uri": "^1.0.5"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "gitHead": "4bc5eddda35b9e7cc28f2580da1960b017881f33"
+        "configurationDefaults": {
+            "[yaml]": {
+                "editor.insertSpaces": true,
+                "editor.tabSize": 2,
+                "editor.quickSuggestions": {
+                    "other": true,
+                    "comments": false,
+                    "strings": true
+                },
+                "editor.autoIndent": false
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "rm -rf node_modules && npm install && yarn compile",
+        "compile": "tsc -p ./",
+        "lint:types": "tsc --noEmit",
+        "lint:ts": "tslint -p ./",
+        "lint:ts:fix": "tslint -p ./ --fix",
+        "watch": "yarn compile --watch",
+        "prepublish": "yarn compile",
+        "marketplace:package": "vsce package",
+        "marketplace:publish": "vsce publish"
+    },
+    "devDependencies": {
+        "@types/node": "^6.0.52",
+        "ts-node": "^3.3.0",
+        "typescript": "^3.2.2",
+        "vscode": "^1.1.17"
+    },
+    "dependencies": {
+        "@serverless-ide/language-server": "^0.2.1",
+        "vscode-languageclient": "3.5.1",
+        "vscode-nls": "^3.2.1",
+        "vscode-uri": "^1.0.5"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "gitHead": "4bc5eddda35b9e7cc28f2580da1960b017881f33"
 }

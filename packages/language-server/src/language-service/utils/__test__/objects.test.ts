@@ -1,105 +1,105 @@
-import { equals } from "../objects";
+import { equals } from "../objects"
 
-describe("Object Equals Tests", function() {
-  it("Both are null", () => {
-    let one = null;
-    let other = null;
+describe("Object Equals Tests", () => {
+	it("Both are null", () => {
+		const one = null
+		const other = null
 
-    var result = equals(one, other);
-    expect(result).toBe(true);
-  });
+		const result = equals(one, other)
+		expect(result).toBe(true)
+	})
 
-  it("One is null the other is true", () => {
-    let one = null;
-    let other = true;
+	it("One is null the other is true", () => {
+		const one = null
+		const other = true
 
-    var result = equals(one, other);
-    expect(result).toBe(false);
-  });
+		const result = equals(one, other)
+		expect(result).toBe(false)
+	})
 
-  it("One is string the other is boolean", () => {
-    let one = "test";
-    let other = false;
+	it("One is string the other is boolean", () => {
+		const one = "test"
+		const other = false
 
-    var result = equals(one, other);
-    expect(result).toBe(false);
-  });
+		const result = equals(one, other)
+		expect(result).toBe(false)
+	})
 
-  it("One is not object", () => {
-    let one = "test";
-    let other = false;
+	it("One is not object", () => {
+		const one = "test"
+		const other = false
 
-    var result = equals(one, other);
-    expect(result).toBe(false);
-  });
+		const result = equals(one, other)
+		expect(result).toBe(false)
+	})
 
-  it("One is array the other is not", () => {
-    let one = new Proxy([], {});
-    let other = Object.keys({
-      1: "2",
-      2: "3"
-    });
-    var result = equals(one, other);
-    expect(result).toBe(false);
-  });
+	it("One is array the other is not", () => {
+		const one = new Proxy([], {})
+		const other = Object.keys({
+			1: "2",
+			2: "3"
+		})
+		const result = equals(one, other)
+		expect(result).toBe(false)
+	})
 
-  it("Both are arrays of different length", () => {
-    let one = [1, 2, 3];
-    let other = [1, 2, 3, 4];
+	it("Both are arrays of different length", () => {
+		const one = [1, 2, 3]
+		const other = [1, 2, 3, 4]
 
-    var result = equals(one, other);
-    expect(result).toBe(false);
-  });
+		const result = equals(one, other)
+		expect(result).toBe(false)
+	})
 
-  it("Both are arrays of same elements but in different order", () => {
-    let one = [1, 2, 3];
-    let other = [3, 2, 1];
+	it("Both are arrays of same elements but in different order", () => {
+		const one = [1, 2, 3]
+		const other = [3, 2, 1]
 
-    var result = equals(one, other);
-    expect(result).toBe(false);
-  });
+		const result = equals(one, other)
+		expect(result).toBe(false)
+	})
 
-  it("Arrays that are equal", () => {
-    let one = [1, 2, 3];
-    let other = [1, 2, 3];
+	it("Arrays that are equal", () => {
+		const one = [1, 2, 3]
+		const other = [1, 2, 3]
 
-    var result = equals(one, other);
-    expect(result).toBe(true);
-  });
+		const result = equals(one, other)
+		expect(result).toBe(true)
+	})
 
-  it("Objects that are equal", () => {
-    let one = {
-      test: 1
-    };
-    let other = {
-      test: 1
-    };
+	it("Objects that are equal", () => {
+		const one = {
+			test: 1
+		}
+		const other = {
+			test: 1
+		}
 
-    var result = equals(one, other);
-    expect(result).toBe(true);
-  });
+		const result = equals(one, other)
+		expect(result).toBe(true)
+	})
 
-  it("Objects that have same keys but different values", () => {
-    let one = {
-      test: 1
-    };
-    let other = {
-      test: 5
-    };
+	it("Objects that have same keys but different values", () => {
+		const one = {
+			test: 1
+		}
+		const other = {
+			test: 5
+		}
 
-    var result = equals(one, other);
-    expect(result).toBe(false);
-  });
+		const result = equals(one, other)
+		expect(result).toBe(false)
+	})
 
-  it("Objects that have different keys", () => {
-    let one = {
-      test_one: 1
-    };
-    let other = {
-      test_other: 1
-    };
+	it("Objects that have different keys", () => {
+		const one = {
+			test_one: 1
+		}
+		const other = {
+			test_other: 1
+		}
 
-    var result = equals(one, other);
-    expect(result).toBe(false);
-  });
-});
+		const result = equals(one, other)
+		expect(result).toBe(false)
+	})
+})

@@ -1,79 +1,79 @@
 import {
-  binarySearch,
-  getLineStartPositions,
-  getPosition
-} from "../documentPositionCalculator";
+	binarySearch,
+	getLineStartPositions,
+	getPosition
+} from "../documentPositionCalculator"
 
-describe("binarySearch", function() {
-  it("Binary Search where we are looking for element to the left of center", () => {
-    let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-    let find = 2;
+describe("binarySearch", () => {
+	it("Binary Search where we are looking for element to the left of center", () => {
+		const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+		const find = 2
 
-    var result = binarySearch(arr, find);
-    expect(result).toBe(1);
-  });
+		const result = binarySearch(arr, find)
+		expect(result).toBe(1)
+	})
 
-  it("Binary Search where we are looking for element to the right of center", () => {
-    let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-    let find = 8;
+	it("Binary Search where we are looking for element to the right of center", () => {
+		const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+		const find = 8
 
-    var result = binarySearch(arr, find);
-    expect(result).toBe(7);
-  });
+		const result = binarySearch(arr, find)
+		expect(result).toBe(7)
+	})
 
-  it("Binary Search found at first check", () => {
-    let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-    let find = 5;
+	it("Binary Search found at first check", () => {
+		const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+		const find = 5
 
-    var result = binarySearch(arr, find);
-    expect(result).toBe(4);
-  });
+		const result = binarySearch(arr, find)
+		expect(result).toBe(4)
+	})
 
-  it("Binary Search item not found", () => {
-    let arr = [1];
-    let find = 5;
+	it("Binary Search item not found", () => {
+		const arr = [1]
+		const find = 5
 
-    var result = binarySearch(arr, find);
-    expect(result).toBe(-2);
-  });
-});
+		const result = binarySearch(arr, find)
+		expect(result).toBe(-2)
+	})
+})
 
-describe("getLineStartPositions", function() {
-  it("getLineStartPositions with windows newline", () => {
-    let test_str = "test: test\r\ntest: test";
+describe("getLineStartPositions", () => {
+	it("getLineStartPositions with windows newline", () => {
+		const testStr = "test: test\r\ntest: test"
 
-    var result = getLineStartPositions(test_str);
-    expect(result[0]).toBe(0);
-    expect(result[1]).toBe(12);
-  });
+		const result = getLineStartPositions(testStr)
+		expect(result[0]).toBe(0)
+		expect(result[1]).toBe(12)
+	})
 
-  it("getLineStartPositions with normal newline", () => {
-    let test_str = "test: test\ntest: test";
+	it("getLineStartPositions with normal newline", () => {
+		const testStr = "test: test\ntest: test"
 
-    var result = getLineStartPositions(test_str);
-    expect(result[0]).toBe(0);
-    expect(result[1]).toBe(11);
-  });
-});
+		const result = getLineStartPositions(testStr)
+		expect(result[0]).toBe(0)
+		expect(result[1]).toBe(11)
+	})
+})
 
-describe("getPosition", function() {
-  it("getPosition", () => {
-    let test_str = "test: test\r\ntest: test";
+describe("getPosition", () => {
+	it("getPosition", () => {
+		const testStr = "test: test\r\ntest: test"
 
-    var startPositions = getLineStartPositions(test_str);
-    var result = getPosition(0, startPositions);
-    expect(result).toBeDefined();
-    expect(result.line).toBe(0);
-    expect(result.column).toBe(0);
-  });
+		const startPositions = getLineStartPositions(testStr)
+		const result = getPosition(0, startPositions)
+		expect(result).toBeDefined()
+		expect(result.line).toBe(0)
+		expect(result.column).toBe(0)
+	})
 
-  it("getPosition when not found", () => {
-    let test_str = "test: test\ntest: test";
+	it("getPosition when not found", () => {
+		const testStr = "test: test\ntest: test"
 
-    var startPositions = getLineStartPositions(test_str);
-    var result = getPosition(5, startPositions);
-    expect(result).toBeDefined();
-    expect(result.line).toBe(0);
-    expect(result.column).toBe(5);
-  });
-});
+		const startPositions = getLineStartPositions(testStr)
+		const result = getPosition(5, startPositions)
+		expect(result).toBeDefined()
+		expect(result.line).toBe(0)
+		expect(result.column).toBe(5)
+	})
+})

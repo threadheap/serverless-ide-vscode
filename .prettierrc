@@ -1,0 +1,4 @@
+printWidth: 80
+parser: typescript
+tabWidth: 4
+semi: false

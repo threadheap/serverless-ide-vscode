@@ -1,169 +1,165 @@
-'use strict';
+"use strict"
 
-import * as path from 'path';
+import * as path from "path"
 
-import {
-	workspace,
-	ExtensionContext,
-	languages,
-	extensions,
-	Uri
-} from 'vscode';
+import { ExtensionContext, extensions, languages, Uri, workspace } from "vscode"
 import {
 	LanguageClient,
 	LanguageClientOptions,
+	NotificationType,
 	ServerOptions,
-	TransportKind,
-	NotificationType
-} from 'vscode-languageclient';
+	TransportKind
+} from "vscode-languageclient"
 import {
-	schemaContributor,
+	CUSTOM_CONTENT_REQUEST,
 	CUSTOM_SCHEMA_REQUEST,
-	CUSTOM_CONTENT_REQUEST
-} from './schema-contributor';
+	schemaContributor
+} from "./schema-contributor"
 
 export interface ISchemaAssociations {
-	[pattern: string]: string[];
+	[pattern: string]: string[]
 }
 
+// tslint:disable-next-line: no-namespace
 namespace SchemaAssociationNotification {
 	export const type: NotificationType<
 		ISchemaAssociations,
 		any
-	> = new NotificationType('json/schemaAssociations');
+	> = new NotificationType("json/schemaAssociations")
 }
 
+// tslint:disable-next-line: no-namespace
 namespace DynamicCustomSchemaRequestRegistration {
 	export const type: NotificationType<{}, {}> = new NotificationType(
-		'yaml/registerCustomSchemaRequest'
-	);
+		"yaml/registerCustomSchemaRequest"
+	)
 }
 
 export function activate(context: ExtensionContext) {
 	// The server is implemented in node
-	let serverModule = context.asAbsolutePath(
+	const serverModule = context.asAbsolutePath(
 		path.join(
-			'node_modules',
-			'@serverless-ide/language-server',
-			'out',
-			'server.js'
+			"node_modules",
+			"@serverless-ide/language-server",
+			"out",
+			"server.js"
 		)
-	);
+	)
 
 	// The debug options for the server
-	let debugOptions = { execArgv: ['--nolazy', '--inspect=6009'] };
+	const debugOptions = { execArgv: ["--nolazy", "--inspect=6009"] }
 
 	// If the extension is launched in debug mode then the debug server options are used
 	// Otherwise the run options are used
-	let serverOptions: ServerOptions = {
+	const serverOptions: ServerOptions = {
 		run: { module: serverModule, transport: TransportKind.ipc },
 		debug: {
 			module: serverModule,
 			transport: TransportKind.ipc,
 			options: debugOptions
 		}
-	};
+	}
 
 	// Options to control the language client
-	let clientOptions: LanguageClientOptions = {
+	const clientOptions: LanguageClientOptions = {
 		// Register the server for plain text documents
 		documentSelector: [
-			{ language: 'yaml', scheme: 'file' },
-			{ language: 'yaml', scheme: 'untitled' }
+			{ language: "yaml", scheme: "file" },
+			{ language: "yaml", scheme: "untitled" }
 		],
 		synchronize: {
 			// Synchronize the setting section 'languageServerExample' to the server
 			configurationSection: [
-				'serverlessIDE',
-				'http.proxy',
-				'http.proxyStrictSSL'
+				"serverlessIDE",
+				"http.proxy",
+				"http.proxyStrictSSL"
 			],
 			// Notify the server about file changes to '.clientrc files contain in the workspace
 			fileEvents: [
-				workspace.createFileSystemWatcher('**/*.?(e)y?(a)ml'),
-				workspace.createFileSystemWatcher('**/*.json')
+				workspace.createFileSystemWatcher("**/*.?(e)y?(a)ml"),
+				workspace.createFileSystemWatcher("**/*.json")
 			]
 		}
-	};
+	}
 
 	// Create the language client and start the client.
-	let client = new LanguageClient(
-		'yaml',
-		'Yaml Support',
+	const client = new LanguageClient(
+		"serverless-ide-client",
+		"Serverless IDE: AWS SAM and CloudFormation Support",
 		serverOptions,
 		clientOptions
-	);
-	let disposable = client.start();
+	)
+	const disposable = client.start()
 
 	// Push the disposable to the context's subscriptions so that the
 	// client can be deactivated on extension deactivation
-	context.subscriptions.push(disposable);
+	context.subscriptions.push(disposable)
 
 	client.onReady().then(() => {
 		client.sendNotification(
 			SchemaAssociationNotification.type,
 			getSchemaAssociation(context)
-		);
-		client.sendNotification(DynamicCustomSchemaRequestRegistration.type);
+		)
+		client.sendNotification(DynamicCustomSchemaRequestRegistration.type)
 		client.onRequest(CUSTOM_SCHEMA_REQUEST, resource => {
-			return schemaContributor.requestCustomSchema(resource);
-		});
+			return schemaContributor.requestCustomSchema(resource)
+		})
 		client.onRequest(CUSTOM_CONTENT_REQUEST, uri => {
-			return schemaContributor.requestCustomSchemaContent(uri);
-		});
-	});
+			return schemaContributor.requestCustomSchemaContent(uri)
+		})
+	})
 
-	languages.setLanguageConfiguration('yaml', {
+	languages.setLanguageConfiguration("yaml", {
 		wordPattern: /("(?:[^\\\"]*(?:\\.)?)*"?)|[^\s{}\[\],:]+/
-	});
+	})
 
-	return schemaContributor;
+	return schemaContributor
 }
 
 function getSchemaAssociation(context: ExtensionContext): ISchemaAssociations {
-	let associations: ISchemaAssociations = {};
+	const associations: ISchemaAssociations = {}
 	extensions.all.forEach(extension => {
-		let packageJSON = extension.packageJSON;
+		const packageJSON = extension.packageJSON
 		if (
 			packageJSON &&
 			packageJSON.contributes &&
 			packageJSON.contributes.yamlValidation
 		) {
-			let yamlValidation = packageJSON.contributes.yamlValidation;
+			const yamlValidation = packageJSON.contributes.yamlValidation
 			if (Array.isArray(yamlValidation)) {
 				yamlValidation.forEach(jv => {
-					let { fileMatch, url } = jv;
+					let { fileMatch, url } = jv
 					if (fileMatch && url) {
-						if (url[0] === '.' && url[1] === '/') {
+						if (url[0] === "." && url[1] === "/") {
 							url = Uri.file(
 								path.join(extension.extensionPath, url)
-							).toString();
+							).toString()
 						}
-						if (fileMatch[0] === '%') {
+						if (fileMatch[0] === "%") {
 							fileMatch = fileMatch.replace(
 								/%APP_SETTINGS_HOME%/,
-								'/User'
-							);
+								"/User"
+							)
 							fileMatch = fileMatch.replace(
 								/%APP_WORKSPACES_HOME%/,
-								'/Workspaces'
-							);
+								"/Workspaces"
+							)
 						} else if (
-							fileMatch.charAt(0) !== '/' &&
+							fileMatch.charAt(0) !== "/" &&
 							!fileMatch.match(/\w+:\/\//)
 						) {
-							fileMatch = '/' + fileMatch;
+							fileMatch = "/" + fileMatch
 						}
-						let association = associations[fileMatch];
+						let association = associations[fileMatch]
 						if (!association) {
-							association = [];
-							associations[fileMatch] = association;
+							association = []
+							associations[fileMatch] = association
 						}
-						association.push(url);
+						association.push(url)
 					}
-				});
+				})
 			}
 		}
-	});
-	return associations;
+	})
+	return associations
 }
