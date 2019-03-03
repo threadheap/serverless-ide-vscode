@@ -3,7 +3,7 @@ jobs:
     build:
         working_directory: ~/serverless-ide
         docker:
-            - image: circleci/node:8.9.1
+            - image: circleci/node:8.9.3
         steps:
             - checkout
             # Download and cache dependencies
