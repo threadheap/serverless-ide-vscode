@@ -1,0 +1,29 @@
+version: 2
+jobs:
+    build:
+        working_directory: ~/serverless-ide
+        docker:
+            - image: circleci/node:8.9.1
+        steps:
+            - checkout
+            # Download and cache dependencies
+            - restore_cache:
+                  keys:
+                      - v1-dependencies-{{ checksum "yarn.lock" }}
+                      # fallback to using the latest cache if no exact match is found
+                      - v1-dependencies-
+
+            - run: sudo npm install yarn@1.9.4 --global
+            - run: yarn run lerna bootstrap
+            - run: yarn run lerna run prepare
+            - run: yarn install --frozen-lockfile
+
+            - save_cache:
+                  paths:
+                      - node_modules
+                  key: v1-dependencies-{{ checksum "yarn.lock" }}
+
+            - run: yarn lint:types
+            - run: yarn lint:prettier
+            - run: yarn lint:ts
+            - run: yarn test
