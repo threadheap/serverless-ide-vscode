@@ -84,8 +84,8 @@ export function activate(context: ExtensionContext) {
 
 	// Create the language client and start the client.
 	const client = new LanguageClient(
-		"yaml",
-		"Yaml Support",
+		"serverless-ide-client",
+		"Serverless IDE: AWS SAM and CloudFormation Support",
 		serverOptions,
 		clientOptions
 	)
