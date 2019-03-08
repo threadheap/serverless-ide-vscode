@@ -60,8 +60,12 @@ const collectGlobalPropertiesFromNode = (
 	return globalsConfig
 }
 
-export const collectGlobals = (rootNode: ASTNode): GlobalsConfig => {
+export const collectGlobals = (rootNode: ASTNode | void): GlobalsConfig => {
 	const globalsConfig: GlobalsConfig = getDefaultGlobalsConfig()
+
+	if (!rootNode) {
+		return
+	}
 
 	if (rootNode.type === "object") {
 		const globalsNode = getPropertyNodeValue(
