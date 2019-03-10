@@ -6,14 +6,13 @@ import {
 	IConnection,
 	InitializeParams,
 	InitializeResult,
-	NotificationType,
 	Position,
 	ProposedFeatures,
 	TextDocument,
 	TextDocuments
 } from "vscode-languageserver"
+import { JSONSchema } from "./language-service/jsonSchema"
 
-import forEach = require("lodash/forEach")
 import path = require("path")
 import { configure as configureHttpRequests } from "request-light"
 import * as URL from "url"
@@ -27,19 +26,13 @@ import {
 	getLineOffsets,
 	removeDuplicatesObj
 } from "./language-service/utils/arrayUtils"
+import {
+	isCloudFormationTemplate,
+	isSAMTemplate,
+	isSupportedDocument
+} from "./language-service/utils/document"
 import URI from "./language-service/utils/uri"
 nls.config(process.env.VSCODE_NLS_CONFIG as any)
-
-interface ISchemaAssociations {
-	[pattern: string]: string[]
-}
-
-// tslint:disable-next-line: no-namespace
-namespace SchemaAssociationNotification {
-	export const type: NotificationType<{}, {}> = new NotificationType(
-		"json/schemaAssociations"
-	)
-}
 
 // Create a connection for the server.
 let connection: IConnection = null
@@ -97,17 +90,16 @@ export const customLanguageService = getCustomLanguageService(
 	[]
 )
 
-const defaultSAMTemplatePattern = "*.sam.yaml"
-interface ProviderConfig {
-	templatePattern?: string
-}
-
 // The settings interface describes the server relevant settings part
 interface Settings {
 	serverlessIDE: {
-		SAM?: ProviderConfig
-		CloudFormation?: ProviderConfig
-		templatePattern?: string
+		validationProvider: "default" | "cfn-lint"
+		cfnLint: {
+			path: string
+			appendRules: string[]
+			ignoreRules: string[]
+			overrideSpecPath: string
+		}
 		validate: boolean
 		hover: boolean
 		completion: boolean
@@ -118,11 +110,11 @@ interface Settings {
 	}
 }
 
-let samConfig: ProviderConfig = void 0
-let templatePattern: string = void 0
-let cloudFormationConfig: ProviderConfig = void 0
-let schemaAssociations: ISchemaAssociations = void 0
-let schemaConfigurationSettings = []
+let schemaConfigurationSettings: Array<{
+	url?: string
+	schema?: JSONSchema
+	documentMatch: (text: string) => boolean
+}> = []
 let yamlShouldValidate = true
 let yamlShouldHover = true
 let yamlShouldCompletion = true
@@ -154,44 +146,24 @@ connection.onDidChangeConfiguration(change => {
 	)
 
 	if (settings.serverlessIDE) {
-		samConfig = settings.serverlessIDE.SAM
-		cloudFormationConfig = settings.serverlessIDE.CloudFormation
-		templatePattern = settings.serverlessIDE.templatePattern
 		yamlShouldValidate = settings.serverlessIDE.validate
 		yamlShouldHover = settings.serverlessIDE.hover
 		yamlShouldCompletion = settings.serverlessIDE.completion
 	}
 
 	// add default schema
-	schemaConfigurationSettings = []
-
-	if (
-		(samConfig && samConfig.templatePattern) ||
-		(templatePattern && templatePattern !== defaultSAMTemplatePattern)
-	) {
-		schemaConfigurationSettings.push({
-			fileMatch: [
-				templatePattern && templatePattern !== defaultSAMTemplatePattern
-					? templatePattern
-					: samConfig.templatePattern
-			],
-			schema: require("@serverless-ide/sam-schema/schema.json")
-		})
-	}
-
-	if (cloudFormationConfig && cloudFormationConfig.templatePattern) {
-		schemaConfigurationSettings.push({
-			fileMatch: [cloudFormationConfig.templatePattern],
+	schemaConfigurationSettings = [
+		{
 			url:
-				"https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json"
-		})
-	}
+				"https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json",
+			documentMatch: isCloudFormationTemplate
+		},
+		{
+			schema: require("@serverless-ide/sam-schema/schema.json"),
+			documentMatch: isSAMTemplate
+		}
+	]
 
-	updateConfiguration()
-})
-
-connection.onNotification(SchemaAssociationNotification.type, associations => {
-	schemaAssociations = associations
 	updateConfiguration()
 })
 
@@ -203,30 +175,14 @@ function updateConfiguration() {
 		schemas: [],
 		customTags
 	}
-	if (schemaAssociations) {
-		forEach(schemaAssociations, (association, pattern) => {
-			if (Array.isArray(association)) {
-				association.forEach(uri => {
-					languageSettings = configureSchemas(
-						uri,
-						[pattern],
-						null,
-						languageSettings
-					)
-				})
-			}
-		})
-	}
 	if (schemaConfigurationSettings) {
 		schemaConfigurationSettings.forEach(schema => {
 			let uri = schema.url
 			if (!uri && schema.schema) {
 				uri = schema.schema.id
 			}
-			if (!uri && schema.fileMatch) {
-				uri =
-					"vscode://schemas/custom/" +
-					encodeURIComponent(schema.fileMatch.join("&"))
+			if (!uri) {
+				uri = "vscode://schemas/custom/" + encodeURIComponent("*.yaml")
 			}
 			if (uri) {
 				if (
@@ -241,7 +197,7 @@ function updateConfiguration() {
 				}
 				languageSettings = configureSchemas(
 					uri,
-					schema.fileMatch,
+					schema.documentMatch,
 					schema.schema,
 					languageSettings
 				)
@@ -259,13 +215,18 @@ function updateConfiguration() {
 	documents.all().forEach(triggerValidation)
 }
 
-function configureSchemas(uri, fileMatch, schema, languageSettings) {
+function configureSchemas(
+	uri: string,
+	documentMatch: (text: string) => boolean,
+	schema: JSONSchema,
+	languageSettings: LanguageSettings
+) {
 	if (schema === null) {
-		languageSettings.schemas.push({ uri, fileMatch })
+		languageSettings.schemas.push({ uri, documentMatch })
 	} else {
 		languageSettings.schemas.push({
 			uri,
-			fileMatch,
+			documentMatch,
 			schema
 		})
 	}
@@ -306,12 +267,19 @@ function validateTextDocument(textDocument: TextDocument): void {
 		return
 	}
 
-	if (textDocument.getText().length === 0) {
+	const text = textDocument.getText()
+
+	if (text.length === 0) {
 		connection.sendDiagnostics({ uri: textDocument.uri, diagnostics: [] })
 		return
 	}
 
-	const yamlDocument = parseYAML(textDocument.getText(), customTags)
+	if (!isSupportedDocument(text)) {
+		connection.sendDiagnostics({ uri: textDocument.uri, diagnostics: [] })
+		return
+	}
+
+	const yamlDocument = parseYAML(text, customTags)
 	customLanguageService
 		.doValidation(textDocument, yamlDocument)
 		.then(diagnosticResults => {
@@ -352,6 +320,12 @@ connection.onCompletion(textDocumentPosition => {
 
 	if (!textDocument) {
 		return Promise.resolve(result)
+	}
+
+	const text = textDocument.getText()
+
+	if (!isSupportedDocument(text)) {
+		return Promise.resolve(void 0)
 	}
 
 	const completionFix = completionHelper(
@@ -454,7 +428,13 @@ connection.onHover(textDocumentPositionParams => {
 		return Promise.resolve(void 0)
 	}
 
-	const jsonDocument = parseYAML(document.getText())
+	const text = document.getText()
+
+	if (!isSupportedDocument(text)) {
+		return Promise.resolve(void 0)
+	}
+
+	const jsonDocument = parseYAML(text)
 	return customLanguageService.doHover(
 		document,
 		textDocumentPositionParams.position,
@@ -469,7 +449,13 @@ connection.onDocumentSymbol(documentSymbolParams => {
 		return
 	}
 
-	const jsonDocument = parseYAML(document.getText())
+	const text = document.getText()
+
+	if (!isSupportedDocument(text)) {
+		return
+	}
+
+	const jsonDocument = parseYAML(text)
 	return customLanguageService.findDocumentSymbols(document, jsonDocument)
 })
 

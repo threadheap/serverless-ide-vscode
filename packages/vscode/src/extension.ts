@@ -96,10 +96,6 @@ export function activate(context: ExtensionContext) {
 	context.subscriptions.push(disposable)
 
 	client.onReady().then(() => {
-		client.sendNotification(
-			SchemaAssociationNotification.type,
-			getSchemaAssociation(context)
-		)
 		client.sendNotification(DynamicCustomSchemaRequestRegistration.type)
 		client.onRequest(CUSTOM_SCHEMA_REQUEST, resource => {
 			return schemaContributor.requestCustomSchema(resource)
@@ -114,52 +110,4 @@ export function activate(context: ExtensionContext) {
 	})
 
 	return schemaContributor
-}
-
-function getSchemaAssociation(context: ExtensionContext): ISchemaAssociations {
-	const associations: ISchemaAssociations = {}
-	extensions.all.forEach(extension => {
-		const packageJSON = extension.packageJSON
-		if (
-			packageJSON &&
-			packageJSON.contributes &&
-			packageJSON.contributes.yamlValidation
-		) {
-			const yamlValidation = packageJSON.contributes.yamlValidation
-			if (Array.isArray(yamlValidation)) {
-				yamlValidation.forEach(jv => {
-					let { fileMatch, url } = jv
-					if (fileMatch && url) {
-						if (url[0] === "." && url[1] === "/") {
-							url = Uri.file(
-								path.join(extension.extensionPath, url)
-							).toString()
-						}
-						if (fileMatch[0] === "%") {
-							fileMatch = fileMatch.replace(
-								/%APP_SETTINGS_HOME%/,
-								"/User"
-							)
-							fileMatch = fileMatch.replace(
-								/%APP_WORKSPACES_HOME%/,
-								"/Workspaces"
-							)
-						} else if (
-							fileMatch.charAt(0) !== "/" &&
-							!fileMatch.match(/\w+:\/\//)
-						) {
-							fileMatch = "/" + fileMatch
-						}
-						let association = associations[fileMatch]
-						if (!association) {
-							association = []
-							associations[fileMatch] = association
-						}
-						association.push(url)
-					}
-				})
-			}
-		}
-	})
-	return associations
 }

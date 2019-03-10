@@ -70,19 +70,34 @@
             "type": "object",
             "title": "Serverless IDE configuration",
             "properties": {
-                "serverlessIDE.SAM.templatePattern": {
-                    "description": "Template pattern for AWS SAM configuration files",
+                "serverlessIDE.validationProvider": {
                     "type": "string",
-                    "default": "*.sam.yaml"
+                    "enum": [
+                        "default",
+                        "cfn-lint"
+                    ],
+                    "default": "default",
+                    "description": "Set to cfn-lint to use it as validation provider"
                 },
-                "serverlessIDE.CloudFormation.templatePattern": {
-                    "description": "Template pattern for AWS CloudFormation configuration files",
+                "serverlessIDE.cfnLint.path": {
                     "type": "string",
-                    "default": "*.cf.yaml"
+                    "default": "cfn-lint",
+                    "description": "Path to cfn-lint"
                 },
-                "serverlessIDE.templatePattern": {
-                    "description": "[DEPERECATED] Use `SAM` and `CloudFormation` settings instead",
-                    "type": "string"
+                "serverlessIDE.cfnLint.appendRules": {
+                    "type": "array",
+                    "default": [],
+                    "description": "Append Rules Directories"
+                },
+                "serverlessIDE.cfnLint.ignoreRules": {
+                    "type": "array",
+                    "default": [],
+                    "description": "Ignore Rules"
+                },
+                "serverlessIDE.cfnLint.overrideSpecPath": {
+                    "type": "string",
+                    "default": "",
+                    "description": "(Optional) Path to an override specfile json file"
                 },
                 "serverlessIDE.trace.server": {
                     "type": "string",

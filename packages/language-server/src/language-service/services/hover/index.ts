@@ -1,6 +1,6 @@
 import * as Parser from "../../parser/jsonParser"
 import { DocumentationService } from "../documentation"
-import * as SchemaService from "../jsonSchema"
+import * as SchemaService from "../jsonSchema/lagacy_index"
 
 import {
 	Hover,

@@ -395,13 +395,9 @@ function createJSONDocument(
 // tslint:disable-next-line: max-classes-per-file
 export class YAMLDocument {
 	public documents: SingleYAMLDocument[]
-	private errors: Yaml.YAMLException[]
-	private warnings: Yaml.YAMLException[]
 
 	constructor(documents: SingleYAMLDocument[]) {
 		this.documents = documents
-		this.errors = []
-		this.warnings = []
 	}
 }
 

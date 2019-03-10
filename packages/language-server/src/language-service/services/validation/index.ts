@@ -4,7 +4,7 @@ import { DiagnosticSeverity, TextDocument } from "vscode-languageserver-types"
 import { LanguageSettings } from "../../languageService"
 import { Problem, YAMLDocument } from "../../parser"
 import { ErrorCode } from "../../parser/jsonParser"
-import { JSONSchemaService } from "../jsonSchema"
+import { JSONSchemaService } from "../jsonSchema/lagacy_index"
 
 export class YAMLValidation {
 	private jsonSchemaService: JSONSchemaService

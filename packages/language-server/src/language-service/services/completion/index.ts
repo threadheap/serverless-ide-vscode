@@ -6,7 +6,7 @@ import {
 	JSONWorkerContribution
 } from "../../jsonContributions"
 import * as Parser from "../../parser/jsonParser"
-import * as SchemaService from "../jsonSchema"
+import * as SchemaService from "../jsonSchema/lagacy_index"
 
 import {
 	CompletionItem,

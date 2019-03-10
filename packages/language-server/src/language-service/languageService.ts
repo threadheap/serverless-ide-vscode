@@ -9,15 +9,14 @@ import { YAMLDocument } from "./parser"
 import { YAMLCompletion } from "./services/completion"
 import { YAMLDocumentSymbols } from "./services/documentSymbols"
 import { YAMLHover } from "./services/hover"
-import { JSONSchemaService } from "./services/jsonSchema"
+import { JSONSchemaService } from "./services/jsonSchema/lagacy_index"
 import { YAMLValidation } from "./services/validation"
 
 export interface LanguageSettings {
 	validate?: boolean // Setting for whether we want to validate the schema
 	hover?: boolean // Setting for whether we want to have hover results
 	completion?: boolean // Setting for whether we want to have completion results
-	isKubernetes?: boolean // If true then its validating against kubernetes
-	schemas?: any[] // List of schemas,
+	schemas?: SchemaConfiguration[] // List of schemas,
 	customTags?: string[] // Array of Custom Tags
 }
 
@@ -36,14 +35,15 @@ export interface SchemaConfiguration {
 	 */
 	uri: string
 	/**
-	 * A list of file names that are associated to the schema. The '*' wildcard can be used. For example '*.schema.json', 'package.json'
-	 */
-	fileMatch?: string[]
-	/**
 	 * The schema for the given URI.
 	 * If no schema is provided, the schema will be fetched with the schema request service (if available).
 	 */
 	schema?: JSONSchema
+	/**
+	 * Document matcher function
+	 * Detects supported documents by it's file name and content
+	 */
+	documentMatch: (textDocument: TextDocument) => boolean
 }
 
 export interface CustomFormatterOptions {
@@ -78,13 +78,13 @@ export function getLanguageService(
 	const yamlValidation = new YAMLValidation(schemaService)
 
 	return {
-		configure: settings => {
+		configure: (settings: LanguageSettings) => {
 			schemaService.clearExternalSchemas()
 			if (settings.schemas) {
 				settings.schemas.forEach(schemaSettings => {
 					schemaService.registerExternalSchema(
 						schemaSettings.uri,
-						schemaSettings.fileMatch,
+						schemaSettings.documentMatch,
 						schemaSettings.schema
 					)
 				})
