@@ -2,8 +2,12 @@
 	"packages": [
 		"packages/*"
 	],
-	"version": "0.2.1",
+	"version": "0.2.2",
 	"npmClient": "yarn",
 	"useWorkspaces": true,
-	"ignoreChanges": ["*.md", "*.txt", "lerna.json"]
+	"ignoreChanges": [
+		"*.md",
+		"*.txt",
+		"lerna.json"
+	]
 }
