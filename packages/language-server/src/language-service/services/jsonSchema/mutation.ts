@@ -54,9 +54,14 @@ const applyGlobalsConfigMutations = (
 }
 
 export const applyDocumentMutations = (
-	schema: ResolvedSchema,
+	schema: ResolvedSchema | void,
 	yamlDocument: SingleYAMLDocument
-): ResolvedSchema => {
+): ResolvedSchema | void => {
+	// early exit, if schema is not defined
+	if (!schema) {
+		return schema
+	}
+
 	const { globalsConfig } = yamlDocument
 
 	if (isEmpty(globalsConfig)) {

@@ -4,6 +4,13 @@ import { SingleYAMLDocument } from "../../../parser"
 import { getDefaultGlobalsConfig } from "../../../parser/globals"
 import { applyDocumentMutations } from "../mutation"
 
+test("should do nothing if schema was not resolved", () => {
+	const doc = new SingleYAMLDocument([])
+	doc.globalsConfig = getDefaultGlobalsConfig()
+
+	expect(applyDocumentMutations(undefined, doc)).toBeUndefined()
+})
+
 test("should return original schema if globals are not defined", () => {
 	const emptySchema = {}
 	const emptyGlobals = getDefaultGlobalsConfig()
@@ -44,7 +51,10 @@ test("should return schema with mutations for existing resource", () => {
 	const doc = new SingleYAMLDocument([])
 	doc.globalsConfig = globals
 
-	const newResolvedSchema = applyDocumentMutations(resolvedSchema, doc)
+	const newResolvedSchema = applyDocumentMutations(
+		resolvedSchema,
+		doc
+	) as ResolvedSchema
 
 	expect(newResolvedSchema).not.toBe(resolvedSchema)
 	expect(newResolvedSchema.schema).toEqual({
