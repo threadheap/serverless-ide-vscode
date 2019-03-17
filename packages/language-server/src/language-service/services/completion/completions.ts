@@ -5,7 +5,7 @@ import {
 } from "vscode-languageserver-types"
 import * as nls from "vscode-nls"
 import { SingleYAMLDocument } from "../../parser"
-import { ResolvedSchema } from "../jsonSchema/lagacy_index"
+import { ResolvedSchema } from "../jsonSchema"
 import {
 	CompletionsCollector,
 	JSONWorkerContribution

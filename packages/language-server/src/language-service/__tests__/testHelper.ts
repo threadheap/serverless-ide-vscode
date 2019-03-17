@@ -1,4 +1,3 @@
-import * as URL from "url"
 import {
 	createConnection,
 	IConnection,
@@ -35,9 +34,3 @@ connection.onInitialize(
 		}
 	}
 )
-
-export let workspaceContext = {
-	resolveRelativePath: (relativePath: string, resource: string) => {
-		return URL.resolve(resource, relativePath)
-	}
-}

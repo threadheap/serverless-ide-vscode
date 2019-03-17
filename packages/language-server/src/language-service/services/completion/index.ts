@@ -6,7 +6,7 @@ import {
 	JSONWorkerContribution
 } from "../../jsonContributions"
 import * as Parser from "../../parser/jsonParser"
-import * as SchemaService from "../jsonSchema/lagacy_index"
+import * as SchemaService from "../jsonSchema"
 
 import {
 	CompletionItem,
@@ -24,14 +24,14 @@ import * as completions from "./completions"
 import * as helpers from "./helpers"
 
 export class YAMLCompletion {
-	private schemaService: SchemaService.IJSONSchemaService
+	private schemaService: SchemaService.JSONSchemaService
 	private contributions: JSONWorkerContribution[]
 	private promise: PromiseConstructor
 	private customTags: string[]
 	private completion: boolean
 
 	constructor(
-		schemaService: SchemaService.IJSONSchemaService,
+		schemaService: SchemaService.JSONSchemaService,
 		contributions: JSONWorkerContribution[] = [],
 		promiseConstructor?: PromiseConstructor
 	) {
@@ -157,9 +157,8 @@ export class YAMLCompletion {
 		}
 
 		const schema = await this.schemaService.getSchemaForDocument(
-			document.uri,
-			currentDoc,
-			currentDocIndex
+			document,
+			currentDoc
 		)
 
 		if (!schema) {

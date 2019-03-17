@@ -1,4 +1,11 @@
-import { TextDocument } from "vscode-languageserver";
+import { TextDocument } from "vscode-languageserver"
+import {
+	CLOUD_FORMATION,
+	DocumentType,
+	SAM,
+	SERVERLESS_FRAMEWORK
+} from "../model/document"
+import { UNKNOWN } from "./../model/document"
 
 const transformRegExp = /"?Transform"?:\s*"?AWS::Serverless-2016-10-31"?/
 const slsServiceRegExp = /service:/
@@ -34,16 +41,28 @@ export const isSAMTemplate = (document: string): boolean => {
 	return isBaseCloudFormationTemplate(document) && isBaseSAMTemplate(document)
 }
 
-export const isSupportedDocument = (document?: TextDocument): boolean => {
-	if (!document) {
-		return false;
+export const getDocumentType = (document?: TextDocument): DocumentType => {
+	if (!document || !document.uri) {
+		return UNKNOWN
 	}
-
-	const uri = document.uri;
 
 	const text = document.getText()
 
-	if (text)
+	if (text) {
+		if (isSAMTemplate(text)) {
+			return SAM
+		} else if (isCloudFormationTemplate(text)) {
+			return CLOUD_FORMATION
+		} else if (isServerlessFrameworkTemplate(text)) {
+			return SERVERLESS_FRAMEWORK
+		}
 
-	return isSAMTemplate(document) || isCloudFormationTemplate(document)
+		return UNKNOWN
+	}
+}
+
+export const isSupportedDocument = (document?: TextDocument): boolean => {
+	const documentType = getDocumentType(document)
+
+	return documentType === SAM || documentType === CLOUD_FORMATION
 }

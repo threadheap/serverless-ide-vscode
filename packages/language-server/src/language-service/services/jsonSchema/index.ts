@@ -2,8 +2,18 @@ import * as Json from "jsonc-parser"
 import forEach = require("lodash/forEach")
 import { TextDocument } from "vscode-languageserver"
 import * as nls from "vscode-nls"
+import URI from "vscode-uri"
+import { DocumentType } from "../../model/document"
 import { SingleYAMLDocument } from "../../parser"
+import { getDocumentType } from "../../utils/document"
+import requestService from "../request"
 import { JSONSchema, JSONSchemaMap } from "./../../jsonSchema"
+import {
+	CLOUD_FORMATION,
+	SAM,
+	SERVERLESS_FRAMEWORK,
+	UNKNOWN
+} from "./../../model/document"
 import { applyDocumentMutations } from "./mutation"
 
 const localize = nls.loadMessageBundle()
@@ -122,7 +132,6 @@ const resolveSchemaContent = async (
 ): Promise<ResolvedSchema> => {
 	const resolveErrors: string[] = schemaToResolve.errors.slice(0)
 	const schema = schemaToResolve.schema
-	const contextService = this.contextService
 
 	const findSection = (selectonSchema: JSONSchema, path: string): any => {
 		if (!path) {
@@ -164,38 +173,9 @@ const resolveSchemaContent = async (
 		delete node.$ref
 	}
 
-	const resolveExternalLink = async (
-		node: any,
-		uri: string,
-		linkPath: string,
-		parentSchemaURL: string
-	): Promise<any> => {
-		if (contextService && !/^\w+:\/\/.*/.test(uri)) {
-			uri = contextService.resolveRelativePath(uri, parentSchemaURL)
-		}
-		uri = this.normalizeId(uri)
-		const unresolvedSchema = await this.getOrAddSchemaHandle(
-			uri
-		).getUnresolvedSchema()
-		if (unresolvedSchema.errors.length) {
-			const loc = linkPath ? uri + "#" + linkPath : uri
-			resolveErrors.push(
-				localize(
-					"json.schema.problemloadingref",
-					"Problems loading reference '{0}': {1}",
-					loc,
-					unresolvedSchema.errors[0]
-				)
-			)
-		}
-		resolveLink(node, unresolvedSchema.schema, linkPath)
-		return resolveRefs(node, unresolvedSchema.schema, uri)
-	}
-
 	const resolveRefs = (
 		node: JSONSchema,
-		parentSchema: JSONSchema,
-		parentSchemaURL: string
+		parentSchema: JSONSchema
 	): Promise<any> => {
 		if (!node) {
 			return Promise.resolve(null)
@@ -238,19 +218,7 @@ const resolveSchemaContent = async (
 			seen.push(next)
 			if (next.$ref) {
 				const segments = next.$ref.split("#", 2)
-				if (segments[0].length > 0) {
-					openPromises.push(
-						resolveExternalLink(
-							next,
-							segments[0],
-							segments[1],
-							parentSchemaURL
-						)
-					)
-					continue
-				} else {
-					resolveLink(next, parentSchema, segments[1])
-				}
+				resolveLink(next, parentSchema, segments[1])
 			}
 			collectEntries(next.items, next.additionalProperties, next.not)
 			collectMapEntries(
@@ -263,18 +231,105 @@ const resolveSchemaContent = async (
 				next.anyOf,
 				next.allOf,
 				next.oneOf,
-				next.items as JSONSchema[],
-				next.schemaSequence
+				next.items as JSONSchema[]
 			)
 		}
 		return Promise.all(openPromises)
 	}
 
-	await resolveRefs(schema, schema, schemaURL)
+	await resolveRefs(schema, schema)
 	return new ResolvedSchema(schema, resolveErrors)
 }
 
-export const getSchemaForDocument = async (
-	document: TextDocument,
-	yamlDocument: SingleYAMLDocument
-): Promise<ResolvedSchema | void> => {}
+const CLOUD_FORMATION_SCHEMA_URL =
+	"https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json"
+
+// tslint:disable-next-line: max-classes-per-file
+export class JSONSchemaService {
+	private schemas: { [Key in DocumentType]: Promise<ResolvedSchema | void> }
+
+	constructor() {
+		const samSchema = require("@serverless-ide/sam-schema/schema.json") as JSONSchema
+
+		this.schemas = {
+			[CLOUD_FORMATION]: this.loadSchema(CLOUD_FORMATION_SCHEMA_URL).then(
+				unresolvedSchema => {
+					return resolveSchemaContent(
+						unresolvedSchema,
+						CLOUD_FORMATION_SCHEMA_URL
+					)
+				}
+			),
+			[SAM]: resolveSchemaContent(
+				new UnresolvedSchema(samSchema, []),
+				samSchema.$schema
+			),
+			[SERVERLESS_FRAMEWORK]: Promise.resolve(undefined),
+			[UNKNOWN]: Promise.resolve(undefined)
+		}
+	}
+
+	public async getSchemaForDocument(
+		document: TextDocument,
+		yamlDocument: SingleYAMLDocument
+	): Promise<ResolvedSchema | void> {
+		const documentType = getDocumentType(document)
+		const schema = await this.getSchemaForDocumentType(documentType)
+
+		if (schema) {
+			return applyDocumentMutations(schema, yamlDocument)
+		}
+	}
+
+	private async getSchemaForDocumentType(documentType: DocumentType) {
+		return await this.schemas[documentType]
+	}
+
+	private async loadSchema(url: string): Promise<UnresolvedSchema> {
+		try {
+			const content = await requestService(url)
+			if (!content) {
+				const errorMessage = localize(
+					"json.schema.nocontent",
+					"Unable to load schema from '{0}': No content.",
+					toDisplayString(url)
+				)
+				return new UnresolvedSchema({} as JSONSchema, [errorMessage])
+			}
+			let schemaContent: JSONSchema = {}
+			const jsonErrors = []
+			schemaContent = Json.parse(content, jsonErrors)
+			const errors = jsonErrors.length
+				? [
+						localize(
+							"json.schema.invalidFormat",
+							"Unable to parse content from '{0}': {1}.",
+							toDisplayString(url),
+							getParseErrorMessage(jsonErrors[0])
+						)
+				  ]
+				: []
+			return new UnresolvedSchema(schemaContent, errors)
+		} catch (error) {
+			const errorMessage = localize(
+				"json.schema.unabletoload",
+				"Unable to load schema from '{0}': {1}",
+				toDisplayString(url),
+				error.toString()
+			)
+			return new UnresolvedSchema({} as JSONSchema, [errorMessage])
+		}
+	}
+}
+
+function toDisplayString(url: string) {
+	try {
+		const uri = URI.parse(url)
+		if (uri.scheme === "file") {
+			return uri.fsPath
+		}
+	} catch (e) {
+		// ignore
+	}
+	return url
+}

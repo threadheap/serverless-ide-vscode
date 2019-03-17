@@ -6,32 +6,21 @@ import {
 	IConnection,
 	InitializeParams,
 	InitializeResult,
-	Position,
 	ProposedFeatures,
 	TextDocument,
 	TextDocuments
 } from "vscode-languageserver"
-import { JSONSchema } from "./language-service/jsonSchema"
 
-import path = require("path")
 import { configure as configureHttpRequests } from "request-light"
-import * as URL from "url"
 import * as nls from "vscode-nls"
 import {
 	getLanguageService as getCustomLanguageService,
 	LanguageSettings
 } from "./language-service/languageService"
 import { parse as parseYAML } from "./language-service/parser"
-import {
-	getLineOffsets,
-	removeDuplicatesObj
-} from "./language-service/utils/arrayUtils"
-import {
-	isCloudFormationTemplate,
-	isSAMTemplate,
-	isSupportedDocument
-} from "./language-service/utils/document"
-import URI from "./language-service/utils/uri"
+import { removeDuplicatesObj } from "./language-service/utils/arrayUtils"
+import { completionHelper } from "./language-service/utils/completion-helper"
+import { isSupportedDocument } from "./language-service/utils/document"
 nls.config(process.env.VSCODE_NLS_CONFIG as any)
 
 // Create a connection for the server.
@@ -54,19 +43,8 @@ const documents: TextDocuments = new TextDocuments()
 // for open, change and close text document events
 documents.listen(connection)
 
-let hasWorkspaceFolderCapability = false
-
-// After the server has started the client sends an initilize request. The server receives
-// in the passed params the rootPath of the workspace plus the client capabilities.
-let capabilities
-let workspaceRoot: URI
 connection.onInitialize(
 	(params: InitializeParams): InitializeResult => {
-		capabilities = params.capabilities
-		workspaceRoot = URI.parse(params.rootPath)
-
-		hasWorkspaceFolderCapability =
-			capabilities.workspace && !!capabilities.workspace.workspaceFolders
 		return {
 			capabilities: {
 				textDocumentSync: documents.syncKind,
@@ -79,16 +57,7 @@ connection.onInitialize(
 	}
 )
 
-const workspaceContext = {
-	resolveRelativePath: (relativePath: string, resource: string) => {
-		return URL.resolve(resource, relativePath)
-	}
-}
-
-export const customLanguageService = getCustomLanguageService(
-	workspaceContext,
-	[]
-)
+export const customLanguageService = getCustomLanguageService([])
 
 // The settings interface describes the server relevant settings part
 interface Settings {
@@ -109,16 +78,9 @@ interface Settings {
 		proxyStrictSSL: boolean
 	}
 }
-
-let schemaConfigurationSettings: Array<{
-	url?: string
-	schema?: JSONSchema
-	documentMatch: (text: string) => boolean
-}> = []
 let yamlShouldValidate = true
 let yamlShouldHover = true
 let yamlShouldCompletion = true
-const schemaStoreSettings = []
 const customTags = [
 	"!And",
 	"!If",
@@ -151,87 +113,20 @@ connection.onDidChangeConfiguration(change => {
 		yamlShouldCompletion = settings.serverlessIDE.completion
 	}
 
-	// add default schema
-	schemaConfigurationSettings = [
-		{
-			url:
-				"https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json",
-			documentMatch: isCloudFormationTemplate
-		},
-		{
-			schema: require("@serverless-ide/sam-schema/schema.json"),
-			documentMatch: isSAMTemplate
-		}
-	]
-
 	updateConfiguration()
 })
 
 function updateConfiguration() {
-	let languageSettings: LanguageSettings = {
+	const languageSettings: LanguageSettings = {
 		validate: yamlShouldValidate,
 		hover: yamlShouldHover,
 		completion: yamlShouldCompletion,
-		schemas: [],
 		customTags
-	}
-	if (schemaConfigurationSettings) {
-		schemaConfigurationSettings.forEach(schema => {
-			let uri = schema.url
-			if (!uri && schema.schema) {
-				uri = schema.schema.id
-			}
-			if (!uri) {
-				uri = "vscode://schemas/custom/" + encodeURIComponent("*.yaml")
-			}
-			if (uri) {
-				if (
-					uri[0] === "." &&
-					workspaceRoot &&
-					!hasWorkspaceFolderCapability
-				) {
-					// workspace relative path
-					uri = URI.file(
-						path.normalize(path.join(workspaceRoot.fsPath, uri))
-					).toString()
-				}
-				languageSettings = configureSchemas(
-					uri,
-					schema.documentMatch,
-					schema.schema,
-					languageSettings
-				)
-			}
-		})
-	}
-	if (schemaStoreSettings) {
-		languageSettings.schemas = languageSettings.schemas.concat(
-			schemaStoreSettings
-		)
 	}
 	customLanguageService.configure(languageSettings)
 
 	// Revalidate any open text documents
 	documents.all().forEach(triggerValidation)
-}
-
-function configureSchemas(
-	uri: string,
-	documentMatch: (text: string) => boolean,
-	schema: JSONSchema,
-	languageSettings: LanguageSettings
-) {
-	if (schema === null) {
-		languageSettings.schemas.push({ uri, documentMatch })
-	} else {
-		languageSettings.schemas.push({
-			uri,
-			documentMatch,
-			schema
-		})
-	}
-
-	return languageSettings
 }
 
 documents.onDidChangeContent(change => {
@@ -274,7 +169,7 @@ function validateTextDocument(textDocument: TextDocument): void {
 		return
 	}
 
-	if (!isSupportedDocument(text)) {
+	if (!isSupportedDocument(textDocument)) {
 		connection.sendDiagnostics({ uri: textDocument.uri, diagnostics: [] })
 		return
 	}
@@ -299,12 +194,7 @@ function validateTextDocument(textDocument: TextDocument): void {
 
 connection.onDidChangeWatchedFiles(change => {
 	// Monitored files have changed in VSCode
-	let hasChanges = false
-	change.changes.forEach(c => {
-		if (customLanguageService.resetSchema(c.uri)) {
-			hasChanges = true
-		}
-	})
+	const hasChanges = false
 	if (hasChanges) {
 		documents.all().forEach(validateTextDocument)
 	}
@@ -322,9 +212,7 @@ connection.onCompletion(textDocumentPosition => {
 		return Promise.resolve(result)
 	}
 
-	const text = textDocument.getText()
-
-	if (!isSupportedDocument(text)) {
+	if (!isSupportedDocument(textDocument)) {
 		return Promise.resolve(void 0)
 	}
 
@@ -341,82 +229,6 @@ connection.onCompletion(textDocumentPosition => {
 	)
 })
 
-function is_EOL(c) {
-	return c === 0x0a /* LF */ || c === 0x0d /* CR */
-}
-
-function completionHelper(
-	document: TextDocument,
-	textDocumentPosition: Position
-) {
-	// Get the string we are looking at via a substring
-	const linePos = textDocumentPosition.line
-	const position = textDocumentPosition
-	const lineOffset = getLineOffsets(document.getText())
-	const start = lineOffset[linePos] // Start of where the autocompletion is happening
-	let end = 0 // End of where the autocompletion is happening
-	if (lineOffset[linePos + 1]) {
-		end = lineOffset[linePos + 1]
-	} else {
-		end = document.getText().length
-	}
-
-	while (end - 1 >= 0 && is_EOL(document.getText().charCodeAt(end - 1))) {
-		end--
-	}
-
-	const textLine = document.getText().substring(start, end)
-
-	// Check if the string we are looking at is a node
-	if (textLine.indexOf(":") === -1) {
-		// We need to add the ":" to load the nodes
-
-		let newText = ""
-
-		// This is for the empty line case
-		const trimmedText = textLine.trim()
-		if (
-			trimmedText.length === 0 ||
-			(trimmedText.length === 1 && trimmedText[0] === "-")
-		) {
-			// Add a temp node that is in the document but we don't use at all.
-			newText =
-				document.getText().substring(0, start + textLine.length) +
-				(trimmedText[0] === "-" && !textLine.endsWith(" ") ? " " : "") +
-				"holder:\r\n" +
-				document
-					.getText()
-					.substr(
-						lineOffset[linePos + 1] || document.getText().length
-					)
-
-			// For when missing semi colon case
-		} else {
-			// Add a semicolon to the end of the current line so we can validate the node
-			newText =
-				document.getText().substring(0, start + textLine.length) +
-				":\r\n" +
-				document
-					.getText()
-					.substr(
-						lineOffset[linePos + 1] || document.getText().length
-					)
-		}
-
-		return {
-			newText,
-			newPosition: textDocumentPosition
-		}
-	} else {
-		// All the nodes are loaded
-		position.character = position.character - 1
-		return {
-			newText: document.getText(),
-			newPosition: position
-		}
-	}
-}
-
 connection.onCompletionResolve(completionItem => {
 	return customLanguageService.doResolve(completionItem)
 })
@@ -430,7 +242,7 @@ connection.onHover(textDocumentPositionParams => {
 
 	const text = document.getText()
 
-	if (!isSupportedDocument(text)) {
+	if (!isSupportedDocument(document)) {
 		return Promise.resolve(void 0)
 	}
 
@@ -451,7 +263,7 @@ connection.onDocumentSymbol(documentSymbolParams => {
 
 	const text = document.getText()
 
-	if (!isSupportedDocument(text)) {
+	if (!isSupportedDocument(document)) {
 		return
 	}
 

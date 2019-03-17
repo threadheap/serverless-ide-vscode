@@ -1,4 +1,11 @@
+import { TextDocument } from "vscode-languageserver"
 import {
+	CLOUD_FORMATION,
+	SAM,
+	SERVERLESS_FRAMEWORK
+} from "./../../model/document"
+import {
+	getDocumentType,
 	isCloudFormationTemplate,
 	isSAMTemplate,
 	isServerlessFrameworkTemplate,
@@ -64,9 +71,36 @@ test("should check for sam template", () => {
 	expect(isSAMTemplate(samTemplate)).toBe(true)
 })
 
+test("should detect document type", () => {
+	expect(
+		getDocumentType(TextDocument.create("sls", "yaml", 1, slsTemplate))
+	).toBe(SERVERLESS_FRAMEWORK)
+	expect(
+		getDocumentType(TextDocument.create("cfn", "yaml", 1, cfnTemplate))
+	).toBe(CLOUD_FORMATION)
+	expect(
+		getDocumentType(
+			TextDocument.create("cfn", "yaml", 1, cfnTemplateWithFormatVersion)
+		)
+	).toBe(CLOUD_FORMATION)
+	expect(
+		getDocumentType(TextDocument.create("sam", "yaml", 1, samTemplate))
+	).toBe(SAM)
+})
+
 test("should detect supported documents", () => {
-	expect(isSupportedDocument(slsTemplate)).toBe(false)
-	expect(isSupportedDocument(cfnTemplate)).toBe(true)
-	expect(isSupportedDocument(cfnTemplateWithFormatVersion)).toBe(true)
-	expect(isSupportedDocument(samTemplate)).toBe(true)
+	expect(
+		isSupportedDocument(TextDocument.create("sls", "yaml", 1, slsTemplate))
+	).toBe(false)
+	expect(
+		isSupportedDocument(TextDocument.create("cfn", "yaml", 1, cfnTemplate))
+	).toBe(true)
+	expect(
+		isSupportedDocument(
+			TextDocument.create("cfn", "yaml", 1, cfnTemplateWithFormatVersion)
+		)
+	).toBe(true)
+	expect(
+		isSupportedDocument(TextDocument.create("sam", "yaml", 1, samTemplate))
+	).toBe(true)
 })

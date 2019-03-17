@@ -4,7 +4,7 @@ import { DiagnosticSeverity, TextDocument } from "vscode-languageserver-types"
 import { LanguageSettings } from "../../languageService"
 import { Problem, YAMLDocument } from "../../parser"
 import { ErrorCode } from "../../parser/jsonParser"
-import { JSONSchemaService } from "../jsonSchema/lagacy_index"
+import { JSONSchemaService } from "../jsonSchema"
 
 export class YAMLValidation {
 	private jsonSchemaService: JSONSchemaService
@@ -35,9 +35,8 @@ export class YAMLValidation {
 		await Promise.all(
 			yamlDocument.documents.map(async (currentDoc, documentIndex) => {
 				const schema = await this.jsonSchemaService.getSchemaForDocument(
-					textDocument.uri,
-					currentDoc,
-					documentIndex
+					textDocument,
+					currentDoc
 				)
 
 				if (schema) {

@@ -1,6 +1,6 @@
 import * as Parser from "../../parser/jsonParser"
 import { DocumentationService } from "../documentation"
-import * as SchemaService from "../jsonSchema/lagacy_index"
+import * as SchemaService from "../jsonSchema"
 
 import {
 	Hover,
@@ -22,11 +22,11 @@ const createHover = (contents: MarkedString[], hoverRange: Range): Hover => {
 }
 
 export class YAMLHover {
-	private schemaService: SchemaService.IJSONSchemaService
+	private schemaService: SchemaService.JSONSchemaService
 	private shouldHover: boolean
 	private documentationService: DocumentationService
 
-	constructor(schemaService: SchemaService.IJSONSchemaService) {
+	constructor(schemaService: SchemaService.JSONSchemaService) {
 		this.schemaService = schemaService
 		this.shouldHover = true
 		this.documentationService = new DocumentationService(
@@ -49,18 +49,18 @@ export class YAMLHover {
 			return Promise.resolve(void 0)
 		}
 
-		const schema = await this.schemaService.getSchemaForResource(
-			document.uri
+		const offset = document.offsetAt(position)
+		const currentDoc = matchOffsetToDocument(offset, doc)
+		if (!currentDoc) {
+			return
+		}
+		const schema = await this.schemaService.getSchemaForDocument(
+			document,
+			currentDoc
 		)
 
 		if (!schema) {
 			return
-		}
-
-		const offset = document.offsetAt(position)
-		const currentDoc = matchOffsetToDocument(offset, doc)
-		if (!currentDoc) {
-			return Promise.resolve(void 0)
 		}
 		const node = currentDoc.getNodeFromOffset(offset)
 
