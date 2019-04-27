@@ -4,22 +4,13 @@ import {
 	Position,
 	TextDocument
 } from "vscode-languageserver-types"
-import { JSONSchema } from "./jsonSchema"
+import { LanguageSettings } from "./model/settings"
 import { YAMLDocument } from "./parser"
 import { YAMLCompletion } from "./services/completion"
 import { YAMLDocumentSymbols } from "./services/documentSymbols"
 import { YAMLHover } from "./services/hover"
 import { JSONSchemaService } from "./services/jsonSchema"
 import { YAMLValidation } from "./services/validation"
-
-export interface LanguageSettings {
-	validate?: boolean // Setting for whether we want to validate the schema
-	hover?: boolean // Setting for whether we want to have hover results
-	completion?: boolean // Setting for whether we want to have completion results
-	isKubernetes?: boolean // If true then its validating against kubernetes
-	schemas?: any[] // List of schemas,
-	customTags?: string[] // Array of Custom Tags
-}
 
 export interface WorkspaceContextService {
 	resolveRelativePath(relativePath: string, resource: string): string
@@ -30,22 +21,6 @@ export interface WorkspaceContextService {
  */
 export type SchemaRequestService = (uri: string) => Promise<string>
 
-export interface SchemaConfiguration {
-	/**
-	 * The URI of the schema, which is also the identifier of the schema.
-	 */
-	uri: string
-	/**
-	 * A list of file names that are associated to the schema. The '*' wildcard can be used. For example '*.schema.json', 'package.json'
-	 */
-	fileMatch?: string[]
-	/**
-	 * The schema for the given URI.
-	 * If no schema is provided, the schema will be fetched with the schema request service (if available).
-	 */
-	schema?: JSONSchema
-}
-
 export interface CustomFormatterOptions {
 	singleQuote?: boolean
 	bracketSpacing?: boolean
@@ -53,7 +28,7 @@ export interface CustomFormatterOptions {
 }
 
 export interface LanguageService {
-	configure(settings): void
+	configure(settings: LanguageSettings): void
 	doComplete(
 		document: TextDocument,
 		position: Position,
@@ -63,45 +38,37 @@ export interface LanguageService {
 	doHover(document: TextDocument, position: Position, doc: YAMLDocument)
 	findDocumentSymbols(document: TextDocument, doc: YAMLDocument)
 	doResolve(completionItem)
-	resetSchema(uri: string): boolean
 }
 
 export function getLanguageService(
-	workspaceContext,
-	contributions
+	settings: LanguageSettings
 ): LanguageService {
-	const schemaService = new JSONSchemaService(workspaceContext)
+	const schemaService = new JSONSchemaService()
 
-	const completer = new YAMLCompletion(schemaService, contributions)
+	const completer = new YAMLCompletion(schemaService)
 	const hover = new YAMLHover(schemaService)
 	const yamlDocumentSymbols = new YAMLDocumentSymbols()
-	const yamlValidation = new YAMLValidation(schemaService)
+	const yamlValidation = new YAMLValidation(
+		schemaService,
+		settings.workspaceRoot
+	)
+
+	const configure = (newSettings: LanguageSettings) => {
+		yamlValidation.configure(newSettings)
+		hover.configure(newSettings)
+		const customTagsSetting =
+			newSettings && newSettings.customTags ? newSettings.customTags : []
+		completer.configure(newSettings, customTagsSetting)
+	}
 
 	return {
-		configure: settings => {
-			schemaService.clearExternalSchemas()
-			if (settings.schemas) {
-				settings.schemas.forEach(schemaSettings => {
-					schemaService.registerExternalSchema(
-						schemaSettings.uri,
-						schemaSettings.fileMatch,
-						schemaSettings.schema
-					)
-				})
-			}
-			yamlValidation.configure(settings)
-			hover.configure(settings)
-			const customTagsSetting =
-				settings && settings.customTags ? settings.customTags : []
-			completer.configure(settings, customTagsSetting)
-		},
+		configure,
 		doComplete: completer.doComplete.bind(completer),
 		doResolve: completer.doResolve.bind(completer),
 		doValidation: yamlValidation.doValidation.bind(yamlValidation),
 		doHover: hover.doHover.bind(hover),
 		findDocumentSymbols: yamlDocumentSymbols.findDocumentSymbols.bind(
 			yamlDocumentSymbols
-		),
-		resetSchema: (uri: string) => schemaService.onResourceChange(uri)
+		)
 	}
 }

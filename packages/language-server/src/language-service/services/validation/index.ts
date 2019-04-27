@@ -1,23 +1,55 @@
-"use strict"
-
-import { DiagnosticSeverity, TextDocument } from "vscode-languageserver-types"
-import { LanguageSettings } from "../../languageService"
+import { spawn } from "child_process"
+import {
+	Diagnostic,
+	DiagnosticSeverity,
+	Files,
+	TextDocument
+} from "vscode-languageserver"
 import { Problem, YAMLDocument } from "../../parser"
 import { ErrorCode } from "../../parser/jsonParser"
 import { JSONSchemaService } from "../jsonSchema"
+import {
+	CFNLintSettings,
+	LanguageSettings,
+	ValidationProvider
+} from "./../../model/settings"
+
+const transformCfnLintSeverity = (errorType: string): DiagnosticSeverity => {
+	switch (errorType) {
+		case "Warning":
+			return DiagnosticSeverity.Warning
+		case "Informational":
+			return DiagnosticSeverity.Information
+		case "Hint":
+			return DiagnosticSeverity.Hint
+		default:
+			// always fallback to error
+			return DiagnosticSeverity.Error
+	}
+}
 
 export class YAMLValidation {
 	private jsonSchemaService: JSONSchemaService
 	private validationEnabled: boolean
+	private settings: CFNLintSettings
+	private provider: ValidationProvider
+	private workspaceRoot: string
+	private inProgressMap: { [key: string]: boolean } = {}
 
-	public constructor(jsonSchemaService: JSONSchemaService) {
+	public constructor(
+		jsonSchemaService: JSONSchemaService,
+		workspaceRoot: string
+	) {
 		this.jsonSchemaService = jsonSchemaService
 		this.validationEnabled = true
+		this.workspaceRoot = workspaceRoot
 	}
 
-	public configure(shouldValidate: LanguageSettings) {
-		if (shouldValidate) {
-			this.validationEnabled = shouldValidate.validate
+	public configure(settings: LanguageSettings) {
+		if (settings) {
+			this.validationEnabled = settings.validate
+			this.settings = settings.cfnLint
+			this.provider = settings.validationProvider
 		}
 	}
 
@@ -29,15 +61,128 @@ export class YAMLValidation {
 			return Promise.resolve([])
 		}
 
+		if (this.provider === ValidationProvider["cfn-lint"]) {
+			try {
+				return await this.validateWithCfnLint(textDocument)
+			} catch (err) {
+				// tslint:disable-next-line: no-console
+				console.error(`Unable to run cfn lint: ${err}`)
+				// tslint:disable-next-line: no-console
+				console.log("Fallback to default validation method")
+
+				return this.validateWithSchema(textDocument, yamlDocument)
+			}
+		}
+
+		return await this.validateWithSchema(textDocument, yamlDocument)
+	}
+
+	private async validateWithCfnLint(
+		textDocument: TextDocument
+	): Promise<Diagnostic[]> {
+		const args = ["--format", "json"]
+		const filePath = Files.uriToFilePath(textDocument.uri)
+		const fileName = textDocument.uri
+
+		this.settings.ignoreRules.map(rule => {
+			args.push("--ignore-checks", rule)
+		})
+
+		this.settings.appendRules.map(rule => {
+			args.push("--append-rules", rule)
+		})
+
+		if (this.settings.overrideSpecPath) {
+			args.push("--override-spec", this.settings.overrideSpecPath)
+		}
+
+		args.push("--", filePath)
+
+		this.inProgressMap[fileName] = true
+
+		const child = spawn(this.settings.path, args, {
+			cwd: this.workspaceRoot
+		})
+
+		const diagnostics: Diagnostic[] = []
+
+		return new Promise((resolve, reject) => {
+			let output = ""
+			child.stdout.on("data", (data: Buffer) => {
+				output = output.concat(data.toString())
+			})
+
+			child.on("error", reject)
+			child.on("close", () => {
+				delete this.inProgressMap[fileName]
+				resolve(diagnostics)
+			})
+
+			child.on("exit", () => {
+				const tmp = output.toString()
+				const errors = JSON.parse(tmp)
+
+				if (Array.isArray(errors)) {
+					errors.map(error => {
+						diagnostics.push({
+							range: {
+								start: {
+									line:
+										Number(
+											error.Location.Start.LineNumber
+										) - 1,
+									character:
+										Number(
+											error.Location.Start.ColumnNumber
+										) - 1
+								},
+								end: {
+									line:
+										Number(error.Location.End.LineNumber) -
+										1,
+									character:
+										Number(
+											error.Location.End.ColumnNumber
+										) - 1
+								}
+							},
+							severity: transformCfnLintSeverity(error.Level),
+							message: `[Serverless IDE] ${error.Rule.Id}: ${
+								error.Message
+							}`
+						})
+					})
+				}
+
+				delete this.inProgressMap[fileName]
+			})
+
+			child.stderr.on("data", (data: Buffer) => {
+				const err = data.toString()
+				diagnostics.push({
+					range: {
+						start: { line: 0, character: 0 },
+						end: { line: 0, character: Number.MAX_VALUE }
+					},
+					severity: DiagnosticSeverity.Warning,
+					message: `[Serverless IDE] ${err}`
+				})
+			})
+		})
+	}
+
+	private async validateWithSchema(
+		textDocument: TextDocument,
+		yamlDocument: YAMLDocument
+	) {
 		const diagnostics = []
 		const added = {}
 
 		await Promise.all(
-			yamlDocument.documents.map(async (currentDoc, documentIndex) => {
+			yamlDocument.documents.map(async currentDoc => {
 				const schema = await this.jsonSchemaService.getSchemaForDocument(
-					textDocument.uri,
-					currentDoc,
-					documentIndex
+					textDocument,
+					currentDoc
 				)
 
 				if (schema) {
@@ -81,8 +226,7 @@ export class YAMLValidation {
 			{ message, location }: Problem,
 			severity: number
 		) => {
-			const signature =
-				location.start + " " + location.end + " " + message
+			const signature = `${location.start} ${location.end} ${message}`
 			// remove duplicated messages
 			if (!added[signature]) {
 				added[signature] = true

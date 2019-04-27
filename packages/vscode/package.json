@@ -5,7 +5,7 @@
     "author": "Pavel Vlasov <freakycue@gmail.com>",
     "publisher": "ThreadHeap",
     "license": "MIT",
-    "version": "0.2.3",
+    "version": "0.3.1",
     "preview": false,
     "bugs": "https://github.com/threadheap/serverless-ide-vscode/issues",
     "repository": {
@@ -54,7 +54,6 @@
                     ".yaml"
                 ],
                 "filenames": [],
-                "firstLine": "^#cloud-config",
                 "configuration": "./language-configuration.json"
             }
         ],
@@ -70,19 +69,34 @@
             "type": "object",
             "title": "Serverless IDE configuration",
             "properties": {
-                "serverlessIDE.SAM.templatePattern": {
-                    "description": "Template pattern for AWS SAM configuration files",
+                "serverlessIDE.validationProvider": {
                     "type": "string",
-                    "default": "*.sam.yaml"
+                    "enum": [
+                        "default",
+                        "cfn-lint"
+                    ],
+                    "default": "cfn-lint",
+                    "description": "Set to cfn-lint to use it as validation provider"
                 },
-                "serverlessIDE.CloudFormation.templatePattern": {
-                    "description": "Template pattern for AWS CloudFormation configuration files",
+                "serverlessIDE.cfnLint.path": {
                     "type": "string",
-                    "default": "*.cf.yaml"
+                    "default": "cfn-lint",
+                    "description": "Path to cfn-lint"
                 },
-                "serverlessIDE.templatePattern": {
-                    "description": "[DEPERECATED] Use `SAM` and `CloudFormation` settings instead",
-                    "type": "string"
+                "serverlessIDE.cfnLint.appendRules": {
+                    "type": "array",
+                    "default": [],
+                    "description": "Append Rules Directories"
+                },
+                "serverlessIDE.cfnLint.ignoreRules": {
+                    "type": "array",
+                    "default": [],
+                    "description": "Ignore Rules"
+                },
+                "serverlessIDE.cfnLint.overrideSpecPath": {
+                    "type": "string",
+                    "default": "",
+                    "description": "(Optional) Path to an override specfile json file"
                 },
                 "serverlessIDE.trace.server": {
                     "type": "string",
@@ -139,11 +153,11 @@
         "@types/node": "^6.0.52",
         "ts-node": "^3.3.0",
         "typescript": "^3.2.2",
-        "vscode": "^1.1.17"
+        "vscode": "^1.1.33"
     },
     "dependencies": {
-        "@serverless-ide/language-server": "^0.2.3",
-        "vscode-languageclient": "3.5.1",
+        "@serverless-ide/language-server": "^0.3.1",
+        "vscode-languageclient": "5.1.1",
         "vscode-nls": "^3.2.1",
         "vscode-uri": "^1.0.5"
     },

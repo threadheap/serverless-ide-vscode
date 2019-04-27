@@ -17,21 +17,21 @@ import {
 	TextEdit
 } from "vscode-languageserver-types"
 
-import { LanguageSettings } from "../../languageService"
+import { LanguageSettings } from "../../model/settings"
 import { YAMLDocument } from "../../parser"
 import { matchOffsetToDocument } from "../../utils/arrayUtils"
 import * as completions from "./completions"
 import * as helpers from "./helpers"
 
 export class YAMLCompletion {
-	private schemaService: SchemaService.IJSONSchemaService
+	private schemaService: SchemaService.JSONSchemaService
 	private contributions: JSONWorkerContribution[]
 	private promise: PromiseConstructor
 	private customTags: string[]
 	private completion: boolean
 
 	constructor(
-		schemaService: SchemaService.IJSONSchemaService,
+		schemaService: SchemaService.JSONSchemaService,
 		contributions: JSONWorkerContribution[] = [],
 		promiseConstructor?: PromiseConstructor
 	) {
@@ -84,7 +84,6 @@ export class YAMLCompletion {
 		if (!currentDoc) {
 			return Promise.resolve(result)
 		}
-		const currentDocIndex = doc.documents.indexOf(currentDoc)
 		let node = currentDoc.getNodeFromOffsetEndInclusive(offset)
 		if (helpers.isInComment(document, node ? node.start : 0, offset)) {
 			return Promise.resolve(result)
@@ -157,9 +156,8 @@ export class YAMLCompletion {
 		}
 
 		const schema = await this.schemaService.getSchemaForDocument(
-			document.uri,
-			currentDoc,
-			currentDocIndex
+			document,
+			currentDoc
 		)
 
 		if (!schema) {
@@ -234,7 +232,7 @@ export class YAMLCompletion {
 		}
 
 		// property proposal for values
-		completions.getValueCompletions(
+		await completions.getValueCompletions(
 			schema,
 			currentDoc,
 			node,

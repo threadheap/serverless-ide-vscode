@@ -1,0 +1,343 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Auto Completion Tests doComplete should autocomplete on the root node 1`] = `
+Object {
+  "isIncomplete": false,
+  "items": Array [
+    Object {
+      "documentation": "",
+      "insertText": "Conditions:
+	",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Conditions",
+      "textEdit": Object {
+        "newText": "Conditions:
+	",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "Template description",
+      "insertText": "Description: $1",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Description",
+      "textEdit": Object {
+        "newText": "Description: $1",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "",
+      "insertText": "Mappings:
+	",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Mappings",
+      "textEdit": Object {
+        "newText": "Mappings:
+	",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "",
+      "insertText": "Metadata:
+	",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Metadata",
+      "textEdit": Object {
+        "newText": "Metadata:
+	",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "",
+      "insertText": "Outputs:
+	",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Outputs",
+      "textEdit": Object {
+        "newText": "Outputs:
+	",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "",
+      "insertText": "Parameters:
+	",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Parameters",
+      "textEdit": Object {
+        "newText": "Parameters:
+	",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "",
+      "insertText": "Resources:
+	",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Resources",
+      "textEdit": Object {
+        "newText": "Resources:
+	",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "",
+      "insertText": "Transform:
+	",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Transform",
+      "textEdit": Object {
+        "newText": "Transform:
+	",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`Auto Completion Tests doComplete should autocomplete resources 1`] = `
+Object {
+  "isIncomplete": false,
+  "items": Array [
+    Object {
+      "documentation": "",
+      "insertText": "Conditions:
+	",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Conditions",
+      "textEdit": Object {
+        "newText": "Conditions:
+	",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "Template description",
+      "insertText": "Description: $1",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Description",
+      "textEdit": Object {
+        "newText": "Description: $1",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "",
+      "insertText": "Mappings:
+	",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Mappings",
+      "textEdit": Object {
+        "newText": "Mappings:
+	",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "",
+      "insertText": "Metadata:
+	",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Metadata",
+      "textEdit": Object {
+        "newText": "Metadata:
+	",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "",
+      "insertText": "Outputs:
+	",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Outputs",
+      "textEdit": Object {
+        "newText": "Outputs:
+	",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "",
+      "insertText": "Parameters:
+	",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Parameters",
+      "textEdit": Object {
+        "newText": "Parameters:
+	",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "",
+      "insertText": "Transform:
+	",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Transform",
+      "textEdit": Object {
+        "newText": "Transform:
+	",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+  ],
+}
+`;

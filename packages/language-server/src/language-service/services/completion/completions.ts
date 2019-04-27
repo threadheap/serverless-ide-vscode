@@ -74,17 +74,16 @@ export const getPropertyCompletions = (
 	})
 }
 
-export const getValueCompletions = (
+export const getValueCompletions = async (
 	schema: ResolvedSchema,
 	doc: SingleYAMLDocument,
 	node: ASTNode,
 	offset: number,
 	document: TextDocument,
 	collector: CompletionsCollector
-): void => {
+): Promise<void> => {
 	let offsetForSeparator = offset
 	let parentKey: string = null
-	let valueNode: ASTNode = null
 
 	getDefaultPropertyCompletions(node, collector)
 
@@ -95,7 +94,6 @@ export const getValueCompletions = (
 			node.type === "boolean")
 	) {
 		offsetForSeparator = node.end
-		valueNode = node
 		node = node.parent
 	}
 
@@ -143,75 +141,77 @@ export const getValueCompletions = (
 	) {
 		const matchingSchemas = doc.getMatchingSchemas(schema.schema)
 
-		matchingSchemas.forEach(s => {
-			if (
-				s.schema.patternProperties &&
-				s.node.location === node.location
-			) {
-				addPatternPropertiesCompletions(
-					s.schema.patternProperties,
-					collector,
-					separatorAfter
-				)
-			}
+		await Promise.all(
+			matchingSchemas.map(async s => {
+				if (
+					s.schema.patternProperties &&
+					s.node.location === node.location
+				) {
+					await addPatternPropertiesCompletions(
+						s.schema.patternProperties,
+						collector,
+						separatorAfter
+					)
+				}
 
-			if (s.node === node && !s.inverted && s.schema) {
-				if (s.schema.items) {
-					if (Array.isArray(s.schema.items)) {
-						const index = helpers.findItemAtOffset(
-							node,
-							document,
-							offset
-						)
-						if (index < s.schema.items.length) {
+				if (s.node === node && !s.inverted && s.schema) {
+					if (s.schema.items) {
+						if (Array.isArray(s.schema.items)) {
+							const index = helpers.findItemAtOffset(
+								node,
+								document,
+								offset
+							)
+							if (index < s.schema.items.length) {
+								addSchemaValueCompletions(
+									s.schema.items[index],
+									collector,
+									separatorAfter,
+									true
+								)
+							}
+						} else if (s.schema.items.type === "object") {
+							collector.add({
+								kind: helpers.getSuggestionKind(
+									s.schema.items.type
+								),
+								label: `- (array item)`,
+								documentation: `Create an item of an array${
+									s.schema.description === undefined
+										? ""
+										: "(" + s.schema.description + ")"
+								}`,
+								insertText: `- ${textCompletions
+									.getInsertTextForObject(
+										s.schema.items,
+										separatorAfter
+									)
+									.insertText.trimLeft()}`,
+								insertTextFormat: InsertTextFormat.Snippet
+							})
+						} else {
 							addSchemaValueCompletions(
-								s.schema.items[index],
+								s.schema.items,
 								collector,
 								separatorAfter,
 								true
 							)
 						}
-					} else if (s.schema.items.type === "object") {
-						collector.add({
-							kind: helpers.getSuggestionKind(
-								s.schema.items.type
-							),
-							label: `- (array item)`,
-							documentation: `Create an item of an array${
-								s.schema.description === undefined
-									? ""
-									: "(" + s.schema.description + ")"
-							}`,
-							insertText: `- ${textCompletions
-								.getInsertTextForObject(
-									s.schema.items,
-									separatorAfter
-								)
-								.insertText.trimLeft()}`,
-							insertTextFormat: InsertTextFormat.Snippet
-						})
-					} else {
-						addSchemaValueCompletions(
-							s.schema.items,
-							collector,
-							separatorAfter,
-							true
-						)
+					}
+					if (s.schema.properties) {
+						const propertySchema = s.schema.properties[parentKey]
+						if (propertySchema) {
+							addSchemaValueCompletions(
+								propertySchema,
+								collector,
+								separatorAfter,
+								false
+							)
+						}
 					}
 				}
-				if (s.schema.properties) {
-					const propertySchema = s.schema.properties[parentKey]
-					if (propertySchema) {
-						addSchemaValueCompletions(
-							propertySchema,
-							collector,
-							separatorAfter,
-							false
-						)
-					}
-				}
-			}
-		})
+			})
+		)
 	}
 }
 

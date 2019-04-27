@@ -5,7 +5,7 @@ import { JSONSchema } from "../jsonSchema"
 import * as objects from "../utils/objects"
 
 import * as nls from "vscode-nls"
-import { LanguageSettings } from "../languageService"
+import { LanguageSettings } from "../model/settings"
 const localize = nls.loadMessageBundle()
 
 export interface IRange {

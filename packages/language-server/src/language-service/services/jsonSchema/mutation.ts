@@ -2,7 +2,7 @@ import cloneDeep = require("lodash/cloneDeep")
 import toArray = require("lodash/toArray")
 import without = require("lodash/without")
 import { GlobalsConfig, isEmpty } from "../../model/globals"
-import { ResolvedSchema } from "../jsonSchema"
+import { ResolvedSchema } from "./"
 import { SingleYAMLDocument } from "./../../parser/index"
 
 const applyGlobalsConfigMutations = (
