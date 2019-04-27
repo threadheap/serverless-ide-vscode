@@ -5,7 +5,7 @@
     "author": "Pavel Vlasov <freakycue@gmail.com>",
     "publisher": "ThreadHeap",
     "license": "MIT",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "preview": false,
     "bugs": "https://github.com/threadheap/serverless-ide-vscode/issues",
     "repository": {
@@ -156,7 +156,7 @@
         "vscode": "^1.1.33"
     },
     "dependencies": {
-        "@serverless-ide/language-server": "^0.3.0",
+        "@serverless-ide/language-server": "^0.3.1",
         "vscode-languageclient": "5.1.1",
         "vscode-nls": "^3.2.1",
         "vscode-uri": "^1.0.5"
