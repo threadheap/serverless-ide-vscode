@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Validation does basic validation for cloud formation template 1`] = `
+exports[`Validation cfn-lint does basic validation for cloud formation template 1`] = `
 Array [
   Object {
     "message": "Missing property \\"Properties\\".",
@@ -19,7 +19,45 @@ Array [
 ]
 `;
 
-exports[`Validation does basic validation for sam template 1`] = `
+exports[`Validation cfn-lint does basic validation for sam template 1`] = `
+Array [
+  Object {
+    "message": "Missing property \\"Properties\\".",
+    "range": Object {
+      "end": Object {
+        "character": 7,
+        "line": 2,
+      },
+      "start": Object {
+        "character": 2,
+        "line": 2,
+      },
+    },
+    "severity": 1,
+  },
+]
+`;
+
+exports[`Validation default does basic validation for cloud formation template 1`] = `
+Array [
+  Object {
+    "message": "Missing property \\"Properties\\".",
+    "range": Object {
+      "end": Object {
+        "character": 7,
+        "line": 1,
+      },
+      "start": Object {
+        "character": 2,
+        "line": 1,
+      },
+    },
+    "severity": 1,
+  },
+]
+`;
+
+exports[`Validation default does basic validation for sam template 1`] = `
 Array [
   Object {
     "message": "Missing property \\"Properties\\".",

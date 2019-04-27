@@ -1,8 +1,10 @@
 import { TextDocument } from "vscode-languageserver"
 import { getLanguageService } from "../languageService"
+import { getDefaultLanguageSettings } from "../model/settings"
 import { parse as parseYAML } from "../parser"
 
-const languageService = getLanguageService([])
+const languageSettings = getDefaultLanguageSettings()
+const languageService = getLanguageService(languageSettings)
 
 describe("Document Symbols Tests", () => {
 	function setup(content: string) {

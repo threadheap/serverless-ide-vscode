@@ -1,6 +1,7 @@
 import * as Parser from "../../parser/jsonParser"
-import { DocumentationService } from "../documentation"
+import documentationService, { DocumentationService } from "../documentation"
 import * as SchemaService from "../jsonSchema"
+import { LanguageSettings } from "./../../model/settings"
 
 import {
 	Hover,
@@ -9,7 +10,6 @@ import {
 	Range,
 	TextDocument
 } from "vscode-languageserver-types"
-import { LanguageSettings } from "../../languageService"
 import { YAMLDocument } from "../../parser"
 import { matchOffsetToDocument } from "../../utils/arrayUtils"
 
@@ -24,14 +24,11 @@ const createHover = (contents: MarkedString[], hoverRange: Range): Hover => {
 export class YAMLHover {
 	private schemaService: SchemaService.JSONSchemaService
 	private shouldHover: boolean
-	private documentationService: DocumentationService
+	private documentationService: DocumentationService = documentationService
 
 	constructor(schemaService: SchemaService.JSONSchemaService) {
 		this.schemaService = schemaService
 		this.shouldHover = true
-		this.documentationService = new DocumentationService(
-			"https://d1uauaxba7bl26.cloudfront.net/latest/gzip/CloudFormationResourceSpecification.json"
-		)
 	}
 
 	public configure(languageSettings: LanguageSettings) {

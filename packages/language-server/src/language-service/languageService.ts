@@ -4,19 +4,13 @@ import {
 	Position,
 	TextDocument
 } from "vscode-languageserver-types"
+import { LanguageSettings } from "./model/settings"
 import { YAMLDocument } from "./parser"
 import { YAMLCompletion } from "./services/completion"
 import { YAMLDocumentSymbols } from "./services/documentSymbols"
 import { YAMLHover } from "./services/hover"
 import { JSONSchemaService } from "./services/jsonSchema"
 import { YAMLValidation } from "./services/validation"
-
-export interface LanguageSettings {
-	validate?: boolean // Setting for whether we want to validate the schema
-	hover?: boolean // Setting for whether we want to have hover results
-	completion?: boolean // Setting for whether we want to have completion results
-	customTags?: string[] // Array of Custom Tags
-}
 
 export interface WorkspaceContextService {
 	resolveRelativePath(relativePath: string, resource: string): string
@@ -34,7 +28,7 @@ export interface CustomFormatterOptions {
 }
 
 export interface LanguageService {
-	configure(settings): void
+	configure(settings: LanguageSettings): void
 	doComplete(
 		document: TextDocument,
 		position: Position,
@@ -46,22 +40,29 @@ export interface LanguageService {
 	doResolve(completionItem)
 }
 
-export function getLanguageService(contributions): LanguageService {
+export function getLanguageService(
+	settings: LanguageSettings
+): LanguageService {
 	const schemaService = new JSONSchemaService()
 
-	const completer = new YAMLCompletion(schemaService, contributions)
+	const completer = new YAMLCompletion(schemaService)
 	const hover = new YAMLHover(schemaService)
 	const yamlDocumentSymbols = new YAMLDocumentSymbols()
-	const yamlValidation = new YAMLValidation(schemaService)
+	const yamlValidation = new YAMLValidation(
+		schemaService,
+		settings.workspaceRoot
+	)
+
+	const configure = (newSettings: LanguageSettings) => {
+		yamlValidation.configure(newSettings)
+		hover.configure(newSettings)
+		const customTagsSetting =
+			newSettings && newSettings.customTags ? newSettings.customTags : []
+		completer.configure(newSettings, customTagsSetting)
+	}
 
 	return {
-		configure: (settings: LanguageSettings) => {
-			yamlValidation.configure(settings)
-			hover.configure(settings)
-			const customTagsSetting =
-				settings && settings.customTags ? settings.customTags : []
-			completer.configure(settings, customTagsSetting)
-		},
+		configure,
 		doComplete: completer.doComplete.bind(completer),
 		doResolve: completer.doResolve.bind(completer),
 		doValidation: yamlValidation.doValidation.bind(yamlValidation),

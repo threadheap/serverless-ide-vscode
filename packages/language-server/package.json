@@ -29,9 +29,10 @@
         "lru-cache": "^5.1.1",
         "prettier": "^1.15.2",
         "request-light": "^0.2.3",
+        "ts-get": "^1.0.3",
         "vscode-json-languageservice": "3.0.12",
-        "vscode-languageserver": "^4.0.0",
-        "vscode-languageserver-types": "^3.6.1",
+        "vscode-languageserver": "^5.1.1",
+        "vscode-languageserver-types": "^3.14.0",
         "vscode-nls": "^3.2.2",
         "vscode-uri": "^1.0.6",
         "yaml-ast-parser": "0.0.40"

@@ -54,7 +54,6 @@
                     ".yaml"
                 ],
                 "filenames": [],
-                "firstLine": "^#cloud-config",
                 "configuration": "./language-configuration.json"
             }
         ],
@@ -76,7 +75,7 @@
                         "default",
                         "cfn-lint"
                     ],
-                    "default": "default",
+                    "default": "cfn-lint",
                     "description": "Set to cfn-lint to use it as validation provider"
                 },
                 "serverlessIDE.cfnLint.path": {
@@ -154,11 +153,11 @@
         "@types/node": "^6.0.52",
         "ts-node": "^3.3.0",
         "typescript": "^3.2.2",
-        "vscode": "^1.1.17"
+        "vscode": "^1.1.33"
     },
     "dependencies": {
         "@serverless-ide/language-server": "^0.2.3",
-        "vscode-languageclient": "3.5.1",
+        "vscode-languageclient": "5.1.1",
         "vscode-nls": "^3.2.1",
         "vscode-uri": "^1.0.5"
     },

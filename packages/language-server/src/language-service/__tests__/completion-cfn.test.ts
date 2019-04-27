@@ -1,14 +1,11 @@
 import { TextDocument } from "vscode-languageserver"
 import { getLanguageService } from "../languageService"
+import { getDefaultLanguageSettings } from "../model/settings"
 import { parse as parseYAML } from "../parser"
 import { completionHelper } from "../utils/completion-helper"
 
-const languageService = getLanguageService([])
-
-const languageSettings = {
-	completion: true
-}
-languageService.configure(languageSettings)
+const languageSettings = getDefaultLanguageSettings()
+const languageService = getLanguageService(languageSettings)
 
 const cfnTemplateWithVersion = `
 AWSTemplateFormatVersion: 2010-09-09

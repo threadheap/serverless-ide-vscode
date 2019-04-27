@@ -1,17 +1,18 @@
 import { TextDocument } from "vscode-languageserver"
 import { getLanguageService } from "../languageService"
+import {
+	getDefaultLanguageSettings,
+	ValidationProvider
+} from "../model/settings"
 import { parse as parseYAML } from "../parser"
-
-const languageService = getLanguageService([])
-
-const languageSettings = {
-	validate: true,
-	customTags: []
-}
-languageService.configure(languageSettings)
+import { LanguageService } from "./../languageService"
+import { LanguageSettings } from "./../model/settings"
 
 // Tests for validator
 describe("Validation", () => {
+	let languageService: LanguageService
+	let languageSettings: LanguageSettings
+
 	const setup = (content: string) => {
 		return TextDocument.create(
 			"file://~/Desktop/sam.yaml",
@@ -29,53 +30,63 @@ describe("Validation", () => {
 		)
 		return languageService.doValidation(testTextDocument, yDoc)
 	}
+	;["default", "cfn-lint"].forEach(validationType => {
+		languageSettings = getDefaultLanguageSettings()
 
-	test("does basic validation for empty file", async () => {
-		const content = ""
-		const result = await parseSetup(content)
-		expect(result).toHaveLength(0)
-	})
+		if (validationType === "default") {
+			languageSettings.validationProvider = ValidationProvider.default
+		}
+		languageService = getLanguageService(languageSettings)
 
-	test("does basic validation for cloud formation template", async () => {
-		const content = [
-			"Resources:",
-			"  Table:",
-			"    Type: AWS::DynamoDB::Table"
-		].join("\n")
+		describe(validationType, () => {
+			test("does basic validation for empty file", async () => {
+				const content = ""
+				const result = await parseSetup(content)
+				expect(result).toHaveLength(0)
+			})
 
-		const result = await parseSetup(content)
-		expect(result).not.toHaveLength(0)
-		expect(result).toMatchSnapshot()
-	})
+			test("does basic validation for cloud formation template", async () => {
+				const content = [
+					"Resources:",
+					"  Table:",
+					"    Type: AWS::DynamoDB::Table"
+				].join("\n")
 
-	test("does basic validation for sam template", async () => {
-		const content = [
-			"Transform: AWS::Serverless-2016-10-31",
-			"Resources:",
-			"  Table:",
-			"    Type: AWS::DynamoDB::Table"
-		].join("\n")
+				const result = await parseSetup(content)
+				expect(result).not.toHaveLength(0)
+				expect(result).toMatchSnapshot()
+			})
 
-		const result = await parseSetup(content)
-		expect(result).not.toHaveLength(0)
-		expect(result).toMatchSnapshot()
-	})
+			test("does basic validation for sam template", async () => {
+				const content = [
+					"Transform: AWS::Serverless-2016-10-31",
+					"Resources:",
+					"  Table:",
+					"    Type: AWS::DynamoDB::Table"
+				].join("\n")
 
-	test("should considers globals for sam template", async () => {
-		const content = [
-			"Transform: AWS::Serverless-2016-10-31",
-			"Globals:",
-			"  Function:",
-			"    Runtime: nodejs8.10",
-			"Resources:",
-			"  Function:",
-			"    Type: AWS::Serverless::Function",
-			"    Properties:",
-			"      Handler: index.default",
-			"      CodeUri: ."
-		].join("\n")
+				const result = await parseSetup(content)
+				expect(result).not.toHaveLength(0)
+				expect(result).toMatchSnapshot()
+			})
 
-		const result = await parseSetup(content)
-		expect(result).toHaveLength(0)
+			test("should considers globals for sam template", async () => {
+				const content = [
+					"Transform: AWS::Serverless-2016-10-31",
+					"Globals:",
+					"  Function:",
+					"    Runtime: nodejs8.10",
+					"Resources:",
+					"  Function:",
+					"    Type: AWS::Serverless::Function",
+					"    Properties:",
+					"      Handler: index.default",
+					"      CodeUri: ."
+				].join("\n")
+
+				const result = await parseSetup(content)
+				expect(result).toHaveLength(0)
+			})
+		})
 	})
 })

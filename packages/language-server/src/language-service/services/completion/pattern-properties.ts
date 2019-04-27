@@ -1,10 +1,13 @@
-import { forEach, last } from "lodash"
+import { last, map } from "lodash"
 import {
 	CompletionItemKind,
-	InsertTextFormat
+	InsertTextFormat,
+	MarkupContent,
+	MarkupKind
 } from "vscode-languageserver-types"
 import { CompletionsCollector } from "../../jsonContributions"
 import { JSONSchema } from "../../jsonSchema"
+import documentationService from "../documentation"
 import { getInsertTextForObject } from "./text"
 
 const getResourceType = (schema: JSONSchema): string | null => {
@@ -25,37 +28,53 @@ const getResourceKey = (resourceType: string): string => {
 	return last(parts)
 }
 
-export const addPatternPropertiesCompletions = (
+export const addPatternPropertiesCompletions = async (
 	schema: JSONSchema,
 	collector: CompletionsCollector,
 	separatorAfter: string,
 	indent = "\t"
 ) => {
-	forEach(schema, (propertiesSchema: JSONSchema) => {
-		if (propertiesSchema.anyOf) {
-			propertiesSchema.anyOf.forEach(propertySchema => {
-				const resourceType = getResourceType(propertySchema)
+	await Promise.all(
+		map(schema, async (propertiesSchema: JSONSchema) => {
+			if (propertiesSchema.anyOf) {
+				await Promise.all(
+					propertiesSchema.anyOf.map(async propertySchema => {
+						const resourceType = getResourceType(propertySchema)
 
-				if (resourceType) {
-					const insertText = getInsertTextForObject(
-						propertySchema,
-						separatorAfter,
-						indent,
-						2
-					)
+						if (resourceType) {
+							const insertText = getInsertTextForObject(
+								propertySchema,
+								separatorAfter,
+								indent,
+								2
+							)
 
-					const key = getResourceKey(resourceType)
-					const text = `\${1:${key}}:\n${indent}${insertText.insertText.trimLeft()}`
+							const key = getResourceKey(resourceType)
+							const text = `\${1:${key}}:\n${indent}${insertText.insertText.trimLeft()}`
+							let docs: string | void = ""
+							try {
+								docs = await documentationService.getResourceDocumentation(
+									resourceType
+								)
+							} catch (err) {
+								// tslint:disable-next-line: no-console
+								console.error(err)
+							}
 
-					collector.add({
-						kind: CompletionItemKind.Snippet,
-						label: resourceType,
-						insertText: text,
-						insertTextFormat: InsertTextFormat.Snippet,
-						documentation: propertySchema.description || ""
+							collector.add({
+								kind: CompletionItemKind.Snippet,
+								label: resourceType,
+								insertText: text,
+								insertTextFormat: InsertTextFormat.Snippet,
+								documentation: {
+									kind: MarkupKind.Markdown,
+									value: docs
+								} as MarkupContent
+							})
+						}
 					})
-				}
-			})
-		}
-	})
+				)
+			}
+		})
+	)
 }

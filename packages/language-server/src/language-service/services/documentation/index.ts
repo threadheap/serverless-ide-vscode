@@ -23,24 +23,26 @@ const getPropertyNameFromKey = (propertyName: string): string => {
 	return propertyName
 }
 
+const MAX_PROPERTIES = 6
+
 const getItemType = (item: ItemType, docsUrl?: string): string => {
 	const wrap = (typeName?: string, primitiveType?: PrimitiveType) => {
 		let typeNameStr = ""
 		let primitiveTypeStr = ""
 
 		if (typeName && primitiveType) {
-			primitiveTypeStr = ` | ${primitiveType}`
+			primitiveTypeStr = ` | \`${primitiveType}\``
 			typeNameStr = getPropertyNameFromKey(typeName)
 		} else if (primitiveType) {
-			primitiveTypeStr = primitiveType
+			primitiveTypeStr = ` \`${primitiveType}\``
 		} else if (typeName) {
 			typeNameStr = getPropertyNameFromKey(typeName)
 		}
 
 		if (docsUrl && typeNameStr) {
-			return `[${typeNameStr}](${docsUrl})${primitiveTypeStr}`
+			return `[\`${typeNameStr}\`](${docsUrl})${primitiveTypeStr}`
 		}
-		return `${typeNameStr}${primitiveTypeStr}`
+		return `\`${typeNameStr}\`${primitiveTypeStr}`
 	}
 
 	if (item.Type === "List") {
@@ -86,13 +88,14 @@ export class DocumentationService {
 						property.Documentation
 					})`,
 					"\n",
-					"-----",
+					"| Property | Type |",
+					"| ------ | ------ |",
 					map(
 						property.Properties,
 						(nestedProperty, nestedPropertyName) => {
-							return `- [${nestedPropertyName}](${
+							return `| [\`${nestedPropertyName}\`](${
 								nestedProperty.Documentation
-							}): ${getItemType(nestedProperty)}`
+							}) | ${getItemType(nestedProperty)} |`
 						}
 					).join("\n")
 				].join("\n")
@@ -113,29 +116,47 @@ export class DocumentationService {
 			const resource = await this.getResource(resourceType)
 
 			if (resource) {
+				const propertiesKeys = Object.keys(resource.Properties)
+				const propertiesCount = propertiesKeys.length
+				const visiblePropertiesKeys = propertiesKeys.slice(
+					0,
+					MAX_PROPERTIES
+				)
 				const properties = (await Promise.all(
-					map(resource.Properties, async (value, name) => {
-						return `- [${name}](${
+					map(visiblePropertiesKeys, async name => {
+						const value = resource.Properties[name]
+
+						return `| [${name}](${
 							value.Documentation
-						}): ${await this.getPropertyTypeDocumentation(
+						}) | ${await this.getPropertyTypeDocumentation(
 							resourceType,
 							name,
 							value
-						)}`
+						)} |`
 					})
 				)).join(`\n`)
 
 				const attributes = map(resource.Attributes, (value, name) => {
-					return `- ${name}: ${getItemType(value)}`
+					return `| ${name} | ${getItemType(value)} |`
 				}).join("\n")
 
 				const markdown = [
-					`[${resourceType}](${resource.Documentation}) / Properties`,
+					`[${resourceType}](${resource.Documentation})`,
 					"\n",
-					"-----",
+					"| Property | Type |",
+					"| ------ | ------ |",
 					properties,
-					"-----",
-					"Attributes:",
+					`\n${
+						propertiesCount > MAX_PROPERTIES
+							? `- [${propertiesCount -
+									MAX_PROPERTIES} more...](${
+									resource.Documentation
+							  })`
+							: ""
+					}`,
+					"\n",
+					"| Attribute | Type |",
+					"| ------ | ------ |",
 					attributes
 				].join("\n")
 
@@ -205,3 +226,8 @@ export class DocumentationService {
 		}
 	}
 }
+
+const documentationSourceUrl =
+	"https://d1uauaxba7bl26.cloudfront.net/latest/gzip/CloudFormationResourceSpecification.json"
+
+export default new DocumentationService(documentationSourceUrl)

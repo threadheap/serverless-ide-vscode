@@ -17,7 +17,7 @@ import {
 	TextEdit
 } from "vscode-languageserver-types"
 
-import { LanguageSettings } from "../../languageService"
+import { LanguageSettings } from "../../model/settings"
 import { YAMLDocument } from "../../parser"
 import { matchOffsetToDocument } from "../../utils/arrayUtils"
 import * as completions from "./completions"
@@ -84,7 +84,6 @@ export class YAMLCompletion {
 		if (!currentDoc) {
 			return Promise.resolve(result)
 		}
-		const currentDocIndex = doc.documents.indexOf(currentDoc)
 		let node = currentDoc.getNodeFromOffsetEndInclusive(offset)
 		if (helpers.isInComment(document, node ? node.start : 0, offset)) {
 			return Promise.resolve(result)
@@ -233,7 +232,7 @@ export class YAMLCompletion {
 		}
 
 		// property proposal for values
-		completions.getValueCompletions(
+		await completions.getValueCompletions(
 			schema,
 			currentDoc,
 			node,

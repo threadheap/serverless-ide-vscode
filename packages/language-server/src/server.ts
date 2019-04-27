@@ -1,5 +1,6 @@
 "use strict"
 
+import get from "ts-get"
 import {
 	CompletionList,
 	createConnection,
@@ -8,6 +9,7 @@ import {
 	InitializeResult,
 	ProposedFeatures,
 	TextDocument,
+	TextDocumentPositionParams,
 	TextDocuments
 } from "vscode-languageserver"
 
@@ -15,8 +17,13 @@ import { configure as configureHttpRequests } from "request-light"
 import * as nls from "vscode-nls"
 import {
 	getLanguageService as getCustomLanguageService,
-	LanguageSettings
+	LanguageService
 } from "./language-service/languageService"
+import {
+	ExtensionSettings,
+	LanguageSettings,
+	ValidationProvider
+} from "./language-service/model/settings"
 import { parse as parseYAML } from "./language-service/parser"
 import { removeDuplicatesObj } from "./language-service/utils/arrayUtils"
 import { completionHelper } from "./language-service/utils/completion-helper"
@@ -36,51 +43,9 @@ console.log = connection.console.log.bind(connection.console)
 // tslint:disable-next-line: no-console
 console.error = connection.console.error.bind(connection.console)
 
-// Create a simple text document manager. The text document manager
-// supports full document sync only
 const documents: TextDocuments = new TextDocuments()
-// Make the text document manager listen on the connection
-// for open, change and close text document events
-documents.listen(connection)
-
-connection.onInitialize(
-	(params: InitializeParams): InitializeResult => {
-		return {
-			capabilities: {
-				textDocumentSync: documents.syncKind,
-				completionProvider: { resolveProvider: true },
-				hoverProvider: true,
-				documentSymbolProvider: true,
-				documentFormattingProvider: false
-			}
-		}
-	}
-)
-
-export const customLanguageService = getCustomLanguageService([])
-
-// The settings interface describes the server relevant settings part
-interface Settings {
-	serverlessIDE: {
-		validationProvider: "default" | "cfn-lint"
-		cfnLint: {
-			path: string
-			appendRules: string[]
-			ignoreRules: string[]
-			overrideSpecPath: string
-		}
-		validate: boolean
-		hover: boolean
-		completion: boolean
-	}
-	http: {
-		proxy: string
-		proxyStrictSSL: boolean
-	}
-}
-let yamlShouldValidate = true
-let yamlShouldHover = true
-let yamlShouldCompletion = true
+let customLanguageService: LanguageService
+let workspaceRoot: string
 const customTags = [
 	"!And",
 	"!If",
@@ -100,34 +65,22 @@ const customTags = [
 	"!Join"
 ]
 
-connection.onDidChangeConfiguration(change => {
-	const settings = change.settings as Settings
-	configureHttpRequests(
-		settings.http && settings.http.proxy,
-		settings.http && settings.http.proxyStrictSSL
-	)
+connection.onInitialize(
+	(params: InitializeParams): InitializeResult => {
+		workspaceRoot = params.rootPath
 
-	if (settings.serverlessIDE) {
-		yamlShouldValidate = settings.serverlessIDE.validate
-		yamlShouldHover = settings.serverlessIDE.hover
-		yamlShouldCompletion = settings.serverlessIDE.completion
+		return {
+			capabilities: {
+				textDocumentSync: documents.syncKind,
+				completionProvider: { resolveProvider: true },
+				signatureHelpProvider: {},
+				hoverProvider: true,
+				documentSymbolProvider: true,
+				documentFormattingProvider: false
+			}
+		}
 	}
-
-	updateConfiguration()
-})
-
-function updateConfiguration() {
-	const languageSettings: LanguageSettings = {
-		validate: yamlShouldValidate,
-		hover: yamlShouldHover,
-		completion: yamlShouldCompletion,
-		customTags
-	}
-	customLanguageService.configure(languageSettings)
-
-	// Revalidate any open text documents
-	documents.all().forEach(triggerValidation)
-}
+)
 
 documents.onDidChangeContent(change => {
 	triggerValidation(change.document)
@@ -136,6 +89,148 @@ documents.onDidChangeContent(change => {
 documents.onDidClose(event => {
 	cleanPendingValidation(event.document)
 	connection.sendDiagnostics({ uri: event.document.uri, diagnostics: [] })
+})
+
+connection.onInitialized(() => {
+	connection.onDidChangeConfiguration(change => {
+		const settings = change.settings as ExtensionSettings
+		configureHttpRequests(
+			settings.http && settings.http.proxy,
+			settings.http && settings.http.proxyStrictSSL
+		)
+
+		const languageSettings: LanguageSettings = {
+			validate: get(
+				settings,
+				input => input.serverlessIDE.validate,
+				true
+			),
+			hover: get(settings, input => input.serverlessIDE.hover, true),
+			completion: get(
+				settings,
+				input => input.serverlessIDE.completion,
+				true
+			),
+			customTags,
+			validationProvider: get(
+				settings,
+				input => input.serverlessIDE.validationProvider,
+				ValidationProvider["cfn-lint"]
+			),
+			cfnLint: {
+				path: get(
+					settings,
+					input => input.serverlessIDE.cfnLint.path,
+					"cfn-lint"
+				),
+				appendRules: get(
+					settings,
+					input => input.serverlessIDE.cfnLint.appendRules,
+					[]
+				),
+				ignoreRules: get(
+					settings,
+					input => input.serverlessIDE.cfnLint.ignoreRules,
+					[]
+				),
+				overrideSpecPath: get(
+					settings,
+					input => input.serverlessIDE.cfnLint.overrideSpecPath,
+					undefined
+				)
+			},
+			workspaceRoot
+		}
+
+		if (customLanguageService) {
+			customLanguageService.configure(languageSettings)
+		} else {
+			customLanguageService = getCustomLanguageService(languageSettings)
+		}
+
+		documents.all().forEach(triggerValidation)
+	})
+
+	connection.onDidChangeWatchedFiles(change => {
+		documents.all().forEach(validateTextDocument)
+	})
+
+	connection.onCompletion(textDocumentPosition => {
+		const textDocument = documents.get(
+			textDocumentPosition.textDocument.uri
+		)
+
+		const result: CompletionList = {
+			items: [],
+			isIncomplete: false
+		}
+
+		if (!textDocument) {
+			return Promise.resolve(result)
+		}
+
+		if (!isSupportedDocument(textDocument)) {
+			return Promise.resolve(void 0)
+		}
+
+		const completionFix = completionHelper(
+			textDocument,
+			textDocumentPosition.position
+		)
+		const newText = completionFix.newText
+		const jsonDocument = parseYAML(newText)
+		return customLanguageService.doComplete(
+			textDocument,
+			textDocumentPosition.position,
+			jsonDocument
+		)
+	})
+
+	connection.onCompletionResolve(completionItem => {
+		return customLanguageService.doResolve(completionItem)
+	})
+
+	connection.onHover(
+		(textDocumentPositionParams: TextDocumentPositionParams) => {
+			const document = documents.get(
+				textDocumentPositionParams.textDocument.uri
+			)
+
+			if (!document) {
+				return Promise.resolve(void 0)
+			}
+
+			const text = document.getText()
+
+			if (!isSupportedDocument(document)) {
+				return Promise.resolve(void 0)
+			}
+
+			const jsonDocument = parseYAML(text)
+			return customLanguageService.doHover(
+				document,
+				textDocumentPositionParams.position,
+				jsonDocument
+			)
+		}
+	)
+
+	connection.onDocumentSymbol(document => {
+		const uri = documents.get(document.textDocument.uri)
+
+		if (!uri) {
+			return
+		}
+
+		const text = uri.getText()
+
+		if (!isSupportedDocument(uri)) {
+			return
+		}
+
+		const jsonDocument = parseYAML(text)
+		return customLanguageService.findDocumentSymbols(uri, jsonDocument)
+	})
 })
 
 const pendingValidationRequests: { [uri: string]: NodeJS.Timer } = {}
@@ -192,83 +287,5 @@ function validateTextDocument(textDocument: TextDocument): void {
 		})
 }
 
-connection.onDidChangeWatchedFiles(change => {
-	// Monitored files have changed in VSCode
-	const hasChanges = false
-	if (hasChanges) {
-		documents.all().forEach(validateTextDocument)
-	}
-})
-
-connection.onCompletion(textDocumentPosition => {
-	const textDocument = documents.get(textDocumentPosition.textDocument.uri)
-
-	const result: CompletionList = {
-		items: [],
-		isIncomplete: false
-	}
-
-	if (!textDocument) {
-		return Promise.resolve(result)
-	}
-
-	if (!isSupportedDocument(textDocument)) {
-		return Promise.resolve(void 0)
-	}
-
-	const completionFix = completionHelper(
-		textDocument,
-		textDocumentPosition.position
-	)
-	const newText = completionFix.newText
-	const jsonDocument = parseYAML(newText)
-	return customLanguageService.doComplete(
-		textDocument,
-		textDocumentPosition.position,
-		jsonDocument
-	)
-})
-
-connection.onCompletionResolve(completionItem => {
-	return customLanguageService.doResolve(completionItem)
-})
-
-connection.onHover(textDocumentPositionParams => {
-	const document = documents.get(textDocumentPositionParams.textDocument.uri)
-
-	if (!document) {
-		return Promise.resolve(void 0)
-	}
-
-	const text = document.getText()
-
-	if (!isSupportedDocument(document)) {
-		return Promise.resolve(void 0)
-	}
-
-	const jsonDocument = parseYAML(text)
-	return customLanguageService.doHover(
-		document,
-		textDocumentPositionParams.position,
-		jsonDocument
-	)
-})
-
-connection.onDocumentSymbol(documentSymbolParams => {
-	const document = documents.get(documentSymbolParams.textDocument.uri)
-
-	if (!document) {
-		return
-	}
-
-	const text = document.getText()
-
-	if (!isSupportedDocument(document)) {
-		return
-	}
-
-	const jsonDocument = parseYAML(text)
-	return customLanguageService.findDocumentSymbols(document, jsonDocument)
-})
-
+documents.listen(connection)
 connection.listen()
