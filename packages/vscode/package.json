@@ -40,7 +40,7 @@
         "autocompletion",
         "validation"
     ],
-    "main": "./out/extension",
+    "main": "./out/src/extension",
     "contributes": {
         "languages": [
             {
@@ -157,6 +157,7 @@
     },
     "dependencies": {
         "@serverless-ide/language-server": "^0.3.1",
+        "vscode-extension-telemetry": "^0.1.1",
         "vscode-languageclient": "5.1.1",
         "vscode-nls": "^3.2.1",
         "vscode-uri": "^1.0.5"
