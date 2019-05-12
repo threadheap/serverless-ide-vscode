@@ -5,7 +5,8 @@
 		"moduleResolution": "node",
 		"lib": ["es2016"],
 		"sourceMap": true,
-		"outDir": "./out"
+		"outDir": "./out",
+		"resolveJsonModule": true,
 	},
 	"exclude": ["node_modules", "**/node_modules/**", "**/__tests__/**"],
 	"include": ["src"]
