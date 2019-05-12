@@ -5,7 +5,7 @@
 
 [![CircleCI](https://circleci.com/gh/threadheap/serverless-ide-vscode.svg?style=shield)](https://circleci.com/gh/threadheap/serverless-ide-vscode)
 
-# Serverless IDE: Enahnced support of AWS SAM in Visual Studio Code
+# Serverless IDE: Enhanced support of AWS SAM in Visual Studio Code
 
 Provides comprehensive AWS SAM (Serverless Application Model) and Cloudformation support to [Visual Studio Code](https://code.visualstudio.com/).
 
