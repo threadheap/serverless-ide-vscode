@@ -1,8 +1,8 @@
 import TelemetryReporter from "vscode-extension-telemetry"
 
 class Telemetry {
-	public extensionId: string
-	public extensionVersion: string
+	extensionId: string
+	extensionVersion: string
 	private telemetryReporter: TelemetryReporter
 
 	get reporter(): TelemetryReporter {
@@ -23,7 +23,7 @@ class Telemetry {
 		)
 	}
 
-	public async sendServerEvent(
+	async sendServerEvent(
 		name: string,
 		stringData: { [key: string]: string } = {},
 		numericData: { [key: string]: number } = {}

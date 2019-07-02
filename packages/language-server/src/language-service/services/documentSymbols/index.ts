@@ -12,7 +12,7 @@ import {
 } from "vscode-languageserver-types"
 
 export class YAMLDocumentSymbols {
-	public findDocumentSymbols(
+	findDocumentSymbols(
 		document: TextDocument,
 		doc: YAMLDocument
 	): SymbolInformation[] {

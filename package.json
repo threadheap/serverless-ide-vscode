@@ -6,15 +6,19 @@
     },
     "devDependencies": {
         "@types/jest": "^23.3.12",
+        "@typescript-eslint/eslint-plugin": "^1.11.0",
+        "@typescript-eslint/parser": "^1.11.0",
+        "eslint": "^6.0.1",
+        "eslint-config-prettier": "^6.0.0",
+        "eslint-plugin-prettier": "^3.1.0",
         "husky": "^1.3.1",
         "jest": "^23.6.0",
-        "lerna": "^3.13.1",
-        "prettier": "^1.16.4",
+        "lerna": "^3.15.0",
+        "lint-staged": "^9.0.1",
+        "prettier": "^1.18.2",
         "prettier-check": "^2.0.0",
         "ts-jest": "^23.10.5",
         "ts-node": "^5.0.1",
-        "tslint": "^5.13.1",
-        "tslint-config-prettier": "^1.18.0",
         "typescript": "^3.2.2"
     },
     "workspaces": {
@@ -30,16 +34,24 @@
         "update-vscode": "node ./node_modules/vscode/bin/install",
         "postinstall": "node ./node_modules/vscode/bin/install",
         "test": "jest",
-        "pre-commit": "yarn lint:types && yarn lint:prettier && yarn lint:ts && yarn test",
+        "test:changed": "jest --bail --findRelatedTests",
+        "pre-commit": "./node_modules/.bin/lint-staged",
         "compile": "lerna run compile",
         "lint:types": "lerna run lint:types",
-        "lint:ts": "lerna run lint:ts",
-        "lint:ts:fix": "lerna run lint:ts:fix",
-        "lint:prettier": "prettier-check packages/**/*.ts"
+        "lint:ts": "eslint **/*.ts",
+        "lint:ts:fix": "eslint **/*.ts --fix"
     },
     "husky": {
         "hooks": {
             "pre-commit": "yarn pre-commit"
         }
+    },
+    "lint-staged": {
+        "**/*.ts": [
+            "eslint --fix",
+            "yarn lint:types",
+            "yarn test:changed",
+            "git add"
+        ]
     }
 }

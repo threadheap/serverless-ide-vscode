@@ -221,7 +221,7 @@ export const getContributedValueCompletions = (
 	offset: number,
 	document: TextDocument,
 	collector: CompletionsCollector,
-	collectionPromises: Array<Promise<any>>
+	collectionPromises: Promise<any>[]
 ) => {
 	if (!node) {
 		contributions.forEach(contribution => {

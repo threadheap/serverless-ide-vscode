@@ -107,9 +107,7 @@ export const getInsertTextForObject = (
 					insertIndex++
 				)
 				insertIndex = arrayInsertResult.insertIndex
-				insertText += `${indent}${key}:\n${indent}\t- ${
-					arrayInsertResult.insertText
-				}\n`
+				insertText += `${indent}${key}:\n${indent}\t- ${arrayInsertResult.insertText}\n`
 				break
 			case "object": {
 				const insertResult = getInsertTextForObject(

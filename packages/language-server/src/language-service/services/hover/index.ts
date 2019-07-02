@@ -31,13 +31,13 @@ export class YAMLHover {
 		this.shouldHover = true
 	}
 
-	public configure(languageSettings: LanguageSettings) {
+	configure(languageSettings: LanguageSettings) {
 		if (languageSettings) {
 			this.shouldHover = languageSettings.hover
 		}
 	}
 
-	public async doHover(
+	async doHover(
 		document: TextDocument,
 		position: Position,
 		doc: YAMLDocument

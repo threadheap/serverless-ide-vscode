@@ -7,7 +7,7 @@ export class ErrorHandler {
 		this.textDocument = textDocument
 	}
 
-	public addErrorResult(errorNode, errorMessage, errorType) {
+	addErrorResult(errorNode, errorMessage, errorType) {
 		this.errorResultsList.push({
 			severity: errorType,
 			range: {
@@ -18,7 +18,7 @@ export class ErrorHandler {
 		})
 	}
 
-	public getErrorResultsList() {
+	getErrorResultsList() {
 		return this.errorResultsList
 	}
 }

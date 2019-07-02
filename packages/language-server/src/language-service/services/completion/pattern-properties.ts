@@ -2,7 +2,6 @@ import { last, map } from "lodash"
 import {
 	CompletionItemKind,
 	InsertTextFormat,
-	MarkupContent,
 	MarkupKind
 } from "vscode-languageserver-types"
 import { CompletionsCollector } from "../../jsonContributions"
@@ -68,8 +67,8 @@ export const addPatternPropertiesCompletions = async (
 								insertTextFormat: InsertTextFormat.Snippet,
 								documentation: {
 									kind: MarkupKind.Markdown,
-									value: docs
-								} as MarkupContent
+									value: docs || ""
+								}
 							})
 						}
 					})

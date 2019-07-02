@@ -36,16 +36,13 @@ export class YAMLValidation {
 	private workspaceRoot: string
 	private inProgressMap: { [key: string]: boolean } = {}
 
-	public constructor(
-		jsonSchemaService: JSONSchemaService,
-		workspaceRoot: string
-	) {
+	constructor(jsonSchemaService: JSONSchemaService, workspaceRoot: string) {
 		this.jsonSchemaService = jsonSchemaService
 		this.validationEnabled = true
 		this.workspaceRoot = workspaceRoot
 	}
 
-	public configure(settings: LanguageSettings) {
+	configure(settings: LanguageSettings) {
 		if (settings) {
 			this.validationEnabled = settings.validate
 			this.settings = settings.cfnLint
@@ -53,10 +50,7 @@ export class YAMLValidation {
 		}
 	}
 
-	public async doValidation(
-		textDocument: TextDocument,
-		yamlDocument: YAMLDocument
-	) {
+	async doValidation(textDocument: TextDocument, yamlDocument: YAMLDocument) {
 		if (!this.validationEnabled) {
 			return Promise.resolve([])
 		}
@@ -147,9 +141,7 @@ export class YAMLValidation {
 								}
 							},
 							severity: transformCfnLintSeverity(error.Level),
-							message: `[Serverless IDE] ${error.Rule.Id}: ${
-								error.Message
-							}`
+							message: `[Serverless IDE] ${error.Rule.Id}: ${error.Message}`
 						})
 					})
 				}

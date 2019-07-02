@@ -7,13 +7,6 @@ import { completionHelper } from "../utils/completion-helper"
 const languageSettings = getDefaultLanguageSettings()
 const languageService = getLanguageService(languageSettings)
 
-const cfnTemplateWithVersion = `
-AWSTemplateFormatVersion: 2010-09-09
-`
-
-const cfnTemplateWithResources =
-	"AWSTemplateFormatVersion: 2010-09-09\nResources:\n  AWS:Dyna"
-
 describe("Auto Completion Tests", () => {
 	describe("doComplete", () => {
 		const setup = (content: string) => {

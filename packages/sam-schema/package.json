@@ -32,8 +32,6 @@
     "scripts": {
         "build": "rm -rf ./out && tsc -p .",
         "lint:types": "tsc --noEmit",
-        "lint:ts": "tslint -p ./",
-        "lint:ts:fix": "tslint -p ./ --fix",
         "watch": "rm -rf ./out && yarn build --watch",
         "generate": "yarn build && node out/index.js",
         "prepublish": "yarn generate"

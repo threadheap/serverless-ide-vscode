@@ -57,8 +57,8 @@ function getParseErrorMessage(errorCode: Json.ParseErrorCode): string {
 
 // tslint:disable-next-line: max-classes-per-file
 export class UnresolvedSchema {
-	public schema: JSONSchema
-	public errors: string[]
+	schema: JSONSchema
+	errors: string[]
 
 	constructor(schema: JSONSchema, errors: string[] = []) {
 		this.schema = schema
@@ -68,15 +68,15 @@ export class UnresolvedSchema {
 
 // tslint:disable-next-line: max-classes-per-file
 export class ResolvedSchema {
-	public schema: JSONSchema
-	public errors: string[]
+	schema: JSONSchema
+	errors: string[]
 
 	constructor(schema: JSONSchema, errors: string[] = []) {
 		this.schema = schema
 		this.errors = errors
 	}
 
-	public getSection(path: string[]): JSONSchema {
+	getSection(path: string[]): JSONSchema {
 		return this.getSectionRecursive(path, this.schema)
 	}
 
@@ -127,17 +127,19 @@ export class ResolvedSchema {
 }
 
 const resolveSchemaContent = async (
-	schemaToResolve: UnresolvedSchema,
-	schemaURL: string
+	schemaToResolve: UnresolvedSchema
 ): Promise<ResolvedSchema> => {
 	const resolveErrors: string[] = schemaToResolve.errors.slice(0)
 	const schema = schemaToResolve.schema
 
-	const findSection = (selectonSchema: JSONSchema, path: string): any => {
+	const findSection = (
+		selectonSchema: JSONSchema,
+		path: string
+	): JSONSchema | false => {
 		if (!path) {
 			return selectonSchema
 		}
-		let current: any = selectonSchema
+		let current = selectonSchema
 		if (path[0] === "/") {
 			path = path.substr(1)
 		}
@@ -184,7 +186,7 @@ const resolveSchemaContent = async (
 		const toWalk: JSONSchema[] = [node]
 		const seen: JSONSchema[] = []
 
-		const openPromises: Array<Promise<any>> = []
+		const openPromises: Promise<any>[] = []
 
 		const collectEntries = (...entries: JSONSchema[]) => {
 			for (const entry of entries) {
@@ -254,22 +256,16 @@ export class JSONSchemaService {
 		this.schemas = {
 			[CLOUD_FORMATION]: this.loadSchema(CLOUD_FORMATION_SCHEMA_URL).then(
 				unresolvedSchema => {
-					return resolveSchemaContent(
-						unresolvedSchema,
-						CLOUD_FORMATION_SCHEMA_URL
-					)
+					return resolveSchemaContent(unresolvedSchema)
 				}
 			),
-			[SAM]: resolveSchemaContent(
-				new UnresolvedSchema(samSchema, []),
-				samSchema.$schema
-			),
+			[SAM]: resolveSchemaContent(new UnresolvedSchema(samSchema, [])),
 			[SERVERLESS_FRAMEWORK]: Promise.resolve(undefined),
 			[UNKNOWN]: Promise.resolve(undefined)
 		}
 	}
 
-	public async getSchemaForDocument(
+	async getSchemaForDocument(
 		document: TextDocument,
 		yamlDocument: SingleYAMLDocument
 	): Promise<ResolvedSchema | void> {
@@ -294,7 +290,8 @@ export class JSONSchemaService {
 					"Unable to load schema from '{0}': No content.",
 					toDisplayString(url)
 				)
-				return new UnresolvedSchema({} as JSONSchema, [errorMessage])
+				const defaultSchema: JSONSchema = {}
+				return new UnresolvedSchema(defaultSchema, [errorMessage])
 			}
 			let schemaContent: JSONSchema = {}
 			const jsonErrors = []
@@ -317,7 +314,8 @@ export class JSONSchemaService {
 				toDisplayString(url),
 				error.toString()
 			)
-			return new UnresolvedSchema({} as JSONSchema, [errorMessage])
+			const defaultSchema: JSONSchema = {}
+			return new UnresolvedSchema(defaultSchema, [errorMessage])
 		}
 	}
 }

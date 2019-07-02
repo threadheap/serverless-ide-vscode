@@ -42,14 +42,14 @@ export class YAMLCompletion {
 		this.completion = true
 	}
 
-	public configure(languageSettings: LanguageSettings, customTags: string[]) {
+	configure(languageSettings: LanguageSettings, customTags: string[]) {
 		if (languageSettings) {
 			this.completion = languageSettings.completion
 		}
 		this.customTags = customTags
 	}
 
-	public doResolve(item: CompletionItem): Promise<CompletionItem> {
+	doResolve(item: CompletionItem): Promise<CompletionItem> {
 		for (let i = this.contributions.length - 1; i >= 0; i--) {
 			if (this.contributions[i].resolveCompletion) {
 				const resolver = this.contributions[i].resolveCompletion(item)
@@ -61,7 +61,7 @@ export class YAMLCompletion {
 		return Promise.resolve(item)
 	}
 
-	public async doComplete(
+	async doComplete(
 		document: TextDocument,
 		position: Position,
 		doc: YAMLDocument
@@ -164,7 +164,7 @@ export class YAMLCompletion {
 			return Promise.resolve(result)
 		}
 
-		const collectionPromises: Array<Promise<any>> = []
+		const collectionPromises: Promise<any>[] = []
 
 		let addValue = true
 

@@ -32,12 +32,12 @@ export interface IProblem {
 }
 
 export class ASTNode {
-	public start: number
-	public end: number
-	public type: string
-	public parent: ASTNode
-	public parserSettings: LanguageSettings
-	public location: Json.Segment
+	start: number
+	end: number
+	type: string
+	parent: ASTNode
+	parserSettings: LanguageSettings
+	location: Json.Segment
 
 	constructor(
 		parent: ASTNode,
@@ -53,11 +53,11 @@ export class ASTNode {
 		this.parent = parent
 	}
 
-	public setParserSettings(parserSettings: LanguageSettings) {
+	setParserSettings(parserSettings: LanguageSettings) {
 		this.parserSettings = parserSettings
 	}
 
-	public getPath(): Json.JSONPath {
+	getPath(): Json.JSONPath {
 		const path = this.parent ? this.parent.getPath() : []
 		if (this.location !== null) {
 			path.push(this.location)
@@ -65,30 +65,27 @@ export class ASTNode {
 		return path
 	}
 
-	public getChildNodes(): ASTNode[] {
+	getChildNodes(): ASTNode[] {
 		return []
 	}
 
-	public getLastChild(): ASTNode {
+	getLastChild(): ASTNode {
 		return null
 	}
 
-	public getValue(): any {
+	getValue(): any {
 		// override in children
 		return
 	}
 
-	public contains(
-		offset: number,
-		includeRightBound: boolean = false
-	): boolean {
+	contains(offset: number, includeRightBound: boolean = false): boolean {
 		return (
 			(offset >= this.start && offset < this.end) ||
 			(includeRightBound && offset === this.end)
 		)
 	}
 
-	public toString(): string {
+	toString(): string {
 		return (
 			"type: " +
 			this.type +
@@ -101,11 +98,11 @@ export class ASTNode {
 		)
 	}
 
-	public visit(visitor: (node: ASTNode) => boolean): boolean {
+	visit(visitor: (node: ASTNode) => boolean): boolean {
 		return visitor(this)
 	}
 
-	public getNodeFromOffset(offset: number): ASTNode {
+	getNodeFromOffset(offset: number): ASTNode {
 		const findNode = (node: ASTNode): ASTNode => {
 			if (offset >= node.start && offset < node.end) {
 				const children = node.getChildNodes()
@@ -126,7 +123,7 @@ export class ASTNode {
 		return findNode(this)
 	}
 
-	public getNodeCollectorCount(offset: number): number {
+	getNodeCollectorCount(): number {
 		const collector = []
 		const findNode = (node: ASTNode): ASTNode => {
 			const children = node.getChildNodes()
@@ -139,11 +136,11 @@ export class ASTNode {
 			})
 			return node
 		}
-		const foundNode = findNode(this)
+		findNode(this)
 		return collector.length
 	}
 
-	public getNodeFromOffsetEndInclusive(offset: number): ASTNode {
+	getNodeFromOffsetEndInclusive(offset: number): ASTNode {
 		const collector = []
 		const findNode = (node: ASTNode): ASTNode => {
 			if (offset >= node.start && offset <= node.end) {
@@ -177,7 +174,7 @@ export class ASTNode {
 		return currMinNode || foundNode
 	}
 
-	public validate(
+	validate(
 		schema: JSONSchema,
 		validationResult: ValidationResult,
 		matchingSchemas: ISchemaCollector
@@ -357,7 +354,7 @@ export class NullASTNode extends ASTNode {
 		super(parent, "null", name, start, end)
 	}
 
-	public getValue(): any {
+	getValue(): any {
 		return null
 	}
 }
@@ -377,14 +374,14 @@ export class BooleanASTNode extends ASTNode {
 		this.value = value
 	}
 
-	public getValue(): any {
+	getValue(): any {
 		return this.value
 	}
 }
 
 // tslint:disable-next-line: max-classes-per-file
 export class ArrayASTNode extends ASTNode {
-	public items: ASTNode[]
+	items: ASTNode[]
 
 	constructor(
 		parent: ASTNode,
@@ -396,19 +393,19 @@ export class ArrayASTNode extends ASTNode {
 		this.items = []
 	}
 
-	public getChildNodes(): ASTNode[] {
+	getChildNodes(): ASTNode[] {
 		return this.items
 	}
 
-	public getLastChild(): ASTNode {
+	getLastChild(): ASTNode {
 		return this.items[this.items.length - 1]
 	}
 
-	public getValue(): any {
+	getValue(): any {
 		return this.items.map(v => v.getValue())
 	}
 
-	public addItem(item: ASTNode): boolean {
+	addItem(item: ASTNode): boolean {
 		if (item) {
 			this.items.push(item)
 			return true
@@ -416,7 +413,7 @@ export class ArrayASTNode extends ASTNode {
 		return false
 	}
 
-	public visit(visitor: (node: ASTNode) => boolean): boolean {
+	visit(visitor: (node: ASTNode) => boolean): boolean {
 		let ctn = visitor(this)
 		for (let i = 0; i < this.items.length && ctn; i++) {
 			ctn = this.items[i].visit(visitor)
@@ -424,7 +421,7 @@ export class ArrayASTNode extends ASTNode {
 		return ctn
 	}
 
-	public validate(
+	validate(
 		schema: JSONSchema,
 		validationResult: ValidationResult,
 		matchingSchemas: ISchemaCollector
@@ -538,8 +535,8 @@ export class ArrayASTNode extends ASTNode {
 
 // tslint:disable-next-line: max-classes-per-file
 export class NumberASTNode extends ASTNode {
-	public isInteger: boolean
-	public value: number
+	isInteger: boolean
+	value: number
 
 	constructor(
 		parent: ASTNode,
@@ -552,11 +549,11 @@ export class NumberASTNode extends ASTNode {
 		this.value = Number.NaN
 	}
 
-	public getValue(): any {
+	getValue(): any {
 		return this.value
 	}
 
-	public validate(
+	validate(
 		schema: JSONSchema,
 		validationResult: ValidationResult,
 		matchingSchemas: ISchemaCollector
@@ -650,8 +647,8 @@ export class NumberASTNode extends ASTNode {
 
 // tslint:disable-next-line: max-classes-per-file
 export class StringASTNode extends ASTNode {
-	public isKey: boolean
-	public value: string
+	isKey: boolean
+	value: string
 
 	constructor(
 		parent: ASTNode,
@@ -665,11 +662,11 @@ export class StringASTNode extends ASTNode {
 		this.value = ""
 	}
 
-	public getValue(): any {
+	getValue(): any {
 		return this.value
 	}
 
-	public validate(
+	validate(
 		schema: JSONSchema,
 		validationResult: ValidationResult,
 		matchingSchemas: ISchemaCollector
@@ -725,9 +722,9 @@ export class StringASTNode extends ASTNode {
 
 // tslint:disable-next-line: max-classes-per-file
 export class PropertyASTNode extends ASTNode {
-	public key: StringASTNode
-	public value: ASTNode
-	public colonOffset: number
+	key: StringASTNode
+	value: ASTNode
+	colonOffset: number
 
 	constructor(parent: ASTNode, key: StringASTNode) {
 		super(parent, "property", null, key.start)
@@ -737,20 +734,20 @@ export class PropertyASTNode extends ASTNode {
 		this.colonOffset = -1
 	}
 
-	public getChildNodes(): ASTNode[] {
+	getChildNodes(): ASTNode[] {
 		return this.value ? [this.key, this.value] : [this.key]
 	}
 
-	public getLastChild(): ASTNode {
+	getLastChild(): ASTNode {
 		return this.value
 	}
 
-	public setValue(value: ASTNode): boolean {
+	setValue(value: ASTNode): boolean {
 		this.value = value
 		return value !== null
 	}
 
-	public visit(visitor: (node: ASTNode) => boolean): boolean {
+	visit(visitor: (node: ASTNode) => boolean): boolean {
 		return (
 			visitor(this) &&
 			this.key.visit(visitor) &&
@@ -759,7 +756,7 @@ export class PropertyASTNode extends ASTNode {
 		)
 	}
 
-	public validate(
+	validate(
 		schema: JSONSchema,
 		validationResult: ValidationResult,
 		matchingSchemas: ISchemaCollector
@@ -775,7 +772,7 @@ export class PropertyASTNode extends ASTNode {
 
 // tslint:disable-next-line: max-classes-per-file
 export class ObjectASTNode extends ASTNode {
-	public properties: PropertyASTNode[]
+	properties: PropertyASTNode[]
 
 	constructor(
 		parent: ASTNode,
@@ -788,15 +785,15 @@ export class ObjectASTNode extends ASTNode {
 		this.properties = []
 	}
 
-	public getChildNodes(): ASTNode[] {
+	getChildNodes(): ASTNode[] {
 		return this.properties
 	}
 
-	public getLastChild(): ASTNode {
+	getLastChild(): ASTNode {
 		return this.properties[this.properties.length - 1]
 	}
 
-	public addProperty(node: PropertyASTNode): boolean {
+	addProperty(node: PropertyASTNode): boolean {
 		if (!node) {
 			return false
 		}
@@ -804,17 +801,17 @@ export class ObjectASTNode extends ASTNode {
 		return true
 	}
 
-	public getFirstProperty(key: string): PropertyASTNode | void {
+	getFirstProperty(key: string): PropertyASTNode | void {
 		return this.properties.find(property => {
 			return property.key.value === key
 		})
 	}
 
-	public getKeyList(): string[] {
+	getKeyList(): string[] {
 		return this.properties.map(p => p.key.getValue())
 	}
 
-	public getValue(): any {
+	getValue(): any {
 		const value: any = Object.create(null)
 		this.properties.forEach(p => {
 			const v = p.value && p.value.getValue()
@@ -825,7 +822,7 @@ export class ObjectASTNode extends ASTNode {
 		return value
 	}
 
-	public visit(visitor: (node: ASTNode) => boolean): boolean {
+	visit(visitor: (node: ASTNode) => boolean): boolean {
 		let ctn = visitor(this)
 		for (let i = 0; i < this.properties.length && ctn; i++) {
 			ctn = this.properties[i].visit(visitor)
@@ -833,7 +830,7 @@ export class ObjectASTNode extends ASTNode {
 		return ctn
 	}
 
-	public validate(
+	validate(
 		schema: JSONSchema,
 		validationResult: ValidationResult,
 		matchingSchemas: ISchemaCollector
@@ -1101,21 +1098,26 @@ export interface ISchemaCollector {
 
 // tslint:disable-next-line: max-classes-per-file
 class SchemaCollector implements ISchemaCollector {
-	public schemas: IApplicableSchema[] = []
-	constructor(private focusOffset = -1, private exclude: ASTNode = null) {}
-	public add(schema: IApplicableSchema) {
+	schemas: IApplicableSchema[] = []
+	private focusOffset: number
+	private exclude: ASTNode
+	constructor(focusOffset: number = -1, exclude: ASTNode = null) {
+		this.focusOffset = focusOffset
+		this.exclude = exclude
+	}
+	add(schema: IApplicableSchema) {
 		this.schemas.push(schema)
 	}
-	public merge(other: ISchemaCollector) {
+	merge(other: ISchemaCollector) {
 		this.schemas.push(...other.schemas)
 	}
-	public include(node: ASTNode) {
+	include(node: ASTNode) {
 		return (
 			(this.focusOffset === -1 || node.contains(this.focusOffset)) &&
 			node !== this.exclude
 		)
 	}
-	public newSub(): ISchemaCollector {
+	newSub(): ISchemaCollector {
 		return new SchemaCollector(-1, this.exclude)
 	}
 }
@@ -1125,31 +1127,31 @@ class NoOpSchemaCollector implements ISchemaCollector {
 	get schemas() {
 		return []
 	}
-	public add(schema: IApplicableSchema) {
+	add() {
 		return
 	}
-	public merge(other: ISchemaCollector) {
+	merge() {
 		return
 	}
-	public include(node: ASTNode) {
+	include() {
 		return true
 	}
-	public newSub(): ISchemaCollector {
+	newSub(): ISchemaCollector {
 		return this
 	}
 }
 
 // tslint:disable-next-line: max-classes-per-file
 export class ValidationResult {
-	public problems: IProblem[]
+	problems: IProblem[]
 
-	public propertiesMatches: number
-	public propertiesValueMatches: number
-	public primaryValueMatches: number
-	public enumValueMatch: boolean
-	public enumValues: any[]
-	public warnings
-	public errors
+	propertiesMatches: number
+	propertiesValueMatches: number
+	primaryValueMatches: number
+	enumValueMatch: boolean
+	enumValues: any[]
+	warnings
+	errors
 
 	constructor() {
 		this.problems = []
@@ -1162,21 +1164,21 @@ export class ValidationResult {
 		this.errors = []
 	}
 
-	public hasProblems(): boolean {
+	hasProblems(): boolean {
 		return !!this.problems.length
 	}
 
-	public mergeAll(validationResults: ValidationResult[]): void {
+	mergeAll(validationResults: ValidationResult[]): void {
 		validationResults.forEach(validationResult => {
 			this.merge(validationResult)
 		})
 	}
 
-	public merge(validationResult: ValidationResult): void {
+	merge(validationResult: ValidationResult): void {
 		this.problems = this.problems.concat(validationResult.problems)
 	}
 
-	public mergeEnumValues(validationResult: ValidationResult): void {
+	mergeEnumValues(validationResult: ValidationResult): void {
 		if (
 			!this.enumValueMatch &&
 			!validationResult.enumValueMatch &&
@@ -1198,9 +1200,7 @@ export class ValidationResult {
 		}
 	}
 
-	public mergePropertyMatch(
-		propertyValidationResult: ValidationResult
-	): void {
+	mergePropertyMatch(propertyValidationResult: ValidationResult): void {
 		this.merge(propertyValidationResult)
 		this.propertiesMatches++
 		if (
@@ -1218,7 +1218,7 @@ export class ValidationResult {
 		}
 	}
 
-	public compareGeneric(other: ValidationResult): number {
+	compareGeneric(other: ValidationResult): number {
 		const hasProblems = this.hasProblems()
 		if (hasProblems !== other.hasProblems()) {
 			return hasProblems ? -1 : 1
@@ -1235,7 +1235,7 @@ export class ValidationResult {
 		return this.propertiesMatches - other.propertiesMatches
 	}
 
-	public compareKubernetes(other: ValidationResult): number {
+	compareKubernetes(other: ValidationResult): number {
 		const hasProblems = this.hasProblems()
 		if (this.propertiesMatches !== other.propertiesMatches) {
 			return this.propertiesMatches - other.propertiesMatches
@@ -1258,32 +1258,35 @@ export class ValidationResult {
 
 // tslint:disable-next-line: max-classes-per-file
 export class JSONDocument {
-	constructor(
-		public readonly root: ASTNode,
-		public readonly syntaxErrors: IProblem[]
-	) {}
+	readonly root: ASTNode
+	readonly syntaxErrors: IProblem[]
 
-	public getNodeFromOffset(offset: number): ASTNode {
+	constructor(root: ASTNode, syntaxErrors: IProblem[]) {
+		this.root = root
+		this.syntaxErrors = syntaxErrors
+	}
+
+	getNodeFromOffset(offset: number): ASTNode {
 		return this.root && this.root.getNodeFromOffset(offset)
 	}
 
-	public getNodeFromOffsetEndInclusive(offset: number): ASTNode {
+	getNodeFromOffsetEndInclusive(offset: number): ASTNode {
 		return this.root && this.root.getNodeFromOffsetEndInclusive(offset)
 	}
 
-	public visit(visitor: (node: ASTNode) => boolean): void {
+	visit(visitor: (node: ASTNode) => boolean): void {
 		if (this.root) {
 			this.root.visit(visitor)
 		}
 	}
 
-	public configureSettings(parserSettings: LanguageSettings) {
+	configureSettings(parserSettings: LanguageSettings) {
 		if (this.root) {
 			this.root.setParserSettings(parserSettings)
 		}
 	}
 
-	public validate(schema: JSONSchema): IProblem[] {
+	validate(schema: JSONSchema): IProblem[] {
 		if (this.root && schema) {
 			const validationResult = new ValidationResult()
 			this.root.validate(
@@ -1296,7 +1299,7 @@ export class JSONDocument {
 		return null
 	}
 
-	public getMatchingSchemas(
+	getMatchingSchemas(
 		schema: JSONSchema,
 		focusOffset: number = -1,
 		exclude: ASTNode = null
@@ -1309,7 +1312,7 @@ export class JSONDocument {
 		return matchingSchemas.schemas
 	}
 
-	public getValidationProblems(
+	getValidationProblems(
 		schema: JSONSchema,
 		focusOffset: number = -1,
 		exclude: ASTNode = null

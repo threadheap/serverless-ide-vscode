@@ -37,10 +37,10 @@ export interface Problem {
 }
 
 export class SingleYAMLDocument extends JSONDocument {
-	public root: ASTNode
-	public errors: Problem[]
-	public warnings: Problem[]
-	public globalsConfig: GlobalsConfig
+	root: ASTNode
+	errors: Problem[]
+	warnings: Problem[]
+	globalsConfig: GlobalsConfig
 	private lines: number[]
 
 	constructor(lines: number[]) {
@@ -52,13 +52,13 @@ export class SingleYAMLDocument extends JSONDocument {
 		this.warnings = []
 	}
 
-	public getSchemas(schema, doc, node: ASTNode) {
+	getSchemas(schema, doc, node: ASTNode) {
 		const matchingSchemas = []
 		doc.validate(schema, matchingSchemas, node.start)
 		return matchingSchemas
 	}
 
-	public getNodeFromOffset(offset: number): ASTNode {
+	getNodeFromOffset(offset: number): ASTNode {
 		return this.getNodeFromOffsetEndInclusive(offset)
 	}
 
@@ -394,7 +394,7 @@ function createJSONDocument(
 
 // tslint:disable-next-line: max-classes-per-file
 export class YAMLDocument {
-	public documents: SingleYAMLDocument[]
+	documents: SingleYAMLDocument[]
 
 	constructor(documents: SingleYAMLDocument[]) {
 		this.documents = documents

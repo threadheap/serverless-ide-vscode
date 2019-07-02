@@ -142,8 +142,6 @@
         "vscode:prepublish": "rm -rf node_modules && npm install && yarn compile",
         "compile": "tsc -p ./",
         "lint:types": "tsc --noEmit",
-        "lint:ts": "tslint -p ./",
-        "lint:ts:fix": "tslint -p ./ --fix",
         "watch": "yarn compile --watch",
         "prepublish": "yarn compile",
         "marketplace:package": "vsce package",

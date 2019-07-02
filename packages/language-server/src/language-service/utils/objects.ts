@@ -1,6 +1,5 @@
 "use strict"
 
-import forEach = require("lodash/forEach")
 import map = require("lodash/map")
 
 export function equals(one: any, other: any): boolean {

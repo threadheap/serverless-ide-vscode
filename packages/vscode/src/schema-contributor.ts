@@ -18,7 +18,7 @@ class SchemaContributor {
 	 * @param requestSchemaContent the requestSchemaContent function
 	 * @returns {boolean}
 	 */
-	public registerContributor(
+	registerContributor(
 		schema: string,
 		requestSchema: (resource: string) => string,
 		requestSchemaContent: (uri: string) => string
@@ -33,7 +33,7 @@ class SchemaContributor {
 		this.customSchemaContributors[schema] = {
 			requestSchema,
 			requestSchemaContent
-		} as SchemaContributorProvider
+		}
 		return true
 	}
 
@@ -43,7 +43,7 @@ class SchemaContributor {
 	 * @param {string} resource
 	 * @returns {string} the schema uri
 	 */
-	public requestCustomSchema(resource: string) {
+	requestCustomSchema(resource: string) {
 		for (const customKey of Object.keys(this.customSchemaContributors)) {
 			const contributor = this.customSchemaContributors[customKey]
 			const uri = contributor.requestSchema(resource)
@@ -59,7 +59,7 @@ class SchemaContributor {
 	 * @param {string} uri the schema uri returned from requestSchema.
 	 * @returns {string} the schema content
 	 */
-	public requestCustomSchemaContent(uri: string) {
+	requestCustomSchemaContent(uri: string) {
 		if (uri) {
 			const newUri = Uri.parse(uri)
 			if (

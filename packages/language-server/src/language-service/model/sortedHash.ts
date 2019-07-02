@@ -16,7 +16,7 @@ export class SortedHash<TItem> {
 		this.hash = defaultValue.hash
 	}
 
-	public add(key: string, item: TItem) {
+	add(key: string, item: TItem) {
 		if (this.hash[key]) {
 			throw new Error(`Object with \`${key}\` already exists.`)
 		}
@@ -25,11 +25,11 @@ export class SortedHash<TItem> {
 		this.hash[key] = item
 	}
 
-	public get(key: string): TItem | void {
+	get(key: string): TItem | void {
 		return this.hash[key]
 	}
 
-	public insertAtIndex(key: string, item: TItem, index: number) {
+	insertAtIndex(key: string, item: TItem, index: number) {
 		this.sequence = [
 			...this.sequence.slice(0, index),
 			key,
@@ -38,7 +38,7 @@ export class SortedHash<TItem> {
 		this.hash[key] = item
 	}
 
-	public remove(key: string) {
+	remove(key: string) {
 		const index = this.sequence.indexOf(key)
 
 		if (index !== -1) {
@@ -47,7 +47,7 @@ export class SortedHash<TItem> {
 		}
 	}
 
-	public serialize() {
+	serialize() {
 		return {
 			sequence: [...this.sequence],
 			hash: {

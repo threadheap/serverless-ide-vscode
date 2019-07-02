@@ -151,7 +151,7 @@ connection.onInitialized(() => {
 		documents.all().forEach(triggerValidation)
 	})
 
-	connection.onDidChangeWatchedFiles(change => {
+	connection.onDidChangeWatchedFiles(() => {
 		documents.all().forEach(validateTextDocument)
 	})
 
