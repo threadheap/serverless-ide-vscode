@@ -146,6 +146,7 @@ connection.onInitialized(() => {
 			customLanguageService.configure(languageSettings)
 		} else {
 			customLanguageService = getCustomLanguageService(languageSettings)
+			customLanguageService.configure(languageSettings)
 		}
 
 		documents.all().forEach(triggerValidation)

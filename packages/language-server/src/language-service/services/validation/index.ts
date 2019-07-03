@@ -43,11 +43,10 @@ export class YAMLValidation {
 	}
 
 	configure(settings: LanguageSettings) {
-		if (settings) {
-			this.validationEnabled = settings.validate
-			this.settings = settings.cfnLint
-			this.provider = settings.validationProvider
-		}
+		console.log(`configure: ${JSON.stringify(settings, null, 2)}`)
+		this.validationEnabled = settings.validate
+		this.settings = settings.cfnLint
+		this.provider = settings.validationProvider
 	}
 
 	async doValidation(textDocument: TextDocument, yamlDocument: YAMLDocument) {
@@ -64,7 +63,7 @@ export class YAMLValidation {
 				// tslint:disable-next-line: no-console
 				console.log("Fallback to default validation method")
 
-				return this.validateWithSchema(textDocument, yamlDocument)
+				return await this.validateWithSchema(textDocument, yamlDocument)
 			}
 		}
 
@@ -229,7 +228,7 @@ export class YAMLValidation {
 				diagnostics.push({
 					severity,
 					range,
-					message
+					message: `[Serverless IDE] ${message}`
 				})
 			}
 		}
