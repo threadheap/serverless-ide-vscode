@@ -5,7 +5,7 @@
     "author": "Pavel Vlasov <freakycue@gmail.com>",
     "publisher": "ThreadHeap",
     "license": "MIT",
-    "version": "0.3.2",
+    "version": "0.3.5",
     "preview": false,
     "bugs": "https://github.com/threadheap/serverless-ide-vscode/issues",
     "repository": {
@@ -142,8 +142,6 @@
         "vscode:prepublish": "rm -rf node_modules && npm install && yarn compile",
         "compile": "tsc -p ./",
         "lint:types": "tsc --noEmit",
-        "lint:ts": "tslint -p ./",
-        "lint:ts:fix": "tslint -p ./ --fix",
         "watch": "yarn compile --watch",
         "prepublish": "yarn compile",
         "marketplace:package": "vsce package",
@@ -156,7 +154,7 @@
         "vscode": "^1.1.33"
     },
     "dependencies": {
-        "@serverless-ide/language-server": "^0.3.2",
+        "@serverless-ide/language-server": "^0.3.5",
         "vscode-extension-telemetry": "^0.1.1",
         "vscode-languageclient": "5.1.1",
         "vscode-nls": "^3.2.1",
@@ -165,5 +163,5 @@
     "publishConfig": {
         "access": "public"
     },
-    "gitHead": "4bc5eddda35b9e7cc28f2580da1960b017881f33"
+    "gitHead": "0ad06a7e4d561e4bc90344eb4fd72ad3d2d12538"
 }

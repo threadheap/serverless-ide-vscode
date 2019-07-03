@@ -1,6 +1,6 @@
 export enum ValidationProvider {
-	default,
-	"cfn-lint"
+	default = "default",
+	"cfn-lint" = "cfn-lint"
 }
 
 export interface CFNLintExtensionSettings {

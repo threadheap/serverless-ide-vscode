@@ -1,7 +1,7 @@
 {
     "name": "@serverless-ide/language-server",
     "description": "Serverless IDE language server",
-    "version": "0.3.2",
+    "version": "0.3.5",
     "author": "Pavel Vlasov <freakycue@gmail.com>",
     "license": "MIT",
     "engines": {
@@ -23,8 +23,8 @@
         "url": "https://github.com/threadheap/serverless-ide-language-server.git"
     },
     "dependencies": {
-        "@serverless-ide/sam-schema": "^0.3.2",
-        "js-yaml": "^3.12.0",
+        "@serverless-ide/sam-schema": "^0.3.4",
+        "js-yaml": "^3.13.1",
         "jsonc-parser": "^1.0.3",
         "lru-cache": "^5.1.1",
         "prettier": "^1.15.2",
@@ -46,12 +46,12 @@
         "compile": "tsc -p .",
         "watch": "tsc --watch -p .",
         "lint:types": "tsc --noEmit",
-        "lint:ts": "tslint -p ./",
-        "lint:ts:fix": "tslint -p ./ --fix",
+        "lint:ts": "eslint ./src/**/*.ts",
+        "lint:ts:fix": "eslint ./src/**/*.ts --fix",
         "test": "jest"
     },
     "publishConfig": {
         "access": "public"
     },
-    "gitHead": "4bc5eddda35b9e7cc28f2580da1960b017881f33"
+    "gitHead": "0ad06a7e4d561e4bc90344eb4fd72ad3d2d12538"
 }

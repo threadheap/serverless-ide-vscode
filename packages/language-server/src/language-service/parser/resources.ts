@@ -1,4 +1,4 @@
-import { ResourceDefinition, ResourcesDefinitions } from "../model/resources"
+import { ResourcesDefinitions } from "../model/resources"
 import { SortedHash } from "../model/sortedHash"
 import {
 	ASTNode,

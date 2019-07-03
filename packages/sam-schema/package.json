@@ -1,6 +1,6 @@
 {
     "name": "@serverless-ide/sam-schema",
-    "version": "0.3.2",
+    "version": "0.3.4",
     "description": "Json schema for AWS SAM template configuration",
     "main": "index.js",
     "repository": "git@github.com:threadheap/aws-sam-json-schema.git",
@@ -32,8 +32,6 @@
     "scripts": {
         "build": "rm -rf ./out && tsc -p .",
         "lint:types": "tsc --noEmit",
-        "lint:ts": "tslint -p ./",
-        "lint:ts:fix": "tslint -p ./ --fix",
         "watch": "rm -rf ./out && yarn build --watch",
         "generate": "yarn build && node out/index.js",
         "prepublish": "yarn generate"

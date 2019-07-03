@@ -104,7 +104,7 @@ export default class URI {
 
 	// ---- parse & validate ------------------------
 
-	public static parse(value: string): URI {
+	static parse(value: string): URI {
 		const ret = new URI()
 		const data = URI._parseComponents(value)
 		ret._scheme = data.scheme
@@ -116,7 +116,7 @@ export default class URI {
 		return ret
 	}
 
-	public static file(path: string): URI {
+	static file(path: string): URI {
 		const ret = new URI()
 		ret._scheme = "file"
 
@@ -148,7 +148,7 @@ export default class URI {
 		return ret
 	}
 
-	public static create(
+	static create(
 		scheme?: string,
 		authority?: string,
 		path?: string,
@@ -296,7 +296,7 @@ export default class URI {
 
 	// ---- modify to new -------------------------
 
-	public with(
+	with(
 		scheme: string,
 		authority: string,
 		path: string,
@@ -313,23 +313,23 @@ export default class URI {
 		return ret
 	}
 
-	public withScheme(value: string): URI {
+	withScheme(value: string): URI {
 		return this.with(value, undefined, undefined, undefined, undefined)
 	}
 
-	public withAuthority(value: string): URI {
+	withAuthority(value: string): URI {
 		return this.with(undefined, value, undefined, undefined, undefined)
 	}
 
-	public withPath(value: string): URI {
+	withPath(value: string): URI {
 		return this.with(undefined, undefined, value, undefined, undefined)
 	}
 
-	public withQuery(value: string): URI {
+	withQuery(value: string): URI {
 		return this.with(undefined, undefined, undefined, value, undefined)
 	}
 
-	public withFragment(value: string): URI {
+	withFragment(value: string): URI {
 		return this.with(undefined, undefined, undefined, undefined, value)
 	}
 
@@ -339,7 +339,7 @@ export default class URI {
 	 *
 	 * @param skipEncoding Do not encode the result, default is `false`
 	 */
-	public toString(skipEncoding: boolean = false): string {
+	toString(skipEncoding: boolean = false): string {
 		if (!skipEncoding) {
 			if (!this._formatted) {
 				this._formatted = URI._asFormatted(this, false)
@@ -351,7 +351,7 @@ export default class URI {
 		}
 	}
 
-	public toJSON(): any {
+	toJSON(): UriState {
 		return {
 			scheme: this.scheme,
 			authority: this.authority,
@@ -361,7 +361,7 @@ export default class URI {
 			fragment: this.fragment,
 			external: this.toString(),
 			$mid: 1
-		} as UriState
+		}
 	}
 }
 

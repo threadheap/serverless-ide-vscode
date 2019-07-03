@@ -1,10 +1,6 @@
 import { parse as parseYaml } from ".."
 import { collectResources } from "./../resources"
 
-const invalidResources = `
-Resources: fuuu
-`
-
 const singleResource = `
 Resources:
     Table:

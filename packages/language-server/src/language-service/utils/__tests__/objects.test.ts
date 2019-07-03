@@ -93,10 +93,10 @@ describe("Object Equals Tests", () => {
 
 	it("Objects that have different keys", () => {
 		const one = {
-			test_one: 1
+			testOne: 1
 		}
 		const other = {
-			test_other: 1
+			testOther: 1
 		}
 
 		const result = equals(one, other)

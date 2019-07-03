@@ -36,27 +36,19 @@ export class YAMLValidation {
 	private workspaceRoot: string
 	private inProgressMap: { [key: string]: boolean } = {}
 
-	public constructor(
-		jsonSchemaService: JSONSchemaService,
-		workspaceRoot: string
-	) {
+	constructor(jsonSchemaService: JSONSchemaService, workspaceRoot: string) {
 		this.jsonSchemaService = jsonSchemaService
 		this.validationEnabled = true
 		this.workspaceRoot = workspaceRoot
 	}
 
-	public configure(settings: LanguageSettings) {
-		if (settings) {
-			this.validationEnabled = settings.validate
-			this.settings = settings.cfnLint
-			this.provider = settings.validationProvider
-		}
+	configure(settings: LanguageSettings) {
+		this.validationEnabled = settings.validate
+		this.settings = settings.cfnLint
+		this.provider = settings.validationProvider
 	}
 
-	public async doValidation(
-		textDocument: TextDocument,
-		yamlDocument: YAMLDocument
-	) {
+	async doValidation(textDocument: TextDocument, yamlDocument: YAMLDocument) {
 		if (!this.validationEnabled) {
 			return Promise.resolve([])
 		}
@@ -65,12 +57,12 @@ export class YAMLValidation {
 			try {
 				return await this.validateWithCfnLint(textDocument)
 			} catch (err) {
-				// tslint:disable-next-line: no-console
+				// eslint-disable-next-line no-console
 				console.error(`Unable to run cfn lint: ${err}`)
-				// tslint:disable-next-line: no-console
+				// eslint-disable-next-line no-console
 				console.log("Fallback to default validation method")
 
-				return this.validateWithSchema(textDocument, yamlDocument)
+				return await this.validateWithSchema(textDocument, yamlDocument)
 			}
 		}
 
@@ -147,9 +139,7 @@ export class YAMLValidation {
 								}
 							},
 							severity: transformCfnLintSeverity(error.Level),
-							message: `[Serverless IDE] ${error.Rule.Id}: ${
-								error.Message
-							}`
+							message: `[Serverless IDE] ${error.Rule.Id}: ${error.Message}`
 						})
 					})
 				}
@@ -237,7 +227,7 @@ export class YAMLValidation {
 				diagnostics.push({
 					severity,
 					range,
-					message
+					message: `[Serverless IDE] ${message}`
 				})
 			}
 		}

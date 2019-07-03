@@ -1,6 +1,5 @@
 "use strict"
 
-import forEach = require("lodash/forEach")
 import map = require("lodash/map")
 
 export function equals(one: any, other: any): boolean {
@@ -78,6 +77,6 @@ export const logObject = (obj: any) => {
 	)
 	cache = null
 
-	// tslint:disable-next-line: no-console
+	// eslint-disable-next-line no-console
 	console.log(res)
 }

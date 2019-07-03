@@ -38,9 +38,9 @@ if (process.argv.indexOf("--stdio") === -1) {
 	connection = createConnection()
 }
 
-// tslint:disable-next-line: no-console
+// eslint-disable-next-line no-console
 console.log = connection.console.log.bind(connection.console)
-// tslint:disable-next-line: no-console
+// eslint-disable-next-line no-console
 console.error = connection.console.error.bind(connection.console)
 
 const documents: TextDocuments = new TextDocuments()
@@ -146,12 +146,13 @@ connection.onInitialized(() => {
 			customLanguageService.configure(languageSettings)
 		} else {
 			customLanguageService = getCustomLanguageService(languageSettings)
+			customLanguageService.configure(languageSettings)
 		}
 
 		documents.all().forEach(triggerValidation)
 	})
 
-	connection.onDidChangeWatchedFiles(change => {
+	connection.onDidChangeWatchedFiles(() => {
 		documents.all().forEach(validateTextDocument)
 	})
 

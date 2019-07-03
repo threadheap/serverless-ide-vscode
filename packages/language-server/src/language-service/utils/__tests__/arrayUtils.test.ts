@@ -8,11 +8,11 @@ describe("Array Utils", () => {
 	describe("removeDuplicates", () => {
 		it("Remove one duplicate with property", () => {
 			const obj1 = {
-				test_key: "test_value"
+				testKey: "test_value"
 			}
 
 			const obj2 = {
-				test_key: "test_value"
+				testKey: "test_value"
 			}
 
 			const arr = [obj1, obj2]
@@ -24,23 +24,23 @@ describe("Array Utils", () => {
 
 		it("Remove multiple duplicates with property", () => {
 			const obj1 = {
-				test_key: "test_value"
+				testKey: "test_value"
 			}
 
 			const obj2 = {
-				test_key: "test_value"
+				testKey: "test_value"
 			}
 
 			const obj3 = {
-				test_key: "test_value"
+				testKey: "test_value"
 			}
 
 			const obj4 = {
-				another_key_too: "test_value"
+				anotherKeyToo: "test_value"
 			}
 
 			const arr = [obj1, obj2, obj3, obj4]
-			const prop = "test_key"
+			const prop = "testKey"
 
 			const result = removeDuplicates(arr, prop)
 			expect(result).toHaveLength(2)
@@ -48,15 +48,15 @@ describe("Array Utils", () => {
 
 		it("Do NOT remove items without duplication", () => {
 			const obj1 = {
-				first_key: "test_value"
+				firstKey: "test_value"
 			}
 
 			const obj2 = {
-				second_key: "test_value"
+				secondKey: "test_value"
 			}
 
 			const arr = [obj1, obj2]
-			const prop = "first_key"
+			const prop = "firstKey"
 
 			const result = removeDuplicates(arr, prop)
 			expect(result).toHaveLength(2)
@@ -95,11 +95,11 @@ describe("Array Utils", () => {
 	describe("removeDuplicatesObj", () => {
 		it("Remove one duplicate with property", () => {
 			const obj1 = {
-				test_key: "test_value"
+				testKey: "test_value"
 			}
 
 			const obj2 = {
-				test_key: "test_value"
+				testKey: "test_value"
 			}
 
 			const arr = [obj1, obj2]
@@ -109,15 +109,14 @@ describe("Array Utils", () => {
 
 		it("Does not remove anything unneccessary", () => {
 			const obj1 = {
-				test_key: "test_value"
+				testKey: "test_value"
 			}
 
 			const obj2 = {
-				other_key: "test_value"
+				otherKey: "test_value"
 			}
 
 			const arr = [obj1, obj2]
-			const prop = "test_key"
 
 			const result = removeDuplicatesObj(arr)
 			expect(result).toHaveLength(2)

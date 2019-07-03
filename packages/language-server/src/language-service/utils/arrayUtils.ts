@@ -1,4 +1,3 @@
-import { forEach } from "lodash"
 import toArray = require("lodash/toArray")
 import { SingleYAMLDocument, YAMLDocument } from "../parser"
 

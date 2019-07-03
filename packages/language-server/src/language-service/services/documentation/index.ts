@@ -55,7 +55,7 @@ const getItemType = (item: ItemType, docsUrl?: string): string => {
 }
 
 export class DocumentationService {
-	public sourcePromise: Promise<Specification>
+	sourcePromise: Promise<Specification>
 	private sourceUrl: string
 	private cache: Cache.Cache<string, string> = new Cache({
 		max: 500
@@ -66,7 +66,7 @@ export class DocumentationService {
 		this.sourcePromise = this._getSource()
 	}
 
-	public async getPropertyDocumentation(
+	async getPropertyDocumentation(
 		resourceType: string,
 		propertyName: string
 	): Promise<string | void> {
@@ -82,11 +82,7 @@ export class DocumentationService {
 
 			if (property) {
 				return [
-					`[${resourceType}](${
-						resource.Documentation
-					}) / Properties / [${propertyName}](${
-						property.Documentation
-					})`,
+					`[${resourceType}](${resource.Documentation}) / Properties / [${propertyName}](${property.Documentation})`,
 					"\n",
 					"| Property | Type |",
 					"| ------ | ------ |",
@@ -105,7 +101,7 @@ export class DocumentationService {
 		}
 	}
 
-	public async getResourceDocumentation(
+	async getResourceDocumentation(
 		resourceType: string
 	): Promise<string | void> {
 		if (this.cache.has(resourceType)) {
@@ -221,7 +217,7 @@ export class DocumentationService {
 				propertySpecification && propertySpecification.Documentation
 			)
 		} catch (err) {
-			// tslint:disable-next-line: no-console
+			// eslint-disable-next-line no-console
 			console.error(err)
 		}
 	}
