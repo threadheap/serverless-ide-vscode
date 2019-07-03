@@ -3,7 +3,7 @@ jobs:
     build:
         working_directory: ~/serverless-ide
         docker:
-            - image: circleci/node:chakracore-10.6
+            - image: circleci/node:chakracore-10.13
         steps:
             - checkout
             # Download and cache dependencies
