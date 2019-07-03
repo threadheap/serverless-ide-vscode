@@ -3,15 +3,15 @@ jobs:
     build:
         working_directory: ~/serverless-ide
         docker:
-            - image: circleci/node:chakracore-10.13
+            - image: circleci/node:8.16.0-jessie
         steps:
             - checkout
             # Download and cache dependencies
             - restore_cache:
                   keys:
-                      - v2-dependencies-{{ checksum "yarn.lock" }}
+                      - v3-dependencies-{{ checksum "yarn.lock" }}
                       # fallback to using the latest cache if no exact match is found
-                      - v2-dependencies-
+                      - v3-dependencies-
 
             - run: sudo npm install yarn@1.9.4 --global
             - run: yarn install --frozen-lockfile
