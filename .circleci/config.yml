@@ -9,9 +9,9 @@ jobs:
             # Download and cache dependencies
             - restore_cache:
                   keys:
-                      - v1-dependencies-{{ checksum "yarn.lock" }}
+                      - v2-dependencies-{{ checksum "yarn.lock" }}
                       # fallback to using the latest cache if no exact match is found
-                      - v1-dependencies-
+                      - v2-dependencies-
 
             - run: sudo npm install yarn@1.9.4 --global
             - run: yarn install --frozen-lockfile
