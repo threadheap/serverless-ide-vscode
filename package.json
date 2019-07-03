@@ -39,7 +39,8 @@
         "compile": "lerna run compile",
         "lint:types": "lerna run lint:types",
         "lint:ts": "eslint **/*.ts",
-        "lint:ts:fix": "eslint **/*.ts --fix"
+        "lint:ts:fix": "eslint **/*.ts --fix",
+        "publish": "lerna marketplace:publish"
     },
     "husky": {
         "hooks": {
