@@ -143,11 +143,11 @@ export class YAMLCompletion {
 				result.isIncomplete = true
 			},
 			error: (message: string) => {
-				// tslint:disable-next-line: no-console
+				// eslint-disable-next-line no-console
 				console.error(message)
 			},
 			log: (message: string) => {
-				// tslint:disable-next-line: no-console
+				// eslint-disable-next-line no-console
 				console.log(message)
 			},
 			getNumberOfProposals: () => {

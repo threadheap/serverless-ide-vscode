@@ -43,7 +43,6 @@ export class YAMLValidation {
 	}
 
 	configure(settings: LanguageSettings) {
-		console.log(`configure: ${JSON.stringify(settings, null, 2)}`)
 		this.validationEnabled = settings.validate
 		this.settings = settings.cfnLint
 		this.provider = settings.validationProvider
@@ -58,9 +57,9 @@ export class YAMLValidation {
 			try {
 				return await this.validateWithCfnLint(textDocument)
 			} catch (err) {
-				// tslint:disable-next-line: no-console
+				// eslint-disable-next-line no-console
 				console.error(`Unable to run cfn lint: ${err}`)
-				// tslint:disable-next-line: no-console
+				// eslint-disable-next-line no-console
 				console.log("Fallback to default validation method")
 
 				return await this.validateWithSchema(textDocument, yamlDocument)

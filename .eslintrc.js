@@ -11,6 +11,7 @@ module.exports = {
 		sourceType: "module"
 	},
 	rules: {
+		"no-console": 2,
 		"prettier/prettier": "error",
 		"@typescript-eslint/explicit-member-accessibility": [
 			2,

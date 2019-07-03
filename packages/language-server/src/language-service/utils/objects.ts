@@ -77,6 +77,6 @@ export const logObject = (obj: any) => {
 	)
 	cache = null
 
-	// tslint:disable-next-line: no-console
+	// eslint-disable-next-line no-console
 	console.log(res)
 }

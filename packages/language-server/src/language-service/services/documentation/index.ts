@@ -217,7 +217,7 @@ export class DocumentationService {
 				propertySpecification && propertySpecification.Documentation
 			)
 		} catch (err) {
-			// tslint:disable-next-line: no-console
+			// eslint-disable-next-line no-console
 			console.error(err)
 		}
 	}

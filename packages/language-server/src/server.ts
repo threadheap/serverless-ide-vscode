@@ -38,9 +38,9 @@ if (process.argv.indexOf("--stdio") === -1) {
 	connection = createConnection()
 }
 
-// tslint:disable-next-line: no-console
+// eslint-disable-next-line no-console
 console.log = connection.console.log.bind(connection.console)
-// tslint:disable-next-line: no-console
+// eslint-disable-next-line no-console
 console.error = connection.console.error.bind(connection.console)
 
 const documents: TextDocuments = new TextDocuments()
