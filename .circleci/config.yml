@@ -3,7 +3,7 @@ jobs:
     build:
         working_directory: ~/serverless-ide
         docker:
-            - image: circleci/node:8.9.3
+            - image: circleci/node:chakracore-10.6
         steps:
             - checkout
             # Download and cache dependencies
@@ -24,6 +24,5 @@ jobs:
                   key: v1-dependencies-{{ checksum "yarn.lock" }}
 
             - run: yarn lint:types
-            - run: yarn lint:prettier
             - run: yarn lint:ts
             - run: yarn test
