@@ -22,6 +22,7 @@ import { YAMLDocument } from "../../parser"
 import { matchOffsetToDocument } from "../../utils/arrayUtils"
 import * as completions from "./completions"
 import * as helpers from "./helpers"
+import { sendException } from "../analytics"
 
 export class YAMLCompletion {
 	private schemaService: SchemaService.JSONSchemaService
@@ -144,7 +145,7 @@ export class YAMLCompletion {
 			},
 			error: (message: string) => {
 				// eslint-disable-next-line no-console
-				console.error(message)
+				sendException(new Error(message))
 			},
 			log: (message: string) => {
 				// eslint-disable-next-line no-console

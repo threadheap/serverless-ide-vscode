@@ -5,7 +5,7 @@
     "author": "Pavel Vlasov <freakycue@gmail.com>",
     "publisher": "ThreadHeap",
     "license": "MIT",
-    "version": "0.3.5",
+    "version": "0.3.6",
     "preview": false,
     "bugs": "https://github.com/threadheap/serverless-ide-vscode/issues",
     "repository": {
@@ -122,6 +122,11 @@
                     "type": "boolean",
                     "default": true,
                     "description": "Enable/disable completion feature"
+                },
+                "serverlessIDE.telemetry.enableTelemetry": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable/disable telemetry and crash reporting"
                 }
             }
         },
@@ -148,14 +153,19 @@
         "marketplace:publish": "vsce publish"
     },
     "devDependencies": {
+        "@types/amplitude-js": "^4.4.2",
         "@types/node": "^6.0.52",
         "ts-node": "^3.3.0",
         "typescript": "^3.2.2",
         "vscode": "^1.1.33"
     },
     "dependencies": {
-        "@serverless-ide/language-server": "^0.3.5",
-        "vscode-extension-telemetry": "^0.1.1",
+        "@sentry/node": "5.5.0",
+        "@serverless-ide/language-server": "^0.3.6",
+        "amplitude-client-node": "^0.2.0",
+        "amplitude-js": "^5.2.2",
+        "node-machine-id": "^1.1.12",
+        "vscode-extension-analytics": "^0.0.4",
         "vscode-languageclient": "5.1.1",
         "vscode-nls": "^3.2.1",
         "vscode-uri": "^1.0.5"

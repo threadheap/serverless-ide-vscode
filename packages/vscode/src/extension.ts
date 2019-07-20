@@ -11,7 +11,7 @@ import {
 } from "vscode-languageclient"
 import * as packageJSON from "../package.json"
 import { schemaContributor } from "./schema-contributor"
-import { createReporter } from "./telemetry"
+import { createReporter, AnalyticsEvent, Exception } from "./analytics"
 
 export interface ISchemaAssociations {
 	[pattern: string]: string[]
@@ -19,13 +19,33 @@ export interface ISchemaAssociations {
 
 let client: LanguageClient
 
-const telemetry = createReporter(
+const analytics = createReporter(
 	`${packageJSON.publisher}.${packageJSON.name}`,
 	packageJSON.version,
-	"e61496d8-12ad-43d9-bb32-cf41d527fdf0"
+	"936e3290fec1ab6c784fb2a5d06d9d47"
 )
 
-export function activate(context: ExtensionContext) {
+interface AnalyticsPayload {
+	action: string
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	attributes: { [key: string]: any }
+}
+
+interface ExceptionPayload {
+	message: string
+	stack: string
+}
+
+class GenericLanguageServerException extends Error {
+	constructor(message: string, stack: string) {
+		super()
+		this.name = "GenericLanguageServerException"
+		this.stack = stack
+		this.message = message
+	}
+}
+
+export async function activate(context: ExtensionContext) {
 	const serverModule = context.asAbsolutePath(
 		path.join(
 			"node_modules",
@@ -72,23 +92,51 @@ export function activate(context: ExtensionContext) {
 	)
 	const disposable = client.start()
 
+	client.onReady().then(() => {
+		client.onNotification(
+			"custom/analytics",
+			(payload: AnalyticsPayload) => {
+				// eslint-disable-next-line no-console
+				analytics.sendEvent(
+					new AnalyticsEvent(payload.action, payload.attributes)
+				)
+			}
+		)
+
+		client.onNotification(
+			"custom/exception",
+			(payload: ExceptionPayload) => {
+				const error = new GenericLanguageServerException(
+					payload.message,
+					payload.stack
+				)
+				// eslint-disable-next-line no-console
+				console.error(
+					"[ServerlessIDE] Unhandled exception in language server: " +
+						error
+				)
+				analytics.sendException(new Exception(error, {}))
+			}
+		)
+	})
+
 	context.subscriptions.push(disposable)
-	context.subscriptions.push(telemetry.reporter)
+	context.subscriptions.push(analytics)
 
 	languages.setLanguageConfiguration("yaml", {
 		wordPattern: /("(?:[^\\\"]*(?:\\.)?)*"?)|[^\s{}\[\],:]+/
 	})
 
-	telemetry.sendServerEvent("activated")
+	await analytics.sendEvent(new AnalyticsEvent("activated", {}))
 
 	return schemaContributor
 }
 
-export function deactivate(): Promise<void> | void {
+export async function deactivate(): Promise<void> {
 	if (!client) {
 		return undefined
 	}
-	telemetry.sendServerEvent("deactivated")
-	telemetry.reporter.dispose()
+	await analytics.sendEvent(new AnalyticsEvent("deactivated", {}))
+	analytics.dispose()
 	return client.stop() as Promise<void>
 }

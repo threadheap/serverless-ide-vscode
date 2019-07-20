@@ -1,5 +1,9 @@
 # Change log
 
+## v0.3.6
+- less verbose logging
+- telemetry and crash reporting
+
 ## v0.3.4
 - cfn-lint support fix
 - update dependencies

@@ -1,9 +1,4 @@
 [![Marketplace Version](https://vsmarketplacebadge.apphb.com/version/ThreadHeap.serverless-ide-vscode.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
-[![Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/ThreadHeap.serverless-ide-vscode.svg)](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
-[![Marketplace Rating](https://img.shields.io/visual-studio-marketplace/stars/ThreadHeap.serverless-ide-vscode.svg
-)](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
-
-[![CircleCI](https://circleci.com/gh/threadheap/serverless-ide-vscode.svg?style=shield)](https://circleci.com/gh/threadheap/serverless-ide-vscode)
 
 # Serverless IDE: Enhanced support of AWS SAM in Visual Studio Code
 
@@ -31,7 +26,8 @@ The following settings are supported:
 -   `serverlessIDE.validate`: Enable/disable validation feature
 -   `serverlessIDE.hover`: Enable/disable hover documentation
 -   `serverlessIDE.completion`: Enable/disable autocompletion
--    `serverlessIDE.validationProvider` : Validation provider. Can be `default` (uses json schema) or [`cfn-lint`](https://github.com/aws-cloudformation/cfn-python-lint)
+-   `serverlessIDE.validationProvider` : Validation provider. Can be `default` (uses json schema) or [`cfn-lint`](https://github.com/aws-cloudformation/cfn-python-lint)
+-    `serverlessIDE.telemetry.enableTelemetry` : Enable/disable telemetry and crash reporting
 
 [cfn-lint](https://github.com/aws-cloudformation/cfn-python-lint) is used as default validator
 More information about installation and configuration can be found [here](https://github.com/aws-cloudformation/cfn-python-lint)
@@ -47,6 +43,26 @@ Language settings:
     -   `editor.tabSize`
     -   `editor.quickSuggestions`
 
+## Telemetry
+
+ServerlessIDE collects usage data and metrics to help us improve the extension for VS Code.
+
+### What data is collected?
+
+ServerlessIDE collects anonymous information related to the usage of the extensions, such as which commands were run, as well as performance and error data.
+
+### How do I disable telemetry reporting?
+
+On Windows or Linux, select `File > Preferences > Settings`. On macOS, select `Code > Preferences > Settings`. Then, to silence all telemetry events from the VS Code shell and disable telemetry reporting, add the following option.
+
+```
+"serverlessIDE.telemetry.enableTelemetry": false
+```
+
+IMPORTANT: This option requires a restart of VS Code to take effect.
+
+NOTE: We also respect the global telemetry setting telemetry.enableTelemetry; if that is set to false, ServerlessIDE telemetry is disabled. For more information see [Microsoft’s documentation](https://code.visualstudio.com/docs/supporting/faq#_how-to-disable-telemetry-reporting).
+
 ## Contributions
 
 You can find [the code on GitHub repository](https://github.com/threadheap/serverless-ide-vscode)
@@ -61,52 +77,11 @@ Check out [public roadmap board](https://github.com/threadheap/serverless-ide-vs
 
 DM or follow me on [twitter](https://twitter.com/pvl4sov) or [medium](https://medium.com/@pvlasov)
 
-Author
+
+### Author
 
 [Pavel Vlasov](https://github.com/pavelvlasov)
 
-### Getting started
+### License
 
-1. Install prerequisites:
-    - latest [Visual Studio Code](https://code.visualstudio.com/)
-    - [Node.js](https://nodejs.org/) v10.9.0 or higher
-2. Fork and clone this repository
-3. Install lerna and dependencies
-
-```sh
-    yarn global add lerna
-    lerna bootstrap
-```
-
-4. Compile Typescript
-
-```sh
-    lerna run compile
-```
-
-#### Developing the client side
-
-1. Open `packages/client` in vscode
-2. Make changes as neccessary and the run the code using `Launch Extension` command (F5)
-
-#### Developing the server side
-
-1. Open `packages/server` in vscode
-
-Refer to VS Code [documentation](https://code.visualstudio.com/docs/extensions/debugging-extensions) on how to run and debug the extension
-
-#### Update SAM json schema
-
-1. Open `packages/sam-schema`
-2. Make changes and run `yarn generate` to update schema
-3. Check changes with `Launch Extension` command
-
-## Credits
-
-Projects is a hard fork of [vscode-yaml](https://github.com/redhat-developer/vscode-yaml)
-and [yaml-language-server](https://github.com/redhat-developer/yaml-language-server) that is
-tuned for better support of AWS CloudFormation templates.
-
-## License
-
-MIT
+Apache License 2.0

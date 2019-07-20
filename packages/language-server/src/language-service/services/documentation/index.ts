@@ -10,6 +10,7 @@ import {
 	Specification
 } from "./model"
 import SamSpecification from "./samDocumentation"
+import { sendException, sendAnalytics } from "../analytics"
 
 const isPropertyKey = (propertyName: string | void): boolean => {
 	return propertyName && propertyName.startsWith("AWS::")
@@ -70,6 +71,14 @@ export class DocumentationService {
 		resourceType: string,
 		propertyName: string
 	): Promise<string | void> {
+		sendAnalytics({
+			action: "requestPropertyDocumentation",
+			attributes: {
+				resourceType,
+				propertyName
+			}
+		})
+
 		const resource = await this.getResource(resourceType)
 
 		if (resource && resource.Properties[propertyName]) {
@@ -104,6 +113,13 @@ export class DocumentationService {
 	async getResourceDocumentation(
 		resourceType: string
 	): Promise<string | void> {
+		sendAnalytics({
+			action: "requestResourceDocumentation",
+			attributes: {
+				resourceType
+			}
+		})
+
 		if (this.cache.has(resourceType)) {
 			return this.cache.get(resourceType)
 		}
@@ -161,7 +177,7 @@ export class DocumentationService {
 				return markdown
 			}
 		} catch (err) {
-			return
+			sendException(err)
 		}
 		return
 	}
@@ -176,6 +192,7 @@ export class DocumentationService {
 
 			return doc
 		} catch (err) {
+			sendException(err)
 			return {
 				PropertyTypes: {},
 				ResourceTypes: {}
@@ -217,8 +234,7 @@ export class DocumentationService {
 				propertySpecification && propertySpecification.Documentation
 			)
 		} catch (err) {
-			// eslint-disable-next-line no-console
-			console.error(err)
+			sendException(err)
 		}
 	}
 }
