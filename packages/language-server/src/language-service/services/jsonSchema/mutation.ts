@@ -4,6 +4,7 @@ import without = require("lodash/without")
 import { GlobalsConfig, isEmpty } from "../../model/globals"
 import { ResolvedSchema } from "./"
 import { SingleYAMLDocument } from "./../../parser/index"
+import { sendException } from "../analytics"
 
 const applyGlobalsConfigMutations = (
 	schema: ResolvedSchema,
@@ -41,6 +42,7 @@ const applyGlobalsConfigMutations = (
 				)
 			})
 		} catch (err) {
+			sendException(err)
 			return schema
 		}
 

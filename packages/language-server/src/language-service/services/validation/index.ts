@@ -13,6 +13,7 @@ import {
 	LanguageSettings,
 	ValidationProvider
 } from "./../../model/settings"
+import { sendException, sendAnalytics } from "../analytics"
 
 const transformCfnLintSeverity = (errorType: string): DiagnosticSeverity => {
 	switch (errorType) {
@@ -58,7 +59,7 @@ export class YAMLValidation {
 				return await this.validateWithCfnLint(textDocument)
 			} catch (err) {
 				// eslint-disable-next-line no-console
-				console.error(`Unable to run cfn lint: ${err}`)
+				sendException(err, "Unable to run cfn lint")
 				// eslint-disable-next-line no-console
 				console.log("Fallback to default validation method")
 
@@ -75,6 +76,14 @@ export class YAMLValidation {
 		const args = ["--format", "json"]
 		const filePath = Files.uriToFilePath(textDocument.uri)
 		const fileName = textDocument.uri
+
+		sendAnalytics({
+			action: "requestCfnLintValidation",
+			attributes: {
+				fileName,
+				...this.settings
+			}
+		})
 
 		this.settings.ignoreRules.map(rule => {
 			args.push("--ignore-checks", rule)
@@ -144,6 +153,15 @@ export class YAMLValidation {
 					})
 				}
 
+				sendAnalytics({
+					action: "finishedCfnLintValidation",
+					attributes: {
+						fileName,
+						errorsCount: diagnostics.length,
+						...this.settings
+					}
+				})
+
 				delete this.inProgressMap[fileName]
 			})
 
@@ -167,6 +185,14 @@ export class YAMLValidation {
 	) {
 		const diagnostics = []
 		const added = {}
+
+		sendAnalytics({
+			action: "requestSchemaValidation",
+			attributes: {
+				fileName: textDocument.uri,
+				...this.settings
+			}
+		})
 
 		await Promise.all(
 			yamlDocument.documents.map(async currentDoc => {
@@ -240,6 +266,15 @@ export class YAMLValidation {
 			doc.warnings.forEach(warning => {
 				addProblem(warning, DiagnosticSeverity.Warning)
 			})
+		})
+
+		sendAnalytics({
+			action: "finishedSchemaValidation",
+			attributes: {
+				fileName: textDocument.uri,
+				errorsCount: diagnostics.length,
+				...this.settings
+			}
 		})
 
 		return diagnostics

@@ -6,6 +6,7 @@ import {
 	SERVERLESS_FRAMEWORK
 } from "../model/document"
 import { UNKNOWN } from "./../model/document"
+import { sendAnalytics } from "../services/analytics"
 
 const transformRegExp = /"?Transform"?:\s*"?AWS::Serverless-2016-10-31"?/
 const slsServiceRegExp = /service:/
@@ -64,5 +65,17 @@ export const getDocumentType = (document?: TextDocument): DocumentType => {
 export const isSupportedDocument = (document?: TextDocument): boolean => {
 	const documentType = getDocumentType(document)
 
-	return documentType === SAM || documentType === CLOUD_FORMATION
+	const isSupported = documentType === SAM || documentType === CLOUD_FORMATION
+
+	if (!isSupported) {
+		sendAnalytics({
+			action: "unsupportedDocument",
+			attributes: {
+				documentType,
+				fileName: document ? document.uri : "unknown"
+			}
+		})
+	}
+
+	return isSupported
 }

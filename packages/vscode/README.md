@@ -27,6 +27,7 @@ The following settings are supported:
 -   `serverlessIDE.hover`: Enable/disable hover documentation
 -   `serverlessIDE.completion`: Enable/disable autocompletion
 -   `serverlessIDE.validationProvider` : Validation provider. Can be `default` (uses json schema) or [`cfn-lint`](https://github.com/aws-cloudformation/cfn-python-lint)
+-   `serverlessIDE.telemetry.enableTelemetry` : Enable/disable telemetry and crash reporting
 
 [cfn-lint](https://github.com/aws-cloudformation/cfn-python-lint) is used as default validator
 More information about installation and configuration can be found [here](https://github.com/aws-cloudformation/cfn-python-lint)
@@ -41,6 +42,26 @@ Language settings:
     -   `editor.insertSpaces`
     -   `editor.tabSize`
     -   `editor.quickSuggestions`
+
+## Telemetry
+
+ServerlessIDE collects usage data and metrics to help us improve the extension for VS Code.
+
+### What data is collected?
+
+ServerlessIDE collects anonymous information related to the usage of the extensions, such as which commands were run, as well as performance and error data.
+
+### How do I disable telemetry reporting?
+
+On Windows or Linux, select `File > Preferences > Settings`. On macOS, select `Code > Preferences > Settings`. Then, to silence all telemetry events from the VS Code shell and disable telemetry reporting, add the following option.
+
+```
+"serverlessIDE.telemetry.enableTelemetry": false
+```
+
+IMPORTANT: This option requires a restart of VS Code to take effect.
+
+NOTE: We also respect the global telemetry setting telemetry.enableTelemetry; if that is set to false, ServerlessIDE telemetry is disabled. For more information see [Microsoft’s documentation](https://code.visualstudio.com/docs/supporting/faq#_how-to-disable-telemetry-reporting).
 
 ## Contributions
 
@@ -60,3 +81,7 @@ DM or follow me on [twitter](https://twitter.com/pvl4sov) or [medium](https://me
 ### Author
 
 [Pavel Vlasov](https://github.com/pavelvlasov)
+
+### License
+
+Apache License 2.0

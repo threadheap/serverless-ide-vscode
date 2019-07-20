@@ -15,6 +15,7 @@ import {
 	UNKNOWN
 } from "./../../model/document"
 import { applyDocumentMutations } from "./mutation"
+import { sendException } from "../analytics"
 
 const localize = nls.loadMessageBundle()
 
@@ -116,7 +117,8 @@ export class ResolvedSchema {
 						)
 					}
 					return null
-				} catch (e) {
+				} catch (err) {
+					sendException(err)
 					return null
 				}
 			}

@@ -28,6 +28,7 @@ import { parse as parseYAML } from "./language-service/parser"
 import { removeDuplicatesObj } from "./language-service/utils/arrayUtils"
 import { completionHelper } from "./language-service/utils/completion-helper"
 import { isSupportedDocument } from "./language-service/utils/document"
+import { initializeAnalytics } from "./language-service/services/analytics"
 nls.config(process.env.VSCODE_NLS_CONFIG as any)
 
 // Create a connection for the server.
@@ -67,6 +68,7 @@ const customTags = [
 
 connection.onInitialize(
 	(params: InitializeParams): InitializeResult => {
+		initializeAnalytics(connection)
 		workspaceRoot = params.rootPath
 
 		return {

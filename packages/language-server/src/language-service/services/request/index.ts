@@ -1,4 +1,5 @@
 import { getErrorStatusDescription, xhr, XHROptions } from "request-light"
+import { sendException } from "../analytics"
 
 export default async (
 	uri: string,
@@ -17,6 +18,7 @@ export default async (
 		)
 		return response.responseText
 	} catch (error) {
+		sendException(error)
 		return (
 			error.responseText ||
 			getErrorStatusDescription(error.status) ||

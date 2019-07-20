@@ -1,28 +1,45 @@
 import { AmplitudeClient, AmplitudeEventData } from "./amplitude"
+import * as Sentry from "@sentry/node"
 import { AnalyticsReporter, IAnalyticsClient } from "vscode-extension-analytics"
 import { Event as AnalyticsEvent, Exception } from "vscode-extension-analytics"
 import { machineIdSync } from "node-machine-id"
-import { hostname } from "os"
+import { userInfo } from "os"
 import * as crypto from "crypto"
 export { AnalyticsEvent, Exception }
 
 class AnalyticsClient implements IAnalyticsClient {
-	private instance: AmplitudeClient
+	private amplitudeInstance: AmplitudeClient
 	private deviceId: string
 	private sessionId: number
 	private userId: string
 
 	constructor(apiKey: string) {
-		this.instance = new AmplitudeClient(apiKey)
+		const user = userInfo({ encoding: "utf8" })
+		this.amplitudeInstance = new AmplitudeClient(apiKey)
 		this.deviceId = machineIdSync()
 		this.userId = crypto
 			.createHash("md5")
-			.update(hostname())
+			.update(user.username)
 			.digest("hex")
 		this.sessionId = Date.now()
 	}
 
-	initialise() {}
+	initialise() {
+		Sentry.init({
+			dsn: "https://710778be7bd847558250574eb19e52e9@sentry.io/1509685"
+		})
+
+		Sentry.configureScope(scope => {
+			scope.setUser({
+				id: this.userId
+			})
+
+			scope.setTags({
+				deviceId: this.deviceId,
+				sessionId: this.sessionId.toString()
+			})
+		})
+	}
 
 	flush() {
 		return Promise.resolve()
@@ -31,7 +48,7 @@ class AnalyticsClient implements IAnalyticsClient {
 	async sendEvent(event: AnalyticsEvent) {
 		/* eslint-disable @typescript-eslint/camelcase */
 		const amplitudeEvent: AmplitudeEventData = {
-			event_type: "track",
+			event_type: event.action,
 			user_id: this.userId,
 			device_id: this.deviceId,
 			session_id: this.sessionId,
@@ -39,20 +56,11 @@ class AnalyticsClient implements IAnalyticsClient {
 		}
 		/* eslint-enable @typescript-eslint/camelcase */
 
-		await this.instance.track(amplitudeEvent)
+		await this.amplitudeInstance.track(amplitudeEvent)
 	}
 
 	async sendException(event: Exception) {
-		/* eslint-disable @typescript-eslint/camelcase */
-		const amplitudeEvent: AmplitudeEventData = {
-			event_type: "error",
-			user_id: this.deviceId,
-			session_id: this.sessionId,
-			event_properties: event.toJSON()
-		}
-		/* eslint-enable @typescript-eslint/camelcase */
-
-		await this.instance.track(amplitudeEvent)
+		await Sentry.captureException(event.error)
 	}
 }
 
@@ -63,5 +71,8 @@ export const createReporter = (
 ): AnalyticsReporter => {
 	const client = new AnalyticsClient(apiKey)
 
-	return new AnalyticsReporter(extensionId, extensionVersion, client)
+	return new AnalyticsReporter(extensionId, extensionVersion, client, {
+		configId: "serverlessIDE.telemetry",
+		configEnabledId: "enableTelemetry"
+	})
 }

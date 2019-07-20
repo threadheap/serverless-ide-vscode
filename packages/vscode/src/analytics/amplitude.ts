@@ -310,8 +310,8 @@ export class AmplitudeClient<TEventNames = string> {
 					req.on("error", reject)
 					req.write(postData)
 					req.end()
-				} catch (e) {
-					reject(e)
+				} catch (err) {
+					reject(err)
 				}
 			}
 		)
@@ -362,7 +362,7 @@ export class AmplitudeClient<TEventNames = string> {
 
 		try {
 			this.logging(level, message)
-		} catch (e) {
+		} catch (err) {
 			// ignore logging errors
 		}
 	}

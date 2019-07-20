@@ -11,7 +11,7 @@ import {
 } from "vscode-languageclient"
 import * as packageJSON from "../package.json"
 import { schemaContributor } from "./schema-contributor"
-import { createReporter, AnalyticsEvent } from "./analytics"
+import { createReporter, AnalyticsEvent, Exception } from "./analytics"
 
 export interface ISchemaAssociations {
 	[pattern: string]: string[]
@@ -24,6 +24,26 @@ const analytics = createReporter(
 	packageJSON.version,
 	"936e3290fec1ab6c784fb2a5d06d9d47"
 )
+
+interface AnalyticsPayload {
+	action: string
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	attributes: { [key: string]: any }
+}
+
+interface ExceptionPayload {
+	message: string
+	stack: string
+}
+
+class GenericLanguageServerException extends Error {
+	constructor(message: string, stack: string) {
+		super()
+		this.name = "GenericLanguageServerException"
+		this.stack = stack
+		this.message = message
+	}
+}
 
 export async function activate(context: ExtensionContext) {
 	const serverModule = context.asAbsolutePath(
@@ -71,6 +91,34 @@ export async function activate(context: ExtensionContext) {
 		clientOptions
 	)
 	const disposable = client.start()
+
+	client.onReady().then(() => {
+		client.onNotification(
+			"custom/analytics",
+			(payload: AnalyticsPayload) => {
+				// eslint-disable-next-line no-console
+				analytics.sendEvent(
+					new AnalyticsEvent(payload.action, payload.attributes)
+				)
+			}
+		)
+
+		client.onNotification(
+			"custom/exception",
+			(payload: ExceptionPayload) => {
+				const error = new GenericLanguageServerException(
+					payload.message,
+					payload.stack
+				)
+				// eslint-disable-next-line no-console
+				console.error(
+					"[ServerlessIDE] Unhandled exception in language server: " +
+						error
+				)
+				analytics.sendException(new Exception(error, {}))
+			}
+		)
+	})
 
 	context.subscriptions.push(disposable)
 	context.subscriptions.push(analytics)

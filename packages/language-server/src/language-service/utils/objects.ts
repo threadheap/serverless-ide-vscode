@@ -1,6 +1,7 @@
 "use strict"
 
 import map = require("lodash/map")
+import { sendException } from "../services/analytics"
 
 export function equals(one: any, other: any): boolean {
 	if (one === other) {
@@ -64,6 +65,7 @@ export const logObject = (obj: any) => {
 						// If this value does not reference a parent it can be deduped
 						return JSON.parse(JSON.stringify(value))
 					} catch (error) {
+						sendException(error)
 						// discard key if value cannot be deduped
 						return
 					}

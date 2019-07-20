@@ -8,6 +8,7 @@ import { CompletionsCollector } from "../../jsonContributions"
 import { JSONSchema } from "../../jsonSchema"
 import documentationService from "../documentation"
 import { getInsertTextForObject } from "./text"
+import { sendException } from "../analytics"
 
 const getResourceType = (schema: JSONSchema): string | null => {
 	if (schema.properties && schema.properties.Type) {
@@ -56,8 +57,7 @@ export const addPatternPropertiesCompletions = async (
 									resourceType
 								)
 							} catch (err) {
-								// eslint-disable-next-line no-console
-								console.error(err)
+								sendException(err)
 							}
 
 							collector.add({
