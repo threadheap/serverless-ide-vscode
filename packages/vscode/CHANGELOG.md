@@ -1,5 +1,8 @@
 # Change log
 
+## v0.3.7
+- Delete sentry global handlers
+
 ## v0.3.6
 - less verbose logging
 - telemetry and crash reporting
