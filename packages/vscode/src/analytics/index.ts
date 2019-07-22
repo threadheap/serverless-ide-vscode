@@ -5,6 +5,7 @@ import { Event as AnalyticsEvent, Exception } from "vscode-extension-analytics"
 import { machineIdSync } from "node-machine-id"
 import { userInfo } from "os"
 import * as crypto from "crypto"
+import * as packageJson from "../../package.json"
 export { AnalyticsEvent, Exception }
 
 class AnalyticsClient implements IAnalyticsClient {
@@ -31,7 +32,8 @@ class AnalyticsClient implements IAnalyticsClient {
 				return integrations.filter(integration => {
 					return integration.name !== "GlobalHandlers"
 				})
-			}
+			},
+			release: `${packageJson.name}@${packageJson.version}`
 		})
 
 		Sentry.configureScope(scope => {
