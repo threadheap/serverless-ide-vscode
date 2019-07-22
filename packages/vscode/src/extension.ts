@@ -133,10 +133,11 @@ export async function activate(context: ExtensionContext) {
 }
 
 export async function deactivate(): Promise<void> {
+	await analytics.sendEvent(new AnalyticsEvent("deactivated", {}))
+
 	if (!client) {
 		return undefined
 	}
-	await analytics.sendEvent(new AnalyticsEvent("deactivated", {}))
 	analytics.dispose()
 	return client.stop() as Promise<void>
 }
