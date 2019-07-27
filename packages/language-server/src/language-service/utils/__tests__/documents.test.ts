@@ -91,7 +91,7 @@ test("should detect document type", () => {
 test("should detect supported documents", () => {
 	expect(
 		isSupportedDocument(TextDocument.create("sls", "yaml", 1, slsTemplate))
-	).toBe(false)
+	).toBe(true)
 	expect(
 		isSupportedDocument(TextDocument.create("cfn", "yaml", 1, cfnTemplate))
 	).toBe(true)

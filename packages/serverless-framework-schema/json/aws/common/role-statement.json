@@ -1,0 +1,32 @@
+{
+    "additionalProperties": false,
+    "properties": {
+        "Effect": {
+            "type": "string",
+            "enum": [
+                "Allow",
+                "Deny"
+            ],
+            "default": "Allow"
+        },
+        "Action": {
+            "oneOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        "Resource": {}
+    },
+    "required": [
+        "Effect",
+        "Action",
+        "Resource"
+    ]
+}

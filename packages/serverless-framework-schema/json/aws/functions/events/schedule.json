@@ -1,0 +1,62 @@
+{
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "schedule": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "default": "my scheduled event"
+                },
+                "description": {
+                    "type": "string",
+                    "default": "a description of my scheduled event's purpose"
+                },
+                "rate": {
+                    "type": "string",
+                    "default": "rate(10 minutes)"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "input": {
+                    "type": "object"
+                },
+                "inputPath": {
+                    "type": "string",
+                    "default": "$.stageVariables"
+                },
+                "inputTransformer": {
+                    "type": "object"
+                }
+            },
+            "oneOf": [
+                {
+                    "required": [
+                        "input"
+                    ]
+                },
+                {
+                    "required": [
+                        "inputPath"
+                    ]
+                },
+                {
+                    "required": [
+                        "inputTransformer"
+                    ]
+                }
+            ],
+            "require": [
+                "name",
+                "rate"
+            ]
+        }
+    },
+    "required": [
+        "schedule"
+    ]
+}

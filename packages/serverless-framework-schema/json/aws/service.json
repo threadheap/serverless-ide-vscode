@@ -1,0 +1,17 @@
+{
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "name": {
+            "type": "string",
+            "default": "myService"
+        },
+        "awsKmsKeyArn": {
+            "type": "string",
+            "description": "Optional KMS key arn which will be used for encryption for all functions"
+        }
+    },
+    "required": [
+        "name"
+    ]
+}

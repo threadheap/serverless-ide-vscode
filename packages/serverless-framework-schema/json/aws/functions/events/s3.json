@@ -1,0 +1,33 @@
+{
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "s3": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "bucket": {
+                    "type": "string",
+                    "default": "photos"
+                },
+                "event": {
+                    "type": "string",
+                    "default": "s3:ObjectCreated:*"
+                },
+                "rules": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
+                }
+            },
+            "require": [
+                "bucket",
+                "event"
+            ]
+        }
+    },
+    "required": [
+        "s3"
+    ]
+}

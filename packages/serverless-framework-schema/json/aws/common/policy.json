@@ -1,0 +1,38 @@
+{
+    "additionalProperties": false,
+    "properties": {
+        "Effect": {
+            "type": "string",
+            "enum": [
+                "Allow",
+                "Deny"
+            ],
+            "default": "Allow"
+        },
+        "Principal": {
+            "type": "string",
+            "default": "*"
+        },
+        "Action": {
+            "oneOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            ]
+        },
+        "Resource": {},
+        "Condition": {}
+    },
+    "required": [
+        "Effect",
+        "Principal",
+        "Action",
+        "Resource"
+    ]
+}

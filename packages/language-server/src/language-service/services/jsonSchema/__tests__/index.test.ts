@@ -68,7 +68,7 @@ test("should resolve SAM schema", async () => {
 	}
 })
 
-test("should return void for sls document", async () => {
+test("should return Serverless schema for sls document", async () => {
 	const service = new JSONSchemaService()
 	const document = TextDocument.create("sls", "yaml", 1, slsTemplate)
 
@@ -77,5 +77,8 @@ test("should return void for sls document", async () => {
 		new SingleYAMLDocument([])
 	)
 
-	expect(schema).toBeUndefined()
+	if (schema) {
+		expect(schema).toBeDefined()
+		expect(schema.errors).toHaveLength(0)
+	}
 })

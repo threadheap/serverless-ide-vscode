@@ -1,0 +1,66 @@
+{
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "cloudwatchEvent": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "event": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "source": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "detail-type": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "detail": {
+                            "type": "object"
+                        }
+                    }
+                },
+                "input": {
+                    "type": "object"
+                },
+                "inputPath": {
+                    "type": "string",
+                    "default": "$.stageVariables"
+                },
+                "inputTransformer": {
+                    "type": "object"
+                }
+            },
+            "oneOf": [
+                {
+                    "required": [
+                        "input"
+                    ]
+                },
+                {
+                    "required": [
+                        "inputPath"
+                    ]
+                },
+                {
+                    "required": [
+                        "inputTransformer"
+                    ]
+                }
+            ],
+            "required": [
+                "event"
+            ]
+        }
+    },
+    "required": [
+        "cloudwatchEvent"
+    ]
+}

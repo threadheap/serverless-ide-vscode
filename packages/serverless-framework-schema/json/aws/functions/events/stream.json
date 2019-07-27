@@ -1,0 +1,51 @@
+{
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "stream": {
+            "oneOf": [
+                {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "enum": [
+                                "dynamodb",
+                                "kinesis"
+                            ],
+                            "default": "dynamodb"
+                        },
+                        "arn": {
+                            "$ref": "aws/common/arn",
+                            "default": "arn:aws:kinesis:region:XXXXXX:stream/foo"
+                        },
+                        "batchSize": {
+                            "type": "number",
+                            "default": 10
+                        },
+                        "startingPosition": {
+                            "type": "string",
+                            "default": "LATEST"
+                        },
+                        "enabled": {
+                            "type": "boolean",
+                            "default": false
+                        }
+                    },
+                    "require": [
+                        "type",
+                        "arn"
+                    ]
+                },
+                {
+                    "type": "string",
+                    "default": "arn:aws:dynamodb:region:XXXXXX:table/foo/stream/1901T00:00:00.000"
+                }
+            ]
+        }
+    },
+    "required": [
+        "stream"
+    ]
+}

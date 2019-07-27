@@ -1,0 +1,26 @@
+{
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "alexaSmartHome": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "appId": {
+                    "type": "string",
+                    "default": "amzn1.ask.skill.xx-xx-xx-xx"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "default": false
+                }
+            },
+            "required": [
+                "appId"
+            ]
+        }
+    },
+    "required": [
+        "alexaSmartHome"
+    ]
+}

@@ -1,0 +1,27 @@
+{
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "cloudwatchLog": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "logGroup": {
+                    "type": "string",
+                    "default": "/aws/lambda/hello"
+                },
+                "filter": {
+                    "type": "string",
+                    "default": "{$.userIdentity.type = Root}"
+                }
+            },
+            "require": [
+                "logGroup",
+                "filter"
+            ]
+        }
+    },
+    "required": [
+        "cloudwatchLog"
+    ]
+}

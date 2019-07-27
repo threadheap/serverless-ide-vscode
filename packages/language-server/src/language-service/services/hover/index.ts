@@ -12,6 +12,7 @@ import {
 } from "vscode-languageserver-types"
 import { YAMLDocument } from "../../parser"
 import { matchOffsetToDocument } from "../../utils/arrayUtils"
+import { Segment } from "vscode-json-languageservice"
 
 const createHover = (contents: MarkedString[], hoverRange: Range): Hover => {
 	const result: Hover = {
@@ -102,8 +103,19 @@ export class YAMLHover {
 		return void 0
 	}
 
+	private getRelativeNodePath(node: Parser.ASTNode): Segment[] {
+		let path = node.getPath()
+
+		// remove leading `resources` part to support serverless framework
+		if (path[0] === "resources") {
+			return path.slice(1)
+		}
+
+		return path
+	}
+
 	private getResourceName(node: Parser.ASTNode): void | string {
-		const path = node.getPath()
+		const path = this.getRelativeNodePath(node)
 
 		const getResourceName = (targetNode: Parser.ASTNode): string | void => {
 			if (targetNode.type !== "object") {
@@ -158,7 +170,7 @@ export class YAMLHover {
 	}
 
 	private getPropertyName(node: Parser.ASTNode): string | void {
-		const path = node.getPath()
+		const path = this.getRelativeNodePath(node)
 
 		if (
 			path.length >= 4 &&

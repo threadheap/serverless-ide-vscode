@@ -1,3 +1,4 @@
+import { CLOUD_FORMATION, SAM } from "./../../model/document"
 import { spawn } from "child_process"
 import {
 	Diagnostic,
@@ -14,6 +15,7 @@ import {
 	ValidationProvider
 } from "./../../model/settings"
 import { sendException, sendAnalytics } from "../analytics"
+import { getDocumentType } from "../../utils/document"
 
 const transformCfnLintSeverity = (errorType: string): DiagnosticSeverity => {
 	switch (errorType) {
@@ -54,7 +56,12 @@ export class YAMLValidation {
 			return Promise.resolve([])
 		}
 
-		if (this.provider === ValidationProvider["cfn-lint"]) {
+		const documentType = getDocumentType(textDocument)
+
+		if (
+			this.provider === ValidationProvider["cfn-lint"] &&
+			(documentType === CLOUD_FORMATION || documentType === SAM)
+		) {
 			try {
 				return await this.validateWithCfnLint(textDocument)
 			} catch (err) {

@@ -1,0 +1,39 @@
+{
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "iot": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "default": "myIoTEvent"
+                },
+                "description": {
+                    "type": "string",
+                    "default": "An IoT event"
+                },
+                "sql": {
+                    "type": "string",
+                    "default": "SELECT * FROM 'some_topic'"
+                },
+                "sqlVersion": {
+                    "type": "string",
+                    "default": "beta"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "default": false
+                }
+            },
+            "require": [
+                "name",
+                "sql"
+            ]
+        }
+    },
+    "required": [
+        "iot"
+    ]
+}

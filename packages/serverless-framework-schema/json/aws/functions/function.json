@@ -1,0 +1,140 @@
+{
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "handler": {
+            "type": "string",
+            "description": "The file and module for this specific function.",
+            "default": "handler.default"
+        },
+        "name": {
+            "type": "string",
+            "description": "optional, Deployed Lambda name",
+            "default": "${self:provider.stage}-lambdaName"
+        },
+        "description": {
+            "type": "string",
+            "description": "The description of your function."
+        },
+        "memorySize": {
+            "type": "number",
+            "description": "memorySize for this specific function.",
+            "default": 512
+        },
+        "reservedConcurrency": {
+            "type": "number",
+            "description": "optional, reserved concurrency limit for this function. By default, AWS uses account concurrency limit",
+            "default": 5
+        },
+        "runtime": {
+            "$ref": "#/definitions/aws:common:runtime",
+            "description": "Runtime for this specific function. Overrides the default which is set on the provider level"
+        },
+        "timeout": {
+            "type": "number",
+            "description": "Timeout for this specific function.  Overrides the default set above.",
+            "default": 10
+        },
+        "role": {
+            "type": "string",
+            "description": "IAM role which will be used for this function",
+            "default": "arn:aws:iam::XXXXXX:role/role"
+        },
+        "onError": {
+            "type": "string",
+            "description": "Optional SNS topic / SQS arn (Ref, Fn::GetAtt and Fn::ImportValue are supported as well) which will be used for the DeadLetterConfig",
+            "default": "arn:aws:sns:us-east-1:XXXXXX:sns-topic"
+        },
+        "awsKmsKeyArn": {
+            "type": "string",
+            "description": "Optional KMS key arn which will be used for encryption (overwrites the one defined on the service level)",
+            "default": "arn:aws:kms:us-east-1:XXXXXX:key/some-hash"
+        },
+        "environment": {
+            "type": "object",
+            "description": "Function level environment variables",
+            "patternProperties": {
+                "^[a-zA-Z0-9]+$": {}
+            }
+        },
+        "tags": {
+            "$ref": "#/definitions/common:tags"
+        },
+        "vpc": {
+            "$ref": "#/definitions/aws:common:vpc"
+        },
+        "package": {
+            "$ref": "#/definitions/common:package-config"
+        },
+        "layers": {
+            "type": "array",
+            "description": "An optional list Lambda Layers to use",
+            "items": {
+                "type": "string"
+            }
+        },
+        "tracing": {
+            "type": "string",
+            "description": "optional, can be 'Active' or 'PassThrough' (overwrites the one defined on the provider level)",
+            "enum": [
+                "Active",
+                "PassThrough"
+            ],
+            "default": "Active"
+        },
+        "events": {
+            "type": "array",
+            "minLength": 1,
+            "uniqueItems": true,
+            "items": {
+                "anyOf": [
+                    {
+                        "$ref": "#/definitions/aws:functions:events:http"
+                    },
+                    {
+                        "$ref": "#/definitions/aws:functions:events:websocket"
+                    },
+                    {
+                        "$ref": "#/definitions/aws:functions:events:s3"
+                    },
+                    {
+                        "$ref": "#/definitions/aws:functions:events:schedule"
+                    },
+                    {
+                        "$ref": "#/definitions/aws:functions:events:sns"
+                    },
+                    {
+                        "$ref": "#/definitions/aws:functions:events:sqs"
+                    },
+                    {
+                        "$ref": "#/definitions/aws:functions:events:stream"
+                    },
+                    {
+                        "$ref": "#/definitions/aws:functions:events:alexaSkill"
+                    },
+                    {
+                        "$ref": "#/definitions/aws:functions:events:alexaSmartHome"
+                    },
+                    {
+                        "$ref": "#/definitions/aws:functions:events:iot"
+                    },
+                    {
+                        "$ref": "#/definitions/aws:functions:events:cloudwatchEvent"
+                    },
+                    {
+                        "$ref": "#/definitions/aws:functions:events:cloudwatchLog"
+                    },
+                    {
+                        "$ref": "#/definitions/aws:functions:events:cognitoUserPool"
+                    },
+                    {
+                        "$ref": "#/definitions/aws:functions:events:alb"
+                    }
+                ]
+            }
+        }
+    },
+    "required": [
+        "handler"
+    ]
+}

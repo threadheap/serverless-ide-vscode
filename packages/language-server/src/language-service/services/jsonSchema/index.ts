@@ -254,6 +254,7 @@ export class JSONSchemaService {
 
 	constructor() {
 		const samSchema = require("@serverless-ide/sam-schema/schema.json") as JSONSchema
+		const serverlessFrameworkSchema = require("@serverless-ide/serverless-framework-schema/schema.json") as JSONSchema
 
 		this.schemas = {
 			[CLOUD_FORMATION]: this.loadSchema(CLOUD_FORMATION_SCHEMA_URL).then(
@@ -261,8 +262,10 @@ export class JSONSchemaService {
 					return resolveSchemaContent(unresolvedSchema)
 				}
 			),
-			[SAM]: resolveSchemaContent(new UnresolvedSchema(samSchema, [])),
-			[SERVERLESS_FRAMEWORK]: Promise.resolve(undefined),
+			[SAM]: resolveSchemaContent(new UnresolvedSchema(samSchema)),
+			[SERVERLESS_FRAMEWORK]: resolveSchemaContent(
+				new UnresolvedSchema(serverlessFrameworkSchema)
+			),
 			[UNKNOWN]: Promise.resolve(undefined)
 		}
 	}

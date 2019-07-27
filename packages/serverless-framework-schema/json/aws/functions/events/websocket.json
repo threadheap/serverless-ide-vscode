@@ -1,0 +1,25 @@
+{
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "websocket": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "route": {
+                    "type": "string",
+                    "default": "$connect"
+                },
+                "authorizer": {
+                    "$ref": "#/definitions/aws:common:authorizer"
+                }
+            },
+            "require": [
+                "route"
+            ]
+        }
+    },
+    "required": [
+        "websocket"
+    ]
+}
