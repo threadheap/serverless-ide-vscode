@@ -7,5 +7,6 @@ module.exports = {
 	testMatch: ["**/__tests__/**/?(*.)+(spec|test).+(ts|js)"],
 	modulePathIgnorePatterns: ["node_modules"],
 	preset: "ts-jest",
-	testEnvironment: "node"
+	testEnvironment: "node",
+	verbose: false
 }

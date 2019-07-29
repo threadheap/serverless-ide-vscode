@@ -103,3 +103,14 @@ export const evaluateSeparatorAfter = (
 			return ""
 	}
 }
+
+export const isInArray = (document: TextDocument, node: ASTNode): boolean => {
+	if (node.parent && node.parent.type === "array") {
+		const nodePosition = document.positionAt(node.start)
+		const arrayPosition = document.positionAt(node.start)
+
+		return nodePosition.line === arrayPosition.line
+	}
+
+	return false
+}

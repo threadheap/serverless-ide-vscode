@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Serverless Framework autocompletion doComplete should autocomplete resources 1`] = `
+Object {
+  "isIncomplete": false,
+  "items": Array [
+    Object {
+      "documentation": "",
+      "insertText": "frameworkVersion: $1",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "frameworkVersion",
+      "textEdit": Object {
+        "newText": "frameworkVersion: $1",
+        "range": Object {
+          "end": Object {
+            "character": 4,
+            "line": 7,
+          },
+          "start": Object {
+            "character": 4,
+            "line": 7,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "Optional deployment packaging configuration",
+      "insertText": "package:
+	excludeDevDependencies: \${1:false}",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "package",
+      "textEdit": Object {
+        "newText": "package:
+	excludeDevDependencies: \${1:false}",
+        "range": Object {
+          "end": Object {
+            "character": 4,
+            "line": 7,
+          },
+          "start": Object {
+            "character": 4,
+            "line": 7,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "",
+      "insertText": "functions:
+	",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "functions",
+      "textEdit": Object {
+        "newText": "functions:
+	",
+        "range": Object {
+          "end": Object {
+            "character": 4,
+            "line": 7,
+          },
+          "start": Object {
+            "character": 4,
+            "line": 7,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "",
+      "insertText": "layers:
+	",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "layers",
+      "textEdit": Object {
+        "newText": "layers:
+	",
+        "range": Object {
+          "end": Object {
+            "character": 4,
+            "line": 7,
+          },
+          "start": Object {
+            "character": 4,
+            "line": 7,
+          },
+        },
+      },
+    },
+  ],
+}
+`;

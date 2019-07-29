@@ -125,7 +125,6 @@ export const getInsertTextForObject = (
 				insertText += `${indent}${getInsertTextForProperty(
 					key,
 					propertySchema[type][0],
-					false,
 					separatorAfter,
 					insertIndex++
 				)}\n`
@@ -248,6 +247,7 @@ export const getInsertTextForDefaultProperty = (
 
 	switch (key) {
 		case "Runtime":
+		case "runtime":
 			if (propertySchema.type === "string") {
 				return ` \${${insertIndex}|${RUNTIMES.join(",")}|}`
 			}
@@ -259,14 +259,11 @@ export const getInsertTextForDefaultProperty = (
 export const getInsertTextForProperty = (
 	key: string,
 	propertySchema: JSONSchema,
-	addValue: boolean,
 	separatorAfter: string,
-	insertIndex: number = 1
+	insertIndex: number = 1,
+	isInArray: boolean = false
 ): string => {
 	const propertyText = getInsertTextForValue(key, "")
-	// if (!addValue) {
-	// 	return propertyText;
-	// }
 	const resultText = propertyText + ":"
 
 	let value: string = getInsertTextForDefaultProperty(
@@ -279,15 +276,18 @@ export const getInsertTextForProperty = (
 			value = ` \${${insertIndex}:${propertySchema.default}}`
 		} else if (propertySchema.properties) {
 			return `${resultText}\n${
-				getInsertTextForObject(propertySchema, separatorAfter)
-					.insertText
+				getInsertTextForObject(
+					propertySchema,
+					separatorAfter,
+					isInArray ? "  \t" : "\t"
+				).insertText
 			}`
 		} else if (propertySchema.items) {
 			return `${resultText}\n\t- ${
 				getInsertTextForArray(
 					propertySchema.items,
 					separatorAfter,
-					"  "
+					isInArray ? "    " : "  "
 				).insertText
 			}`
 		} else {

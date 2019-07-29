@@ -170,6 +170,7 @@ export class YAMLCompletion {
 		let addValue = true
 
 		let currentProperty: Parser.PropertyASTNode = null
+
 		if (node) {
 			if (node.type === "string") {
 				const stringNode = node as Parser.StringASTNode
@@ -208,10 +209,10 @@ export class YAMLCompletion {
 
 			// property proposals with schema
 			completions.getPropertyCompletions(
+				document,
 				schema,
 				currentDoc,
 				node,
-				addValue,
 				collector,
 				separatorAfter
 			)

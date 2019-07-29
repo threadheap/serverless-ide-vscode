@@ -24,10 +24,10 @@ import * as textCompletions from "./text"
 const localize = nls.loadMessageBundle()
 
 export const getPropertyCompletions = (
+	textDocument: TextDocument,
 	schema: ResolvedSchema,
 	doc: SingleYAMLDocument,
 	node: ASTNode,
-	addValue: boolean,
 	collector: CompletionsCollector,
 	separatorAfter: string
 ): void => {
@@ -48,8 +48,9 @@ export const getPropertyCompletions = (
 							insertText: textCompletions.getInsertTextForProperty(
 								key,
 								propertySchema,
-								addValue,
-								separatorAfter
+								separatorAfter,
+								1,
+								helpers.isInArray(textDocument, node)
 							),
 							insertTextFormat: InsertTextFormat.Snippet,
 							documentation: propertySchema.description || ""
