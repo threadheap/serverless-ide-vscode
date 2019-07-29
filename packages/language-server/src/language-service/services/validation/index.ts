@@ -1,3 +1,4 @@
+import { StringASTNode } from "./../../parser/jsonParser"
 import { CLOUD_FORMATION, SAM } from "./../../model/document"
 import { spawn } from "child_process"
 import {
@@ -213,6 +214,19 @@ export class YAMLValidation {
 						schema.schema
 					)
 					currentDocProblems.forEach(problem => {
+						if (problem.message.startsWith("Incorrect type")) {
+							const node = currentDoc.getNodeFromOffset(
+								problem.location.start
+							)
+
+							if (node.type === "string") {
+								const stringNode = node as StringASTNode
+
+								if (stringNode.value.startsWith("${file(")) {
+									return
+								}
+							}
+						}
 						currentDoc.errors.push({
 							location: {
 								start: problem.location.start,
