@@ -1,5 +1,9 @@
 # Change log
 
+## v0.3.8
+- Fix SAM schema to support MethodSettings property in AWS::Serverless::Api resource type
+- Additional logging around cfn-lint validation
+
 ## v0.3.7
 - Delete sentry global handlers
 
