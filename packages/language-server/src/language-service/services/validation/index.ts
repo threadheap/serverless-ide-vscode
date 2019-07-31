@@ -69,7 +69,9 @@ export class YAMLValidation {
 				// eslint-disable-next-line no-console
 				sendException(err, "Unable to run cfn lint")
 				// eslint-disable-next-line no-console
-				console.log("Fallback to default validation method")
+				console.log(
+					`[Serverless IDE] cfn-lint falidation failed. Fallback to default validation method: "${err.message}"`
+				)
 
 				return await this.validateWithSchema(textDocument, yamlDocument)
 			}
