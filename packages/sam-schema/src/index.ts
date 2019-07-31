@@ -98,6 +98,13 @@ const generateSchema = (schema: any): any => {
 		//     (option: string) => option !== 'CodeUri'
 		// );
 
+		apiProperties.MethodSettings = {
+			items: {
+				$ref: "#/definitions/AWS::ApiGateway::Stage.MethodSetting"
+			},
+			type: "array"
+		}
+
 		schema.properties.Globals = {
 			type: "object",
 			additionalProperties: false,
@@ -109,13 +116,6 @@ const generateSchema = (schema: any): any => {
 						EndpointConfiguration: {
 							$ref:
 								"#/definitions/AWS::ApiGateway::DomainName.EndpointConfiguration"
-						},
-						MethodSettings: {
-							items: {
-								$ref:
-									"#/definitions/AWS::ApiGateway::Stage.MethodSetting"
-							},
-							type: "array"
 						},
 						BinaryMediaTypes: {
 							items: {
