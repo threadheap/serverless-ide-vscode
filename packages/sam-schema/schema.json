@@ -41993,7 +41993,10 @@
                             "type": "string"
                         },
                         "MethodSettings": {
-                            "type": "object"
+                            "items": {
+                                "$ref": "#/definitions/AWS::ApiGateway::Stage.MethodSetting"
+                            },
+                            "type": "array"
                         },
                         "Name": {
                             "type": "string"
@@ -46863,7 +46866,10 @@
                             "type": "string"
                         },
                         "MethodSettings": {
-                            "type": "object"
+                            "items": {
+                                "$ref": "#/definitions/AWS::ApiGateway::Stage.MethodSetting"
+                            },
+                            "type": "array"
                         },
                         "Name": {
                             "type": "string"
