@@ -47,24 +47,6 @@ console.error = connection.console.error.bind(connection.console)
 const documents: TextDocuments = new TextDocuments()
 let customLanguageService: LanguageService
 let workspaceRoot: string
-const customTags = [
-	"!And",
-	"!If",
-	"!Not",
-	"!Equals",
-	"!Or",
-	"!FindInMap",
-	"!Base64",
-	"!Cidr",
-	"!Ref",
-	"!Sub",
-	"!GetAtt",
-	"!GetAZs",
-	"!ImportValue",
-	"!Select",
-	"!Split",
-	"!Join"
-]
 
 connection.onInitialize(
 	(params: InitializeParams): InitializeResult => {
@@ -113,7 +95,6 @@ connection.onInitialized(() => {
 				input => input.serverlessIDE.completion,
 				true
 			),
-			customTags,
 			validationProvider: get(
 				settings,
 				input => input.serverlessIDE.validationProvider,
@@ -272,7 +253,7 @@ function validateTextDocument(textDocument: TextDocument): void {
 		return
 	}
 
-	const yamlDocument = parseYAML(text, customTags)
+	const yamlDocument = parseYAML(text)
 	customLanguageService
 		.doValidation(textDocument, yamlDocument)
 		.then(diagnosticResults => {

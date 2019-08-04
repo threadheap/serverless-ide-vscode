@@ -35,9 +35,10 @@
         "vscode-languageserver-types": "^3.14.0",
         "vscode-nls": "^3.2.2",
         "vscode-uri": "^1.0.6",
-        "yaml-ast-parser": "0.0.40"
+        "yaml-ast-parser": "0.0.43"
     },
     "devDependencies": {
+        "@types/js-yaml": "^3.12.1",
         "@types/lru-cache": "^4.1.1",
         "@types/node": "^9.4.7",
         "source-map-support": "^0.5.4"

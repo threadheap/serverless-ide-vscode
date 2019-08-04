@@ -24,10 +24,7 @@ describe("Validation", () => {
 
 	const parseSetup = (content: string) => {
 		const testTextDocument = setup(content)
-		const yDoc = parseYAML(
-			testTextDocument.getText(),
-			languageSettings.customTags
-		)
+		const yDoc = parseYAML(testTextDocument.getText())
 		return languageService.doValidation(testTextDocument, yDoc)
 	}
 	;["default", "cfn-lint"].forEach(validationType => {

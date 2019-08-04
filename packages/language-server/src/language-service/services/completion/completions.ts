@@ -11,11 +11,7 @@ import {
 	JSONWorkerContribution
 } from "./../../jsonContributions"
 import { JSONSchema } from "./../../jsonSchema"
-import {
-	ASTNode,
-	ObjectASTNode,
-	PropertyASTNode
-} from "./../../parser/jsonParser"
+import { ASTNode, ObjectASTNode, PropertyASTNode } from "./../../parser/json"
 import { getDefaultPropertyCompletions } from "./defaultPropertyCompletions"
 import * as helpers from "./helpers"
 import { addPatternPropertiesCompletions } from "./pattern-properties"

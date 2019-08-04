@@ -6,7 +6,7 @@ import {
 	GlobalsConfig,
 	SIMPLE_TABLE
 } from "../model/globals"
-import { ASTNode, ObjectASTNode, PropertyASTNode } from "./jsonParser"
+import { ASTNode, ObjectASTNode, PropertyASTNode } from "./json"
 import { findProperty, getPropertyNodeValue } from "./util"
 
 const GLOBALS_KEY: "Globals" = "Globals"

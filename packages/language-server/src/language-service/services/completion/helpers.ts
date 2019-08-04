@@ -1,6 +1,6 @@
 import * as JSONParser from "jsonc-parser"
 import { CompletionItemKind, TextDocument } from "vscode-languageserver-types"
-import { ASTNode } from "./../../parser/jsonParser"
+import { ASTNode } from "./../../parser/json"
 
 export const getLabelForValue = (value: any): string => {
 	const label = typeof value === "string" ? value : JSON.stringify(value)

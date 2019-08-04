@@ -56,9 +56,7 @@ export function getLanguageService(
 	const configure = (newSettings: LanguageSettings) => {
 		yamlValidation.configure(newSettings)
 		hover.configure(newSettings)
-		const customTagsSetting =
-			newSettings && newSettings.customTags ? newSettings.customTags : []
-		completer.configure(newSettings, customTagsSetting)
+		completer.configure(newSettings)
 	}
 
 	return {

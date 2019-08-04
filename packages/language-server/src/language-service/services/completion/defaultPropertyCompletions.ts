@@ -3,7 +3,7 @@ import {
 	InsertTextFormat
 } from "vscode-languageserver-types"
 import { CompletionsCollector } from "./../../jsonContributions"
-import { ASTNode } from "./../../parser/jsonParser"
+import { ASTNode } from "./../../parser/json"
 import { RUNTIMES } from "./constants"
 
 export const getDefaultPropertyCompletions = (

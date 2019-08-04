@@ -1,4 +1,4 @@
-import { ObjectASTNode, PropertyASTNode } from "./jsonParser"
+import { ObjectASTNode, PropertyASTNode } from "./json"
 
 export const findProperty = (
 	objectNode: ObjectASTNode | void,

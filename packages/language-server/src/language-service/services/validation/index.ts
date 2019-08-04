@@ -1,4 +1,4 @@
-import { StringASTNode } from "./../../parser/jsonParser"
+import { StringASTNode, ErrorCode } from "./../../parser/json"
 import { CLOUD_FORMATION, SAM } from "./../../model/document"
 import { spawn } from "child_process"
 import {
@@ -8,7 +8,6 @@ import {
 	TextDocument
 } from "vscode-languageserver"
 import { Problem, YAMLDocument } from "../../parser"
-import { ErrorCode } from "../../parser/jsonParser"
 import { JSONSchemaService } from "../jsonSchema"
 import {
 	CFNLintSettings,

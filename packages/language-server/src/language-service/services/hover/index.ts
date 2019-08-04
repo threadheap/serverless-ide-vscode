@@ -1,4 +1,4 @@
-import * as Parser from "../../parser/jsonParser"
+import * as Parser from "../../parser/json"
 import documentationService, { DocumentationService } from "../documentation"
 import * as SchemaService from "../jsonSchema"
 import { LanguageSettings } from "./../../model/settings"

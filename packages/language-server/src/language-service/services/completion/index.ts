@@ -5,7 +5,7 @@ import {
 	CompletionsCollector,
 	JSONWorkerContribution
 } from "../../jsonContributions"
-import * as Parser from "../../parser/jsonParser"
+import * as Parser from "../../parser/json"
 import * as SchemaService from "../jsonSchema"
 
 import {
@@ -28,7 +28,6 @@ export class YAMLCompletion {
 	private schemaService: SchemaService.JSONSchemaService
 	private contributions: JSONWorkerContribution[]
 	private promise: PromiseConstructor
-	private customTags: string[]
 	private completion: boolean
 
 	constructor(
@@ -39,15 +38,13 @@ export class YAMLCompletion {
 		this.schemaService = schemaService
 		this.contributions = contributions
 		this.promise = promiseConstructor || Promise
-		this.customTags = []
 		this.completion = true
 	}
 
-	configure(languageSettings: LanguageSettings, customTags: string[]) {
+	configure(languageSettings: LanguageSettings) {
 		if (languageSettings) {
 			this.completion = languageSettings.completion
 		}
-		this.customTags = customTags
 	}
 
 	doResolve(item: CompletionItem): Promise<CompletionItem> {
@@ -252,9 +249,10 @@ export class YAMLCompletion {
 				collectionPromises
 			)
 		}
-		if (this.customTags.length > 0) {
-			completions.getCustomTagValueCompletions(collector, this.customTags)
-		}
+		// TODO: implement new custom tags value completions
+		// if (this.customTags.length > 0) {
+		// 	completions.getCustomTagValueCompletions(collector, this.customTags)
+		// }
 
 		return this.promise.all(collectionPromises).then(() => {
 			return result

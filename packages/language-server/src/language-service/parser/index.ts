@@ -1,4 +1,4 @@
-"use strict"
+import { CUSTOM_TAGS, CustomTag } from "./../model/custom-tags"
 
 import {
 	ArrayASTNode,
@@ -11,7 +11,7 @@ import {
 	ObjectASTNode,
 	PropertyASTNode,
 	StringASTNode
-} from "./jsonParser"
+} from "./json"
 
 import * as nls from "vscode-nls"
 const localize = nls.loadMessageBundle()
@@ -20,10 +20,7 @@ import { Schema, Type } from "js-yaml"
 import * as Yaml from "yaml-ast-parser"
 
 import { GlobalsConfig } from "../model/globals"
-import {
-	getLineStartPositions,
-	getPosition
-} from "../utils/documentPositionCalculator"
+import { getLineStartPositions } from "../utils/documentPositionCalculator"
 import { collectGlobals, getDefaultGlobalsConfig } from "./globals"
 import { parseYamlBoolean } from "./scalar-type"
 
@@ -34,6 +31,14 @@ export interface Problem {
 		end: number
 	}
 	code: ErrorCode
+}
+
+interface YamlScalar extends Yaml.YAMLScalar {
+	customTag?: CustomTag
+}
+
+interface YamlSequence extends Yaml.YAMLSequence {
+	customTag?: CustomTag
 }
 
 export class SingleYAMLDocument extends JSONDocument {
@@ -60,54 +65,6 @@ export class SingleYAMLDocument extends JSONDocument {
 
 	getNodeFromOffset(offset: number): ASTNode {
 		return this.getNodeFromOffsetEndInclusive(offset)
-	}
-
-	private getNodeByIndent = (
-		lines: number[],
-		offset: number,
-		node: ASTNode
-	) => {
-		const { line, column: indent } = getPosition(offset, this.lines)
-
-		const children = node.getChildNodes()
-
-		// tslint:disable-next-line: no-shadowed-variable
-		function findNode(children) {
-			for (let idx = 0; idx < children.length; idx++) {
-				const child = children[idx]
-
-				const { line: childLine, column: childCol } = getPosition(
-					child.start,
-					lines
-				)
-
-				if (childCol > indent) {
-					return null
-				}
-
-				const newChildren = child.getChildNodes()
-				const foundNode = findNode(newChildren)
-
-				if (foundNode) {
-					return foundNode
-				}
-
-				// We have the right indentation, need to return based on line
-				if (childLine === line) {
-					return child
-				}
-				if (childLine > line) {
-					// Get previous
-					return idx - 1 >= 0 ? children[idx - 1] : child
-				}
-				// Else continue loop to try next element
-			}
-
-			// Special case, we found the correct
-			return children[children.length - 1]
-		}
-
-		return findNode(children) || node
 	}
 }
 
@@ -169,13 +126,14 @@ function recursivelyBuildAst(parent: ASTNode, node: Yaml.YAMLNode): ASTNode {
 			return result
 		}
 		case Yaml.Kind.SEQ: {
-			const instance = node as Yaml.YAMLSequence
+			const instance = node as YamlSequence
 
 			const result = new ArrayASTNode(
 				parent,
 				null,
 				instance.startPosition,
-				instance.endPosition
+				instance.endPosition,
+				instance.customTag
 			)
 
 			let count = 0
@@ -203,7 +161,7 @@ function recursivelyBuildAst(parent: ASTNode, node: Yaml.YAMLNode): ASTNode {
 			return result
 		}
 		case Yaml.Kind.SCALAR: {
-			const instance = node as Yaml.YAMLScalar
+			const instance = node as YamlScalar
 			const type = Yaml.determineScalarType(instance)
 
 			// The name is set either by the sequence or the mapping case.
@@ -289,7 +247,8 @@ function recursivelyBuildAst(parent: ASTNode, node: Yaml.YAMLNode): ASTNode {
 						name,
 						false,
 						node.startPosition,
-						node.endPosition
+						node.endPosition,
+						instance.customTag
 					)
 					result.value = node.value
 					return result
@@ -401,27 +360,34 @@ export class YAMLDocument {
 	}
 }
 
-export const parse = (text: string, customTags = []): YAMLDocument => {
+export const parse = (text: string): YAMLDocument => {
 	const startPositions = getLineStartPositions(text)
 	// This is documented to return a YAMLNode even though the
 	// typing only returns a YAMLDocument
 	const yamlDocs = []
 
-	const schemaWithAdditionalTags = Schema.create(
-		customTags.map(tag => {
-			const typeInfo = tag.split(" ")
-			return new Type(typeInfo[0], { kind: typeInfo[1] || "scalar" })
-		})
-	)
+	// We need compiledTypeMap to be available from schemaWithAdditionalTags before we add the new custom propertie
+	const compiledTypeMap: { [key: string]: Type } = {}
 
-	// We need compiledTypeMap to be available from schemaWithAdditionalTags before we add the new custom properties
-	customTags.map(tag => {
-		const typeInfo = tag.split(" ")
-		schemaWithAdditionalTags.compiledTypeMap[typeInfo[0]] = new Type(
-			typeInfo[0],
-			{ kind: typeInfo[1] || "scalar" }
-		)
+	CUSTOM_TAGS.forEach(customTag => {
+		compiledTypeMap[customTag.tag] = new Type(customTag.tag, {
+			kind: customTag.kind,
+			construct: data => {
+				if (data) {
+					data.customTag = customTag
+
+					return data
+				}
+
+				return null
+			}
+		})
 	})
+
+	const schemaWithAdditionalTags = Schema.create(
+		Object.values(compiledTypeMap)
+	)
+	;(schemaWithAdditionalTags as any).compiledTypeMap = compiledTypeMap
 
 	const additionalOptions: Yaml.LoadOptions = {
 		schema: schemaWithAdditionalTags

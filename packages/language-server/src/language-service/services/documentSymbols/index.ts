@@ -1,6 +1,6 @@
 "use strict"
 
-import * as Parser from "../../parser/jsonParser"
+import * as Parser from "../../parser/json"
 import { YAMLDocument } from "./../../parser/index"
 
 import {

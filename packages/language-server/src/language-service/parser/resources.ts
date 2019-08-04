@@ -1,11 +1,6 @@
 import { ResourcesDefinitions } from "../model/resources"
 import { SortedHash } from "../model/sortedHash"
-import {
-	ASTNode,
-	ObjectASTNode,
-	PropertyASTNode,
-	StringASTNode
-} from "./jsonParser"
+import { ASTNode, ObjectASTNode, PropertyASTNode, StringASTNode } from "./json"
 import { findProperty, getPropertyNodeValue } from "./util"
 
 const RESOURCES_KEY = "Resources"
