@@ -1,13 +1,13 @@
-import {
-	Reference,
-	ReferenceType,
-	ReferenceTag
-} from "../../../model/references"
-import { StringASTNode } from "../string-ast-node"
+import { CustomTag } from "./../../model/custom-tags"
+import { Reference, ReferenceType } from "../../model/references"
+import { StringASTNode } from "../json/string-ast-node"
 
 const parameterRegExp = new RegExp("\\${[^}]*}", "g")
 
-export const getSub = (node: StringASTNode): Reference[] => {
+export const getSub = (
+	node: StringASTNode,
+	customTag: CustomTag
+): Reference[] => {
 	// rest regexp
 	parameterRegExp.lastIndex = 0
 
@@ -23,7 +23,7 @@ export const getSub = (node: StringASTNode): Reference[] => {
 			const reference = {
 				key: referencedKey,
 				type: ReferenceType.SUB,
-				offset: node.start + ReferenceTag.SUB.length + match.index,
+				offset: node.start + customTag.tag.length + match.index,
 				node
 			}
 			references.push(reference)
@@ -32,14 +32,17 @@ export const getSub = (node: StringASTNode): Reference[] => {
 	return references
 }
 
-export const getRef = (node: StringASTNode): Reference[] => {
-	const referencedKey = node.getValue()
+export const getRef = (
+	node: StringASTNode,
+	customTag: CustomTag
+): Reference[] => {
+	const referencedKey = node.value
 
 	if (!referencedKey.startsWith("AWS::")) {
 		const reference = {
 			key: referencedKey,
 			type: ReferenceType.REF,
-			offset: node.start + ReferenceTag.REF.length,
+			offset: node.start + customTag.tag.length,
 			node
 		}
 		return [reference]
@@ -47,12 +50,18 @@ export const getRef = (node: StringASTNode): Reference[] => {
 	return []
 }
 
-export const getGetAtt = (node: StringASTNode): Reference[] => {
+export const getGetAtt = (
+	node: StringASTNode,
+	customTag: CustomTag
+): Reference[] => {
+	// TODO: handle reference properties
+	const [referencedKey] = node.value.split(".")
+
 	return [
 		{
-			key: node.value,
+			key: referencedKey,
 			type: ReferenceType.GET_ATT,
-			offset: node.start + ReferenceTag.GET_ATT.length,
+			offset: node.start + customTag.tag.length,
 			node
 		}
 	]
