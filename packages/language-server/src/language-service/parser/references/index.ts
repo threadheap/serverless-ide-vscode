@@ -47,7 +47,10 @@ export const collectReferences = (node: ASTNode): Reference[] => {
 				)
 			}
 		} else if (node instanceof ArrayASTNode) {
-			if (node.customTag.type === ReferenceType.SUB) {
+			if (
+				currentCustomTag &&
+				currentCustomTag.type === ReferenceType.SUB
+			) {
 				if (node.items.length === 1) {
 					const firstItem = node.items[0]
 
