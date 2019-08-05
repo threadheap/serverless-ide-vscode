@@ -101,5 +101,11 @@ export const CUSTOM_TAGS: CustomTag[] = [
 		tag: "!Ref",
 		kind: "scalar",
 		propertyName: "Ref"
+	},
+	{
+		type: ReferenceType.DEPENDS_ON,
+		tag: "",
+		kind: "sequence",
+		propertyName: "DependsOn"
 	}
 ]

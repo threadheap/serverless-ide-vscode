@@ -1,13 +1,9 @@
-import { CustomTag } from "./../../model/custom-tags"
 import { Reference, ReferenceType } from "../../model/references"
 import { StringASTNode } from "../json/string-ast-node"
 
 const parameterRegExp = new RegExp("\\${[^}]*}", "g")
 
-export const getSub = (
-	node: StringASTNode,
-	customTag: CustomTag
-): Reference[] => {
+export const getSub = (node: StringASTNode): Reference[] => {
 	// rest regexp
 	parameterRegExp.lastIndex = 0
 
@@ -23,7 +19,7 @@ export const getSub = (
 			const reference = {
 				key: referencedKey,
 				type: ReferenceType.SUB,
-				offset: node.start + customTag.tag.length + match.index,
+				offset: node.start + match.index,
 				node
 			}
 			references.push(reference)
@@ -32,17 +28,14 @@ export const getSub = (
 	return references
 }
 
-export const getRef = (
-	node: StringASTNode,
-	customTag: CustomTag
-): Reference[] => {
+export const getRef = (node: StringASTNode): Reference[] => {
 	const referencedKey = node.value
 
 	if (!referencedKey.startsWith("AWS::")) {
 		const reference = {
 			key: referencedKey,
 			type: ReferenceType.REF,
-			offset: node.start + customTag.tag.length,
+			offset: node.start,
 			node
 		}
 		return [reference]
@@ -50,10 +43,7 @@ export const getRef = (
 	return []
 }
 
-export const getGetAtt = (
-	node: StringASTNode,
-	customTag: CustomTag
-): Reference[] => {
+export const getGetAtt = (node: StringASTNode): Reference[] => {
 	// TODO: handle reference properties
 	const [referencedKey] = node.value.split(".")
 
@@ -61,22 +51,19 @@ export const getGetAtt = (
 		{
 			key: referencedKey,
 			type: ReferenceType.GET_ATT,
-			offset: node.start + customTag.tag.length,
+			offset: node.start,
 			node
 		}
 	]
 }
 
-export const getIfFindInMapDependsOn = (
-	node: StringASTNode,
-	referenceType: ReferenceType
-): Reference[] => {
+export const getDependsOn = (node: StringASTNode): Reference[] => {
 	const referencedKey = node.value
 	if (!referencedKey.startsWith("AWS::")) {
 		return [
 			{
 				key: referencedKey,
-				type: referenceType,
+				type: ReferenceType.DEPENDS_ON,
 				offset: node.start,
 				node
 			}

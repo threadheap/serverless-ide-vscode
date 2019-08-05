@@ -240,4 +240,51 @@ describe("references collector", () => {
 			})
 		})
 	})
+
+	describe("DependsOn", () => {
+		test("should collect single depends on reference", () => {
+			const text = ["Name:", "  DependsOn: logicalName"].join("\n")
+			const root = generateNode(text)
+
+			const references = collectReferences(root)
+
+			expect(references).toHaveLength(1)
+			expect(references).toEqual([
+				{
+					type: ReferenceType.DEPENDS_ON,
+					key: "logicalName",
+					node: expect.any(Object),
+					offset: expect.any(Number)
+				}
+			])
+		})
+
+		test("should collect multiple depends on references", () => {
+			const text = [
+				"Name:",
+				"  DependsOn:",
+				"   - logicalName1",
+				"   - logicalName2"
+			].join("\n")
+			const root = generateNode(text)
+
+			const references = collectReferences(root)
+
+			expect(references).toHaveLength(2)
+			expect(references).toEqual([
+				{
+					type: ReferenceType.DEPENDS_ON,
+					key: "logicalName1",
+					node: expect.any(Object),
+					offset: expect.any(Number)
+				},
+				{
+					type: ReferenceType.DEPENDS_ON,
+					key: "logicalName2",
+					node: expect.any(Object),
+					offset: expect.any(Number)
+				}
+			])
+		})
+	})
 })

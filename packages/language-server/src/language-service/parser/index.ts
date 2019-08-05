@@ -370,18 +370,20 @@ export const parse = (text: string): YAMLDocument => {
 	const compiledTypeMap: { [key: string]: Type } = {}
 
 	CUSTOM_TAGS.forEach(customTag => {
-		compiledTypeMap[customTag.tag] = new Type(customTag.tag, {
-			kind: customTag.kind,
-			construct: data => {
-				if (data) {
-					data.customTag = customTag
+		if (customTag.tag) {
+			compiledTypeMap[customTag.tag] = new Type(customTag.tag, {
+				kind: customTag.kind,
+				construct: data => {
+					if (data) {
+						data.customTag = customTag
 
-					return data
+						return data
+					}
+
+					return null
 				}
-
-				return null
-			}
-		})
+			})
+		}
 	})
 
 	const schemaWithAdditionalTags = Schema.create(

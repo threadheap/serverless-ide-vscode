@@ -18,11 +18,13 @@ export const collectRefencesFromStringNode = (
 ): Reference[] => {
 	switch (customTag.type) {
 		case ReferenceType.GET_ATT:
-			return utils.getGetAtt(node, customTag)
+			return utils.getGetAtt(node)
 		case ReferenceType.REF:
-			return utils.getRef(node, customTag)
+			return utils.getRef(node)
 		case ReferenceType.SUB:
-			return utils.getSub(node, customTag)
+			return utils.getSub(node)
+		case ReferenceType.DEPENDS_ON:
+			return utils.getDependsOn(node)
 		default:
 			return []
 	}
@@ -55,9 +57,7 @@ export const collectReferences = (node: ASTNode): Reference[] => {
 					const firstItem = node.items[0]
 
 					if (firstItem instanceof StringASTNode) {
-						utils
-							.getSub(firstItem, currentCustomTag)
-							.forEach(addToReferences)
+						utils.getSub(firstItem).forEach(addToReferences)
 					}
 				} else {
 					node.items.slice(1).forEach(item => {
