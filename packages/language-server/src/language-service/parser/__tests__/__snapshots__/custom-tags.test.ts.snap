@@ -806,6 +806,58 @@ ObjectASTNode {
 }
 `;
 
+exports[`custom tags parse smoke tests DEPENDS_ON DEPENDS_ON 1`] = `
+ObjectASTNode {
+  "customTag": undefined,
+  "end": 35,
+  "location": null,
+  "parent": null,
+  "properties": Array [
+    PropertyASTNode {
+      "colonOffset": -1,
+      "customTag": undefined,
+      "end": 35,
+      "key": StringASTNode {
+        "customTag": undefined,
+        "end": 8,
+        "isKey": true,
+        "location": "property",
+        "parent": [Circular],
+        "start": 0,
+        "type": "string",
+        "value": "property",
+      },
+      "location": null,
+      "parent": [Circular],
+      "start": 0,
+      "type": "property",
+      "value": ArrayASTNode {
+        "customTag": undefined,
+        "end": 35,
+        "items": Array [
+          StringASTNode {
+            "customTag": undefined,
+            "end": 32,
+            "isKey": false,
+            "location": 0,
+            "parent": [Circular],
+            "start": 16,
+            "type": "string",
+            "value": "logicalVariable1",
+          },
+        ],
+        "location": "property",
+        "parent": [Circular],
+        "start": 14,
+        "type": "array",
+      },
+    },
+  ],
+  "start": 0,
+  "type": "object",
+}
+`;
+
 exports[`custom tags parse smoke tests FIND_IN_MAP FIND_IN_MAP 1`] = `
 ObjectASTNode {
   "customTag": undefined,

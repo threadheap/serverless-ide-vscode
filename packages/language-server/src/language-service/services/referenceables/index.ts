@@ -17,8 +17,6 @@ const collectNodeKeys = (node: PropertyASTNode | void): string[] => {
 const collectCfnReferenceables = (node: ASTNode): string[] => {
 	const nodes = [
 		getNodeItemByKey(node, "Parameters"),
-		getNodeItemByKey(node, "Conditions"),
-		getNodeItemByKey(node, "Mappings"),
 		getNodeItemByKey(node, "Resources")
 	]
 

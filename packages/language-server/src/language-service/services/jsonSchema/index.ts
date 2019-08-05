@@ -4,7 +4,7 @@ import { TextDocument } from "vscode-languageserver"
 import * as nls from "vscode-nls"
 import URI from "vscode-uri"
 import { DocumentType } from "../../model/document"
-import { SingleYAMLDocument } from "../../parser"
+import { YAMLDocument } from "../../parser"
 import { getDocumentType } from "../../utils/document"
 import requestService from "../request"
 import { JSONSchema, JSONSchemaMap } from "./../../jsonSchema"
@@ -272,7 +272,7 @@ export class JSONSchemaService {
 
 	async getSchemaForDocument(
 		document: TextDocument,
-		yamlDocument: SingleYAMLDocument
+		yamlDocument: YAMLDocument
 	): Promise<ResolvedSchema | void> {
 		const documentType = getDocumentType(document)
 		const schema = await this.getSchemaForDocumentType(documentType)

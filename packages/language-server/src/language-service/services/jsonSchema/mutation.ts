@@ -3,7 +3,7 @@ import toArray = require("lodash/toArray")
 import without = require("lodash/without")
 import { GlobalsConfig, isEmpty } from "../../model/globals"
 import { ResolvedSchema } from "./"
-import { SingleYAMLDocument } from "./../../parser/index"
+import { YAMLDocument } from "./../../parser/index"
 import { sendException } from "../analytics"
 
 const applyGlobalsConfigMutations = (
@@ -54,7 +54,7 @@ const applyGlobalsConfigMutations = (
 
 export const applyDocumentMutations = (
 	schema: ResolvedSchema | void,
-	yamlDocument: SingleYAMLDocument
+	yamlDocument: YAMLDocument
 ): ResolvedSchema | void => {
 	// early exit, if schema is not defined
 	if (!schema) {

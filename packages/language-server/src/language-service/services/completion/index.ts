@@ -19,7 +19,6 @@ import {
 
 import { LanguageSettings } from "../../model/settings"
 import { YAMLDocument } from "../../parser"
-import { matchOffsetToDocument } from "../../utils/arrayUtils"
 import * as completions from "./completions"
 import * as helpers from "./helpers"
 import { sendException } from "../analytics"
@@ -78,11 +77,7 @@ export class YAMLCompletion {
 			return Promise.resolve(result)
 		}
 
-		const currentDoc = matchOffsetToDocument(offset, doc)
-		if (!currentDoc) {
-			return Promise.resolve(result)
-		}
-		let node = currentDoc.getNodeFromOffsetEndInclusive(offset)
+		let node = doc.getNodeFromOffsetEndInclusive(offset)
 		if (helpers.isInComment(document, node ? node.start : 0, offset)) {
 			return Promise.resolve(result)
 		}
@@ -155,7 +150,7 @@ export class YAMLCompletion {
 
 		const schema = await this.schemaService.getSchemaForDocument(
 			document,
-			currentDoc
+			doc
 		)
 
 		if (!schema) {
@@ -208,7 +203,7 @@ export class YAMLCompletion {
 			completions.getPropertyCompletions(
 				document,
 				schema,
-				currentDoc,
+				doc,
 				node,
 				collector,
 				separatorAfter
@@ -233,7 +228,7 @@ export class YAMLCompletion {
 		// property proposal for values
 		await completions.getValueCompletions(
 			schema,
-			currentDoc,
+			doc,
 			node,
 			offset,
 			document,

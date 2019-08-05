@@ -11,7 +11,6 @@ import {
 	TextDocument
 } from "vscode-languageserver-types"
 import { YAMLDocument } from "../../parser"
-import { matchOffsetToDocument } from "../../utils/arrayUtils"
 import { Segment } from "vscode-json-languageservice"
 
 const createHover = (contents: MarkedString[], hoverRange: Range): Hover => {
@@ -48,19 +47,15 @@ export class YAMLHover {
 		}
 
 		const offset = document.offsetAt(position)
-		const currentDoc = matchOffsetToDocument(offset, doc)
-		if (!currentDoc) {
-			return
-		}
 		const schema = await this.schemaService.getSchemaForDocument(
 			document,
-			currentDoc
+			doc
 		)
 
 		if (!schema) {
 			return
 		}
-		const node = currentDoc.getNodeFromOffset(offset)
+		const node = doc.getNodeFromOffset(offset)
 
 		if (
 			!node ||

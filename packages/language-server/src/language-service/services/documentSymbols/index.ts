@@ -16,7 +16,7 @@ export class YAMLDocumentSymbols {
 		document: TextDocument,
 		doc: YAMLDocument
 	): SymbolInformation[] {
-		if (!doc || doc.documents.length === 0) {
+		if (!doc) {
 			return null
 		}
 
@@ -68,12 +68,10 @@ export class YAMLDocumentSymbols {
 
 		let results = []
 
-		doc.documents.forEach(yamlDoc => {
-			if (yamlDoc.root) {
-				const result = collectOutlineEntries([], yamlDoc.root, void 0)
-				results = results.concat(result)
-			}
-		})
+		if (doc.root) {
+			const result = collectOutlineEntries([], doc.root, void 0)
+			results = results.concat(result)
+		}
 
 		return results
 	}

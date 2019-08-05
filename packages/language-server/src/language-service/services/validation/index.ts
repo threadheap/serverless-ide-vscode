@@ -203,62 +203,58 @@ export class YAMLValidation {
 			}
 		})
 
-		await Promise.all(
-			yamlDocument.documents.map(async currentDoc => {
-				const schema = await this.jsonSchemaService.getSchemaForDocument(
-					textDocument,
-					currentDoc
-				)
+		const schema = await this.jsonSchemaService.getSchemaForDocument(
+			textDocument,
+			yamlDocument
+		)
 
-				if (schema) {
-					const currentDocProblems = currentDoc.getValidationProblems(
-						schema.schema
+		if (schema) {
+			const currentDocProblems = yamlDocument.getValidationProblems(
+				schema.schema
+			)
+			currentDocProblems.forEach(problem => {
+				if (problem.message.startsWith("Incorrect type")) {
+					const node = yamlDocument.getNodeFromOffset(
+						problem.location.start
 					)
-					currentDocProblems.forEach(problem => {
-						if (problem.message.startsWith("Incorrect type")) {
-							const node = currentDoc.getNodeFromOffset(
-								problem.location.start
-							)
 
-							if (node.type === "string") {
-								const stringNode = node as StringASTNode
+					if (node.type === "string") {
+						const stringNode = node as StringASTNode
 
-								if (stringNode.value.startsWith("${file(")) {
-									return
-								}
-							}
+						if (stringNode.value.startsWith("${file(")) {
+							return
 						}
-						currentDoc.errors.push({
-							location: {
-								start: problem.location.start,
-								end: problem.location.end
-							},
-							message: problem.message,
-							code: ErrorCode.Undefined
-						})
-					})
-
-					if (schema && schema.errors.length > 0) {
-						schema.errors.forEach(error => {
-							diagnostics.push({
-								severity: DiagnosticSeverity.Error,
-								range: {
-									start: {
-										line: 0,
-										character: 0
-									},
-									end: {
-										line: 0,
-										character: 1
-									}
-								},
-								message: error
-							})
-						})
 					}
 				}
+				yamlDocument.errors.push({
+					location: {
+						start: problem.location.start,
+						end: problem.location.end
+					},
+					message: problem.message,
+					code: ErrorCode.Undefined
+				})
 			})
-		)
+
+			if (schema && schema.errors.length > 0) {
+				schema.errors.forEach(error => {
+					diagnostics.push({
+						severity: DiagnosticSeverity.Error,
+						range: {
+							start: {
+								line: 0,
+								character: 0
+							},
+							end: {
+								line: 0,
+								character: 1
+							}
+						},
+						message: error
+					})
+				})
+			}
+		}
 
 		const addProblem = (
 			{ message, location }: Problem,
@@ -280,14 +276,12 @@ export class YAMLValidation {
 			}
 		}
 
-		yamlDocument.documents.forEach(doc => {
-			doc.errors.forEach(error => {
-				addProblem(error, DiagnosticSeverity.Error)
-			})
+		yamlDocument.errors.forEach(error => {
+			addProblem(error, DiagnosticSeverity.Error)
+		})
 
-			doc.warnings.forEach(warning => {
-				addProblem(warning, DiagnosticSeverity.Warning)
-			})
+		yamlDocument.warnings.forEach(warning => {
+			addProblem(warning, DiagnosticSeverity.Warning)
 		})
 
 		sendAnalytics({

@@ -4,7 +4,7 @@ import {
 	TextDocument
 } from "vscode-languageserver-types"
 import * as nls from "vscode-nls"
-import { SingleYAMLDocument } from "../../parser"
+import { YAMLDocument } from "../../parser"
 import { ResolvedSchema } from "../jsonSchema"
 import {
 	CompletionsCollector,
@@ -22,7 +22,7 @@ const localize = nls.loadMessageBundle()
 export const getPropertyCompletions = (
 	textDocument: TextDocument,
 	schema: ResolvedSchema,
-	doc: SingleYAMLDocument,
+	doc: YAMLDocument,
 	node: ASTNode,
 	collector: CompletionsCollector,
 	separatorAfter: string
@@ -73,7 +73,7 @@ export const getPropertyCompletions = (
 
 export const getValueCompletions = async (
 	schema: ResolvedSchema,
-	doc: SingleYAMLDocument,
+	doc: YAMLDocument,
 	node: ASTNode,
 	offset: number,
 	document: TextDocument,

@@ -28,7 +28,7 @@ describe("Document Symbols Tests", () => {
 	it("Document is empty", done => {
 		const content = ""
 		const symbols = parseSetup(content)
-		expect(symbols).toBe(null)
+		expect(symbols).toHaveLength(0)
 		done()
 	})
 
@@ -86,13 +86,6 @@ describe("Document Symbols Tests", () => {
 			"scripts:\n  node1: test\n  node2: test\nauthors:\n  - name: Josh\n  - email: jp"
 		const symbols = parseSetup(content)
 		expect(symbols).toHaveLength(6)
-		done()
-	})
-
-	it("Document Symbols with multi documents", done => {
-		const content = "---\nanalytics: true\n...\n---\njson: test\n..."
-		const symbols = parseSetup(content)
-		expect(symbols).toHaveLength(2)
 		done()
 	})
 })

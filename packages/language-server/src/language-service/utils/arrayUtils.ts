@@ -1,5 +1,4 @@
 import toArray = require("lodash/toArray")
-import { SingleYAMLDocument, YAMLDocument } from "../parser"
 
 export function removeDuplicates(arr, prop) {
 	const lookup = {}
@@ -46,17 +45,4 @@ export function removeDuplicatesObj(objArray) {
 	})
 
 	return nonDuplicateArr
-}
-
-export function matchOffsetToDocument(
-	offset: number,
-	jsonDocuments: YAMLDocument
-): SingleYAMLDocument | void {
-	return jsonDocuments.documents.find(jsonDoc => {
-		return (
-			jsonDoc.root &&
-			jsonDoc.root.end >= offset &&
-			jsonDoc.root.start <= offset
-		)
-	})
 }

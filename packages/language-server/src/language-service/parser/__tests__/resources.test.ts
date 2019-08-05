@@ -41,7 +41,7 @@ test("should collect resources from empty doc", () => {
 	const doc = parseYaml(`
     `)
 
-	const result = collectResources(doc.documents[0].root)
+	const result = collectResources(doc.root)
 
 	expect(result.serialize()).toEqual({
 		sequence: [],
@@ -51,7 +51,7 @@ test("should collect resources from empty doc", () => {
 
 test("should collect resources for document with single resource", () => {
 	const doc = parseYaml(singleResource)
-	const result = collectResources(doc.documents[0].root)
+	const result = collectResources(doc.root)
 
 	expect(result).toEqual({
 		sequence: ["Table"],
@@ -66,7 +66,7 @@ test("should collect resources for document with single resource", () => {
 
 test("should multiple resources", () => {
 	const doc = parseYaml(multipleResources)
-	const result = collectResources(doc.documents[0].root)
+	const result = collectResources(doc.root)
 
 	expect(result).toEqual({
 		sequence: ["Function", "Table"],
@@ -85,7 +85,7 @@ test("should multiple resources", () => {
 
 test("should invalid resources", () => {
 	const doc = parseYaml(invalidResource)
-	const result = collectResources(doc.documents[0].root)
+	const result = collectResources(doc.root)
 
 	expect(result).toEqual({
 		sequence: ["Function"],
@@ -100,7 +100,7 @@ test("should invalid resources", () => {
 
 test("should collect duplicated resources", () => {
 	const doc = parseYaml(duplicatedResources)
-	const result = collectResources(doc.documents[0].root)
+	const result = collectResources(doc.root)
 
 	expect(result).toEqual({
 		sequence: ["Function"],
@@ -115,7 +115,7 @@ test("should collect duplicated resources", () => {
 
 test("should override invalid resource", () => {
 	const doc = parseYaml(duplicatedResourcesWithInvalidType)
-	const result = collectResources(doc.documents[0].root)
+	const result = collectResources(doc.root)
 
 	expect(result).toEqual({
 		sequence: ["Function"],

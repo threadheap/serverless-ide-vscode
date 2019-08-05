@@ -4,7 +4,7 @@ import { ReferenceType } from "../../../model/references"
 
 describe("references collector", () => {
 	const generateNode = (text: string) => {
-		return parseYaml(text).documents[0].root
+		return parseYaml(text).root
 	}
 
 	describe("short syntax", () => {

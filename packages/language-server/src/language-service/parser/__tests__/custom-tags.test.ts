@@ -10,7 +10,7 @@ const optionsMapping: { [key in TagKind]: string } = {
 describe("custom tags parse", () => {
 	describe("smoke tests", () => {
 		const generateNode = (text: string) => {
-			return parseYaml(text).documents[0].root
+			return parseYaml(text).root
 		}
 
 		CUSTOM_TAGS.forEach(tag => {

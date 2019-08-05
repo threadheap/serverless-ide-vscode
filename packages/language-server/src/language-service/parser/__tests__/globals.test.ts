@@ -50,7 +50,7 @@ Resources:
 test("should collect globals for empty doc", () => {
 	const doc = parseYaml(noGlobals)
 
-	expect(collectGlobals(doc.documents[0].root)).toEqual({
+	expect(collectGlobals(doc.root)).toEqual({
 		Api: {
 			resourceType: "AWS::Serverless::Api",
 			properties: []
@@ -69,7 +69,7 @@ test("should collect globals for empty doc", () => {
 test("should collect globals for fully defined globals doc", () => {
 	const doc = parseYaml(fullyDefinedGlobals)
 
-	expect(collectGlobals(doc.documents[0].root)).toEqual({
+	expect(collectGlobals(doc.root)).toEqual({
 		Api: {
 			resourceType: "AWS::Serverless::Api",
 			properties: ["Name", "DefinitionUrl"]
@@ -88,7 +88,7 @@ test("should collect globals for fully defined globals doc", () => {
 test("should collect globals for partially defined globals doc", () => {
 	const doc = parseYaml(partiallyDefinedGlobals)
 
-	expect(collectGlobals(doc.documents[0].root)).toEqual({
+	expect(collectGlobals(doc.root)).toEqual({
 		Api: {
 			resourceType: "AWS::Serverless::Api",
 			properties: ["Name", "DefinitionUrl"]
@@ -107,7 +107,7 @@ test("should collect globals for partially defined globals doc", () => {
 test("should collect globals from invalid globals node", () => {
 	const doc = parseYaml(invalidGlobals)
 
-	expect(collectGlobals(doc.documents[0].root)).toEqual({
+	expect(collectGlobals(doc.root)).toEqual({
 		Api: {
 			resourceType: "AWS::Serverless::Api",
 			properties: []
@@ -126,7 +126,7 @@ test("should collect globals from invalid globals node", () => {
 test("should collect globals with other properties", () => {
 	const doc = parseYaml(globalsWithOtherProperties)
 
-	expect(collectGlobals(doc.documents[0].root)).toEqual({
+	expect(collectGlobals(doc.root)).toEqual({
 		Api: {
 			resourceType: "AWS::Serverless::Api",
 			properties: ["Name", "DefinitionUrl"]

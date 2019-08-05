@@ -23,6 +23,8 @@ import { GlobalsConfig } from "../model/globals"
 import { getLineStartPositions } from "../utils/documentPositionCalculator"
 import { collectGlobals, getDefaultGlobalsConfig } from "./globals"
 import { parseYamlBoolean } from "./scalar-type"
+import { ResourcesDefinitions } from "../model/resources"
+import { DocumentType } from "../model/document"
 
 export interface Problem {
 	message: string
@@ -41,11 +43,14 @@ interface YamlSequence extends Yaml.YAMLSequence {
 	customTag?: CustomTag
 }
 
-export class SingleYAMLDocument extends JSONDocument {
+export class YAMLDocument extends JSONDocument {
 	root: ASTNode
 	errors: Problem[]
 	warnings: Problem[]
 	globalsConfig: GlobalsConfig
+	resources: ResourcesDefinitions
+	parameters: string[]
+	documentType: DocumentType
 	private lines: number[]
 
 	constructor(lines: number[]) {
@@ -296,15 +301,17 @@ function convertError(e: Yaml.YAMLException): Problem {
 }
 
 function createJSONDocument(
-	yamlDoc: Yaml.YAMLNode,
+	yamlDoc: Yaml.YAMLNode | void,
 	startPositions: number[],
 	text: string
 ) {
-	const doc = new SingleYAMLDocument(startPositions)
-	doc.root = recursivelyBuildAst(null, yamlDoc)
-	doc.globalsConfig = collectGlobals(doc.root)
+	const doc = new YAMLDocument(startPositions)
 
-	if (!doc.root) {
+	if (yamlDoc) {
+		doc.root = recursivelyBuildAst(null, yamlDoc)
+	}
+
+	if (!yamlDoc || !doc.root) {
 		// TODO: When this is true, consider not pushing the other errors.
 		doc.errors.push({
 			message: localize(
@@ -312,11 +319,18 @@ function createJSONDocument(
 				"Expected a YAML object, array or literal"
 			),
 			code: ErrorCode.Undefined,
-			location: { start: yamlDoc.startPosition, end: yamlDoc.endPosition }
+			location: yamlDoc
+				? {
+						start: yamlDoc.startPosition,
+						end: yamlDoc.endPosition
+				  }
+				: { start: 0, end: 0 }
 		})
 
 		return doc
 	}
+
+	doc.globalsConfig = collectGlobals(doc.root)
 
 	const duplicateKeyReason = "duplicate key"
 
@@ -351,20 +365,8 @@ function createJSONDocument(
 	return doc
 }
 
-// tslint:disable-next-line: max-classes-per-file
-export class YAMLDocument {
-	documents: SingleYAMLDocument[]
-
-	constructor(documents: SingleYAMLDocument[]) {
-		this.documents = documents
-	}
-}
-
 export const parse = (text: string): YAMLDocument => {
 	const startPositions = getLineStartPositions(text)
-	// This is documented to return a YAMLNode even though the
-	// typing only returns a YAMLDocument
-	const yamlDocs = []
 
 	// We need compiledTypeMap to be available from schemaWithAdditionalTags before we add the new custom propertie
 	const compiledTypeMap: { [key: string]: Type } = {}
@@ -395,19 +397,9 @@ export const parse = (text: string): YAMLDocument => {
 		schema: schemaWithAdditionalTags
 	}
 
-	Yaml.loadAll(text, docItem => yamlDocs.push(docItem), additionalOptions)
-
-	const doc = new YAMLDocument(
-		yamlDocs.map(docItem => {
-			const jsonDocument = createJSONDocument(
-				docItem,
-				startPositions,
-				text
-			)
-
-			return jsonDocument
-		})
+	return createJSONDocument(
+		Yaml.load(text, additionalOptions),
+		startPositions,
+		text
 	)
-
-	return doc
 }

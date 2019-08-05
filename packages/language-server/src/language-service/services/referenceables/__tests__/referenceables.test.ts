@@ -76,20 +76,14 @@ describe("referenceables", () => {
 	describe(SAM, () => {
 		test("should collect referenceables", () => {
 			const doc = generateDocument(SAM_DOCUMENT)
-			const referenceables = collectReferenceables(
-				SAM,
-				doc.documents[0].root
-			)
+			const referenceables = collectReferenceables(SAM, doc.root)
 
 			expect(referenceables).toEqual(["Function"])
 		})
 
 		test("should return empty array for empty document", () => {
 			const doc = generateDocument(EMPTY_SAM_DOCUMENT)
-			const referenceables = collectReferenceables(
-				SAM,
-				doc.documents[0].root
-			)
+			const referenceables = collectReferenceables(SAM, doc.root)
 
 			expect(referenceables).toEqual([])
 		})
@@ -100,7 +94,7 @@ describe("referenceables", () => {
 			const doc = generateDocument(SERVERLESS_DOCUMENT)
 			const referenceables = collectReferenceables(
 				SERVERLESS_FRAMEWORK,
-				doc.documents[0].root
+				doc.root
 			)
 
 			expect(referenceables).toEqual(["Table"])
@@ -110,7 +104,7 @@ describe("referenceables", () => {
 			const doc = generateDocument(EMPTY_SERVERLESS_DOCUMENT)
 			const referenceables = collectReferenceables(
 				SERVERLESS_FRAMEWORK,
-				doc.documents[0].root
+				doc.root
 			)
 
 			expect(referenceables).toEqual([])

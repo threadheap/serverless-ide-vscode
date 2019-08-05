@@ -39,7 +39,7 @@ describe("Validation", () => {
 			test("does basic validation for empty file", async () => {
 				const content = ""
 				const result = await parseSetup(content)
-				expect(result).toHaveLength(0)
+				expect(result).toHaveLength(1)
 			})
 
 			test("does basic validation for cloud formation template", async () => {
