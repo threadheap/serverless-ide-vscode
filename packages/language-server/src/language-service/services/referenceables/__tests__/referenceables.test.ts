@@ -78,14 +78,18 @@ describe("referenceables", () => {
 			const doc = generateDocument(SAM_DOCUMENT)
 			const referenceables = collectReferenceables(SAM, doc.root)
 
-			expect(referenceables).toEqual(["Function"])
+			expect(referenceables).toEqual({
+				Function: {
+					node: expect.any(Object)
+				}
+			})
 		})
 
 		test("should return empty array for empty document", () => {
 			const doc = generateDocument(EMPTY_SAM_DOCUMENT)
 			const referenceables = collectReferenceables(SAM, doc.root)
 
-			expect(referenceables).toEqual([])
+			expect(referenceables).toEqual({})
 		})
 	})
 
@@ -97,7 +101,11 @@ describe("referenceables", () => {
 				doc.root
 			)
 
-			expect(referenceables).toEqual(["Table"])
+			expect(referenceables).toEqual({
+				Table: {
+					node: expect.any(Object)
+				}
+			})
 		})
 
 		test("should return empty array for empty document", () => {
@@ -107,7 +115,7 @@ describe("referenceables", () => {
 				doc.root
 			)
 
-			expect(referenceables).toEqual([])
+			expect(referenceables).toEqual({})
 		})
 	})
 })

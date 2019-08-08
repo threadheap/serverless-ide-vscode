@@ -20,11 +20,11 @@ import { Schema, Type } from "js-yaml"
 import * as Yaml from "yaml-ast-parser"
 
 import { GlobalsConfig } from "../model/globals"
-import { getLineStartPositions } from "../utils/documentPositionCalculator"
 import { collectGlobals, getDefaultGlobalsConfig } from "./globals"
 import { parseYamlBoolean } from "./scalar-type"
 import { ResourcesDefinitions } from "../model/resources"
 import { DocumentType } from "../model/document"
+import { getDocumentType } from "../utils/document"
 
 export interface Problem {
 	message: string
@@ -51,12 +51,11 @@ export class YAMLDocument extends JSONDocument {
 	resources: ResourcesDefinitions
 	parameters: string[]
 	documentType: DocumentType
-	private lines: number[]
 
-	constructor(lines: number[]) {
+	constructor(documentType: DocumentType) {
 		super(null, [])
+		this.documentType = documentType
 		this.globalsConfig = getDefaultGlobalsConfig()
-		this.lines = lines
 		this.root = null
 		this.errors = []
 		this.warnings = []
@@ -300,12 +299,8 @@ function convertError(e: Yaml.YAMLException): Problem {
 	}
 }
 
-function createJSONDocument(
-	yamlDoc: Yaml.YAMLNode | void,
-	startPositions: number[],
-	text: string
-) {
-	const doc = new YAMLDocument(startPositions)
+function createJSONDocument(yamlDoc: Yaml.YAMLNode | void, text: string) {
+	const doc = new YAMLDocument(getDocumentType(text))
 
 	if (yamlDoc) {
 		doc.root = recursivelyBuildAst(null, yamlDoc)
@@ -366,8 +361,6 @@ function createJSONDocument(
 }
 
 export const parse = (text: string): YAMLDocument => {
-	const startPositions = getLineStartPositions(text)
-
 	// We need compiledTypeMap to be available from schemaWithAdditionalTags before we add the new custom propertie
 	const compiledTypeMap: { [key: string]: Type } = {}
 
@@ -397,9 +390,5 @@ export const parse = (text: string): YAMLDocument => {
 		schema: schemaWithAdditionalTags
 	}
 
-	return createJSONDocument(
-		Yaml.load(text, additionalOptions),
-		startPositions,
-		text
-	)
+	return createJSONDocument(Yaml.load(text, additionalOptions), text)
 }

@@ -5,7 +5,6 @@ import * as nls from "vscode-nls"
 import URI from "vscode-uri"
 import { DocumentType } from "../../model/document"
 import { YAMLDocument } from "../../parser"
-import { getDocumentType } from "../../utils/document"
 import requestService from "../request"
 import { JSONSchema, JSONSchemaMap } from "./../../jsonSchema"
 import {
@@ -274,8 +273,9 @@ export class JSONSchemaService {
 		document: TextDocument,
 		yamlDocument: YAMLDocument
 	): Promise<ResolvedSchema | void> {
-		const documentType = getDocumentType(document)
-		const schema = await this.getSchemaForDocumentType(documentType)
+		const schema = await this.getSchemaForDocumentType(
+			yamlDocument.documentType
+		)
 
 		if (schema) {
 			return applyDocumentMutations(schema, yamlDocument)

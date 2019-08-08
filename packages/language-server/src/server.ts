@@ -153,7 +153,7 @@ connection.onInitialized(() => {
 			return Promise.resolve(result)
 		}
 
-		if (!isSupportedDocument(textDocument)) {
+		if (!isSupportedDocument(textDocument.getText())) {
 			return Promise.resolve(void 0)
 		}
 
@@ -186,7 +186,7 @@ connection.onInitialized(() => {
 
 			const text = document.getText()
 
-			if (!isSupportedDocument(document)) {
+			if (!isSupportedDocument(document.getText())) {
 				return Promise.resolve(void 0)
 			}
 
@@ -208,7 +208,7 @@ connection.onInitialized(() => {
 
 		const text = uri.getText()
 
-		if (!isSupportedDocument(uri)) {
+		if (!isSupportedDocument(uri.getText())) {
 			return
 		}
 
@@ -248,7 +248,7 @@ function validateTextDocument(textDocument: TextDocument): void {
 		return
 	}
 
-	if (!isSupportedDocument(textDocument)) {
+	if (!isSupportedDocument(text)) {
 		connection.sendDiagnostics({ uri: textDocument.uri, diagnostics: [] })
 		return
 	}

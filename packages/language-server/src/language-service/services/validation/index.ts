@@ -16,6 +16,7 @@ import {
 } from "./../../model/settings"
 import { sendException, sendAnalytics } from "../analytics"
 import { getDocumentType } from "../../utils/document"
+import { validateReferences } from "./references"
 
 const transformCfnLintSeverity = (errorType: string): DiagnosticSeverity => {
 	switch (errorType) {
@@ -56,7 +57,7 @@ export class YAMLValidation {
 			return Promise.resolve([])
 		}
 
-		const documentType = getDocumentType(textDocument)
+		const documentType = getDocumentType(textDocument.getText())
 
 		if (
 			this.provider === ValidationProvider["cfn-lint"] &&
@@ -192,7 +193,7 @@ export class YAMLValidation {
 		textDocument: TextDocument,
 		yamlDocument: YAMLDocument
 	) {
-		const diagnostics = []
+		let diagnostics = []
 		const added = {}
 
 		sendAnalytics({
@@ -209,6 +210,9 @@ export class YAMLValidation {
 		)
 
 		if (schema) {
+			diagnostics = diagnostics.concat(
+				validateReferences(textDocument, yamlDocument)
+			)
 			const currentDocProblems = yamlDocument.getValidationProblems(
 				schema.schema
 			)

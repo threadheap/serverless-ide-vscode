@@ -5,11 +5,9 @@ import { ASTNode } from "../json/ast-node"
 import { StringASTNode } from "../json/string-ast-node"
 import { Reference, ReferenceType } from "../../model/references"
 import * as utils from "./utils"
-// import groupBy = require("lodash/groupBy")
 import keyBy = require("lodash/keyBy")
 import { PropertyASTNode } from "../json"
 
-// const CUSTOM_TAGS_BY_KIND = groupBy(CUSTOM_TAGS, "kind")
 const CUSTOM_TAGS_BY_PROPERTY_NAME = keyBy(CUSTOM_TAGS, "propertyName")
 
 export const collectRefencesFromStringNode = (
