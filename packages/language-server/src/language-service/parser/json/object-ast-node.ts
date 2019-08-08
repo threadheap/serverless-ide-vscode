@@ -74,6 +74,17 @@ export class ObjectASTNode extends ASTNode {
 			return
 		}
 
+		/**
+		 * Early exit if custom tag is used inside string node
+		 */
+		if (
+			schema.type === "string" &&
+			this.properties.length === 1 &&
+			this.properties[0].customTag
+		) {
+			return
+		}
+
 		super.validate(schema, validationResult, matchingSchemas)
 		const seenKeys: { [key: string]: ASTNode } = Object.create(null)
 		const unprocessedProperties: string[] = []

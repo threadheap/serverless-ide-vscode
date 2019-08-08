@@ -1,4 +1,5 @@
 import { ReferenceType } from "./references"
+import keyBy = require("lodash/keyBy")
 
 export type TagKind = "sequence" | "scalar" | "mapping"
 
@@ -109,3 +110,5 @@ export const CUSTOM_TAGS: CustomTag[] = [
 		propertyName: "DependsOn"
 	}
 ]
+
+export const CUSTOM_TAGS_BY_PROPERTY_NAME = keyBy(CUSTOM_TAGS, "propertyName")

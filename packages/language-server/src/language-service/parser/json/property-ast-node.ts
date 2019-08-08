@@ -1,3 +1,4 @@
+import { CustomTag } from "./../../model/custom-tags"
 import { StringASTNode } from "./string-ast-node"
 import { ASTNode, ISchemaCollector } from "./ast-node"
 import { JSONSchema } from "../../jsonSchema"
@@ -8,8 +9,8 @@ export class PropertyASTNode extends ASTNode {
 	value: ASTNode
 	colonOffset: number
 
-	constructor(parent: ASTNode, key: StringASTNode) {
-		super(parent, "property", null, key.start)
+	constructor(parent: ASTNode, key: StringASTNode, customTag: CustomTag) {
+		super(parent, "property", null, key.start, key.end, customTag)
 		this.key = key
 		key.parent = this
 		key.location = key.value

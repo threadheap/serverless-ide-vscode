@@ -34,6 +34,7 @@ export class StringASTNode extends ASTNode {
 		if (!matchingSchemas.include(this)) {
 			return
 		}
+
 		super.validate(schema, validationResult, matchingSchemas)
 
 		if (schema.minLength && this.value.length < schema.minLength) {

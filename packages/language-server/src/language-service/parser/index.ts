@@ -1,4 +1,8 @@
-import { CUSTOM_TAGS, CustomTag } from "./../model/custom-tags"
+import {
+	CUSTOM_TAGS,
+	CUSTOM_TAGS_BY_PROPERTY_NAME,
+	CustomTag
+} from "./../model/custom-tags"
 
 import {
 	ArrayASTNode,
@@ -100,6 +104,7 @@ function recursivelyBuildAst(parent: ASTNode, node: Yaml.YAMLNode): ASTNode {
 		case Yaml.Kind.MAPPING: {
 			const instance = node as Yaml.YAMLMapping
 			const key = instance.key
+			const customTag = CUSTOM_TAGS_BY_PROPERTY_NAME[key.value]
 
 			// Technically, this is an arbitrary node in YAML
 			// I doubt we would get a better string representation by parsing it
@@ -112,7 +117,7 @@ function recursivelyBuildAst(parent: ASTNode, node: Yaml.YAMLNode): ASTNode {
 			)
 			keyNode.value = key.value
 
-			const result = new PropertyASTNode(parent, keyNode)
+			const result = new PropertyASTNode(parent, keyNode, customTag)
 			result.end = instance.endPosition
 
 			const valueNode = instance.value
