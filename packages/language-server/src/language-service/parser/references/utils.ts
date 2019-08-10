@@ -19,7 +19,6 @@ export const getSub = (node: StringASTNode): Reference[] => {
 			const reference = {
 				key: referencedKey,
 				type: ReferenceType.SUB,
-				offset: node.start + match.index,
 				node
 			}
 			references.push(reference)
@@ -35,7 +34,6 @@ export const getRef = (node: StringASTNode): Reference[] => {
 		const reference = {
 			key: referencedKey,
 			type: ReferenceType.REF,
-			offset: node.start,
 			node
 		}
 		return [reference]
@@ -51,7 +49,6 @@ export const getGetAtt = (node: StringASTNode): Reference[] => {
 		{
 			key: referencedKey,
 			type: ReferenceType.GET_ATT,
-			offset: node.start,
 			node
 		}
 	]
@@ -64,7 +61,6 @@ export const getDependsOn = (node: StringASTNode): Reference[] => {
 			{
 				key: referencedKey,
 				type: ReferenceType.DEPENDS_ON,
-				offset: node.start,
 				node
 			}
 		]

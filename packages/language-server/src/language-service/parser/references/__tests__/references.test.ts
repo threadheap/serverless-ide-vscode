@@ -20,8 +20,7 @@ describe("references collector", () => {
 					{
 						type: ReferenceType.REF,
 						key: "logicalName",
-						node: expect.any(Object),
-						offset: expect.any(Number)
+						node: expect.any(Object)
 					}
 				])
 			})
@@ -39,8 +38,7 @@ describe("references collector", () => {
 					{
 						type: ReferenceType.SUB,
 						key: "logicalName",
-						node: expect.any(Object),
-						offset: expect.any(Number)
+						node: expect.any(Object)
 					}
 				])
 			})
@@ -61,8 +59,7 @@ describe("references collector", () => {
 					{
 						type: ReferenceType.REF,
 						key: "logicalName",
-						node: expect.any(Object),
-						offset: expect.any(Number)
+						node: expect.any(Object)
 					}
 				])
 			})
@@ -78,14 +75,12 @@ describe("references collector", () => {
 				expect(references[0]).toEqual({
 					type: ReferenceType.SUB,
 					key: "logicalName1",
-					node: expect.any(Object),
-					offset: expect.any(Number)
+					node: expect.any(Object)
 				})
 				expect(references[1]).toEqual({
 					type: ReferenceType.SUB,
 					key: "logicalName2",
-					node: expect.any(Object),
-					offset: expect.any(Number)
+					node: expect.any(Object)
 				})
 			})
 		})
@@ -106,14 +101,12 @@ describe("references collector", () => {
 					{
 						type: ReferenceType.REF,
 						key: "logicalName1",
-						node: expect.any(Object),
-						offset: expect.any(Number)
+						node: expect.any(Object)
 					},
 					{
 						type: ReferenceType.REF,
 						key: "logicalName2",
-						node: expect.any(Object),
-						offset: expect.any(Number)
+						node: expect.any(Object)
 					}
 				])
 			})
@@ -133,8 +126,7 @@ describe("references collector", () => {
 					{
 						type: ReferenceType.REF,
 						key: "logicalName",
-						node: expect.any(Object),
-						offset: expect.any(Number)
+						node: expect.any(Object)
 					}
 				])
 			})
@@ -156,8 +148,7 @@ describe("references collector", () => {
 					{
 						type: ReferenceType.SUB,
 						key: "logicalName",
-						node: expect.any(Object),
-						offset: expect.any(Number)
+						node: expect.any(Object)
 					}
 				])
 			})
@@ -179,8 +170,7 @@ describe("references collector", () => {
 					{
 						type: ReferenceType.REF,
 						key: "logicalName",
-						node: expect.any(Object),
-						offset: expect.any(Number)
+						node: expect.any(Object)
 					}
 				])
 			})
@@ -198,14 +188,12 @@ describe("references collector", () => {
 				expect(references[0]).toEqual({
 					type: ReferenceType.SUB,
 					key: "logicalName1",
-					node: expect.any(Object),
-					offset: expect.any(Number)
+					node: expect.any(Object)
 				})
 				expect(references[1]).toEqual({
 					type: ReferenceType.SUB,
 					key: "logicalName2",
-					node: expect.any(Object),
-					offset: expect.any(Number)
+					node: expect.any(Object)
 				})
 			})
 		})
@@ -227,14 +215,12 @@ describe("references collector", () => {
 					{
 						type: ReferenceType.REF,
 						key: "logicalName1",
-						node: expect.any(Object),
-						offset: expect.any(Number)
+						node: expect.any(Object)
 					},
 					{
 						type: ReferenceType.REF,
 						key: "logicalName2",
-						node: expect.any(Object),
-						offset: expect.any(Number)
+						node: expect.any(Object)
 					}
 				])
 			})
@@ -253,8 +239,7 @@ describe("references collector", () => {
 				{
 					type: ReferenceType.DEPENDS_ON,
 					key: "logicalName",
-					node: expect.any(Object),
-					offset: expect.any(Number)
+					node: expect.any(Object)
 				}
 			])
 		})
@@ -275,14 +260,12 @@ describe("references collector", () => {
 				{
 					type: ReferenceType.DEPENDS_ON,
 					key: "logicalName1",
-					node: expect.any(Object),
-					offset: expect.any(Number)
+					node: expect.any(Object)
 				},
 				{
 					type: ReferenceType.DEPENDS_ON,
 					key: "logicalName2",
-					node: expect.any(Object),
-					offset: expect.any(Number)
+					node: expect.any(Object)
 				}
 			])
 		})

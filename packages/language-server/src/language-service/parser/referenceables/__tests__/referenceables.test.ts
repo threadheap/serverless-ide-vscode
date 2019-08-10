@@ -1,6 +1,7 @@
-import { collectReferenceables } from "./../index"
+import { collectReferenceables, generateEmptyReferenceables } from "./../index"
 import { parse } from "./../../../parser/index"
 import { SAM, SERVERLESS_FRAMEWORK } from "./../../../model/document"
+import { ReferenceEntityType } from "../../../model/references"
 
 const SAM_DOCUMENT = `
 AWSTemplateFormatVersion: 2010-09-09
@@ -78,18 +79,22 @@ describe("referenceables", () => {
 			const doc = generateDocument(SAM_DOCUMENT)
 			const referenceables = collectReferenceables(SAM, doc.root)
 
-			expect(referenceables).toEqual({
-				Function: {
-					node: expect.any(Object)
-				}
-			})
+			expect(referenceables).toEqual(
+				expect.objectContaining({
+					[ReferenceEntityType.RESOURCE]: {
+						Function: {
+							node: expect.any(Object)
+						}
+					}
+				})
+			)
 		})
 
 		test("should return empty array for empty document", () => {
 			const doc = generateDocument(EMPTY_SAM_DOCUMENT)
 			const referenceables = collectReferenceables(SAM, doc.root)
 
-			expect(referenceables).toEqual({})
+			expect(referenceables).toEqual(generateEmptyReferenceables())
 		})
 	})
 
@@ -101,11 +106,15 @@ describe("referenceables", () => {
 				doc.root
 			)
 
-			expect(referenceables).toEqual({
-				Table: {
-					node: expect.any(Object)
-				}
-			})
+			expect(referenceables).toEqual(
+				expect.objectContaining({
+					[ReferenceEntityType.RESOURCE]: {
+						Table: {
+							node: expect.any(Object)
+						}
+					}
+				})
+			)
 		})
 
 		test("should return empty array for empty document", () => {
@@ -115,7 +124,7 @@ describe("referenceables", () => {
 				doc.root
 			)
 
-			expect(referenceables).toEqual({})
+			expect(referenceables).toEqual(generateEmptyReferenceables())
 		})
 	})
 })

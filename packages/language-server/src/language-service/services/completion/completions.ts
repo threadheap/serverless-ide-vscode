@@ -264,18 +264,6 @@ export const getContributedValueCompletions = (
 	}
 }
 
-export const getCustomTagValueCompletions = (
-	collector: CompletionsCollector,
-	customTags: string[]
-) => {
-	customTags.forEach(customTagItem => {
-		const tagItemSplit = customTagItem.split(" ")
-		if (tagItemSplit && tagItemSplit[0]) {
-			addCustomTagValueCompletion(collector, " ", tagItemSplit[0])
-		}
-	})
-}
-
 export const addSchemaValueCompletions = (
 	schema: JSONSchema,
 	collector: CompletionsCollector,
@@ -463,20 +451,6 @@ export const addNullValueCompletion = (
 		kind: helpers.getSuggestionKind("null"),
 		label: "null",
 		insertText: "null" + separatorAfter,
-		insertTextFormat: InsertTextFormat.Snippet,
-		documentation: ""
-	})
-}
-
-export const addCustomTagValueCompletion = (
-	collector: CompletionsCollector,
-	separatorAfter: string,
-	label: string
-): void => {
-	collector.add({
-		kind: helpers.getSuggestionKind("string"),
-		label,
-		insertText: label + separatorAfter,
 		insertTextFormat: InsertTextFormat.Snippet,
 		documentation: ""
 	})

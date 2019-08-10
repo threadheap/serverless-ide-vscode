@@ -15,16 +15,17 @@ describe("custom tags parse", () => {
 
 		CUSTOM_TAGS.forEach(tag => {
 			describe(tag.type, () => {
-				test(`${tag.type}`, () => {
-					const text = [
-						`property: ${tag.tag} `,
-						optionsMapping[tag.kind]
-					].join("")
-					const node = generateNode(text)
+				if (tag.type) {
+					test(`${tag.type}`, () => {
+						const text = [
+							`property: ${tag.tag} `,
+							optionsMapping[tag.kind]
+						].join("")
+						const node = generateNode(text)
 
-					// expect(node.customTag).toBeDefined()
-					expect(node).toMatchSnapshot()
-				})
+						expect(node).toMatchSnapshot()
+					})
+				}
 			})
 		})
 	})

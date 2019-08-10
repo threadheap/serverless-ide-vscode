@@ -22,6 +22,7 @@ import { YAMLDocument } from "../../parser"
 import * as completions from "./completions"
 import * as helpers from "./helpers"
 import { sendException } from "../analytics"
+import { getCustomTagValueCompletions } from "./custom-tags"
 
 export class YAMLCompletion {
 	private schemaService: SchemaService.JSONSchemaService
@@ -181,6 +182,10 @@ export class YAMLCompletion {
 			}
 		}
 
+		if (node.getPath().length >= 1) {
+			getCustomTagValueCompletions(collector, doc.referenceables)
+		}
+
 		// proposals for properties
 		if (node && node.type === "object") {
 			// don't suggest properties that are already present
@@ -244,10 +249,6 @@ export class YAMLCompletion {
 				collectionPromises
 			)
 		}
-		// TODO: implement new custom tags value completions
-		// if (this.customTags.length > 0) {
-		// 	completions.getCustomTagValueCompletions(collector, this.customTags)
-		// }
 
 		return this.promise.all(collectionPromises).then(() => {
 			return result

@@ -49,13 +49,18 @@ export const collectReferences = (node: ASTNode): Reference[] => {
 		} else if (node instanceof ArrayASTNode) {
 			if (
 				currentCustomTag &&
-				currentCustomTag.type === ReferenceType.SUB
+				(currentCustomTag.type === ReferenceType.SUB ||
+					currentCustomTag.type === ReferenceType.GET_ATT)
 			) {
 				if (node.items.length === 1) {
 					const firstItem = node.items[0]
 
 					if (firstItem instanceof StringASTNode) {
-						utils.getSub(firstItem).forEach(addToReferences)
+						if (currentCustomTag.type === ReferenceType.SUB) {
+							utils.getSub(firstItem).forEach(addToReferences)
+						} else {
+							utils.getGetAtt(firstItem).forEach(addToReferences)
+						}
 					}
 				} else {
 					node.items.slice(1).forEach(item => {

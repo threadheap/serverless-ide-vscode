@@ -2,12 +2,20 @@ import { CLOUD_FORMATION, SERVERLESS_FRAMEWORK } from "./../../model/document"
 import { ASTNode, ObjectASTNode, PropertyASTNode } from "./../../parser/json"
 import { getNodeItemByKey } from "../../utils/yaml"
 import { DocumentType, SAM } from "../../model/document"
-import { Referenceables } from "../../model/referenceables"
+import { Referenceables, ReferenceablesHash } from "../../model/referenceables"
+import { ReferenceEntityType } from "../../model/references"
+
+export const generateEmptyReferenceables = () => ({
+	[ReferenceEntityType.PARAMETER]: {},
+	[ReferenceEntityType.RESOURCE]: {},
+	[ReferenceEntityType.MAPPING]: {},
+	[ReferenceEntityType.OUTPUT]: {}
+})
 
 const collectReferenceablesFromNode = (
 	node: PropertyASTNode | void
-): Referenceables => {
-	const referenceables: Referenceables = {}
+): ReferenceablesHash => {
+	const referenceables: ReferenceablesHash = {}
 
 	if (node) {
 		const { value } = node
@@ -26,28 +34,36 @@ const collectReferenceablesFromNode = (
 }
 
 const collectCfnReferenceables = (node: ASTNode): Referenceables => {
-	const nodes = [
-		getNodeItemByKey(node, "Parameters"),
-		getNodeItemByKey(node, "Resources")
-	]
-
-	return nodes
-		.map(collectReferenceablesFromNode)
-		.reduce((memo, referenceables) => {
-			return Object.assign(memo, referenceables)
-		}, {})
+	return {
+		[ReferenceEntityType.PARAMETER]: collectReferenceablesFromNode(
+			getNodeItemByKey(node, "Parameters")
+		),
+		[ReferenceEntityType.RESOURCE]: collectReferenceablesFromNode(
+			getNodeItemByKey(node, "Resources")
+		),
+		[ReferenceEntityType.MAPPING]: collectReferenceablesFromNode(
+			getNodeItemByKey(node, "Mappings")
+		),
+		// TODO: implement sub-stacks support
+		[ReferenceEntityType.OUTPUT]: {}
+	}
 }
 
 const collectServerlessReferenceables = (node: ASTNode): Referenceables => {
+	const referenceables = generateEmptyReferenceables()
 	const resourcesProperty = getNodeItemByKey(node, "resources")
 
 	if (resourcesProperty && resourcesProperty.value instanceof ObjectASTNode) {
 		const node = getNodeItemByKey(resourcesProperty.value, "Resources")
 
-		return node ? collectReferenceablesFromNode(node) : {}
+		if (node) {
+			referenceables[
+				ReferenceEntityType.RESOURCE
+			] = collectReferenceablesFromNode(node)
+		}
 	}
 
-	return {}
+	return referenceables
 }
 
 export const collectReferenceables = (
@@ -61,6 +77,6 @@ export const collectReferenceables = (
 		case SERVERLESS_FRAMEWORK:
 			return collectServerlessReferenceables(node)
 		default:
-			return {}
+			return generateEmptyReferenceables()
 	}
 }

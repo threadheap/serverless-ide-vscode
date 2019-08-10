@@ -66,13 +66,13 @@ connection.onInitialize(
 	}
 )
 
-documents.onDidChangeContent(change => {
-	triggerValidation(change.document)
-})
-
 documents.onDidClose(event => {
 	cleanPendingValidation(event.document)
 	connection.sendDiagnostics({ uri: event.document.uri, diagnostics: [] })
+})
+
+documents.onDidSave(event => {
+	triggerValidation(event.document)
 })
 
 connection.onInitialized(() => {
@@ -133,10 +133,6 @@ connection.onInitialized(() => {
 		}
 
 		documents.all().forEach(triggerValidation)
-	})
-
-	connection.onDidChangeWatchedFiles(() => {
-		documents.all().forEach(validateTextDocument)
 	})
 
 	connection.onCompletion(textDocumentPosition => {

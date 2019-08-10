@@ -1,3 +1,4 @@
+import { Referenceables } from "./../model/referenceables"
 import {
 	CUSTOM_TAGS,
 	CUSTOM_TAGS_BY_PROPERTY_NAME,
@@ -29,6 +30,9 @@ import { parseYamlBoolean } from "./scalar-type"
 import { ResourcesDefinitions } from "../model/resources"
 import { DocumentType } from "../model/document"
 import { getDocumentType } from "../utils/document"
+import { collectReferenceables } from "./referenceables"
+import { collectReferences } from "./references"
+import { Reference } from "../model/references"
 
 export interface Problem {
 	message: string
@@ -53,6 +57,8 @@ export class YAMLDocument extends JSONDocument {
 	warnings: Problem[]
 	globalsConfig: GlobalsConfig
 	resources: ResourcesDefinitions
+	referenceables: Referenceables
+	references: Reference[]
 	parameters: string[]
 	documentType: DocumentType
 
@@ -309,6 +315,8 @@ function createJSONDocument(yamlDoc: Yaml.YAMLNode | void, text: string) {
 
 	if (yamlDoc) {
 		doc.root = recursivelyBuildAst(null, yamlDoc)
+		doc.referenceables = collectReferenceables(doc.documentType, doc.root)
+		doc.references = collectReferences(doc.root)
 	}
 
 	if (!yamlDoc || !doc.root) {
