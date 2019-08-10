@@ -29,6 +29,8 @@ import { removeDuplicatesObj } from "./language-service/utils/arrayUtils"
 import { completionHelper } from "./language-service/utils/completion-helper"
 import { isSupportedDocument } from "./language-service/utils/document"
 import { initializeAnalytics } from "./language-service/services/analytics"
+import documentService from "./language-service/services/document"
+
 nls.config(process.env.VSCODE_NLS_CONFIG as any)
 
 // Create a connection for the server.
@@ -68,11 +70,16 @@ connection.onInitialize(
 
 documents.onDidClose(event => {
 	cleanPendingValidation(event.document)
+	documentService.clear(event.document)
 	connection.sendDiagnostics({ uri: event.document.uri, diagnostics: [] })
 })
 
-documents.onDidSave(event => {
-	triggerValidation(event.document)
+documents.onDidSave(async event => {
+	await triggerValidation(event.document)
+})
+
+documents.onDidOpen(async event => {
+	await triggerValidation(event.document)
 })
 
 connection.onInitialized(() => {
@@ -171,7 +178,7 @@ connection.onInitialized(() => {
 	})
 
 	connection.onHover(
-		(textDocumentPositionParams: TextDocumentPositionParams) => {
+		async (textDocumentPositionParams: TextDocumentPositionParams) => {
 			const document = documents.get(
 				textDocumentPositionParams.textDocument.uri
 			)
@@ -180,37 +187,36 @@ connection.onInitialized(() => {
 				return Promise.resolve(void 0)
 			}
 
-			const text = document.getText()
+			try {
+				const jsonDocument = await documentService.get(document)
 
-			if (!isSupportedDocument(document.getText())) {
-				return Promise.resolve(void 0)
+				return customLanguageService.doHover(
+					document,
+					textDocumentPositionParams.position,
+					jsonDocument
+				)
+			} catch (err) {
+				// do nothing
 			}
-
-			const jsonDocument = parseYAML(text)
-			return customLanguageService.doHover(
-				document,
-				textDocumentPositionParams.position,
-				jsonDocument
-			)
 		}
 	)
 
-	connection.onDocumentSymbol(document => {
+	connection.onDocumentSymbol(async document => {
 		const uri = documents.get(document.textDocument.uri)
 
 		if (!uri) {
 			return
 		}
 
-		const text = uri.getText()
-
-		if (!isSupportedDocument(uri.getText())) {
-			return
+		try {
+			const jsonDocument = await documentService.get(uri)
+			return customLanguageService.findDocumentSymbols(uri, jsonDocument)
+		} catch (err) {
+			// do nothing
 		}
-
-		const jsonDocument = parseYAML(text)
-		return customLanguageService.findDocumentSymbols(uri, jsonDocument)
 	})
+
+	documents.all().forEach(triggerValidation)
 })
 
 const pendingValidationRequests: { [uri: string]: NodeJS.Timer } = {}
@@ -224,15 +230,20 @@ function cleanPendingValidation(textDocument: TextDocument): void {
 	}
 }
 
-function triggerValidation(textDocument: TextDocument): void {
+function triggerValidation(textDocument: TextDocument) {
 	cleanPendingValidation(textDocument)
-	pendingValidationRequests[textDocument.uri] = setTimeout(() => {
-		delete pendingValidationRequests[textDocument.uri]
-		validateTextDocument(textDocument)
-	}, validationDelayMs)
+
+	return new Promise((resolve, reject) => {
+		pendingValidationRequests[textDocument.uri] = setTimeout(() => {
+			delete pendingValidationRequests[textDocument.uri]
+			validateTextDocument(textDocument)
+				.then(resolve)
+				.catch(reject)
+		}, validationDelayMs)
+	})
 }
 
-function validateTextDocument(textDocument: TextDocument): void {
+async function validateTextDocument(textDocument: TextDocument) {
 	if (!textDocument) {
 		return
 	}
@@ -244,27 +255,26 @@ function validateTextDocument(textDocument: TextDocument): void {
 		return
 	}
 
-	if (!isSupportedDocument(text)) {
-		connection.sendDiagnostics({ uri: textDocument.uri, diagnostics: [] })
-		return
+	try {
+		const yamlDocument = await documentService.get(textDocument)
+		customLanguageService
+			.doValidation(textDocument, yamlDocument)
+			.then(diagnosticResults => {
+				const diagnostics = []
+
+				diagnosticResults.forEach(diagnosticItem => {
+					diagnosticItem.severity = 1 // Convert all warnings to errors
+					diagnostics.push(diagnosticItem)
+				})
+
+				connection.sendDiagnostics({
+					uri: textDocument.uri,
+					diagnostics: removeDuplicatesObj(diagnostics)
+				})
+			})
+	} catch (err) {
+		// do nothing
 	}
-
-	const yamlDocument = parseYAML(text)
-	customLanguageService
-		.doValidation(textDocument, yamlDocument)
-		.then(diagnosticResults => {
-			const diagnostics = []
-
-			diagnosticResults.forEach(diagnosticItem => {
-				diagnosticItem.severity = 1 // Convert all warnings to errors
-				diagnostics.push(diagnosticItem)
-			})
-
-			connection.sendDiagnostics({
-				uri: textDocument.uri,
-				diagnostics: removeDuplicatesObj(diagnostics)
-			})
-		})
 }
 
 documents.listen(connection)
