@@ -21,7 +21,7 @@ const collectReferenceablesFromNode = (
 		const { value } = node
 		if (value instanceof ObjectASTNode) {
 			value.properties.forEach(property => {
-				const key = property.key.getValue()
+				const key = property.key.value
 
 				referenceables[key] = {
 					node: property

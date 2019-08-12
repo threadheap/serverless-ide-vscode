@@ -12,7 +12,9 @@
 			],
 			"stopOnEntry": false,
 			"sourceMaps": true,
-			"outFiles": ["${workspaceRoot}/packages/vscode/out/**/*.js"],
+			"outFiles": [
+				"${workspaceRoot}/packages/vscode/out/**/*.js"
+			],
 			"preLaunchTask": "compile"
 		},
 		{
@@ -21,9 +23,28 @@
 			"request": "attach",
 			"port": 6009,
 			"sourceMaps": true,
-			"outFiles": ["${workspaceRoot}/packages/server/out/server/**/*.js"],
+			"outFiles": [
+				"${workspaceRoot}/packages/server/out/server/**/*.js"
+			],
 			"protocol": "inspector",
 			"trace": true
+		},
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Jest Current File",
+			"program": "${workspaceFolder}/node_modules/.bin/jest",
+			"args": [
+				"${relativeFile}",
+				"--config",
+				"jest.config.js"
+			],
+			"console": "integratedTerminal",
+			"internalConsoleOptions": "neverOpen",
+			"disableOptimisticBPs": true,
+			"windows": {
+				"program": "${workspaceFolder}/node_modules/jest/bin/jest",
+			}
 		}
 	]
 }

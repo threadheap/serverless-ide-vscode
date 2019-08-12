@@ -70,7 +70,7 @@ function genericComparison(
 	return bestMatch
 }
 
-export class ASTNode {
+export class ASTNode<TValue = unknown> {
 	start: number
 	end: number
 	type: string
@@ -79,6 +79,7 @@ export class ASTNode {
 	location: Json.Segment
 	customTag: CustomTag
 	document: YAMLDocument
+	private _value: TValue = null
 
 	constructor(
 		document: YAMLDocument,
@@ -96,6 +97,14 @@ export class ASTNode {
 		this.parent = parent
 		this.customTag = customTag
 		this.document = document
+	}
+
+	get value(): TValue {
+		return this._value
+	}
+
+	set value(newValue: TValue) {
+		this._value = newValue
 	}
 
 	setParserSettings(parserSettings: LanguageSettings) {
@@ -122,11 +131,6 @@ export class ASTNode {
 
 	getLastChild(): ASTNode {
 		return null
-	}
-
-	getValue(): any {
-		// override in children
-		return
 	}
 
 	contains(offset: number, includeRightBound: boolean = false): boolean {
@@ -357,7 +361,7 @@ export class ASTNode {
 		}
 
 		if (Array.isArray(schema.enum)) {
-			const val = this.getValue()
+			const val = this.value
 			let enumValueMatch = false
 			for (const e of schema.enum) {
 				if (objects.equals(val, e)) {
@@ -397,8 +401,24 @@ export class ASTNode {
 		let currentNode: ASTNode = this
 
 		for (let segment of path) {
-			currentNode = currentNode.getChildNodes().find(node => {
-				return node.getLocation() === segment
+			currentNode.getChildNodes().find(node => {
+				if (node.location === null) {
+					const { value } = node
+
+					if (
+						value &&
+						value instanceof ASTNode &&
+						value.location === segment
+					) {
+						currentNode = value
+						return true
+					}
+				} else if (node.location === segment) {
+					currentNode = node
+					return true
+				}
+
+				return false
 			})
 
 			if (!currentNode) {

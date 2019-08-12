@@ -49,7 +49,7 @@ export class YAMLDocumentSymbols {
 								? containerName + "." + property.key.value
 								: property.key.value
 							result.push({
-								name: property.key.getValue(),
+								name: property.key.value,
 								kind: this.getSymbolKind(valueNode.type),
 								location,
 								containerName

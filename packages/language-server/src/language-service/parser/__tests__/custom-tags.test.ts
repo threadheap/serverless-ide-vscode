@@ -3,7 +3,7 @@ import { parse as parseYaml } from ".."
 
 const optionsMapping: { [key in TagKind]: string } = {
 	scalar: "logicVariable",
-	sequence: ["", "\t - logicalVariable1", "\t - logicalVariable2"].join("\n"),
+	sequence: ["", "   - logicalVariable1", "   - logicalVariable2"].join("\n"),
 	mapping: "{ val1: logicalVariable1, val2: logicalVariable2 }"
 }
 

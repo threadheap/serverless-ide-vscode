@@ -74,12 +74,8 @@ export const collectGlobals = (document: YAMLDocument): GlobalsConfig => {
 	) {
 		const globalsNode = document.root.get(GLOBALS_PATH)
 
-		if (
-			globalsNode &&
-			globalsNode instanceof PropertyASTNode &&
-			globalsNode.value instanceof ObjectASTNode
-		) {
-			return collectGlobalPropertiesFromNode(globalsNode.value)
+		if (globalsNode && globalsNode instanceof ObjectASTNode) {
+			return collectGlobalPropertiesFromNode(globalsNode)
 		}
 	}
 

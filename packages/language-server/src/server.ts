@@ -83,6 +83,8 @@ documents.onDidOpen(async event => {
 })
 
 connection.onInitialized(() => {
+	documentService.init(documents)
+
 	connection.onDidChangeConfiguration(change => {
 		const settings = change.settings as ExtensionSettings
 		configureHttpRequests(

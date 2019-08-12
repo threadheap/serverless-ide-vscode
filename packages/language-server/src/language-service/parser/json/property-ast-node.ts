@@ -6,7 +6,7 @@ import { ASTNode, ISchemaCollector } from "./ast-node"
 import { JSONSchema } from "../../jsonSchema"
 import { ValidationResult } from "./validation-result"
 
-export class PropertyASTNode extends ASTNode {
+export class PropertyASTNode extends ASTNode<ASTNode> {
 	key: StringASTNode
 	value: ASTNode
 	colonOffset: number
@@ -34,12 +34,6 @@ export class PropertyASTNode extends ASTNode {
 
 	getLocation(): Segment | null {
 		return this.key.location
-	}
-
-	setValue(value: ASTNode): boolean {
-		this.value = value
-
-		return this.value !== null
 	}
 
 	visit(visitor: (node: ASTNode) => boolean): boolean {

@@ -1,3 +1,4 @@
+import { CLOUD_FORMATION, SAM } from "./../../model/document"
 import { JSONDocument } from "./json-document"
 import { Referenceables } from "../../model/referenceables"
 import {
@@ -21,6 +22,9 @@ import { ObjectASTNode } from "./object-ast-node"
 import { ArrayASTNode } from "./array-ast-node"
 import { NullASTNode } from "./null-ast-node"
 import { ErrorCode } from "./validation-result"
+import { getResourceName } from "../../utils/resources"
+import { SubStack } from "../../model/sub-stack"
+import { isRemoteUrl } from "../../utils/url"
 
 interface YamlScalar extends Yaml.YAMLScalar {
 	customTag?: CustomTag
@@ -44,7 +48,6 @@ export class YAMLDocument extends JSONDocument {
 	errors: Problem[] = []
 	warnings: Problem[] = []
 	globalsConfig: GlobalsConfig = getDefaultGlobalsConfig()
-	// resources: ResourcesDefinitions = new SortedHash()
 	referenceables: Referenceables = generateEmptyReferenceables()
 	references: Reference[] = []
 	parameters: string[] = []
@@ -71,6 +74,67 @@ export class YAMLDocument extends JSONDocument {
 
 	getNodeFromOffset(offset: number): ASTNode {
 		return this.getNodeFromOffsetEndInclusive(offset)
+	}
+
+	collectSubStacks(): [boolean, SubStack[]] {
+		let failedToParse = false
+		const subStacks: SubStack[] = []
+
+		if (
+			(this.root && this.documentType === CLOUD_FORMATION) ||
+			this.documentType === SAM
+		) {
+			const resourcesNode = this.root.get(["Resources"])
+
+			if (resourcesNode instanceof ObjectASTNode) {
+				resourcesNode.getChildNodes().forEach(resourceNode => {
+					if (resourceNode instanceof PropertyASTNode) {
+						const resourceType = getResourceName(resourceNode.value)
+
+						if (resourceType === "AWS::CloudFormation::Stack") {
+							const templateUrlNode = resourceNode.value.get([
+								"Properties",
+								"TemplateURL"
+							])
+
+							if (
+								templateUrlNode &&
+								typeof templateUrlNode.value === "string" &&
+								!isRemoteUrl(templateUrlNode.value)
+							) {
+								subStacks.push({
+									path: templateUrlNode.value,
+									node: resourceNode
+								})
+							} else {
+								failedToParse = true
+							}
+						} else if (
+							resourceType === "AWS::Serverless::Application"
+						) {
+							const locationNode = resourceNode.value.get([
+								"Properties",
+								"Location"
+							])
+
+							if (
+								locationNode instanceof StringASTNode &&
+								!isRemoteUrl(locationNode.value)
+							) {
+								subStacks.push({
+									path: locationNode.value,
+									node: resourceNode
+								})
+							} else {
+								failedToParse = true
+							}
+						}
+					}
+				})
+			}
+		}
+
+		return [failedToParse, subStacks]
 	}
 
 	private recursivelyBuildAst(parent: ASTNode, node: Yaml.YAMLNode): ASTNode {
@@ -135,7 +199,7 @@ export class YAMLDocument extends JSONDocument {
 					  )
 				valueNode.location = key.value
 
-				result.setValue(valueNode)
+				result.value = valueNode
 
 				return result
 			}

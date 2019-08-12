@@ -6,15 +6,16 @@ import {
 } from "vscode-languageserver"
 import { YAMLDocument } from "./../../parser/index"
 
-export const validateReferences = (
+export const validateReferences = async (
 	document: TextDocument,
 	yamlDocument: YAMLDocument
-): Diagnostic[] => {
+): Promise<Diagnostic[]> => {
 	const { referenceables, references } = yamlDocument
 	const diagnostics: Diagnostic[] = []
 
 	references.forEach(reference => {
 		const customTag = CUSTOM_TAGS_BY_TYPE[reference.type]
+
 		if (
 			!customTag.referenceEntityTypes.some(entityType => {
 				return Boolean(referenceables[entityType][reference.key])

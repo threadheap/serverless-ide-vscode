@@ -211,7 +211,7 @@ export class YAMLValidation {
 
 		if (schema) {
 			diagnostics = diagnostics.concat(
-				validateReferences(textDocument, yamlDocument)
+				await validateReferences(textDocument, yamlDocument)
 			)
 			const currentDocProblems = yamlDocument.getValidationProblems(
 				schema.schema

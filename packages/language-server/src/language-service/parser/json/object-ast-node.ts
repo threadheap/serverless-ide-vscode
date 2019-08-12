@@ -7,7 +7,7 @@ import localize from "./localize"
 import { PropertyASTNode } from "./property-ast-node"
 import { YAMLDocument } from ".."
 
-export class ObjectASTNode extends ASTNode {
+export class ObjectASTNode extends ASTNode<null> {
 	properties: PropertyASTNode[]
 
 	constructor(
@@ -20,6 +20,22 @@ export class ObjectASTNode extends ASTNode {
 		super(document, parent, "object", name, start, end)
 
 		this.properties = []
+	}
+
+	get value(): any {
+		const value: any = Object.create(null)
+		this.properties.forEach(prop => {
+			if (
+				prop instanceof PropertyASTNode &&
+				prop.value instanceof ASTNode
+			) {
+				const v = prop.value && prop.value.value
+				if (v !== undefined) {
+					value[prop.key.value] = v
+				}
+			}
+		})
+		return value
 	}
 
 	getChildNodes(): ASTNode[] {
@@ -45,18 +61,7 @@ export class ObjectASTNode extends ASTNode {
 	}
 
 	getKeyList(): string[] {
-		return this.properties.map(p => p.key.getValue())
-	}
-
-	getValue(): any {
-		const value: any = Object.create(null)
-		this.properties.forEach(p => {
-			const v = p.value && p.value.getValue()
-			if (typeof v !== "undefined") {
-				value[p.key.getValue()] = v
-			}
-		})
-		return value
+		return this.properties.map(p => p.key.value)
 	}
 
 	visit(visitor: (node: ASTNode) => boolean): boolean {

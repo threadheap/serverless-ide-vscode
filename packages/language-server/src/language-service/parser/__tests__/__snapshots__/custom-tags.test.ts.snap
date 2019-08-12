@@ -2,27 +2,11 @@
 
 exports[`custom tags parse smoke tests DEPENDS_ON DEPENDS_ON 1`] = `
 ObjectASTNode {
+  "_value": null,
   "customTag": undefined,
   "document": YAMLDocument {
     "documentType": "UNKNOWN",
-    "errors": Array [
-      Object {
-        "code": 0,
-        "location": Object {
-          "end": 37,
-          "start": 35,
-        },
-        "message": "end of the stream or a document separator is expected",
-      },
-      Object {
-        "code": 0,
-        "location": Object {
-          "end": 35,
-          "start": 35,
-        },
-        "message": "expected a single document in the stream, but found more",
-      },
-    ],
+    "errors": Array [],
     "globalsConfig": Object {
       "Api": Object {
         "properties": Array [],
@@ -47,134 +31,19 @@ ObjectASTNode {
     "references": Array [],
     "root": [Circular],
     "syntaxErrors": Array [],
-    "warnings": Array [
-      Object {
-        "code": 0,
-        "location": Object {
-          "end": 12,
-          "start": 12,
-        },
-        "message": "Using tabs can lead to unpredictable results",
-      },
-      Object {
-        "code": 0,
-        "location": Object {
-          "end": 33,
-          "start": 33,
-        },
-        "message": "Using tabs can lead to unpredictable results",
-      },
-      Object {
-        "code": 0,
-        "location": Object {
-          "end": 33,
-          "start": 33,
-        },
-        "message": "Using tabs can lead to unpredictable results",
-      },
-    ],
+    "warnings": Array [],
   },
-  "end": 35,
+  "end": 55,
   "location": null,
   "parent": null,
   "properties": Array [
     PropertyASTNode {
-      "colonOffset": -1,
-      "customTag": undefined,
-      "document": YAMLDocument {
-        "documentType": "UNKNOWN",
-        "errors": Array [
-          Object {
-            "code": 0,
-            "location": Object {
-              "end": 37,
-              "start": 35,
-            },
-            "message": "end of the stream or a document separator is expected",
-          },
-          Object {
-            "code": 0,
-            "location": Object {
-              "end": 35,
-              "start": 35,
-            },
-            "message": "expected a single document in the stream, but found more",
-          },
-        ],
-        "globalsConfig": Object {
-          "Api": Object {
-            "properties": Array [],
-            "resourceType": "AWS::Serverless::Api",
-          },
-          "Function": Object {
-            "properties": Array [],
-            "resourceType": "AWS::Serverless::Function",
-          },
-          "SimpleTable": Object {
-            "properties": Array [],
-            "resourceType": "AWS::Serverless::SimpleTable",
-          },
-        },
-        "parameters": Array [],
-        "referenceables": Object {
-          "MAPPING": Object {},
-          "OUTPUT": Object {},
-          "PARAMETER": Object {},
-          "RESOURCE": Object {},
-        },
-        "references": Array [],
-        "root": [Circular],
-        "syntaxErrors": Array [],
-        "warnings": Array [
-          Object {
-            "code": 0,
-            "location": Object {
-              "end": 12,
-              "start": 12,
-            },
-            "message": "Using tabs can lead to unpredictable results",
-          },
-          Object {
-            "code": 0,
-            "location": Object {
-              "end": 33,
-              "start": 33,
-            },
-            "message": "Using tabs can lead to unpredictable results",
-          },
-          Object {
-            "code": 0,
-            "location": Object {
-              "end": 33,
-              "start": 33,
-            },
-            "message": "Using tabs can lead to unpredictable results",
-          },
-        ],
-      },
-      "end": 35,
-      "key": StringASTNode {
+      "_value": ArrayASTNode {
+        "_value": null,
         "customTag": undefined,
         "document": YAMLDocument {
           "documentType": "UNKNOWN",
-          "errors": Array [
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 37,
-                "start": 35,
-              },
-              "message": "end of the stream or a document separator is expected",
-            },
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 35,
-                "start": 35,
-              },
-              "message": "expected a single document in the stream, but found more",
-            },
-          ],
+          "errors": Array [],
           "globalsConfig": Object {
             "Api": Object {
               "properties": Array [],
@@ -199,142 +68,16 @@ ObjectASTNode {
           "references": Array [],
           "root": [Circular],
           "syntaxErrors": Array [],
-          "warnings": Array [
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 12,
-                "start": 12,
-              },
-              "message": "Using tabs can lead to unpredictable results",
-            },
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 33,
-                "start": 33,
-              },
-              "message": "Using tabs can lead to unpredictable results",
-            },
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 33,
-                "start": 33,
-              },
-              "message": "Using tabs can lead to unpredictable results",
-            },
-          ],
+          "warnings": Array [],
         },
-        "end": 8,
-        "isKey": true,
-        "location": "property",
-        "parent": [Circular],
-        "start": 0,
-        "type": "string",
-        "value": "property",
-      },
-      "location": null,
-      "parent": [Circular],
-      "start": 0,
-      "type": "property",
-      "value": ArrayASTNode {
-        "customTag": undefined,
-        "document": YAMLDocument {
-          "documentType": "UNKNOWN",
-          "errors": Array [
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 37,
-                "start": 35,
-              },
-              "message": "end of the stream or a document separator is expected",
-            },
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 35,
-                "start": 35,
-              },
-              "message": "expected a single document in the stream, but found more",
-            },
-          ],
-          "globalsConfig": Object {
-            "Api": Object {
-              "properties": Array [],
-              "resourceType": "AWS::Serverless::Api",
-            },
-            "Function": Object {
-              "properties": Array [],
-              "resourceType": "AWS::Serverless::Function",
-            },
-            "SimpleTable": Object {
-              "properties": Array [],
-              "resourceType": "AWS::Serverless::SimpleTable",
-            },
-          },
-          "parameters": Array [],
-          "referenceables": Object {
-            "MAPPING": Object {},
-            "OUTPUT": Object {},
-            "PARAMETER": Object {},
-            "RESOURCE": Object {},
-          },
-          "references": Array [],
-          "root": [Circular],
-          "syntaxErrors": Array [],
-          "warnings": Array [
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 12,
-                "start": 12,
-              },
-              "message": "Using tabs can lead to unpredictable results",
-            },
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 33,
-                "start": 33,
-              },
-              "message": "Using tabs can lead to unpredictable results",
-            },
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 33,
-                "start": 33,
-              },
-              "message": "Using tabs can lead to unpredictable results",
-            },
-          ],
-        },
-        "end": 35,
+        "end": 56,
         "items": Array [
           StringASTNode {
+            "_value": "logicalVariable1",
             "customTag": undefined,
             "document": YAMLDocument {
               "documentType": "UNKNOWN",
-              "errors": Array [
-                Object {
-                  "code": 0,
-                  "location": Object {
-                    "end": 37,
-                    "start": 35,
-                  },
-                  "message": "end of the stream or a document separator is expected",
-                },
-                Object {
-                  "code": 0,
-                  "location": Object {
-                    "end": 35,
-                    "start": 35,
-                  },
-                  "message": "expected a single document in the stream, but found more",
-                },
-              ],
+              "errors": Array [],
               "globalsConfig": Object {
                 "Api": Object {
                   "properties": Array [],
@@ -359,155 +102,65 @@ ObjectASTNode {
               "references": Array [],
               "root": [Circular],
               "syntaxErrors": Array [],
-              "warnings": Array [
-                Object {
-                  "code": 0,
-                  "location": Object {
-                    "end": 12,
-                    "start": 12,
-                  },
-                  "message": "Using tabs can lead to unpredictable results",
-                },
-                Object {
-                  "code": 0,
-                  "location": Object {
-                    "end": 33,
-                    "start": 33,
-                  },
-                  "message": "Using tabs can lead to unpredictable results",
-                },
-                Object {
-                  "code": 0,
-                  "location": Object {
-                    "end": 33,
-                    "start": 33,
-                  },
-                  "message": "Using tabs can lead to unpredictable results",
-                },
-              ],
+              "warnings": Array [],
             },
-            "end": 32,
+            "end": 33,
             "isKey": false,
             "location": 0,
             "parent": [Circular],
-            "start": 16,
+            "start": 17,
             "type": "string",
-            "value": "logicalVariable1",
+          },
+          StringASTNode {
+            "_value": "logicalVariable2",
+            "customTag": undefined,
+            "document": YAMLDocument {
+              "documentType": "UNKNOWN",
+              "errors": Array [],
+              "globalsConfig": Object {
+                "Api": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Api",
+                },
+                "Function": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Function",
+                },
+                "SimpleTable": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::SimpleTable",
+                },
+              },
+              "parameters": Array [],
+              "referenceables": Object {
+                "MAPPING": Object {},
+                "OUTPUT": Object {},
+                "PARAMETER": Object {},
+                "RESOURCE": Object {},
+              },
+              "references": Array [],
+              "root": [Circular],
+              "syntaxErrors": Array [],
+              "warnings": Array [],
+            },
+            "end": 55,
+            "isKey": false,
+            "location": 1,
+            "parent": [Circular],
+            "start": 39,
+            "type": "string",
           },
         ],
         "location": "property",
         "parent": [Circular],
-        "start": 14,
+        "start": 15,
         "type": "array",
       },
-    },
-  ],
-  "start": 0,
-  "type": "object",
-}
-`;
-
-exports[`custom tags parse smoke tests FIND_IN_MAP FIND_IN_MAP 1`] = `
-ObjectASTNode {
-  "customTag": undefined,
-  "document": YAMLDocument {
-    "documentType": "UNKNOWN",
-    "errors": Array [
-      Object {
-        "code": 0,
-        "location": Object {
-          "end": 47,
-          "start": 45,
-        },
-        "message": "end of the stream or a document separator is expected",
-      },
-      Object {
-        "code": 0,
-        "location": Object {
-          "end": 45,
-          "start": 45,
-        },
-        "message": "expected a single document in the stream, but found more",
-      },
-    ],
-    "globalsConfig": Object {
-      "Api": Object {
-        "properties": Array [],
-        "resourceType": "AWS::Serverless::Api",
-      },
-      "Function": Object {
-        "properties": Array [],
-        "resourceType": "AWS::Serverless::Function",
-      },
-      "SimpleTable": Object {
-        "properties": Array [],
-        "resourceType": "AWS::Serverless::SimpleTable",
-      },
-    },
-    "parameters": Array [],
-    "referenceables": Object {
-      "MAPPING": Object {},
-      "OUTPUT": Object {},
-      "PARAMETER": Object {},
-      "RESOURCE": Object {},
-    },
-    "references": Array [],
-    "root": [Circular],
-    "syntaxErrors": Array [],
-    "warnings": Array [
-      Object {
-        "code": 0,
-        "location": Object {
-          "end": 22,
-          "start": 22,
-        },
-        "message": "Using tabs can lead to unpredictable results",
-      },
-      Object {
-        "code": 0,
-        "location": Object {
-          "end": 43,
-          "start": 43,
-        },
-        "message": "Using tabs can lead to unpredictable results",
-      },
-      Object {
-        "code": 0,
-        "location": Object {
-          "end": 43,
-          "start": 43,
-        },
-        "message": "Using tabs can lead to unpredictable results",
-      },
-    ],
-  },
-  "end": 45,
-  "location": null,
-  "parent": null,
-  "properties": Array [
-    PropertyASTNode {
       "colonOffset": -1,
       "customTag": undefined,
       "document": YAMLDocument {
         "documentType": "UNKNOWN",
-        "errors": Array [
-          Object {
-            "code": 0,
-            "location": Object {
-              "end": 47,
-              "start": 45,
-            },
-            "message": "end of the stream or a document separator is expected",
-          },
-          Object {
-            "code": 0,
-            "location": Object {
-              "end": 45,
-              "start": 45,
-            },
-            "message": "expected a single document in the stream, but found more",
-          },
-        ],
+        "errors": Array [],
         "globalsConfig": Object {
           "Api": Object {
             "properties": Array [],
@@ -532,56 +185,15 @@ ObjectASTNode {
         "references": Array [],
         "root": [Circular],
         "syntaxErrors": Array [],
-        "warnings": Array [
-          Object {
-            "code": 0,
-            "location": Object {
-              "end": 22,
-              "start": 22,
-            },
-            "message": "Using tabs can lead to unpredictable results",
-          },
-          Object {
-            "code": 0,
-            "location": Object {
-              "end": 43,
-              "start": 43,
-            },
-            "message": "Using tabs can lead to unpredictable results",
-          },
-          Object {
-            "code": 0,
-            "location": Object {
-              "end": 43,
-              "start": 43,
-            },
-            "message": "Using tabs can lead to unpredictable results",
-          },
-        ],
+        "warnings": Array [],
       },
-      "end": 45,
+      "end": 56,
       "key": StringASTNode {
+        "_value": "property",
         "customTag": undefined,
         "document": YAMLDocument {
           "documentType": "UNKNOWN",
-          "errors": Array [
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 47,
-                "start": 45,
-              },
-              "message": "end of the stream or a document separator is expected",
-            },
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 45,
-                "start": 45,
-              },
-              "message": "expected a single document in the stream, but found more",
-            },
-          ],
+          "errors": Array [],
           "globalsConfig": Object {
             "Api": Object {
               "properties": Array [],
@@ -606,32 +218,7 @@ ObjectASTNode {
           "references": Array [],
           "root": [Circular],
           "syntaxErrors": Array [],
-          "warnings": Array [
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 22,
-                "start": 22,
-              },
-              "message": "Using tabs can lead to unpredictable results",
-            },
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 43,
-                "start": 43,
-              },
-              "message": "Using tabs can lead to unpredictable results",
-            },
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 43,
-                "start": 43,
-              },
-              "message": "Using tabs can lead to unpredictable results",
-            },
-          ],
+          "warnings": Array [],
         },
         "end": 8,
         "isKey": true,
@@ -639,13 +226,58 @@ ObjectASTNode {
         "parent": [Circular],
         "start": 0,
         "type": "string",
-        "value": "property",
       },
       "location": null,
       "parent": [Circular],
       "start": 0,
       "type": "property",
-      "value": ArrayASTNode {
+    },
+  ],
+  "start": 0,
+  "type": "object",
+}
+`;
+
+exports[`custom tags parse smoke tests FIND_IN_MAP FIND_IN_MAP 1`] = `
+ObjectASTNode {
+  "_value": null,
+  "customTag": undefined,
+  "document": YAMLDocument {
+    "documentType": "UNKNOWN",
+    "errors": Array [],
+    "globalsConfig": Object {
+      "Api": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::Api",
+      },
+      "Function": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::Function",
+      },
+      "SimpleTable": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::SimpleTable",
+      },
+    },
+    "parameters": Array [],
+    "referenceables": Object {
+      "MAPPING": Object {},
+      "OUTPUT": Object {},
+      "PARAMETER": Object {},
+      "RESOURCE": Object {},
+    },
+    "references": Array [],
+    "root": [Circular],
+    "syntaxErrors": Array [],
+    "warnings": Array [],
+  },
+  "end": 65,
+  "location": null,
+  "parent": null,
+  "properties": Array [
+    PropertyASTNode {
+      "_value": ArrayASTNode {
+        "_value": null,
         "customTag": Object {
           "description": "The intrinsic function Fn::FindInMap returns the value corresponding to keys in a two-level map that is declared in the Mappings section.",
           "kind": "sequence",
@@ -658,24 +290,7 @@ ObjectASTNode {
         },
         "document": YAMLDocument {
           "documentType": "UNKNOWN",
-          "errors": Array [
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 47,
-                "start": 45,
-              },
-              "message": "end of the stream or a document separator is expected",
-            },
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 45,
-                "start": 45,
-              },
-              "message": "expected a single document in the stream, but found more",
-            },
-          ],
+          "errors": Array [],
           "globalsConfig": Object {
             "Api": Object {
               "properties": Array [],
@@ -700,57 +315,16 @@ ObjectASTNode {
           "references": Array [],
           "root": [Circular],
           "syntaxErrors": Array [],
-          "warnings": Array [
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 22,
-                "start": 22,
-              },
-              "message": "Using tabs can lead to unpredictable results",
-            },
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 43,
-                "start": 43,
-              },
-              "message": "Using tabs can lead to unpredictable results",
-            },
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 43,
-                "start": 43,
-              },
-              "message": "Using tabs can lead to unpredictable results",
-            },
-          ],
+          "warnings": Array [],
         },
-        "end": 45,
+        "end": 66,
         "items": Array [
           StringASTNode {
+            "_value": "logicalVariable1",
             "customTag": undefined,
             "document": YAMLDocument {
               "documentType": "UNKNOWN",
-              "errors": Array [
-                Object {
-                  "code": 0,
-                  "location": Object {
-                    "end": 47,
-                    "start": 45,
-                  },
-                  "message": "end of the stream or a document separator is expected",
-                },
-                Object {
-                  "code": 0,
-                  "location": Object {
-                    "end": 45,
-                    "start": 45,
-                  },
-                  "message": "expected a single document in the stream, but found more",
-                },
-              ],
+              "errors": Array [],
               "globalsConfig": Object {
                 "Api": Object {
                   "properties": Array [],
@@ -775,47 +349,135 @@ ObjectASTNode {
               "references": Array [],
               "root": [Circular],
               "syntaxErrors": Array [],
-              "warnings": Array [
-                Object {
-                  "code": 0,
-                  "location": Object {
-                    "end": 22,
-                    "start": 22,
-                  },
-                  "message": "Using tabs can lead to unpredictable results",
-                },
-                Object {
-                  "code": 0,
-                  "location": Object {
-                    "end": 43,
-                    "start": 43,
-                  },
-                  "message": "Using tabs can lead to unpredictable results",
-                },
-                Object {
-                  "code": 0,
-                  "location": Object {
-                    "end": 43,
-                    "start": 43,
-                  },
-                  "message": "Using tabs can lead to unpredictable results",
-                },
-              ],
+              "warnings": Array [],
             },
-            "end": 42,
+            "end": 43,
             "isKey": false,
             "location": 0,
             "parent": [Circular],
-            "start": 26,
+            "start": 27,
             "type": "string",
-            "value": "logicalVariable1",
+          },
+          StringASTNode {
+            "_value": "logicalVariable2",
+            "customTag": undefined,
+            "document": YAMLDocument {
+              "documentType": "UNKNOWN",
+              "errors": Array [],
+              "globalsConfig": Object {
+                "Api": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Api",
+                },
+                "Function": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Function",
+                },
+                "SimpleTable": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::SimpleTable",
+                },
+              },
+              "parameters": Array [],
+              "referenceables": Object {
+                "MAPPING": Object {},
+                "OUTPUT": Object {},
+                "PARAMETER": Object {},
+                "RESOURCE": Object {},
+              },
+              "references": Array [],
+              "root": [Circular],
+              "syntaxErrors": Array [],
+              "warnings": Array [],
+            },
+            "end": 65,
+            "isKey": false,
+            "location": 1,
+            "parent": [Circular],
+            "start": 49,
+            "type": "string",
           },
         ],
         "location": "property",
         "parent": [Circular],
-        "start": 24,
+        "start": 25,
         "type": "array",
       },
+      "colonOffset": -1,
+      "customTag": undefined,
+      "document": YAMLDocument {
+        "documentType": "UNKNOWN",
+        "errors": Array [],
+        "globalsConfig": Object {
+          "Api": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::Api",
+          },
+          "Function": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::Function",
+          },
+          "SimpleTable": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::SimpleTable",
+          },
+        },
+        "parameters": Array [],
+        "referenceables": Object {
+          "MAPPING": Object {},
+          "OUTPUT": Object {},
+          "PARAMETER": Object {},
+          "RESOURCE": Object {},
+        },
+        "references": Array [],
+        "root": [Circular],
+        "syntaxErrors": Array [],
+        "warnings": Array [],
+      },
+      "end": 66,
+      "key": StringASTNode {
+        "_value": "property",
+        "customTag": undefined,
+        "document": YAMLDocument {
+          "documentType": "UNKNOWN",
+          "errors": Array [],
+          "globalsConfig": Object {
+            "Api": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Api",
+            },
+            "Function": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Function",
+            },
+            "SimpleTable": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::SimpleTable",
+            },
+          },
+          "parameters": Array [],
+          "referenceables": Object {
+            "MAPPING": Object {},
+            "OUTPUT": Object {},
+            "PARAMETER": Object {},
+            "RESOURCE": Object {},
+          },
+          "references": Array [],
+          "root": [Circular],
+          "syntaxErrors": Array [],
+          "warnings": Array [],
+        },
+        "end": 8,
+        "isKey": true,
+        "location": "property",
+        "parent": [Circular],
+        "start": 0,
+        "type": "string",
+      },
+      "location": null,
+      "parent": [Circular],
+      "start": 0,
+      "type": "property",
     },
   ],
   "start": 0,
@@ -825,6 +487,7 @@ ObjectASTNode {
 
 exports[`custom tags parse smoke tests GET_ATT GET_ATT 1`] = `
 ObjectASTNode {
+  "_value": null,
   "customTag": undefined,
   "document": YAMLDocument {
     "documentType": "UNKNOWN",
@@ -854,6 +517,7 @@ ObjectASTNode {
       Object {
         "key": "logicVariable",
         "node": StringASTNode {
+          "_value": "logicVariable",
           "customTag": Object {
             "description": "The Fn::GetAtt intrinsic function returns the value of an attribute from a resource in the template.",
             "kind": "scalar",
@@ -869,11 +533,13 @@ ObjectASTNode {
           "isKey": false,
           "location": "property",
           "parent": PropertyASTNode {
+            "_value": [Circular],
             "colonOffset": -1,
             "customTag": undefined,
             "document": [Circular],
             "end": 31,
             "key": StringASTNode {
+              "_value": "property",
               "customTag": undefined,
               "document": [Circular],
               "end": 8,
@@ -882,17 +548,14 @@ ObjectASTNode {
               "parent": [Circular],
               "start": 0,
               "type": "string",
-              "value": "property",
             },
             "location": null,
             "parent": [Circular],
             "start": 0,
             "type": "property",
-            "value": [Circular],
           },
           "start": 18,
           "type": "string",
-          "value": "logicVariable",
         },
         "type": "GET_ATT",
       },
@@ -906,132 +569,8 @@ ObjectASTNode {
   "parent": null,
   "properties": Array [
     PropertyASTNode {
-      "colonOffset": -1,
-      "customTag": undefined,
-      "document": YAMLDocument {
-        "documentType": "UNKNOWN",
-        "errors": Array [],
-        "globalsConfig": Object {
-          "Api": Object {
-            "properties": Array [],
-            "resourceType": "AWS::Serverless::Api",
-          },
-          "Function": Object {
-            "properties": Array [],
-            "resourceType": "AWS::Serverless::Function",
-          },
-          "SimpleTable": Object {
-            "properties": Array [],
-            "resourceType": "AWS::Serverless::SimpleTable",
-          },
-        },
-        "parameters": Array [],
-        "referenceables": Object {
-          "MAPPING": Object {},
-          "OUTPUT": Object {},
-          "PARAMETER": Object {},
-          "RESOURCE": Object {},
-        },
-        "references": Array [
-          Object {
-            "key": "logicVariable",
-            "node": StringASTNode {
-              "customTag": Object {
-                "description": "The Fn::GetAtt intrinsic function returns the value of an attribute from a resource in the template.",
-                "kind": "scalar",
-                "propertyName": "Fn::GetAtt",
-                "referenceEntityTypes": Array [
-                  "RESOURCE",
-                ],
-                "tag": "!GetAtt",
-                "type": "GET_ATT",
-              },
-              "document": [Circular],
-              "end": 31,
-              "isKey": false,
-              "location": "property",
-              "parent": [Circular],
-              "start": 18,
-              "type": "string",
-              "value": "logicVariable",
-            },
-            "type": "GET_ATT",
-          },
-        ],
-        "root": [Circular],
-        "syntaxErrors": Array [],
-        "warnings": Array [],
-      },
-      "end": 31,
-      "key": StringASTNode {
-        "customTag": undefined,
-        "document": YAMLDocument {
-          "documentType": "UNKNOWN",
-          "errors": Array [],
-          "globalsConfig": Object {
-            "Api": Object {
-              "properties": Array [],
-              "resourceType": "AWS::Serverless::Api",
-            },
-            "Function": Object {
-              "properties": Array [],
-              "resourceType": "AWS::Serverless::Function",
-            },
-            "SimpleTable": Object {
-              "properties": Array [],
-              "resourceType": "AWS::Serverless::SimpleTable",
-            },
-          },
-          "parameters": Array [],
-          "referenceables": Object {
-            "MAPPING": Object {},
-            "OUTPUT": Object {},
-            "PARAMETER": Object {},
-            "RESOURCE": Object {},
-          },
-          "references": Array [
-            Object {
-              "key": "logicVariable",
-              "node": StringASTNode {
-                "customTag": Object {
-                  "description": "The Fn::GetAtt intrinsic function returns the value of an attribute from a resource in the template.",
-                  "kind": "scalar",
-                  "propertyName": "Fn::GetAtt",
-                  "referenceEntityTypes": Array [
-                    "RESOURCE",
-                  ],
-                  "tag": "!GetAtt",
-                  "type": "GET_ATT",
-                },
-                "document": [Circular],
-                "end": 31,
-                "isKey": false,
-                "location": "property",
-                "parent": [Circular],
-                "start": 18,
-                "type": "string",
-                "value": "logicVariable",
-              },
-              "type": "GET_ATT",
-            },
-          ],
-          "root": [Circular],
-          "syntaxErrors": Array [],
-          "warnings": Array [],
-        },
-        "end": 8,
-        "isKey": true,
-        "location": "property",
-        "parent": [Circular],
-        "start": 0,
-        "type": "string",
-        "value": "property",
-      },
-      "location": null,
-      "parent": [Circular],
-      "start": 0,
-      "type": "property",
-      "value": StringASTNode {
+      "_value": StringASTNode {
+        "_value": "logicVariable",
         "customTag": Object {
           "description": "The Fn::GetAtt intrinsic function returns the value of an attribute from a resource in the template.",
           "kind": "scalar",
@@ -1083,99 +622,7 @@ ObjectASTNode {
         "parent": [Circular],
         "start": 18,
         "type": "string",
-        "value": "logicVariable",
       },
-    },
-  ],
-  "start": 0,
-  "type": "object",
-}
-`;
-
-exports[`custom tags parse smoke tests REF REF 1`] = `
-ObjectASTNode {
-  "customTag": undefined,
-  "document": YAMLDocument {
-    "documentType": "UNKNOWN",
-    "errors": Array [],
-    "globalsConfig": Object {
-      "Api": Object {
-        "properties": Array [],
-        "resourceType": "AWS::Serverless::Api",
-      },
-      "Function": Object {
-        "properties": Array [],
-        "resourceType": "AWS::Serverless::Function",
-      },
-      "SimpleTable": Object {
-        "properties": Array [],
-        "resourceType": "AWS::Serverless::SimpleTable",
-      },
-    },
-    "parameters": Array [],
-    "referenceables": Object {
-      "MAPPING": Object {},
-      "OUTPUT": Object {},
-      "PARAMETER": Object {},
-      "RESOURCE": Object {},
-    },
-    "references": Array [
-      Object {
-        "key": "logicVariable",
-        "node": StringASTNode {
-          "customTag": Object {
-            "description": "The intrinsic function Ref returns the value of the specified parameter or resource.",
-            "kind": "scalar",
-            "propertyName": "Ref",
-            "referenceEntityTypes": Array [
-              "PARAMETER",
-              "RESOURCE",
-            ],
-            "tag": "!Ref",
-            "type": "REF",
-          },
-          "document": [Circular],
-          "end": 28,
-          "isKey": false,
-          "location": "property",
-          "parent": PropertyASTNode {
-            "colonOffset": -1,
-            "customTag": undefined,
-            "document": [Circular],
-            "end": 28,
-            "key": StringASTNode {
-              "customTag": undefined,
-              "document": [Circular],
-              "end": 8,
-              "isKey": true,
-              "location": "property",
-              "parent": [Circular],
-              "start": 0,
-              "type": "string",
-              "value": "property",
-            },
-            "location": null,
-            "parent": [Circular],
-            "start": 0,
-            "type": "property",
-            "value": [Circular],
-          },
-          "start": 15,
-          "type": "string",
-          "value": "logicVariable",
-        },
-        "type": "REF",
-      },
-    ],
-    "root": [Circular],
-    "syntaxErrors": Array [],
-    "warnings": Array [],
-  },
-  "end": 28,
-  "location": null,
-  "parent": null,
-  "properties": Array [
-    PropertyASTNode {
       "colonOffset": -1,
       "customTag": undefined,
       "document": YAMLDocument {
@@ -1206,35 +653,35 @@ ObjectASTNode {
           Object {
             "key": "logicVariable",
             "node": StringASTNode {
+              "_value": "logicVariable",
               "customTag": Object {
-                "description": "The intrinsic function Ref returns the value of the specified parameter or resource.",
+                "description": "The Fn::GetAtt intrinsic function returns the value of an attribute from a resource in the template.",
                 "kind": "scalar",
-                "propertyName": "Ref",
+                "propertyName": "Fn::GetAtt",
                 "referenceEntityTypes": Array [
-                  "PARAMETER",
                   "RESOURCE",
                 ],
-                "tag": "!Ref",
-                "type": "REF",
+                "tag": "!GetAtt",
+                "type": "GET_ATT",
               },
               "document": [Circular],
-              "end": 28,
+              "end": 31,
               "isKey": false,
               "location": "property",
               "parent": [Circular],
-              "start": 15,
+              "start": 18,
               "type": "string",
-              "value": "logicVariable",
             },
-            "type": "REF",
+            "type": "GET_ATT",
           },
         ],
         "root": [Circular],
         "syntaxErrors": Array [],
         "warnings": Array [],
       },
-      "end": 28,
+      "end": 31,
       "key": StringASTNode {
+        "_value": "property",
         "customTag": undefined,
         "document": YAMLDocument {
           "documentType": "UNKNOWN",
@@ -1264,27 +711,26 @@ ObjectASTNode {
             Object {
               "key": "logicVariable",
               "node": StringASTNode {
+                "_value": "logicVariable",
                 "customTag": Object {
-                  "description": "The intrinsic function Ref returns the value of the specified parameter or resource.",
+                  "description": "The Fn::GetAtt intrinsic function returns the value of an attribute from a resource in the template.",
                   "kind": "scalar",
-                  "propertyName": "Ref",
+                  "propertyName": "Fn::GetAtt",
                   "referenceEntityTypes": Array [
-                    "PARAMETER",
                     "RESOURCE",
                   ],
-                  "tag": "!Ref",
-                  "type": "REF",
+                  "tag": "!GetAtt",
+                  "type": "GET_ATT",
                 },
                 "document": [Circular],
-                "end": 28,
+                "end": 31,
                 "isKey": false,
                 "location": "property",
                 "parent": [Circular],
-                "start": 15,
+                "start": 18,
                 "type": "string",
-                "value": "logicVariable",
               },
-              "type": "REF",
+              "type": "GET_ATT",
             },
           ],
           "root": [Circular],
@@ -1297,13 +743,105 @@ ObjectASTNode {
         "parent": [Circular],
         "start": 0,
         "type": "string",
-        "value": "property",
       },
       "location": null,
       "parent": [Circular],
       "start": 0,
       "type": "property",
-      "value": StringASTNode {
+    },
+  ],
+  "start": 0,
+  "type": "object",
+}
+`;
+
+exports[`custom tags parse smoke tests REF REF 1`] = `
+ObjectASTNode {
+  "_value": null,
+  "customTag": undefined,
+  "document": YAMLDocument {
+    "documentType": "UNKNOWN",
+    "errors": Array [],
+    "globalsConfig": Object {
+      "Api": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::Api",
+      },
+      "Function": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::Function",
+      },
+      "SimpleTable": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::SimpleTable",
+      },
+    },
+    "parameters": Array [],
+    "referenceables": Object {
+      "MAPPING": Object {},
+      "OUTPUT": Object {},
+      "PARAMETER": Object {},
+      "RESOURCE": Object {},
+    },
+    "references": Array [
+      Object {
+        "key": "logicVariable",
+        "node": StringASTNode {
+          "_value": "logicVariable",
+          "customTag": Object {
+            "description": "The intrinsic function Ref returns the value of the specified parameter or resource.",
+            "kind": "scalar",
+            "propertyName": "Ref",
+            "referenceEntityTypes": Array [
+              "PARAMETER",
+              "RESOURCE",
+            ],
+            "tag": "!Ref",
+            "type": "REF",
+          },
+          "document": [Circular],
+          "end": 28,
+          "isKey": false,
+          "location": "property",
+          "parent": PropertyASTNode {
+            "_value": [Circular],
+            "colonOffset": -1,
+            "customTag": undefined,
+            "document": [Circular],
+            "end": 28,
+            "key": StringASTNode {
+              "_value": "property",
+              "customTag": undefined,
+              "document": [Circular],
+              "end": 8,
+              "isKey": true,
+              "location": "property",
+              "parent": [Circular],
+              "start": 0,
+              "type": "string",
+            },
+            "location": null,
+            "parent": [Circular],
+            "start": 0,
+            "type": "property",
+          },
+          "start": 15,
+          "type": "string",
+        },
+        "type": "REF",
+      },
+    ],
+    "root": [Circular],
+    "syntaxErrors": Array [],
+    "warnings": Array [],
+  },
+  "end": 28,
+  "location": null,
+  "parent": null,
+  "properties": Array [
+    PropertyASTNode {
+      "_value": StringASTNode {
+        "_value": "logicVariable",
         "customTag": Object {
           "description": "The intrinsic function Ref returns the value of the specified parameter or resource.",
           "kind": "scalar",
@@ -1356,8 +894,134 @@ ObjectASTNode {
         "parent": [Circular],
         "start": 15,
         "type": "string",
-        "value": "logicVariable",
       },
+      "colonOffset": -1,
+      "customTag": undefined,
+      "document": YAMLDocument {
+        "documentType": "UNKNOWN",
+        "errors": Array [],
+        "globalsConfig": Object {
+          "Api": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::Api",
+          },
+          "Function": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::Function",
+          },
+          "SimpleTable": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::SimpleTable",
+          },
+        },
+        "parameters": Array [],
+        "referenceables": Object {
+          "MAPPING": Object {},
+          "OUTPUT": Object {},
+          "PARAMETER": Object {},
+          "RESOURCE": Object {},
+        },
+        "references": Array [
+          Object {
+            "key": "logicVariable",
+            "node": StringASTNode {
+              "_value": "logicVariable",
+              "customTag": Object {
+                "description": "The intrinsic function Ref returns the value of the specified parameter or resource.",
+                "kind": "scalar",
+                "propertyName": "Ref",
+                "referenceEntityTypes": Array [
+                  "PARAMETER",
+                  "RESOURCE",
+                ],
+                "tag": "!Ref",
+                "type": "REF",
+              },
+              "document": [Circular],
+              "end": 28,
+              "isKey": false,
+              "location": "property",
+              "parent": [Circular],
+              "start": 15,
+              "type": "string",
+            },
+            "type": "REF",
+          },
+        ],
+        "root": [Circular],
+        "syntaxErrors": Array [],
+        "warnings": Array [],
+      },
+      "end": 28,
+      "key": StringASTNode {
+        "_value": "property",
+        "customTag": undefined,
+        "document": YAMLDocument {
+          "documentType": "UNKNOWN",
+          "errors": Array [],
+          "globalsConfig": Object {
+            "Api": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Api",
+            },
+            "Function": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Function",
+            },
+            "SimpleTable": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::SimpleTable",
+            },
+          },
+          "parameters": Array [],
+          "referenceables": Object {
+            "MAPPING": Object {},
+            "OUTPUT": Object {},
+            "PARAMETER": Object {},
+            "RESOURCE": Object {},
+          },
+          "references": Array [
+            Object {
+              "key": "logicVariable",
+              "node": StringASTNode {
+                "_value": "logicVariable",
+                "customTag": Object {
+                  "description": "The intrinsic function Ref returns the value of the specified parameter or resource.",
+                  "kind": "scalar",
+                  "propertyName": "Ref",
+                  "referenceEntityTypes": Array [
+                    "PARAMETER",
+                    "RESOURCE",
+                  ],
+                  "tag": "!Ref",
+                  "type": "REF",
+                },
+                "document": [Circular],
+                "end": 28,
+                "isKey": false,
+                "location": "property",
+                "parent": [Circular],
+                "start": 15,
+                "type": "string",
+              },
+              "type": "REF",
+            },
+          ],
+          "root": [Circular],
+          "syntaxErrors": Array [],
+          "warnings": Array [],
+        },
+        "end": 8,
+        "isKey": true,
+        "location": "property",
+        "parent": [Circular],
+        "start": 0,
+        "type": "string",
+      },
+      "location": null,
+      "parent": [Circular],
+      "start": 0,
+      "type": "property",
     },
   ],
   "start": 0,
@@ -1367,27 +1031,11 @@ ObjectASTNode {
 
 exports[`custom tags parse smoke tests SUB SUB 1`] = `
 ObjectASTNode {
+  "_value": null,
   "customTag": undefined,
   "document": YAMLDocument {
     "documentType": "UNKNOWN",
-    "errors": Array [
-      Object {
-        "code": 0,
-        "location": Object {
-          "end": 41,
-          "start": 39,
-        },
-        "message": "end of the stream or a document separator is expected",
-      },
-      Object {
-        "code": 0,
-        "location": Object {
-          "end": 39,
-          "start": 39,
-        },
-        "message": "expected a single document in the stream, but found more",
-      },
-    ],
+    "errors": Array [],
     "globalsConfig": Object {
       "Api": Object {
         "properties": Array [],
@@ -1412,198 +1060,15 @@ ObjectASTNode {
     "references": Array [],
     "root": [Circular],
     "syntaxErrors": Array [],
-    "warnings": Array [
-      Object {
-        "code": 0,
-        "location": Object {
-          "end": 16,
-          "start": 16,
-        },
-        "message": "Using tabs can lead to unpredictable results",
-      },
-      Object {
-        "code": 0,
-        "location": Object {
-          "end": 37,
-          "start": 37,
-        },
-        "message": "Using tabs can lead to unpredictable results",
-      },
-      Object {
-        "code": 0,
-        "location": Object {
-          "end": 37,
-          "start": 37,
-        },
-        "message": "Using tabs can lead to unpredictable results",
-      },
-    ],
+    "warnings": Array [],
   },
-  "end": 39,
+  "end": 59,
   "location": null,
   "parent": null,
   "properties": Array [
     PropertyASTNode {
-      "colonOffset": -1,
-      "customTag": undefined,
-      "document": YAMLDocument {
-        "documentType": "UNKNOWN",
-        "errors": Array [
-          Object {
-            "code": 0,
-            "location": Object {
-              "end": 41,
-              "start": 39,
-            },
-            "message": "end of the stream or a document separator is expected",
-          },
-          Object {
-            "code": 0,
-            "location": Object {
-              "end": 39,
-              "start": 39,
-            },
-            "message": "expected a single document in the stream, but found more",
-          },
-        ],
-        "globalsConfig": Object {
-          "Api": Object {
-            "properties": Array [],
-            "resourceType": "AWS::Serverless::Api",
-          },
-          "Function": Object {
-            "properties": Array [],
-            "resourceType": "AWS::Serverless::Function",
-          },
-          "SimpleTable": Object {
-            "properties": Array [],
-            "resourceType": "AWS::Serverless::SimpleTable",
-          },
-        },
-        "parameters": Array [],
-        "referenceables": Object {
-          "MAPPING": Object {},
-          "OUTPUT": Object {},
-          "PARAMETER": Object {},
-          "RESOURCE": Object {},
-        },
-        "references": Array [],
-        "root": [Circular],
-        "syntaxErrors": Array [],
-        "warnings": Array [
-          Object {
-            "code": 0,
-            "location": Object {
-              "end": 16,
-              "start": 16,
-            },
-            "message": "Using tabs can lead to unpredictable results",
-          },
-          Object {
-            "code": 0,
-            "location": Object {
-              "end": 37,
-              "start": 37,
-            },
-            "message": "Using tabs can lead to unpredictable results",
-          },
-          Object {
-            "code": 0,
-            "location": Object {
-              "end": 37,
-              "start": 37,
-            },
-            "message": "Using tabs can lead to unpredictable results",
-          },
-        ],
-      },
-      "end": 39,
-      "key": StringASTNode {
-        "customTag": undefined,
-        "document": YAMLDocument {
-          "documentType": "UNKNOWN",
-          "errors": Array [
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 41,
-                "start": 39,
-              },
-              "message": "end of the stream or a document separator is expected",
-            },
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 39,
-                "start": 39,
-              },
-              "message": "expected a single document in the stream, but found more",
-            },
-          ],
-          "globalsConfig": Object {
-            "Api": Object {
-              "properties": Array [],
-              "resourceType": "AWS::Serverless::Api",
-            },
-            "Function": Object {
-              "properties": Array [],
-              "resourceType": "AWS::Serverless::Function",
-            },
-            "SimpleTable": Object {
-              "properties": Array [],
-              "resourceType": "AWS::Serverless::SimpleTable",
-            },
-          },
-          "parameters": Array [],
-          "referenceables": Object {
-            "MAPPING": Object {},
-            "OUTPUT": Object {},
-            "PARAMETER": Object {},
-            "RESOURCE": Object {},
-          },
-          "references": Array [],
-          "root": [Circular],
-          "syntaxErrors": Array [],
-          "warnings": Array [
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 16,
-                "start": 16,
-              },
-              "message": "Using tabs can lead to unpredictable results",
-            },
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 37,
-                "start": 37,
-              },
-              "message": "Using tabs can lead to unpredictable results",
-            },
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 37,
-                "start": 37,
-              },
-              "message": "Using tabs can lead to unpredictable results",
-            },
-          ],
-        },
-        "end": 8,
-        "isKey": true,
-        "location": "property",
-        "parent": [Circular],
-        "start": 0,
-        "type": "string",
-        "value": "property",
-      },
-      "location": null,
-      "parent": [Circular],
-      "start": 0,
-      "type": "property",
-      "value": ArrayASTNode {
+      "_value": ArrayASTNode {
+        "_value": null,
         "customTag": Object {
           "description": "The intrinsic function Fn::Sub substitutes variables in an input string with values that you specify.",
           "kind": "sequence",
@@ -1617,24 +1082,7 @@ ObjectASTNode {
         },
         "document": YAMLDocument {
           "documentType": "UNKNOWN",
-          "errors": Array [
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 41,
-                "start": 39,
-              },
-              "message": "end of the stream or a document separator is expected",
-            },
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 39,
-                "start": 39,
-              },
-              "message": "expected a single document in the stream, but found more",
-            },
-          ],
+          "errors": Array [],
           "globalsConfig": Object {
             "Api": Object {
               "properties": Array [],
@@ -1659,57 +1107,16 @@ ObjectASTNode {
           "references": Array [],
           "root": [Circular],
           "syntaxErrors": Array [],
-          "warnings": Array [
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 16,
-                "start": 16,
-              },
-              "message": "Using tabs can lead to unpredictable results",
-            },
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 37,
-                "start": 37,
-              },
-              "message": "Using tabs can lead to unpredictable results",
-            },
-            Object {
-              "code": 0,
-              "location": Object {
-                "end": 37,
-                "start": 37,
-              },
-              "message": "Using tabs can lead to unpredictable results",
-            },
-          ],
+          "warnings": Array [],
         },
-        "end": 39,
+        "end": 60,
         "items": Array [
           StringASTNode {
+            "_value": "logicalVariable1",
             "customTag": undefined,
             "document": YAMLDocument {
               "documentType": "UNKNOWN",
-              "errors": Array [
-                Object {
-                  "code": 0,
-                  "location": Object {
-                    "end": 41,
-                    "start": 39,
-                  },
-                  "message": "end of the stream or a document separator is expected",
-                },
-                Object {
-                  "code": 0,
-                  "location": Object {
-                    "end": 39,
-                    "start": 39,
-                  },
-                  "message": "expected a single document in the stream, but found more",
-                },
-              ],
+              "errors": Array [],
               "globalsConfig": Object {
                 "Api": Object {
                   "properties": Array [],
@@ -1734,47 +1141,135 @@ ObjectASTNode {
               "references": Array [],
               "root": [Circular],
               "syntaxErrors": Array [],
-              "warnings": Array [
-                Object {
-                  "code": 0,
-                  "location": Object {
-                    "end": 16,
-                    "start": 16,
-                  },
-                  "message": "Using tabs can lead to unpredictable results",
-                },
-                Object {
-                  "code": 0,
-                  "location": Object {
-                    "end": 37,
-                    "start": 37,
-                  },
-                  "message": "Using tabs can lead to unpredictable results",
-                },
-                Object {
-                  "code": 0,
-                  "location": Object {
-                    "end": 37,
-                    "start": 37,
-                  },
-                  "message": "Using tabs can lead to unpredictable results",
-                },
-              ],
+              "warnings": Array [],
             },
-            "end": 36,
+            "end": 37,
             "isKey": false,
             "location": 0,
             "parent": [Circular],
-            "start": 20,
+            "start": 21,
             "type": "string",
-            "value": "logicalVariable1",
+          },
+          StringASTNode {
+            "_value": "logicalVariable2",
+            "customTag": undefined,
+            "document": YAMLDocument {
+              "documentType": "UNKNOWN",
+              "errors": Array [],
+              "globalsConfig": Object {
+                "Api": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Api",
+                },
+                "Function": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Function",
+                },
+                "SimpleTable": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::SimpleTable",
+                },
+              },
+              "parameters": Array [],
+              "referenceables": Object {
+                "MAPPING": Object {},
+                "OUTPUT": Object {},
+                "PARAMETER": Object {},
+                "RESOURCE": Object {},
+              },
+              "references": Array [],
+              "root": [Circular],
+              "syntaxErrors": Array [],
+              "warnings": Array [],
+            },
+            "end": 59,
+            "isKey": false,
+            "location": 1,
+            "parent": [Circular],
+            "start": 43,
+            "type": "string",
           },
         ],
         "location": "property",
         "parent": [Circular],
-        "start": 18,
+        "start": 19,
         "type": "array",
       },
+      "colonOffset": -1,
+      "customTag": undefined,
+      "document": YAMLDocument {
+        "documentType": "UNKNOWN",
+        "errors": Array [],
+        "globalsConfig": Object {
+          "Api": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::Api",
+          },
+          "Function": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::Function",
+          },
+          "SimpleTable": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::SimpleTable",
+          },
+        },
+        "parameters": Array [],
+        "referenceables": Object {
+          "MAPPING": Object {},
+          "OUTPUT": Object {},
+          "PARAMETER": Object {},
+          "RESOURCE": Object {},
+        },
+        "references": Array [],
+        "root": [Circular],
+        "syntaxErrors": Array [],
+        "warnings": Array [],
+      },
+      "end": 60,
+      "key": StringASTNode {
+        "_value": "property",
+        "customTag": undefined,
+        "document": YAMLDocument {
+          "documentType": "UNKNOWN",
+          "errors": Array [],
+          "globalsConfig": Object {
+            "Api": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Api",
+            },
+            "Function": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Function",
+            },
+            "SimpleTable": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::SimpleTable",
+            },
+          },
+          "parameters": Array [],
+          "referenceables": Object {
+            "MAPPING": Object {},
+            "OUTPUT": Object {},
+            "PARAMETER": Object {},
+            "RESOURCE": Object {},
+          },
+          "references": Array [],
+          "root": [Circular],
+          "syntaxErrors": Array [],
+          "warnings": Array [],
+        },
+        "end": 8,
+        "isKey": true,
+        "location": "property",
+        "parent": [Circular],
+        "start": 0,
+        "type": "string",
+      },
+      "location": null,
+      "parent": [Circular],
+      "start": 0,
+      "type": "property",
     },
   ],
   "start": 0,

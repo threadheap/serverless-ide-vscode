@@ -1,9 +1,6 @@
 import { YAMLDocument, parse } from "./../../parser/index"
-import { TextDocument } from "vscode-languageserver"
+import { TextDocument, TextDocuments } from "vscode-languageserver"
 import { isSupportedDocument } from "../../utils/document"
-/**
- * Parsed document provider service
- */
 
 interface CacheEntry {
 	uri: string
@@ -11,8 +8,16 @@ interface CacheEntry {
 	yamlDocument: Promise<YAMLDocument>
 }
 
+/**
+ * Parsed document provider service
+ */
 class DocumentService {
 	private cache: { [key: string]: CacheEntry } = {}
+	private documents: TextDocuments | null = null
+
+	init(documents: TextDocuments) {
+		this.documents = documents
+	}
 
 	get(textDocument: TextDocument): Promise<YAMLDocument> {
 		if (
@@ -32,6 +37,16 @@ class DocumentService {
 
 			return newEntry.yamlDocument
 		}
+	}
+
+	getByUri(documentUri: string): Promise<YAMLDocument | null> {
+		const textDocument = this.documents.get(documentUri)
+
+		if (textDocument) {
+			return this.get(textDocument)
+		}
+
+		return Promise.resolve(null)
 	}
 
 	clear(textDocument: TextDocument) {

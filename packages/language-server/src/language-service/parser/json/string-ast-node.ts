@@ -6,9 +6,8 @@ import { CustomTag } from "../../model/custom-tags"
 import { ValidationResult, ProblemSeverity } from "./validation-result"
 import localize from "./localize"
 
-export class StringASTNode extends ASTNode {
+export class StringASTNode extends ASTNode<string> {
 	isKey: boolean
-	value: string
 
 	constructor(
 		document: YAMLDocument,
@@ -22,10 +21,6 @@ export class StringASTNode extends ASTNode {
 		super(document, parent, "string", name, start, end, customTag)
 		this.isKey = isKey
 		this.value = ""
-	}
-
-	getValue(): string {
-		return this.value
 	}
 
 	validate(

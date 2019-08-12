@@ -6,7 +6,7 @@ export const getNodeItemByKey = (
 ): PropertyASTNode | void => {
 	if (node instanceof ObjectASTNode) {
 		return node.properties.find(property => {
-			return property.key.getValue() === key
+			return property.key.value === key
 		}) as PropertyASTNode
 	}
 

@@ -5,9 +5,8 @@ import { JSONSchema } from "../../jsonSchema"
 import { ValidationResult, ProblemSeverity } from "./validation-result"
 import localize from "./localize"
 
-export class NumberASTNode extends ASTNode {
+export class NumberASTNode extends ASTNode<number> {
 	isInteger: boolean
-	value: number
 
 	constructor(
 		document: YAMLDocument,
@@ -19,10 +18,6 @@ export class NumberASTNode extends ASTNode {
 		super(document, parent, "number", name, start, end)
 		this.isInteger = true
 		this.value = Number.NaN
-	}
-
-	getValue(): number {
-		return this.value
 	}
 
 	validate(
@@ -49,7 +44,7 @@ export class NumberASTNode extends ASTNode {
 		super.validate(schema, validationResult, matchingSchemas)
 		this.type = "number"
 
-		const val = this.getValue()
+		const val = this.value
 
 		if (typeof schema.multipleOf === "number") {
 			if (val % schema.multipleOf !== 0) {

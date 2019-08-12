@@ -6,7 +6,7 @@ import { CustomTag } from "../../model/custom-tags"
 import { ValidationResult, ProblemSeverity } from "./validation-result"
 import localize from "./localize"
 
-export class ArrayASTNode extends ASTNode {
+export class ArrayASTNode extends ASTNode<unknown[]> {
 	items: ASTNode[]
 
 	constructor(
@@ -21,16 +21,16 @@ export class ArrayASTNode extends ASTNode {
 		this.items = []
 	}
 
+	get value(): unknown[] {
+		return this.items.map(v => v.value)
+	}
+
 	getChildNodes(): ASTNode[] {
 		return this.items
 	}
 
 	getLastChild(): ASTNode {
 		return this.items[this.items.length - 1]
-	}
-
-	getValue(): any {
-		return this.items.map(v => v.getValue())
 	}
 
 	addItem(item: ASTNode): boolean {
@@ -142,7 +142,7 @@ export class ArrayASTNode extends ASTNode {
 
 		if (schema.uniqueItems === true) {
 			const values = this.items.map(node => {
-				return node.getValue()
+				return node.value
 			})
 			const duplicates = values.some((value, index) => {
 				return index !== values.lastIndexOf(value)

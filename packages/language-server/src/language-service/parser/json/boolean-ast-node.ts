@@ -2,9 +2,7 @@ import { YAMLDocument } from "./../index"
 import { ASTNode } from "./ast-node"
 import * as Json from "jsonc-parser"
 
-export class BooleanASTNode extends ASTNode {
-	private value: boolean | string
-
+export class BooleanASTNode extends ASTNode<string | boolean> {
 	constructor(
 		document: YAMLDocument,
 		parent: ASTNode,
