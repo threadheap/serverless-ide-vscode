@@ -101,6 +101,28 @@ describe("references collector", () => {
 					node: expect.any(Object)
 				})
 			})
+
+			test("should collect multiple references with additional properties", () => {
+				const text = [
+					"Name: !Sub some-text-${logicalName1}-other-${logicalName2}-text",
+					"AnotherProperty: value"
+				].join("\n")
+				const root = generateNode(text)
+
+				const references = collectReferences(root)
+
+				expect(references).toHaveLength(2)
+				expect(references[0]).toEqual({
+					type: ReferenceType.SUB,
+					key: "logicalName1",
+					node: expect.any(Object)
+				})
+				expect(references[1]).toEqual({
+					type: ReferenceType.SUB,
+					key: "logicalName2",
+					node: expect.any(Object)
+				})
+			})
 		})
 
 		describe("conditions", () => {

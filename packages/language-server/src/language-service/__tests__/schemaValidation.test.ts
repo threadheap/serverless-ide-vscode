@@ -98,7 +98,12 @@ describe("Validation", () => {
 					"      Handler: index.default",
 					"      CodeUri: !Ref MyTable",
 					"  MyTable:",
-					"    Type: AWS::DynamoDB::Table"
+					"    Type: AWS::DynamoDB::Table",
+					"    Properties:",
+					"      KeySchema: !Sub Function",
+					"      AttributeDefinitions:",
+					"         - AttributeName: id",
+					"           AttributeType: S"
 				].join("\n")
 
 				const result = await parseSetup(content)

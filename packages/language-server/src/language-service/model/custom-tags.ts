@@ -131,7 +131,7 @@ export const CUSTOM_TAGS: CustomTag[] = [
 	{
 		type: ReferenceType.SUB,
 		tag: "!Sub",
-		kind: "sequence",
+		kind: "scalar",
 		propertyName: "Fn::Sub",
 		description:
 			"The intrinsic function Fn::Sub substitutes variables in an input string with values that you specify.",

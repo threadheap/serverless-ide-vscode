@@ -6,7 +6,7 @@ import {
 } from "../model/document"
 import { UNKNOWN } from "./../model/document"
 
-const transformRegExp = /"?Transform"?:\s*"?AWS::Serverless-2016-10-31"?/
+const transformRegExp = /"?'?Transform"?'?:\s*"?'?AWS::Serverless-2016-10-31"?'?/
 const slsServiceRegExp = /service:/
 const slsProviderRegExp = /provider:/
 const slsProviderNameRegExp = /name: aws/

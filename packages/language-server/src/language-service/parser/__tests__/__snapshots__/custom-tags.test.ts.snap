@@ -1062,16 +1062,16 @@ ObjectASTNode {
     "syntaxErrors": Array [],
     "warnings": Array [],
   },
-  "end": 59,
+  "end": 28,
   "location": null,
   "parent": null,
   "properties": Array [
     PropertyASTNode {
-      "_value": ArrayASTNode {
-        "_value": null,
+      "_value": StringASTNode {
+        "_value": "logicVariable",
         "customTag": Object {
           "description": "The intrinsic function Fn::Sub substitutes variables in an input string with values that you specify.",
-          "kind": "sequence",
+          "kind": "scalar",
           "propertyName": "Fn::Sub",
           "referenceEntityTypes": Array [
             "RESOURCE",
@@ -1109,91 +1109,12 @@ ObjectASTNode {
           "syntaxErrors": Array [],
           "warnings": Array [],
         },
-        "end": 60,
-        "items": Array [
-          StringASTNode {
-            "_value": "logicalVariable1",
-            "customTag": undefined,
-            "document": YAMLDocument {
-              "documentType": "UNKNOWN",
-              "errors": Array [],
-              "globalsConfig": Object {
-                "Api": Object {
-                  "properties": Array [],
-                  "resourceType": "AWS::Serverless::Api",
-                },
-                "Function": Object {
-                  "properties": Array [],
-                  "resourceType": "AWS::Serverless::Function",
-                },
-                "SimpleTable": Object {
-                  "properties": Array [],
-                  "resourceType": "AWS::Serverless::SimpleTable",
-                },
-              },
-              "parameters": Array [],
-              "referenceables": Object {
-                "MAPPING": Object {},
-                "OUTPUT": Object {},
-                "PARAMETER": Object {},
-                "RESOURCE": Object {},
-              },
-              "references": Array [],
-              "root": [Circular],
-              "syntaxErrors": Array [],
-              "warnings": Array [],
-            },
-            "end": 37,
-            "isKey": false,
-            "location": 0,
-            "parent": [Circular],
-            "start": 21,
-            "type": "string",
-          },
-          StringASTNode {
-            "_value": "logicalVariable2",
-            "customTag": undefined,
-            "document": YAMLDocument {
-              "documentType": "UNKNOWN",
-              "errors": Array [],
-              "globalsConfig": Object {
-                "Api": Object {
-                  "properties": Array [],
-                  "resourceType": "AWS::Serverless::Api",
-                },
-                "Function": Object {
-                  "properties": Array [],
-                  "resourceType": "AWS::Serverless::Function",
-                },
-                "SimpleTable": Object {
-                  "properties": Array [],
-                  "resourceType": "AWS::Serverless::SimpleTable",
-                },
-              },
-              "parameters": Array [],
-              "referenceables": Object {
-                "MAPPING": Object {},
-                "OUTPUT": Object {},
-                "PARAMETER": Object {},
-                "RESOURCE": Object {},
-              },
-              "references": Array [],
-              "root": [Circular],
-              "syntaxErrors": Array [],
-              "warnings": Array [],
-            },
-            "end": 59,
-            "isKey": false,
-            "location": 1,
-            "parent": [Circular],
-            "start": 43,
-            "type": "string",
-          },
-        ],
+        "end": 28,
+        "isKey": false,
         "location": "property",
         "parent": [Circular],
-        "start": 19,
-        "type": "array",
+        "start": 15,
+        "type": "string",
       },
       "colonOffset": -1,
       "customTag": undefined,
@@ -1226,7 +1147,7 @@ ObjectASTNode {
         "syntaxErrors": Array [],
         "warnings": Array [],
       },
-      "end": 60,
+      "end": 28,
       "key": StringASTNode {
         "_value": "property",
         "customTag": undefined,
