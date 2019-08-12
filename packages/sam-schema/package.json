@@ -1,6 +1,6 @@
 {
     "name": "@serverless-ide/sam-schema",
-    "version": "0.3.8",
+    "version": "0.3.9",
     "description": "Json schema for AWS SAM template configuration",
     "main": "index.js",
     "repository": "git@github.com:threadheap/aws-sam-json-schema.git",
