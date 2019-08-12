@@ -44,8 +44,9 @@ const collectCfnReferenceables = (node: ASTNode): Referenceables => {
 		[ReferenceEntityType.MAPPING]: collectReferenceablesFromNode(
 			getNodeItemByKey(node, "Mappings")
 		),
-		// TODO: implement sub-stacks support
-		[ReferenceEntityType.OUTPUT]: {}
+		[ReferenceEntityType.OUTPUT]: collectReferenceablesFromNode(
+			getNodeItemByKey(node, "Output")
+		)
 	}
 }
 

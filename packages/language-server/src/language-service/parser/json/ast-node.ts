@@ -9,6 +9,8 @@ import {
 } from "./validation-result"
 import localize from "./localize"
 import * as objects from "../../utils/objects"
+import { YAMLDocument } from ".."
+import { Segment } from "vscode-json-languageservice"
 
 export interface IApplicableSchema {
 	node: ASTNode
@@ -76,8 +78,10 @@ export class ASTNode {
 	parserSettings: LanguageSettings
 	location: Json.Segment
 	customTag: CustomTag
+	document: YAMLDocument
 
 	constructor(
+		document: YAMLDocument,
 		parent: ASTNode,
 		type: string,
 		location: Json.Segment,
@@ -91,6 +95,7 @@ export class ASTNode {
 		this.end = end
 		this.parent = parent
 		this.customTag = customTag
+		this.document = document
 	}
 
 	setParserSettings(parserSettings: LanguageSettings) {
@@ -99,10 +104,16 @@ export class ASTNode {
 
 	getPath(): Json.JSONPath {
 		const path = this.parent ? this.parent.getPath() : []
+
 		if (this.location !== null) {
 			path.push(this.location)
 		}
+
 		return path
+	}
+
+	getLocation(): Segment | null {
+		return this.location
 	}
 
 	getChildNodes(): ASTNode[] {
@@ -380,5 +391,21 @@ export class ASTNode {
 			})
 		}
 		matchingSchemas.add({ node: this, schema })
+	}
+
+	get(path: Segment[]): ASTNode | null {
+		let currentNode: ASTNode = this
+
+		for (let segment of path) {
+			currentNode = currentNode.getChildNodes().find(node => {
+				return node.getLocation() === segment
+			})
+
+			if (!currentNode) {
+				return null
+			}
+		}
+
+		return currentNode || null
 	}
 }

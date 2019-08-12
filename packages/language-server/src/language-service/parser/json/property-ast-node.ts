@@ -1,3 +1,5 @@
+import { Segment } from "vscode-json-languageservice"
+import { YAMLDocument } from "./../index"
 import { CustomTag } from "./../../model/custom-tags"
 import { StringASTNode } from "./string-ast-node"
 import { ASTNode, ISchemaCollector } from "./ast-node"
@@ -9,8 +11,13 @@ export class PropertyASTNode extends ASTNode {
 	value: ASTNode
 	colonOffset: number
 
-	constructor(parent: ASTNode, key: StringASTNode, customTag: CustomTag) {
-		super(parent, "property", null, key.start, key.end, customTag)
+	constructor(
+		document: YAMLDocument,
+		parent: ASTNode,
+		key: StringASTNode,
+		customTag: CustomTag
+	) {
+		super(document, parent, "property", null, key.start, key.end, customTag)
 		this.key = key
 		key.parent = this
 		key.location = key.value
@@ -25,9 +32,14 @@ export class PropertyASTNode extends ASTNode {
 		return this.value
 	}
 
+	getLocation(): Segment | null {
+		return this.key.location
+	}
+
 	setValue(value: ASTNode): boolean {
 		this.value = value
-		return value !== null
+
+		return this.value !== null
 	}
 
 	visit(visitor: (node: ASTNode) => boolean): boolean {

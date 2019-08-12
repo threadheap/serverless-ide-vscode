@@ -5,17 +5,19 @@ import { JSONSchema } from "../../jsonSchema"
 import { ValidationResult, ProblemSeverity } from "./validation-result"
 import localize from "./localize"
 import { PropertyASTNode } from "./property-ast-node"
+import { YAMLDocument } from ".."
 
 export class ObjectASTNode extends ASTNode {
 	properties: PropertyASTNode[]
 
 	constructor(
+		document: YAMLDocument,
 		parent: ASTNode,
 		name: Json.Segment,
 		start: number,
 		end?: number
 	) {
-		super(parent, "object", name, start, end)
+		super(document, parent, "object", name, start, end)
 
 		this.properties = []
 	}

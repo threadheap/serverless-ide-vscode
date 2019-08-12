@@ -1,3 +1,4 @@
+import { YAMLDocument } from "./../index"
 import { ASTNode, ISchemaCollector } from "./ast-node"
 import * as Json from "jsonc-parser"
 import { JSONSchema } from "../../jsonSchema"
@@ -9,13 +10,14 @@ export class ArrayASTNode extends ASTNode {
 	items: ASTNode[]
 
 	constructor(
+		document: YAMLDocument,
 		parent: ASTNode,
 		name: Json.Segment,
 		start: number,
 		end?: number,
 		customTag?: CustomTag
 	) {
-		super(parent, "array", name, start, end, customTag)
+		super(document, parent, "array", name, start, end, customTag)
 		this.items = []
 	}
 

@@ -1,3 +1,4 @@
+import { YAMLDocument } from "./../index"
 import { ASTNode, ISchemaCollector } from "./ast-node"
 import * as Json from "jsonc-parser"
 import { JSONSchema } from "../../jsonSchema"
@@ -10,6 +11,7 @@ export class StringASTNode extends ASTNode {
 	value: string
 
 	constructor(
+		document: YAMLDocument,
 		parent: ASTNode,
 		name: Json.Segment,
 		isKey: boolean,
@@ -17,7 +19,7 @@ export class StringASTNode extends ASTNode {
 		end?: number,
 		customTag?: CustomTag
 	) {
-		super(parent, "string", name, start, end, customTag)
+		super(document, parent, "string", name, start, end, customTag)
 		this.isKey = isKey
 		this.value = ""
 	}

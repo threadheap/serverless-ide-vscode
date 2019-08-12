@@ -1,3 +1,4 @@
+import { YAMLDocument } from "./../index"
 import { ASTNode, ISchemaCollector } from "./ast-node"
 import * as Json from "jsonc-parser"
 import { JSONSchema } from "../../jsonSchema"
@@ -9,12 +10,13 @@ export class NumberASTNode extends ASTNode {
 	value: number
 
 	constructor(
+		document: YAMLDocument,
 		parent: ASTNode,
 		name: Json.Segment,
 		start: number,
 		end?: number
 	) {
-		super(parent, "number", name, start, end)
+		super(document, parent, "number", name, start, end)
 		this.isInteger = true
 		this.value = Number.NaN
 	}

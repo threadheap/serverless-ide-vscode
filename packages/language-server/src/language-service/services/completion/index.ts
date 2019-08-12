@@ -239,6 +239,7 @@ export class YAMLCompletion {
 			document,
 			collector
 		)
+
 		if (this.contributions.length > 0) {
 			completions.getContributedValueCompletions(
 				this.contributions,
