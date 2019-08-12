@@ -26,6 +26,24 @@ describe("references collector", () => {
 			})
 		})
 
+		describe("GetAtt", () => {
+			test("should simple references", () => {
+				const text = "Name: !GetAtt logicalName.Attribute"
+				const root = generateNode(text)
+
+				const references = collectReferences(root)
+
+				expect(references).toHaveLength(1)
+				expect(references).toEqual([
+					{
+						type: ReferenceType.GET_ATT,
+						key: "logicalName",
+						node: expect.any(Object)
+					}
+				])
+			})
+		})
+
 		describe("sub", () => {
 			test("should collect simple subs", () => {
 				const text = "Name: !Sub some-text-${logicalName}-other-text"
@@ -125,6 +143,27 @@ describe("references collector", () => {
 				expect(references).toEqual([
 					{
 						type: ReferenceType.REF,
+						key: "logicalName",
+						node: expect.any(Object)
+					}
+				])
+			})
+		})
+
+		describe("GetAtt", () => {
+			test("should simple references", () => {
+				const text = [
+					"Name:",
+					"  Fn::GetAtt: [ logicalName, Attribute ]"
+				].join("\n")
+				const root = generateNode(text)
+
+				const references = collectReferences(root)
+
+				expect(references).toHaveLength(1)
+				expect(references).toEqual([
+					{
+						type: ReferenceType.GET_ATT,
 						key: "logicalName",
 						node: expect.any(Object)
 					}

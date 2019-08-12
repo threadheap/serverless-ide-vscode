@@ -10,7 +10,10 @@ import { GlobalsConfig } from "../../model/globals"
 import { getDefaultGlobalsConfig, collectGlobals } from "./globals"
 import { parseYamlBoolean } from "../scalar-type"
 import { DocumentType, UNKNOWN } from "../../model/document"
-import { generateEmptyReferenceables } from "../referenceables"
+import {
+	generateEmptyReferenceables,
+	collectReferenceables
+} from "../referenceables"
 import { collectReferences } from "../references"
 import { Reference } from "../../model/references"
 import { ASTNode } from "./ast-node"
@@ -59,8 +62,15 @@ export class YAMLDocument extends JSONDocument {
 		this.globalsConfig = getDefaultGlobalsConfig()
 		if (yamlDoc) {
 			this.root = this.recursivelyBuildAst(null, yamlDoc)
-			this.references = collectReferences(this.root)
-			this.globalsConfig = collectGlobals(this)
+
+			if (this.root) {
+				this.referenceables = collectReferenceables(
+					this.documentType,
+					this.root
+				)
+				this.references = collectReferences(this.root)
+				this.globalsConfig = collectGlobals(this)
+			}
 		}
 		this.errors = []
 		this.warnings = []

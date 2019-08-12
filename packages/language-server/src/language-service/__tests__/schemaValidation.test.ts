@@ -84,6 +84,26 @@ describe("Validation", () => {
 				const result = await parseSetup(content)
 				expect(result).toHaveLength(0)
 			})
+
+			test("should validation references", async () => {
+				const content = [
+					"Transform: AWS::Serverless-2016-10-31",
+					"Globals:",
+					"  Function:",
+					"    Runtime: nodejs8.10",
+					"Resources:",
+					"  Function:",
+					"    Type: AWS::Serverless::Function",
+					"    Properties:",
+					"      Handler: index.default",
+					"      CodeUri: !Ref MyTable",
+					"  MyTable:",
+					"    Type: AWS::DynamoDB::Table"
+				].join("\n")
+
+				const result = await parseSetup(content)
+				expect(result).toHaveLength(1)
+			})
 		})
 	})
 })
