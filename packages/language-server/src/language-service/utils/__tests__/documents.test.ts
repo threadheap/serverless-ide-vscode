@@ -78,7 +78,7 @@ test("should detect document type", () => {
 })
 
 test("should detect supported documents", () => {
-	expect(isSupportedDocument(slsTemplate)).toBe(true)
+	expect(isSupportedDocument(slsTemplate)).toBe(false)
 	expect(isSupportedDocument(cfnTemplate)).toBe(true)
 	expect(isSupportedDocument(cfnTemplateWithFormatVersion)).toBe(true)
 	expect(isSupportedDocument(samTemplate)).toBe(true)
