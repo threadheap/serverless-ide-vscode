@@ -14,7 +14,7 @@ jobs:
                       - v3-dependencies-
 
             - run: sudo npm install yarn@1.9.4 --global
-            - run: yarn global add lerna
+            - run: npm install lerna -g
             - run: lerna bootstrap
             - run: lerna run prepare
             - run: yarn install --frozen-lockfile
