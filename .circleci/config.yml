@@ -13,12 +13,11 @@ jobs:
                       # fallback to using the latest cache if no exact match is found
                       - v3-dependencies-
 
-            - run: sudo npm install yarn@1.9.4 --global
+            - run: sudo npm install yarn@1.15.2 --global
             - run: sudo npm install lerna -g
-            - run: yarn install
+            - run: yarn install --frozen-lockfile
             - run: lerna bootstrap
             - run: lerna run prepare
-            - run: yarn install --frozen-lockfile
 
             - save_cache:
                   paths:
