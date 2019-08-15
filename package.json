@@ -24,14 +24,9 @@
     "workspaces": {
         "packages": [
             "packages/*"
-        ],
-        "nohoist": [
-            "**/@serverless-ide/language-server",
-            "**/@serverless-ide/language-server/**"
         ]
     },
     "scripts": {
-        "bootstrap": "lerna exec yarn install --pure-lockfile",
         "update-vscode": "node ./node_modules/vscode/bin/install",
         "postinstall": "node ./node_modules/vscode/bin/install",
         "test": "jest",

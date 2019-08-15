@@ -15,7 +15,6 @@ jobs:
 
             - run: sudo npm install yarn@1.15.2 --global
             - run: sudo npm install lerna -g
-            - run: yarn bootstrap
             - run: yarn install --pure-lockfile
             - run: lerna bootstrap
 
