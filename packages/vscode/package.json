@@ -144,20 +144,20 @@
         }
     },
     "scripts": {
-        "vscode:prepublish": "rm -rf node_modules && npm install && yarn compile",
+        "vscode:prepublish": "rm -rf node_modules && npm install && npm run compile",
         "compile": "tsc -p ./",
         "lint:types": "tsc --noEmit",
-        "watch": "yarn compile --watch",
-        "prepublish": "yarn compile",
+        "watch": "npm run compile --watch",
+        "prepublish": "npm run compile",
         "marketplace:package": "vsce package",
         "marketplace:publish": "vsce publish"
     },
     "devDependencies": {
         "@types/amplitude-js": "^4.4.2",
         "@types/node": "^6.0.52",
+        "@types/vscode": "^1.37.0",
         "ts-node": "^3.3.0",
-        "typescript": "^3.2.2",
-        "vscode": "^1.1.33"
+        "typescript": "^3.2.2"
     },
     "dependencies": {
         "@sentry/node": "5.5.0",

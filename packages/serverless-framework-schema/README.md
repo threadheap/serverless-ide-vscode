@@ -10,13 +10,13 @@ and adds support of globals configuration
 1. Install dependencies
 
 ```sh
-yarn
+npm install
 ```
 
 2. Generate schema
 
 ```sh
-yarn generate
+npm run generate
 ```
 
 ## License

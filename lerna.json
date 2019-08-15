@@ -3,8 +3,7 @@
 		"packages/*"
 	],
 	"version": "0.3.9",
-	"npmClient": "yarn",
-	"useWorkspaces": true,
+	"npmClient": "npm",
 	"ignoreChanges": [
 		"*.md",
 		"*.txt",

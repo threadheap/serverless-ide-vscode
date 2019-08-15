@@ -32,9 +32,9 @@
     "scripts": {
         "build": "rm -rf ./out && tsc -p .",
         "lint:types": "tsc --noEmit",
-        "watch": "rm -rf ./out && yarn build --watch",
-        "generate": "yarn build && node out/index.js",
-        "prepublish": "yarn generate"
+        "watch": "rm -rf ./out && npm run build --watch",
+        "generate": "npm run build && node out/index.js",
+        "prepublish": "npm run generate"
     },
     "publishConfig": {
         "access": "public"
