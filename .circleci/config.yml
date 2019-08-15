@@ -15,9 +15,9 @@ jobs:
 
             - run: sudo npm install yarn@1.15.2 --global
             - run: sudo npm install lerna -g
+            - run: yarn bootstrap
             - run: yarn install --frozen-lockfile
             - run: lerna bootstrap
-            - run: lerna run prepare
 
             - save_cache:
                   paths:

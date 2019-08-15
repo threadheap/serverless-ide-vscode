@@ -31,6 +31,7 @@
         ]
     },
     "scripts": {
+        "bootstrap": "lerna exec yarn install",
         "update-vscode": "node ./node_modules/vscode/bin/install",
         "postinstall": "node ./node_modules/vscode/bin/install",
         "test": "jest",
