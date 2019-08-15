@@ -31,7 +31,7 @@
         ]
     },
     "scripts": {
-        "bootstrap": "lerna exec yarn install",
+        "bootstrap": "lerna exec yarn install --pure-lockfile",
         "update-vscode": "node ./node_modules/vscode/bin/install",
         "postinstall": "node ./node_modules/vscode/bin/install",
         "test": "jest",
