@@ -1,9 +1,6 @@
 [![Marketplace Version](https://vsmarketplacebadge.apphb.com/version/ThreadHeap.serverless-ide-vscode.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
-
 [![Rating](https://vsmarketplacebadge.apphb.com/rating-star/ThreadHeap.serverless-ide-vscode.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
-
 [![Installs](https://vsmarketplacebadge.apphb.com/installs/ThreadHeap.serverless-ide-vscode.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
-
 [![Downloads](https://vsmarketplacebadge.apphb.com/downloads/ThreadHeap.serverless-ide-vscode.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
 
 # Serverless IDE: Enhanced support of AWS SAM in Visual Studio Code
