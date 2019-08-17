@@ -1,0 +1,27 @@
+{
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "cognitoUserPool": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "pool": {
+                    "type": "string",
+                    "default": "MyUserPool"
+                },
+                "trigger": {
+                    "type": "string",
+                    "default": "PreSignUp"
+                }
+            },
+            "require": [
+                "logGroup",
+                "filter"
+            ]
+        }
+    },
+    "required": [
+        "cognitoUserPool"
+    ]
+}

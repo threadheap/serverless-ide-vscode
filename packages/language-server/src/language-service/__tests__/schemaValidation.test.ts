@@ -24,10 +24,7 @@ describe("Validation", () => {
 
 	const parseSetup = (content: string) => {
 		const testTextDocument = setup(content)
-		const yDoc = parseYAML(
-			testTextDocument.getText(),
-			languageSettings.customTags
-		)
+		const yDoc = parseYAML(testTextDocument.getText())
 		return languageService.doValidation(testTextDocument, yDoc)
 	}
 	;["default", "cfn-lint"].forEach(validationType => {
@@ -42,7 +39,7 @@ describe("Validation", () => {
 			test("does basic validation for empty file", async () => {
 				const content = ""
 				const result = await parseSetup(content)
-				expect(result).toHaveLength(0)
+				expect(result).toHaveLength(1)
 			})
 
 			test("does basic validation for cloud formation template", async () => {
@@ -86,6 +83,31 @@ describe("Validation", () => {
 
 				const result = await parseSetup(content)
 				expect(result).toHaveLength(0)
+			})
+
+			test("should validation references", async () => {
+				const content = [
+					"Transform: AWS::Serverless-2016-10-31",
+					"Globals:",
+					"  Function:",
+					"    Runtime: nodejs8.10",
+					"Resources:",
+					"  Function:",
+					"    Type: AWS::Serverless::Function",
+					"    Properties:",
+					"      Handler: index.default",
+					"      CodeUri: !Ref MyTable",
+					"  MyTable:",
+					"    Type: AWS::DynamoDB::Table",
+					"    Properties:",
+					"      KeySchema: !Sub Function",
+					"      AttributeDefinitions:",
+					"         - AttributeName: id",
+					"           AttributeType: S"
+				].join("\n")
+
+				const result = await parseSetup(content)
+				expect(result).toHaveLength(1)
 			})
 		})
 	})

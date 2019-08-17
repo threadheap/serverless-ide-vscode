@@ -4,8 +4,7 @@ import { TextDocument } from "vscode-languageserver"
 import * as nls from "vscode-nls"
 import URI from "vscode-uri"
 import { DocumentType } from "../../model/document"
-import { SingleYAMLDocument } from "../../parser"
-import { getDocumentType } from "../../utils/document"
+import { YAMLDocument } from "../../parser"
 import requestService from "../request"
 import { JSONSchema, JSONSchemaMap } from "./../../jsonSchema"
 import {
@@ -254,6 +253,7 @@ export class JSONSchemaService {
 
 	constructor() {
 		const samSchema = require("@serverless-ide/sam-schema/schema.json") as JSONSchema
+		const serverlessFrameworkSchema = require("@serverless-ide/serverless-framework-schema/schema.json") as JSONSchema
 
 		this.schemas = {
 			[CLOUD_FORMATION]: this.loadSchema(CLOUD_FORMATION_SCHEMA_URL).then(
@@ -261,18 +261,21 @@ export class JSONSchemaService {
 					return resolveSchemaContent(unresolvedSchema)
 				}
 			),
-			[SAM]: resolveSchemaContent(new UnresolvedSchema(samSchema, [])),
-			[SERVERLESS_FRAMEWORK]: Promise.resolve(undefined),
+			[SAM]: resolveSchemaContent(new UnresolvedSchema(samSchema)),
+			[SERVERLESS_FRAMEWORK]: resolveSchemaContent(
+				new UnresolvedSchema(serverlessFrameworkSchema)
+			),
 			[UNKNOWN]: Promise.resolve(undefined)
 		}
 	}
 
 	async getSchemaForDocument(
 		document: TextDocument,
-		yamlDocument: SingleYAMLDocument
+		yamlDocument: YAMLDocument
 	): Promise<ResolvedSchema | void> {
-		const documentType = getDocumentType(document)
-		const schema = await this.getSchemaForDocumentType(documentType)
+		const schema = await this.getSchemaForDocumentType(
+			yamlDocument.documentType
+		)
 
 		if (schema) {
 			return applyDocumentMutations(schema, yamlDocument)

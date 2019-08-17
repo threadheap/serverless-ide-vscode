@@ -1,0 +1,1199 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`custom tags parse smoke tests DEPENDS_ON DEPENDS_ON 1`] = `
+ObjectASTNode {
+  "_value": null,
+  "customTag": undefined,
+  "document": YAMLDocument {
+    "documentType": "UNKNOWN",
+    "errors": Array [],
+    "globalsConfig": Object {
+      "Api": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::Api",
+      },
+      "Function": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::Function",
+      },
+      "SimpleTable": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::SimpleTable",
+      },
+    },
+    "parameters": Array [],
+    "referenceables": Object {
+      "MAPPING": Object {},
+      "OUTPUT": Object {},
+      "PARAMETER": Object {},
+      "RESOURCE": Object {},
+    },
+    "references": Array [],
+    "root": [Circular],
+    "syntaxErrors": Array [],
+    "warnings": Array [],
+  },
+  "end": 55,
+  "location": null,
+  "parent": null,
+  "properties": Array [
+    PropertyASTNode {
+      "_value": ArrayASTNode {
+        "_value": null,
+        "customTag": undefined,
+        "document": YAMLDocument {
+          "documentType": "UNKNOWN",
+          "errors": Array [],
+          "globalsConfig": Object {
+            "Api": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Api",
+            },
+            "Function": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Function",
+            },
+            "SimpleTable": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::SimpleTable",
+            },
+          },
+          "parameters": Array [],
+          "referenceables": Object {
+            "MAPPING": Object {},
+            "OUTPUT": Object {},
+            "PARAMETER": Object {},
+            "RESOURCE": Object {},
+          },
+          "references": Array [],
+          "root": [Circular],
+          "syntaxErrors": Array [],
+          "warnings": Array [],
+        },
+        "end": 56,
+        "items": Array [
+          StringASTNode {
+            "_value": "logicalVariable1",
+            "customTag": undefined,
+            "document": YAMLDocument {
+              "documentType": "UNKNOWN",
+              "errors": Array [],
+              "globalsConfig": Object {
+                "Api": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Api",
+                },
+                "Function": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Function",
+                },
+                "SimpleTable": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::SimpleTable",
+                },
+              },
+              "parameters": Array [],
+              "referenceables": Object {
+                "MAPPING": Object {},
+                "OUTPUT": Object {},
+                "PARAMETER": Object {},
+                "RESOURCE": Object {},
+              },
+              "references": Array [],
+              "root": [Circular],
+              "syntaxErrors": Array [],
+              "warnings": Array [],
+            },
+            "end": 33,
+            "isKey": false,
+            "location": 0,
+            "parent": [Circular],
+            "start": 17,
+            "type": "string",
+          },
+          StringASTNode {
+            "_value": "logicalVariable2",
+            "customTag": undefined,
+            "document": YAMLDocument {
+              "documentType": "UNKNOWN",
+              "errors": Array [],
+              "globalsConfig": Object {
+                "Api": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Api",
+                },
+                "Function": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Function",
+                },
+                "SimpleTable": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::SimpleTable",
+                },
+              },
+              "parameters": Array [],
+              "referenceables": Object {
+                "MAPPING": Object {},
+                "OUTPUT": Object {},
+                "PARAMETER": Object {},
+                "RESOURCE": Object {},
+              },
+              "references": Array [],
+              "root": [Circular],
+              "syntaxErrors": Array [],
+              "warnings": Array [],
+            },
+            "end": 55,
+            "isKey": false,
+            "location": 1,
+            "parent": [Circular],
+            "start": 39,
+            "type": "string",
+          },
+        ],
+        "location": "property",
+        "parent": [Circular],
+        "start": 15,
+        "type": "array",
+      },
+      "colonOffset": -1,
+      "customTag": undefined,
+      "document": YAMLDocument {
+        "documentType": "UNKNOWN",
+        "errors": Array [],
+        "globalsConfig": Object {
+          "Api": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::Api",
+          },
+          "Function": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::Function",
+          },
+          "SimpleTable": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::SimpleTable",
+          },
+        },
+        "parameters": Array [],
+        "referenceables": Object {
+          "MAPPING": Object {},
+          "OUTPUT": Object {},
+          "PARAMETER": Object {},
+          "RESOURCE": Object {},
+        },
+        "references": Array [],
+        "root": [Circular],
+        "syntaxErrors": Array [],
+        "warnings": Array [],
+      },
+      "end": 56,
+      "key": StringASTNode {
+        "_value": "property",
+        "customTag": undefined,
+        "document": YAMLDocument {
+          "documentType": "UNKNOWN",
+          "errors": Array [],
+          "globalsConfig": Object {
+            "Api": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Api",
+            },
+            "Function": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Function",
+            },
+            "SimpleTable": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::SimpleTable",
+            },
+          },
+          "parameters": Array [],
+          "referenceables": Object {
+            "MAPPING": Object {},
+            "OUTPUT": Object {},
+            "PARAMETER": Object {},
+            "RESOURCE": Object {},
+          },
+          "references": Array [],
+          "root": [Circular],
+          "syntaxErrors": Array [],
+          "warnings": Array [],
+        },
+        "end": 8,
+        "isKey": true,
+        "location": "property",
+        "parent": [Circular],
+        "start": 0,
+        "type": "string",
+      },
+      "location": null,
+      "parent": [Circular],
+      "start": 0,
+      "type": "property",
+    },
+  ],
+  "start": 0,
+  "type": "object",
+}
+`;
+
+exports[`custom tags parse smoke tests FIND_IN_MAP FIND_IN_MAP 1`] = `
+ObjectASTNode {
+  "_value": null,
+  "customTag": undefined,
+  "document": YAMLDocument {
+    "documentType": "UNKNOWN",
+    "errors": Array [],
+    "globalsConfig": Object {
+      "Api": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::Api",
+      },
+      "Function": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::Function",
+      },
+      "SimpleTable": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::SimpleTable",
+      },
+    },
+    "parameters": Array [],
+    "referenceables": Object {
+      "MAPPING": Object {},
+      "OUTPUT": Object {},
+      "PARAMETER": Object {},
+      "RESOURCE": Object {},
+    },
+    "references": Array [],
+    "root": [Circular],
+    "syntaxErrors": Array [],
+    "warnings": Array [],
+  },
+  "end": 65,
+  "location": null,
+  "parent": null,
+  "properties": Array [
+    PropertyASTNode {
+      "_value": ArrayASTNode {
+        "_value": null,
+        "customTag": Object {
+          "description": "The intrinsic function Fn::FindInMap returns the value corresponding to keys in a two-level map that is declared in the Mappings section.",
+          "kind": "sequence",
+          "propertyName": "Fn::FindInMap",
+          "referenceEntityTypes": Array [
+            "MAPPING",
+          ],
+          "tag": "!FindInMap",
+          "type": "FIND_IN_MAP",
+        },
+        "document": YAMLDocument {
+          "documentType": "UNKNOWN",
+          "errors": Array [],
+          "globalsConfig": Object {
+            "Api": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Api",
+            },
+            "Function": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Function",
+            },
+            "SimpleTable": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::SimpleTable",
+            },
+          },
+          "parameters": Array [],
+          "referenceables": Object {
+            "MAPPING": Object {},
+            "OUTPUT": Object {},
+            "PARAMETER": Object {},
+            "RESOURCE": Object {},
+          },
+          "references": Array [],
+          "root": [Circular],
+          "syntaxErrors": Array [],
+          "warnings": Array [],
+        },
+        "end": 66,
+        "items": Array [
+          StringASTNode {
+            "_value": "logicalVariable1",
+            "customTag": undefined,
+            "document": YAMLDocument {
+              "documentType": "UNKNOWN",
+              "errors": Array [],
+              "globalsConfig": Object {
+                "Api": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Api",
+                },
+                "Function": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Function",
+                },
+                "SimpleTable": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::SimpleTable",
+                },
+              },
+              "parameters": Array [],
+              "referenceables": Object {
+                "MAPPING": Object {},
+                "OUTPUT": Object {},
+                "PARAMETER": Object {},
+                "RESOURCE": Object {},
+              },
+              "references": Array [],
+              "root": [Circular],
+              "syntaxErrors": Array [],
+              "warnings": Array [],
+            },
+            "end": 43,
+            "isKey": false,
+            "location": 0,
+            "parent": [Circular],
+            "start": 27,
+            "type": "string",
+          },
+          StringASTNode {
+            "_value": "logicalVariable2",
+            "customTag": undefined,
+            "document": YAMLDocument {
+              "documentType": "UNKNOWN",
+              "errors": Array [],
+              "globalsConfig": Object {
+                "Api": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Api",
+                },
+                "Function": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Function",
+                },
+                "SimpleTable": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::SimpleTable",
+                },
+              },
+              "parameters": Array [],
+              "referenceables": Object {
+                "MAPPING": Object {},
+                "OUTPUT": Object {},
+                "PARAMETER": Object {},
+                "RESOURCE": Object {},
+              },
+              "references": Array [],
+              "root": [Circular],
+              "syntaxErrors": Array [],
+              "warnings": Array [],
+            },
+            "end": 65,
+            "isKey": false,
+            "location": 1,
+            "parent": [Circular],
+            "start": 49,
+            "type": "string",
+          },
+        ],
+        "location": "property",
+        "parent": [Circular],
+        "start": 25,
+        "type": "array",
+      },
+      "colonOffset": -1,
+      "customTag": undefined,
+      "document": YAMLDocument {
+        "documentType": "UNKNOWN",
+        "errors": Array [],
+        "globalsConfig": Object {
+          "Api": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::Api",
+          },
+          "Function": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::Function",
+          },
+          "SimpleTable": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::SimpleTable",
+          },
+        },
+        "parameters": Array [],
+        "referenceables": Object {
+          "MAPPING": Object {},
+          "OUTPUT": Object {},
+          "PARAMETER": Object {},
+          "RESOURCE": Object {},
+        },
+        "references": Array [],
+        "root": [Circular],
+        "syntaxErrors": Array [],
+        "warnings": Array [],
+      },
+      "end": 66,
+      "key": StringASTNode {
+        "_value": "property",
+        "customTag": undefined,
+        "document": YAMLDocument {
+          "documentType": "UNKNOWN",
+          "errors": Array [],
+          "globalsConfig": Object {
+            "Api": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Api",
+            },
+            "Function": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Function",
+            },
+            "SimpleTable": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::SimpleTable",
+            },
+          },
+          "parameters": Array [],
+          "referenceables": Object {
+            "MAPPING": Object {},
+            "OUTPUT": Object {},
+            "PARAMETER": Object {},
+            "RESOURCE": Object {},
+          },
+          "references": Array [],
+          "root": [Circular],
+          "syntaxErrors": Array [],
+          "warnings": Array [],
+        },
+        "end": 8,
+        "isKey": true,
+        "location": "property",
+        "parent": [Circular],
+        "start": 0,
+        "type": "string",
+      },
+      "location": null,
+      "parent": [Circular],
+      "start": 0,
+      "type": "property",
+    },
+  ],
+  "start": 0,
+  "type": "object",
+}
+`;
+
+exports[`custom tags parse smoke tests GET_ATT GET_ATT 1`] = `
+ObjectASTNode {
+  "_value": null,
+  "customTag": undefined,
+  "document": YAMLDocument {
+    "documentType": "UNKNOWN",
+    "errors": Array [],
+    "globalsConfig": Object {
+      "Api": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::Api",
+      },
+      "Function": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::Function",
+      },
+      "SimpleTable": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::SimpleTable",
+      },
+    },
+    "parameters": Array [],
+    "referenceables": Object {
+      "MAPPING": Object {},
+      "OUTPUT": Object {},
+      "PARAMETER": Object {},
+      "RESOURCE": Object {},
+    },
+    "references": Array [
+      Object {
+        "key": "logicVariable",
+        "node": StringASTNode {
+          "_value": "logicVariable",
+          "customTag": Object {
+            "description": "The Fn::GetAtt intrinsic function returns the value of an attribute from a resource in the template.",
+            "kind": "scalar",
+            "propertyName": "Fn::GetAtt",
+            "referenceEntityTypes": Array [
+              "RESOURCE",
+            ],
+            "tag": "!GetAtt",
+            "type": "GET_ATT",
+          },
+          "document": [Circular],
+          "end": 31,
+          "isKey": false,
+          "location": "property",
+          "parent": PropertyASTNode {
+            "_value": [Circular],
+            "colonOffset": -1,
+            "customTag": undefined,
+            "document": [Circular],
+            "end": 31,
+            "key": StringASTNode {
+              "_value": "property",
+              "customTag": undefined,
+              "document": [Circular],
+              "end": 8,
+              "isKey": true,
+              "location": "property",
+              "parent": [Circular],
+              "start": 0,
+              "type": "string",
+            },
+            "location": null,
+            "parent": [Circular],
+            "start": 0,
+            "type": "property",
+          },
+          "start": 18,
+          "type": "string",
+        },
+        "type": "GET_ATT",
+      },
+    ],
+    "root": [Circular],
+    "syntaxErrors": Array [],
+    "warnings": Array [],
+  },
+  "end": 31,
+  "location": null,
+  "parent": null,
+  "properties": Array [
+    PropertyASTNode {
+      "_value": StringASTNode {
+        "_value": "logicVariable",
+        "customTag": Object {
+          "description": "The Fn::GetAtt intrinsic function returns the value of an attribute from a resource in the template.",
+          "kind": "scalar",
+          "propertyName": "Fn::GetAtt",
+          "referenceEntityTypes": Array [
+            "RESOURCE",
+          ],
+          "tag": "!GetAtt",
+          "type": "GET_ATT",
+        },
+        "document": YAMLDocument {
+          "documentType": "UNKNOWN",
+          "errors": Array [],
+          "globalsConfig": Object {
+            "Api": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Api",
+            },
+            "Function": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Function",
+            },
+            "SimpleTable": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::SimpleTable",
+            },
+          },
+          "parameters": Array [],
+          "referenceables": Object {
+            "MAPPING": Object {},
+            "OUTPUT": Object {},
+            "PARAMETER": Object {},
+            "RESOURCE": Object {},
+          },
+          "references": Array [
+            Object {
+              "key": "logicVariable",
+              "node": [Circular],
+              "type": "GET_ATT",
+            },
+          ],
+          "root": [Circular],
+          "syntaxErrors": Array [],
+          "warnings": Array [],
+        },
+        "end": 31,
+        "isKey": false,
+        "location": "property",
+        "parent": [Circular],
+        "start": 18,
+        "type": "string",
+      },
+      "colonOffset": -1,
+      "customTag": undefined,
+      "document": YAMLDocument {
+        "documentType": "UNKNOWN",
+        "errors": Array [],
+        "globalsConfig": Object {
+          "Api": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::Api",
+          },
+          "Function": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::Function",
+          },
+          "SimpleTable": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::SimpleTable",
+          },
+        },
+        "parameters": Array [],
+        "referenceables": Object {
+          "MAPPING": Object {},
+          "OUTPUT": Object {},
+          "PARAMETER": Object {},
+          "RESOURCE": Object {},
+        },
+        "references": Array [
+          Object {
+            "key": "logicVariable",
+            "node": StringASTNode {
+              "_value": "logicVariable",
+              "customTag": Object {
+                "description": "The Fn::GetAtt intrinsic function returns the value of an attribute from a resource in the template.",
+                "kind": "scalar",
+                "propertyName": "Fn::GetAtt",
+                "referenceEntityTypes": Array [
+                  "RESOURCE",
+                ],
+                "tag": "!GetAtt",
+                "type": "GET_ATT",
+              },
+              "document": [Circular],
+              "end": 31,
+              "isKey": false,
+              "location": "property",
+              "parent": [Circular],
+              "start": 18,
+              "type": "string",
+            },
+            "type": "GET_ATT",
+          },
+        ],
+        "root": [Circular],
+        "syntaxErrors": Array [],
+        "warnings": Array [],
+      },
+      "end": 31,
+      "key": StringASTNode {
+        "_value": "property",
+        "customTag": undefined,
+        "document": YAMLDocument {
+          "documentType": "UNKNOWN",
+          "errors": Array [],
+          "globalsConfig": Object {
+            "Api": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Api",
+            },
+            "Function": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Function",
+            },
+            "SimpleTable": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::SimpleTable",
+            },
+          },
+          "parameters": Array [],
+          "referenceables": Object {
+            "MAPPING": Object {},
+            "OUTPUT": Object {},
+            "PARAMETER": Object {},
+            "RESOURCE": Object {},
+          },
+          "references": Array [
+            Object {
+              "key": "logicVariable",
+              "node": StringASTNode {
+                "_value": "logicVariable",
+                "customTag": Object {
+                  "description": "The Fn::GetAtt intrinsic function returns the value of an attribute from a resource in the template.",
+                  "kind": "scalar",
+                  "propertyName": "Fn::GetAtt",
+                  "referenceEntityTypes": Array [
+                    "RESOURCE",
+                  ],
+                  "tag": "!GetAtt",
+                  "type": "GET_ATT",
+                },
+                "document": [Circular],
+                "end": 31,
+                "isKey": false,
+                "location": "property",
+                "parent": [Circular],
+                "start": 18,
+                "type": "string",
+              },
+              "type": "GET_ATT",
+            },
+          ],
+          "root": [Circular],
+          "syntaxErrors": Array [],
+          "warnings": Array [],
+        },
+        "end": 8,
+        "isKey": true,
+        "location": "property",
+        "parent": [Circular],
+        "start": 0,
+        "type": "string",
+      },
+      "location": null,
+      "parent": [Circular],
+      "start": 0,
+      "type": "property",
+    },
+  ],
+  "start": 0,
+  "type": "object",
+}
+`;
+
+exports[`custom tags parse smoke tests REF REF 1`] = `
+ObjectASTNode {
+  "_value": null,
+  "customTag": undefined,
+  "document": YAMLDocument {
+    "documentType": "UNKNOWN",
+    "errors": Array [],
+    "globalsConfig": Object {
+      "Api": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::Api",
+      },
+      "Function": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::Function",
+      },
+      "SimpleTable": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::SimpleTable",
+      },
+    },
+    "parameters": Array [],
+    "referenceables": Object {
+      "MAPPING": Object {},
+      "OUTPUT": Object {},
+      "PARAMETER": Object {},
+      "RESOURCE": Object {},
+    },
+    "references": Array [
+      Object {
+        "key": "logicVariable",
+        "node": StringASTNode {
+          "_value": "logicVariable",
+          "customTag": Object {
+            "description": "The intrinsic function Ref returns the value of the specified parameter or resource.",
+            "kind": "scalar",
+            "propertyName": "Ref",
+            "referenceEntityTypes": Array [
+              "PARAMETER",
+              "RESOURCE",
+            ],
+            "tag": "!Ref",
+            "type": "REF",
+          },
+          "document": [Circular],
+          "end": 28,
+          "isKey": false,
+          "location": "property",
+          "parent": PropertyASTNode {
+            "_value": [Circular],
+            "colonOffset": -1,
+            "customTag": undefined,
+            "document": [Circular],
+            "end": 28,
+            "key": StringASTNode {
+              "_value": "property",
+              "customTag": undefined,
+              "document": [Circular],
+              "end": 8,
+              "isKey": true,
+              "location": "property",
+              "parent": [Circular],
+              "start": 0,
+              "type": "string",
+            },
+            "location": null,
+            "parent": [Circular],
+            "start": 0,
+            "type": "property",
+          },
+          "start": 15,
+          "type": "string",
+        },
+        "type": "REF",
+      },
+    ],
+    "root": [Circular],
+    "syntaxErrors": Array [],
+    "warnings": Array [],
+  },
+  "end": 28,
+  "location": null,
+  "parent": null,
+  "properties": Array [
+    PropertyASTNode {
+      "_value": StringASTNode {
+        "_value": "logicVariable",
+        "customTag": Object {
+          "description": "The intrinsic function Ref returns the value of the specified parameter or resource.",
+          "kind": "scalar",
+          "propertyName": "Ref",
+          "referenceEntityTypes": Array [
+            "PARAMETER",
+            "RESOURCE",
+          ],
+          "tag": "!Ref",
+          "type": "REF",
+        },
+        "document": YAMLDocument {
+          "documentType": "UNKNOWN",
+          "errors": Array [],
+          "globalsConfig": Object {
+            "Api": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Api",
+            },
+            "Function": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Function",
+            },
+            "SimpleTable": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::SimpleTable",
+            },
+          },
+          "parameters": Array [],
+          "referenceables": Object {
+            "MAPPING": Object {},
+            "OUTPUT": Object {},
+            "PARAMETER": Object {},
+            "RESOURCE": Object {},
+          },
+          "references": Array [
+            Object {
+              "key": "logicVariable",
+              "node": [Circular],
+              "type": "REF",
+            },
+          ],
+          "root": [Circular],
+          "syntaxErrors": Array [],
+          "warnings": Array [],
+        },
+        "end": 28,
+        "isKey": false,
+        "location": "property",
+        "parent": [Circular],
+        "start": 15,
+        "type": "string",
+      },
+      "colonOffset": -1,
+      "customTag": undefined,
+      "document": YAMLDocument {
+        "documentType": "UNKNOWN",
+        "errors": Array [],
+        "globalsConfig": Object {
+          "Api": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::Api",
+          },
+          "Function": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::Function",
+          },
+          "SimpleTable": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::SimpleTable",
+          },
+        },
+        "parameters": Array [],
+        "referenceables": Object {
+          "MAPPING": Object {},
+          "OUTPUT": Object {},
+          "PARAMETER": Object {},
+          "RESOURCE": Object {},
+        },
+        "references": Array [
+          Object {
+            "key": "logicVariable",
+            "node": StringASTNode {
+              "_value": "logicVariable",
+              "customTag": Object {
+                "description": "The intrinsic function Ref returns the value of the specified parameter or resource.",
+                "kind": "scalar",
+                "propertyName": "Ref",
+                "referenceEntityTypes": Array [
+                  "PARAMETER",
+                  "RESOURCE",
+                ],
+                "tag": "!Ref",
+                "type": "REF",
+              },
+              "document": [Circular],
+              "end": 28,
+              "isKey": false,
+              "location": "property",
+              "parent": [Circular],
+              "start": 15,
+              "type": "string",
+            },
+            "type": "REF",
+          },
+        ],
+        "root": [Circular],
+        "syntaxErrors": Array [],
+        "warnings": Array [],
+      },
+      "end": 28,
+      "key": StringASTNode {
+        "_value": "property",
+        "customTag": undefined,
+        "document": YAMLDocument {
+          "documentType": "UNKNOWN",
+          "errors": Array [],
+          "globalsConfig": Object {
+            "Api": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Api",
+            },
+            "Function": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Function",
+            },
+            "SimpleTable": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::SimpleTable",
+            },
+          },
+          "parameters": Array [],
+          "referenceables": Object {
+            "MAPPING": Object {},
+            "OUTPUT": Object {},
+            "PARAMETER": Object {},
+            "RESOURCE": Object {},
+          },
+          "references": Array [
+            Object {
+              "key": "logicVariable",
+              "node": StringASTNode {
+                "_value": "logicVariable",
+                "customTag": Object {
+                  "description": "The intrinsic function Ref returns the value of the specified parameter or resource.",
+                  "kind": "scalar",
+                  "propertyName": "Ref",
+                  "referenceEntityTypes": Array [
+                    "PARAMETER",
+                    "RESOURCE",
+                  ],
+                  "tag": "!Ref",
+                  "type": "REF",
+                },
+                "document": [Circular],
+                "end": 28,
+                "isKey": false,
+                "location": "property",
+                "parent": [Circular],
+                "start": 15,
+                "type": "string",
+              },
+              "type": "REF",
+            },
+          ],
+          "root": [Circular],
+          "syntaxErrors": Array [],
+          "warnings": Array [],
+        },
+        "end": 8,
+        "isKey": true,
+        "location": "property",
+        "parent": [Circular],
+        "start": 0,
+        "type": "string",
+      },
+      "location": null,
+      "parent": [Circular],
+      "start": 0,
+      "type": "property",
+    },
+  ],
+  "start": 0,
+  "type": "object",
+}
+`;
+
+exports[`custom tags parse smoke tests SUB SUB 1`] = `
+ObjectASTNode {
+  "_value": null,
+  "customTag": undefined,
+  "document": YAMLDocument {
+    "documentType": "UNKNOWN",
+    "errors": Array [],
+    "globalsConfig": Object {
+      "Api": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::Api",
+      },
+      "Function": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::Function",
+      },
+      "SimpleTable": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::SimpleTable",
+      },
+    },
+    "parameters": Array [],
+    "referenceables": Object {
+      "MAPPING": Object {},
+      "OUTPUT": Object {},
+      "PARAMETER": Object {},
+      "RESOURCE": Object {},
+    },
+    "references": Array [],
+    "root": [Circular],
+    "syntaxErrors": Array [],
+    "warnings": Array [],
+  },
+  "end": 28,
+  "location": null,
+  "parent": null,
+  "properties": Array [
+    PropertyASTNode {
+      "_value": StringASTNode {
+        "_value": "logicVariable",
+        "customTag": Object {
+          "description": "The intrinsic function Fn::Sub substitutes variables in an input string with values that you specify.",
+          "kind": "scalar",
+          "propertyName": "Fn::Sub",
+          "referenceEntityTypes": Array [
+            "RESOURCE",
+            "PARAMETER",
+          ],
+          "tag": "!Sub",
+          "type": "SUB",
+        },
+        "document": YAMLDocument {
+          "documentType": "UNKNOWN",
+          "errors": Array [],
+          "globalsConfig": Object {
+            "Api": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Api",
+            },
+            "Function": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Function",
+            },
+            "SimpleTable": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::SimpleTable",
+            },
+          },
+          "parameters": Array [],
+          "referenceables": Object {
+            "MAPPING": Object {},
+            "OUTPUT": Object {},
+            "PARAMETER": Object {},
+            "RESOURCE": Object {},
+          },
+          "references": Array [],
+          "root": [Circular],
+          "syntaxErrors": Array [],
+          "warnings": Array [],
+        },
+        "end": 28,
+        "isKey": false,
+        "location": "property",
+        "parent": [Circular],
+        "start": 15,
+        "type": "string",
+      },
+      "colonOffset": -1,
+      "customTag": undefined,
+      "document": YAMLDocument {
+        "documentType": "UNKNOWN",
+        "errors": Array [],
+        "globalsConfig": Object {
+          "Api": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::Api",
+          },
+          "Function": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::Function",
+          },
+          "SimpleTable": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::SimpleTable",
+          },
+        },
+        "parameters": Array [],
+        "referenceables": Object {
+          "MAPPING": Object {},
+          "OUTPUT": Object {},
+          "PARAMETER": Object {},
+          "RESOURCE": Object {},
+        },
+        "references": Array [],
+        "root": [Circular],
+        "syntaxErrors": Array [],
+        "warnings": Array [],
+      },
+      "end": 28,
+      "key": StringASTNode {
+        "_value": "property",
+        "customTag": undefined,
+        "document": YAMLDocument {
+          "documentType": "UNKNOWN",
+          "errors": Array [],
+          "globalsConfig": Object {
+            "Api": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Api",
+            },
+            "Function": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Function",
+            },
+            "SimpleTable": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::SimpleTable",
+            },
+          },
+          "parameters": Array [],
+          "referenceables": Object {
+            "MAPPING": Object {},
+            "OUTPUT": Object {},
+            "PARAMETER": Object {},
+            "RESOURCE": Object {},
+          },
+          "references": Array [],
+          "root": [Circular],
+          "syntaxErrors": Array [],
+          "warnings": Array [],
+        },
+        "end": 8,
+        "isKey": true,
+        "location": "property",
+        "parent": [Circular],
+        "start": 0,
+        "type": "string",
+      },
+      "location": null,
+      "parent": [Circular],
+      "start": 0,
+      "type": "property",
+    },
+  ],
+  "start": 0,
+  "type": "object",
+}
+`;

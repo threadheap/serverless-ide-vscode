@@ -1,12 +1,15 @@
 import { parse as parseYaml } from ".."
-import { collectGlobals } from "./../globals"
 
 const noGlobals = `
+Transform: AWS::Serverless-2016-10-31
 Resources:
     fuuu
 `
 
 const fullyDefinedGlobals = `
+Transform: AWS::Serverless-2016-10-31
+Resources:
+    fuuu
 Globals:
     Function:
         Runtime: nodejs8.10
@@ -19,6 +22,9 @@ Globals:
 `
 
 const partiallyDefinedGlobals = `
+Transform: AWS::Serverless-2016-10-31
+Resources:
+    fuuu
 Globals:
     Function:
         Runtime: 
@@ -28,7 +34,10 @@ Globals:
 `
 
 const invalidGlobals = `
+Transform: AWS::Serverless-2016-10-31
 Globals: some-string
+Resources:
+    fuuu
 `
 
 const globalsWithOtherProperties = `
@@ -50,7 +59,7 @@ Resources:
 test("should collect globals for empty doc", () => {
 	const doc = parseYaml(noGlobals)
 
-	expect(collectGlobals(doc.documents[0].root)).toEqual({
+	expect(doc.globalsConfig).toEqual({
 		Api: {
 			resourceType: "AWS::Serverless::Api",
 			properties: []
@@ -69,7 +78,7 @@ test("should collect globals for empty doc", () => {
 test("should collect globals for fully defined globals doc", () => {
 	const doc = parseYaml(fullyDefinedGlobals)
 
-	expect(collectGlobals(doc.documents[0].root)).toEqual({
+	expect(doc.globalsConfig).toEqual({
 		Api: {
 			resourceType: "AWS::Serverless::Api",
 			properties: ["Name", "DefinitionUrl"]
@@ -88,7 +97,7 @@ test("should collect globals for fully defined globals doc", () => {
 test("should collect globals for partially defined globals doc", () => {
 	const doc = parseYaml(partiallyDefinedGlobals)
 
-	expect(collectGlobals(doc.documents[0].root)).toEqual({
+	expect(doc.globalsConfig).toEqual({
 		Api: {
 			resourceType: "AWS::Serverless::Api",
 			properties: ["Name", "DefinitionUrl"]
@@ -107,7 +116,7 @@ test("should collect globals for partially defined globals doc", () => {
 test("should collect globals from invalid globals node", () => {
 	const doc = parseYaml(invalidGlobals)
 
-	expect(collectGlobals(doc.documents[0].root)).toEqual({
+	expect(doc.globalsConfig).toEqual({
 		Api: {
 			resourceType: "AWS::Serverless::Api",
 			properties: []
@@ -126,7 +135,7 @@ test("should collect globals from invalid globals node", () => {
 test("should collect globals with other properties", () => {
 	const doc = parseYaml(globalsWithOtherProperties)
 
-	expect(collectGlobals(doc.documents[0].root)).toEqual({
+	expect(doc.globalsConfig).toEqual({
 		Api: {
 			resourceType: "AWS::Serverless::Api",
 			properties: ["Name", "DefinitionUrl"]

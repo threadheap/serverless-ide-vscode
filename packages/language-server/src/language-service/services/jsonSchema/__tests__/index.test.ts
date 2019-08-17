@@ -1,6 +1,7 @@
 import { TextDocument } from "vscode-languageserver"
-import { SingleYAMLDocument } from "../../../parser"
+import { YAMLDocument } from "../../../parser"
 import { JSONSchemaService } from "./../index"
+import { getDocumentType } from "../../../utils/document"
 
 const slsTemplate = `
 service:
@@ -40,7 +41,7 @@ test("should resolve CloudFormation schema", async () => {
 
 	const schema = await service.getSchemaForDocument(
 		document,
-		new SingleYAMLDocument([])
+		new YAMLDocument(getDocumentType(document.getText()))
 	)
 
 	expect(schema).toBeDefined()
@@ -57,7 +58,7 @@ test("should resolve SAM schema", async () => {
 
 	const schema = await service.getSchemaForDocument(
 		document,
-		new SingleYAMLDocument([])
+		new YAMLDocument(getDocumentType(document.getText()))
 	)
 
 	expect(schema).toBeDefined()
@@ -68,14 +69,17 @@ test("should resolve SAM schema", async () => {
 	}
 })
 
-test("should return void for sls document", async () => {
+test("should return Serverless schema for sls document", async () => {
 	const service = new JSONSchemaService()
 	const document = TextDocument.create("sls", "yaml", 1, slsTemplate)
 
 	const schema = await service.getSchemaForDocument(
 		document,
-		new SingleYAMLDocument([])
+		new YAMLDocument(getDocumentType(document.getText()))
 	)
 
-	expect(schema).toBeUndefined()
+	if (schema) {
+		expect(schema).toBeDefined()
+		expect(schema.errors).toHaveLength(0)
+	}
 })

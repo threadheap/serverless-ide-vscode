@@ -1,0 +1,54 @@
+{
+    "type": "object",
+    "patternProperties": {
+        "^[a-zA-Z0-9]+$": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "A lambda layer",
+            "properties": {
+                "path": {
+                    "type": "string",
+                    "description": "required, path to layer contents on disk",
+                    "default": "layer-dir"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "optional, Deployed Lambda layer name",
+                    "default": "${self:provider.stage}-layerName"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "optional, Description to publish to AWS"
+                },
+                "compatibleRuntimes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/aws:common:runtime"
+                    },
+                    "description": "optional, a list of runtimes this layer is compatible with"
+                },
+                "licenseInfo": {
+                    "type": "string",
+                    "description": "optional, a string specifying license information",
+                    "default": "GPLv3"
+                },
+                "allowedAccounts": {
+                    "type": "array",
+                    "description": "optional, a list of AWS account IDs allowed to access this layer.",
+                    "items": {
+                        "type": "string",
+                        "default": "'*'"
+                    }
+                },
+                "retain": {
+                    "type": "boolean",
+                    "description": "optional, false by default. If true, layer versions are not deleted as new ones are created",
+                    "default": false
+                }
+            },
+            "required": [
+                "path"
+            ]
+        }
+    }
+}

@@ -28,34 +28,3 @@ export function binarySearch(array: number[], sought: number) {
 		}
 	}
 }
-
-export function getLineStartPositions(text: string) {
-	const lineStartPositions = [0]
-	for (let i = 0; i < text.length; i++) {
-		const c = text[i]
-
-		if (c === "\r") {
-			// Check for Windows encoding, otherwise we are old Mac
-			if (i + 1 < text.length && text[i + 1] === "\n") {
-				i++
-			}
-
-			lineStartPositions.push(i + 1)
-		} else if (c === "\n") {
-			lineStartPositions.push(i + 1)
-		}
-	}
-
-	return lineStartPositions
-}
-
-export function getPosition(pos: number, lineStartPositions: number[]) {
-	let line = binarySearch(lineStartPositions, pos)
-
-	if (line < 0) {
-		const insertionPoint = -1 * line - 1
-		line = insertionPoint - 1
-	}
-
-	return { line, column: pos - lineStartPositions[line] }
-}

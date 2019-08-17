@@ -1,8 +1,4 @@
-import {
-	binarySearch,
-	getLineStartPositions,
-	getPosition
-} from "../documentPositionCalculator"
+import { binarySearch } from "../documentPositionCalculator"
 
 describe("binarySearch", () => {
 	it("Binary Search where we are looking for element to the left of center", () => {
@@ -35,45 +31,5 @@ describe("binarySearch", () => {
 
 		const result = binarySearch(arr, find)
 		expect(result).toBe(-2)
-	})
-})
-
-describe("getLineStartPositions", () => {
-	it("getLineStartPositions with windows newline", () => {
-		const testStr = "test: test\r\ntest: test"
-
-		const result = getLineStartPositions(testStr)
-		expect(result[0]).toBe(0)
-		expect(result[1]).toBe(12)
-	})
-
-	it("getLineStartPositions with normal newline", () => {
-		const testStr = "test: test\ntest: test"
-
-		const result = getLineStartPositions(testStr)
-		expect(result[0]).toBe(0)
-		expect(result[1]).toBe(11)
-	})
-})
-
-describe("getPosition", () => {
-	it("getPosition", () => {
-		const testStr = "test: test\r\ntest: test"
-
-		const startPositions = getLineStartPositions(testStr)
-		const result = getPosition(0, startPositions)
-		expect(result).toBeDefined()
-		expect(result.line).toBe(0)
-		expect(result.column).toBe(0)
-	})
-
-	it("getPosition when not found", () => {
-		const testStr = "test: test\ntest: test"
-
-		const startPositions = getLineStartPositions(testStr)
-		const result = getPosition(5, startPositions)
-		expect(result).toBeDefined()
-		expect(result.line).toBe(0)
-		expect(result.column).toBe(5)
 	})
 })

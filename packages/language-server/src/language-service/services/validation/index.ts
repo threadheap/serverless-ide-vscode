@@ -1,3 +1,5 @@
+import { StringASTNode, ErrorCode } from "./../../parser/json"
+import { CLOUD_FORMATION, SAM } from "./../../model/document"
 import { spawn } from "child_process"
 import {
 	Diagnostic,
@@ -6,7 +8,6 @@ import {
 	TextDocument
 } from "vscode-languageserver"
 import { Problem, YAMLDocument } from "../../parser"
-import { ErrorCode } from "../../parser/jsonParser"
 import { JSONSchemaService } from "../jsonSchema"
 import {
 	CFNLintSettings,
@@ -14,6 +15,8 @@ import {
 	ValidationProvider
 } from "./../../model/settings"
 import { sendException, sendAnalytics } from "../analytics"
+import { getDocumentType } from "../../utils/document"
+import { validateReferences } from "./references"
 
 const transformCfnLintSeverity = (errorType: string): DiagnosticSeverity => {
 	switch (errorType) {
@@ -54,7 +57,12 @@ export class YAMLValidation {
 			return Promise.resolve([])
 		}
 
-		if (this.provider === ValidationProvider["cfn-lint"]) {
+		const documentType = getDocumentType(textDocument.getText())
+
+		if (
+			this.provider === ValidationProvider["cfn-lint"] &&
+			(documentType === CLOUD_FORMATION || documentType === SAM)
+		) {
 			try {
 				return await this.validateWithCfnLint(textDocument)
 			} catch (err) {
@@ -185,7 +193,7 @@ export class YAMLValidation {
 		textDocument: TextDocument,
 		yamlDocument: YAMLDocument
 	) {
-		const diagnostics = []
+		let diagnostics = []
 		const added = {}
 
 		sendAnalytics({
@@ -196,49 +204,66 @@ export class YAMLValidation {
 			}
 		})
 
-		await Promise.all(
-			yamlDocument.documents.map(async currentDoc => {
-				const schema = await this.jsonSchemaService.getSchemaForDocument(
-					textDocument,
-					currentDoc
+		const schema = await this.jsonSchemaService.getSchemaForDocument(
+			textDocument,
+			yamlDocument
+		)
+
+		if (schema) {
+			if (
+				yamlDocument.documentType === CLOUD_FORMATION ||
+				yamlDocument.documentType === SAM
+			) {
+				diagnostics = diagnostics.concat(
+					await validateReferences(textDocument, yamlDocument)
 				)
-
-				if (schema) {
-					const currentDocProblems = currentDoc.getValidationProblems(
-						schema.schema
+			}
+			const currentDocProblems = yamlDocument.getValidationProblems(
+				schema.schema
+			)
+			currentDocProblems.forEach(problem => {
+				if (problem.message.startsWith("Incorrect type")) {
+					const node = yamlDocument.getNodeFromOffset(
+						problem.location.start
 					)
-					currentDocProblems.forEach(problem => {
-						currentDoc.errors.push({
-							location: {
-								start: problem.location.start,
-								end: problem.location.end
-							},
-							message: problem.message,
-							code: ErrorCode.Undefined
-						})
-					})
 
-					if (schema && schema.errors.length > 0) {
-						schema.errors.forEach(error => {
-							diagnostics.push({
-								severity: DiagnosticSeverity.Error,
-								range: {
-									start: {
-										line: 0,
-										character: 0
-									},
-									end: {
-										line: 0,
-										character: 1
-									}
-								},
-								message: error
-							})
-						})
+					if (node.type === "string") {
+						const stringNode = node as StringASTNode
+
+						if (stringNode.value.startsWith("${file(")) {
+							return
+						}
 					}
 				}
+				yamlDocument.errors.push({
+					location: {
+						start: problem.location.start,
+						end: problem.location.end
+					},
+					message: problem.message,
+					code: ErrorCode.Undefined
+				})
 			})
-		)
+
+			if (schema && schema.errors.length > 0) {
+				schema.errors.forEach(error => {
+					diagnostics.push({
+						severity: DiagnosticSeverity.Error,
+						range: {
+							start: {
+								line: 0,
+								character: 0
+							},
+							end: {
+								line: 0,
+								character: 1
+							}
+						},
+						message: error
+					})
+				})
+			}
+		}
 
 		const addProblem = (
 			{ message, location }: Problem,
@@ -260,14 +285,12 @@ export class YAMLValidation {
 			}
 		}
 
-		yamlDocument.documents.forEach(doc => {
-			doc.errors.forEach(error => {
-				addProblem(error, DiagnosticSeverity.Error)
-			})
+		yamlDocument.errors.forEach(error => {
+			addProblem(error, DiagnosticSeverity.Error)
+		})
 
-			doc.warnings.forEach(warning => {
-				addProblem(warning, DiagnosticSeverity.Warning)
-			})
+		yamlDocument.warnings.forEach(warning => {
+			addProblem(warning, DiagnosticSeverity.Warning)
 		})
 
 		sendAnalytics({

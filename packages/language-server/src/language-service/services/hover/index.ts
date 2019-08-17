@@ -1,4 +1,4 @@
-import * as Parser from "../../parser/jsonParser"
+import * as Parser from "../../parser/json"
 import documentationService, { DocumentationService } from "../documentation"
 import * as SchemaService from "../jsonSchema"
 import { LanguageSettings } from "./../../model/settings"
@@ -11,7 +11,7 @@ import {
 	TextDocument
 } from "vscode-languageserver-types"
 import { YAMLDocument } from "../../parser"
-import { matchOffsetToDocument } from "../../utils/arrayUtils"
+import { getResourceName, getRelativeNodePath } from "../../utils/resources"
 
 const createHover = (contents: MarkedString[], hoverRange: Range): Hover => {
 	const result: Hover = {
@@ -47,19 +47,15 @@ export class YAMLHover {
 		}
 
 		const offset = document.offsetAt(position)
-		const currentDoc = matchOffsetToDocument(offset, doc)
-		if (!currentDoc) {
-			return
-		}
 		const schema = await this.schemaService.getSchemaForDocument(
 			document,
-			currentDoc
+			doc
 		)
 
 		if (!schema) {
 			return
 		}
-		const node = currentDoc.getNodeFromOffset(offset)
+		const node = doc.getNodeFromOffset(offset)
 
 		if (
 			!node ||
@@ -76,7 +72,7 @@ export class YAMLHover {
 		)
 
 		if (node.getPath().length >= 2) {
-			const resourceType = this.getResourceName(node)
+			const resourceType = getResourceName(node)
 			const propertyName = this.getPropertyName(node)
 
 			if (resourceType) {
@@ -102,63 +98,8 @@ export class YAMLHover {
 		return void 0
 	}
 
-	private getResourceName(node: Parser.ASTNode): void | string {
-		const path = node.getPath()
-
-		const getResourceName = (targetNode: Parser.ASTNode): string | void => {
-			if (targetNode.type !== "object") {
-				return
-			}
-
-			const children = targetNode.getChildNodes()
-			let resourceType: string | void
-
-			children.find(child => {
-				if (child && child.type === "property") {
-					const property = child as Parser.PropertyASTNode
-
-					if (property.key.location === "Type") {
-						const resourceTypeValue =
-							property.value && property.value.getValue()
-
-						if (
-							resourceTypeValue &&
-							resourceTypeValue.indexOf("AWS::") === 0
-						) {
-							resourceType = resourceTypeValue
-							return true
-						}
-					}
-				}
-
-				return false
-			})
-
-			return resourceType
-		}
-
-		if (path[0] === "Resources" && path.length > 1) {
-			let currentNode = node.parent
-			let resourceName = getResourceName(node)
-			let depth = 0
-			const maxDepth = 7
-
-			while (
-				resourceName === undefined &&
-				currentNode &&
-				depth < maxDepth
-			) {
-				resourceName = getResourceName(currentNode)
-				currentNode = currentNode.parent
-				depth += 1
-			}
-
-			return resourceName
-		}
-	}
-
 	private getPropertyName(node: Parser.ASTNode): string | void {
-		const path = node.getPath()
+		const path = getRelativeNodePath(node)
 
 		if (
 			path.length >= 4 &&

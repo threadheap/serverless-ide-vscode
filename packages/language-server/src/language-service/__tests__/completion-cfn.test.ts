@@ -40,12 +40,12 @@ describe("Auto Completion Tests", () => {
 			expect(result).toMatchSnapshot()
 		})
 
-		test.skip("should autocomplete resources", async () => {
+		test("should autocomplete resources", async () => {
 			const content = [
 				"AWSTemplateFormatVersion: 2010-09-09",
 				"Resources:",
-				"  AWS::Dyna"
-			].join("\n")
+				"\t"
+			].join("\n\r")
 			const result = await parseSetup(content, content.length - 1)
 			expect(result.items).not.toHaveLength(0)
 			expect(result).toMatchSnapshot()

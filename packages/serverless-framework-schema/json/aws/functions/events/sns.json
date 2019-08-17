@@ -1,0 +1,27 @@
+{
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "sns": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "topicName": {
+                    "type": "string",
+                    "default": "aggregate"
+                },
+                "displayName": {
+                    "type": "string",
+                    "default": "Data aggregation pipeline"
+                }
+            },
+            "require": [
+                "topicName",
+                "displayName"
+            ]
+        }
+    },
+    "required": [
+        "sns"
+    ]
+}

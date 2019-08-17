@@ -1,4 +1,4 @@
-import { ObjectASTNode, PropertyASTNode } from "./jsonParser"
+import { ObjectASTNode, PropertyASTNode } from "./json"
 
 export const findProperty = (
 	objectNode: ObjectASTNode | void,
@@ -21,6 +21,6 @@ export const getPropertyNodeValue = (
 	}
 
 	return propertyNode.getChildNodes().find(node => {
-		return node.type === "object" && node.location === location
+		return node instanceof ObjectASTNode && node.location === location
 	}) as ObjectASTNode | void
 }

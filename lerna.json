@@ -2,9 +2,8 @@
 	"packages": [
 		"packages/*"
 	],
-	"version": "0.3.9",
-	"npmClient": "yarn",
-	"useWorkspaces": true,
+	"version": "0.4.1",
+	"npmClient": "npm",
 	"ignoreChanges": [
 		"*.md",
 		"*.txt",

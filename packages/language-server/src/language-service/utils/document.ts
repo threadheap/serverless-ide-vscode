@@ -1,4 +1,3 @@
-import { TextDocument } from "vscode-languageserver"
 import {
 	CLOUD_FORMATION,
 	DocumentType,
@@ -6,17 +5,21 @@ import {
 	SERVERLESS_FRAMEWORK
 } from "../model/document"
 import { UNKNOWN } from "./../model/document"
-import { sendAnalytics } from "../services/analytics"
 
-const transformRegExp = /"?Transform"?:\s*"?AWS::Serverless-2016-10-31"?/
+const transformRegExp = /"?'?Transform"?'?:\s*"?'?AWS::Serverless-2016-10-31"?'?/
 const slsServiceRegExp = /service:/
 const slsProviderRegExp = /provider:/
+const slsProviderNameRegExp = /name: aws/
 const cfnResourcesRegExp = /"?Resources"?:/
 const cfnResourceTypeRegExp = /(AWS|Custom)::/
 const cfnFormatVersionRegExp = /AWSTemplateFormatVersion/
 
 export const isServerlessFrameworkTemplate = (document: string): boolean => {
-	return slsServiceRegExp.test(document) && slsProviderRegExp.test(document)
+	return (
+		slsServiceRegExp.test(document) &&
+		slsProviderRegExp.test(document) &&
+		slsProviderNameRegExp.test(document)
+	)
 }
 
 const isBaseCloudFormationTemplate = (document: string): boolean => {
@@ -42,12 +45,10 @@ export const isSAMTemplate = (document: string): boolean => {
 	return isBaseCloudFormationTemplate(document) && isBaseSAMTemplate(document)
 }
 
-export const getDocumentType = (document?: TextDocument): DocumentType => {
-	if (!document || !document.uri) {
+export const getDocumentType = (text: string): DocumentType => {
+	if (!text) {
 		return UNKNOWN
 	}
-
-	const text = document.getText()
 
 	if (text) {
 		if (isSAMTemplate(text)) {
@@ -62,20 +63,13 @@ export const getDocumentType = (document?: TextDocument): DocumentType => {
 	}
 }
 
-export const isSupportedDocument = (document?: TextDocument): boolean => {
-	const documentType = getDocumentType(document)
+export const isSupportedDocument = (text: string): boolean => {
+	const documentType = getDocumentType(text)
 
-	const isSupported = documentType === SAM || documentType === CLOUD_FORMATION
-
-	if (!isSupported) {
-		sendAnalytics({
-			action: "unsupportedDocument",
-			attributes: {
-				documentType,
-				fileName: document ? document.uri : "unknown"
-			}
-		})
-	}
+	const isSupported =
+		documentType === SAM ||
+		documentType === CLOUD_FORMATION ||
+		documentType === SERVERLESS_FRAMEWORK
 
 	return isSupported
 }

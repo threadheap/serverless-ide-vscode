@@ -4,18 +4,14 @@ import {
 	TextDocument
 } from "vscode-languageserver-types"
 import * as nls from "vscode-nls"
-import { SingleYAMLDocument } from "../../parser"
+import { YAMLDocument } from "../../parser"
 import { ResolvedSchema } from "../jsonSchema"
 import {
 	CompletionsCollector,
 	JSONWorkerContribution
 } from "./../../jsonContributions"
 import { JSONSchema } from "./../../jsonSchema"
-import {
-	ASTNode,
-	ObjectASTNode,
-	PropertyASTNode
-} from "./../../parser/jsonParser"
+import { ASTNode, ObjectASTNode, PropertyASTNode } from "./../../parser/json"
 import { getDefaultPropertyCompletions } from "./defaultPropertyCompletions"
 import * as helpers from "./helpers"
 import { addPatternPropertiesCompletions } from "./pattern-properties"
@@ -24,10 +20,10 @@ import * as textCompletions from "./text"
 const localize = nls.loadMessageBundle()
 
 export const getPropertyCompletions = (
+	textDocument: TextDocument,
 	schema: ResolvedSchema,
-	doc: SingleYAMLDocument,
+	doc: YAMLDocument,
 	node: ASTNode,
-	addValue: boolean,
 	collector: CompletionsCollector,
 	separatorAfter: string
 ): void => {
@@ -48,8 +44,9 @@ export const getPropertyCompletions = (
 							insertText: textCompletions.getInsertTextForProperty(
 								key,
 								propertySchema,
-								addValue,
-								separatorAfter
+								separatorAfter,
+								1,
+								helpers.isInArray(textDocument, node)
 							),
 							insertTextFormat: InsertTextFormat.Snippet,
 							documentation: propertySchema.description || ""
@@ -76,7 +73,7 @@ export const getPropertyCompletions = (
 
 export const getValueCompletions = async (
 	schema: ResolvedSchema,
-	doc: SingleYAMLDocument,
+	doc: YAMLDocument,
 	node: ASTNode,
 	offset: number,
 	document: TextDocument,
@@ -267,18 +264,6 @@ export const getContributedValueCompletions = (
 	}
 }
 
-export const getCustomTagValueCompletions = (
-	collector: CompletionsCollector,
-	customTags: string[]
-) => {
-	customTags.forEach(customTagItem => {
-		const tagItemSplit = customTagItem.split(" ")
-		if (tagItemSplit && tagItemSplit[0]) {
-			addCustomTagValueCompletion(collector, " ", tagItemSplit[0])
-		}
-	})
-}
-
 export const addSchemaValueCompletions = (
 	schema: JSONSchema,
 	collector: CompletionsCollector,
@@ -466,20 +451,6 @@ export const addNullValueCompletion = (
 		kind: helpers.getSuggestionKind("null"),
 		label: "null",
 		insertText: "null" + separatorAfter,
-		insertTextFormat: InsertTextFormat.Snippet,
-		documentation: ""
-	})
-}
-
-export const addCustomTagValueCompletion = (
-	collector: CompletionsCollector,
-	separatorAfter: string,
-	label: string
-): void => {
-	collector.add({
-		kind: helpers.getSuggestionKind("string"),
-		label,
-		insertText: label + separatorAfter,
 		insertTextFormat: InsertTextFormat.Snippet,
 		documentation: ""
 	})

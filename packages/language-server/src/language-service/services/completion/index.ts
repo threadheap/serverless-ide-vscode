@@ -5,7 +5,7 @@ import {
 	CompletionsCollector,
 	JSONWorkerContribution
 } from "../../jsonContributions"
-import * as Parser from "../../parser/jsonParser"
+import * as Parser from "../../parser/json"
 import * as SchemaService from "../jsonSchema"
 
 import {
@@ -19,16 +19,15 @@ import {
 
 import { LanguageSettings } from "../../model/settings"
 import { YAMLDocument } from "../../parser"
-import { matchOffsetToDocument } from "../../utils/arrayUtils"
 import * as completions from "./completions"
 import * as helpers from "./helpers"
 import { sendException } from "../analytics"
+import { getCustomTagValueCompletions } from "./custom-tags"
 
 export class YAMLCompletion {
 	private schemaService: SchemaService.JSONSchemaService
 	private contributions: JSONWorkerContribution[]
 	private promise: PromiseConstructor
-	private customTags: string[]
 	private completion: boolean
 
 	constructor(
@@ -39,15 +38,13 @@ export class YAMLCompletion {
 		this.schemaService = schemaService
 		this.contributions = contributions
 		this.promise = promiseConstructor || Promise
-		this.customTags = []
 		this.completion = true
 	}
 
-	configure(languageSettings: LanguageSettings, customTags: string[]) {
+	configure(languageSettings: LanguageSettings) {
 		if (languageSettings) {
 			this.completion = languageSettings.completion
 		}
-		this.customTags = customTags
 	}
 
 	doResolve(item: CompletionItem): Promise<CompletionItem> {
@@ -81,11 +78,7 @@ export class YAMLCompletion {
 			return Promise.resolve(result)
 		}
 
-		const currentDoc = matchOffsetToDocument(offset, doc)
-		if (!currentDoc) {
-			return Promise.resolve(result)
-		}
-		let node = currentDoc.getNodeFromOffsetEndInclusive(offset)
+		let node = doc.getNodeFromOffsetEndInclusive(offset)
 		if (helpers.isInComment(document, node ? node.start : 0, offset)) {
 			return Promise.resolve(result)
 		}
@@ -158,7 +151,7 @@ export class YAMLCompletion {
 
 		const schema = await this.schemaService.getSchemaForDocument(
 			document,
-			currentDoc
+			doc
 		)
 
 		if (!schema) {
@@ -170,6 +163,7 @@ export class YAMLCompletion {
 		let addValue = true
 
 		let currentProperty: Parser.PropertyASTNode = null
+
 		if (node) {
 			if (node.type === "string") {
 				const stringNode = node as Parser.StringASTNode
@@ -187,6 +181,8 @@ export class YAMLCompletion {
 				}
 			}
 		}
+
+		getCustomTagValueCompletions(collector, doc.referenceables)
 
 		// proposals for properties
 		if (node && node.type === "object") {
@@ -208,10 +204,10 @@ export class YAMLCompletion {
 
 			// property proposals with schema
 			completions.getPropertyCompletions(
+				document,
 				schema,
-				currentDoc,
+				doc,
 				node,
-				addValue,
 				collector,
 				separatorAfter
 			)
@@ -235,12 +231,13 @@ export class YAMLCompletion {
 		// property proposal for values
 		await completions.getValueCompletions(
 			schema,
-			currentDoc,
+			doc,
 			node,
 			offset,
 			document,
 			collector
 		)
+
 		if (this.contributions.length > 0) {
 			completions.getContributedValueCompletions(
 				this.contributions,
@@ -250,9 +247,6 @@ export class YAMLCompletion {
 				collector,
 				collectionPromises
 			)
-		}
-		if (this.customTags.length > 0) {
-			completions.getCustomTagValueCompletions(collector, this.customTags)
 		}
 
 		return this.promise.all(collectionPromises).then(() => {

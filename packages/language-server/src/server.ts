@@ -28,7 +28,12 @@ import { parse as parseYAML } from "./language-service/parser"
 import { removeDuplicatesObj } from "./language-service/utils/arrayUtils"
 import { completionHelper } from "./language-service/utils/completion-helper"
 import { isSupportedDocument } from "./language-service/utils/document"
-import { initializeAnalytics } from "./language-service/services/analytics"
+import {
+	initializeAnalytics,
+	sendAnalytics
+} from "./language-service/services/analytics"
+import documentService from "./language-service/services/document"
+
 nls.config(process.env.VSCODE_NLS_CONFIG as any)
 
 // Create a connection for the server.
@@ -47,24 +52,6 @@ console.error = connection.console.error.bind(connection.console)
 const documents: TextDocuments = new TextDocuments()
 let customLanguageService: LanguageService
 let workspaceRoot: string
-const customTags = [
-	"!And",
-	"!If",
-	"!Not",
-	"!Equals",
-	"!Or",
-	"!FindInMap",
-	"!Base64",
-	"!Cidr",
-	"!Ref",
-	"!Sub",
-	"!GetAtt",
-	"!GetAZs",
-	"!ImportValue",
-	"!Select",
-	"!Split",
-	"!Join"
-]
 
 connection.onInitialize(
 	(params: InitializeParams): InitializeResult => {
@@ -84,16 +71,23 @@ connection.onInitialize(
 	}
 )
 
-documents.onDidChangeContent(change => {
-	triggerValidation(change.document)
-})
-
 documents.onDidClose(event => {
 	cleanPendingValidation(event.document)
+	documentService.clear(event.document)
 	connection.sendDiagnostics({ uri: event.document.uri, diagnostics: [] })
 })
 
+documents.onDidSave(async event => {
+	await triggerValidation(event.document)
+})
+
+documents.onDidOpen(async event => {
+	await triggerValidation(event.document)
+})
+
 connection.onInitialized(() => {
+	documentService.init(documents)
+
 	connection.onDidChangeConfiguration(change => {
 		const settings = change.settings as ExtensionSettings
 		configureHttpRequests(
@@ -113,7 +107,6 @@ connection.onInitialized(() => {
 				input => input.serverlessIDE.completion,
 				true
 			),
-			customTags,
 			validationProvider: get(
 				settings,
 				input => input.serverlessIDE.validationProvider,
@@ -154,10 +147,6 @@ connection.onInitialized(() => {
 		documents.all().forEach(triggerValidation)
 	})
 
-	connection.onDidChangeWatchedFiles(() => {
-		documents.all().forEach(validateTextDocument)
-	})
-
 	connection.onCompletion(textDocumentPosition => {
 		const textDocument = documents.get(
 			textDocumentPosition.textDocument.uri
@@ -172,7 +161,7 @@ connection.onInitialized(() => {
 			return Promise.resolve(result)
 		}
 
-		if (!isSupportedDocument(textDocument)) {
+		if (!isSupportedDocument(textDocument.getText())) {
 			return Promise.resolve(void 0)
 		}
 
@@ -190,11 +179,18 @@ connection.onInitialized(() => {
 	})
 
 	connection.onCompletionResolve(completionItem => {
+		sendAnalytics({
+			action: "resolveCompletion",
+			attributes: {
+				label: completionItem.label
+			}
+		})
+
 		return customLanguageService.doResolve(completionItem)
 	})
 
 	connection.onHover(
-		(textDocumentPositionParams: TextDocumentPositionParams) => {
+		async (textDocumentPositionParams: TextDocumentPositionParams) => {
 			const document = documents.get(
 				textDocumentPositionParams.textDocument.uri
 			)
@@ -203,37 +199,36 @@ connection.onInitialized(() => {
 				return Promise.resolve(void 0)
 			}
 
-			const text = document.getText()
+			try {
+				const jsonDocument = await documentService.get(document)
 
-			if (!isSupportedDocument(document)) {
-				return Promise.resolve(void 0)
+				return customLanguageService.doHover(
+					document,
+					textDocumentPositionParams.position,
+					jsonDocument
+				)
+			} catch (err) {
+				// do nothing
 			}
-
-			const jsonDocument = parseYAML(text)
-			return customLanguageService.doHover(
-				document,
-				textDocumentPositionParams.position,
-				jsonDocument
-			)
 		}
 	)
 
-	connection.onDocumentSymbol(document => {
+	connection.onDocumentSymbol(async document => {
 		const uri = documents.get(document.textDocument.uri)
 
 		if (!uri) {
 			return
 		}
 
-		const text = uri.getText()
-
-		if (!isSupportedDocument(uri)) {
-			return
+		try {
+			const jsonDocument = await documentService.get(uri)
+			return customLanguageService.findDocumentSymbols(uri, jsonDocument)
+		} catch (err) {
+			// do nothing
 		}
-
-		const jsonDocument = parseYAML(text)
-		return customLanguageService.findDocumentSymbols(uri, jsonDocument)
 	})
+
+	documents.all().forEach(triggerValidation)
 })
 
 const pendingValidationRequests: { [uri: string]: NodeJS.Timer } = {}
@@ -247,47 +242,61 @@ function cleanPendingValidation(textDocument: TextDocument): void {
 	}
 }
 
-function triggerValidation(textDocument: TextDocument): void {
+function triggerValidation(textDocument: TextDocument) {
 	cleanPendingValidation(textDocument)
-	pendingValidationRequests[textDocument.uri] = setTimeout(() => {
-		delete pendingValidationRequests[textDocument.uri]
-		validateTextDocument(textDocument)
-	}, validationDelayMs)
+
+	return new Promise((resolve, reject) => {
+		pendingValidationRequests[textDocument.uri] = setTimeout(() => {
+			delete pendingValidationRequests[textDocument.uri]
+			validateTextDocument(textDocument)
+				.then(resolve)
+				.catch(reject)
+		}, validationDelayMs)
+	})
 }
 
-function validateTextDocument(textDocument: TextDocument): void {
+async function validateTextDocument(textDocument: TextDocument) {
 	if (!textDocument) {
 		return
 	}
 
 	const text = textDocument.getText()
 
+	if (!isSupportedDocument(text)) {
+		return
+	}
+
 	if (text.length === 0) {
 		connection.sendDiagnostics({ uri: textDocument.uri, diagnostics: [] })
 		return
 	}
 
-	if (!isSupportedDocument(textDocument)) {
-		connection.sendDiagnostics({ uri: textDocument.uri, diagnostics: [] })
-		return
-	}
-
-	const yamlDocument = parseYAML(text, customTags)
-	customLanguageService
-		.doValidation(textDocument, yamlDocument)
-		.then(diagnosticResults => {
-			const diagnostics = []
-
-			diagnosticResults.forEach(diagnosticItem => {
-				diagnosticItem.severity = 1 // Convert all warnings to errors
-				diagnostics.push(diagnosticItem)
-			})
-
-			connection.sendDiagnostics({
-				uri: textDocument.uri,
-				diagnostics: removeDuplicatesObj(diagnostics)
-			})
+	try {
+		const yamlDocument = await documentService.get(textDocument)
+		sendAnalytics({
+			action: "validateDocument",
+			attributes: {
+				documentType: yamlDocument.documentType
+			}
 		})
+		customLanguageService
+			.doValidation(textDocument, yamlDocument)
+			.then(diagnosticResults => {
+				const diagnostics = []
+
+				diagnosticResults.forEach(diagnosticItem => {
+					diagnosticItem.severity = 1 // Convert all warnings to errors
+					diagnostics.push(diagnosticItem)
+				})
+
+				connection.sendDiagnostics({
+					uri: textDocument.uri,
+					diagnostics: removeDuplicatesObj(diagnostics)
+				})
+			})
+	} catch (err) {
+		// do nothing
+	}
 }
 
 documents.listen(connection)

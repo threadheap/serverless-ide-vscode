@@ -1,6 +1,6 @@
 "use strict"
 
-import * as Parser from "../../parser/jsonParser"
+import * as Parser from "../../parser/json"
 import { YAMLDocument } from "./../../parser/index"
 
 import {
@@ -16,7 +16,7 @@ export class YAMLDocumentSymbols {
 		document: TextDocument,
 		doc: YAMLDocument
 	): SymbolInformation[] {
-		if (!doc || doc.documents.length === 0) {
+		if (!doc) {
 			return null
 		}
 
@@ -49,7 +49,7 @@ export class YAMLDocumentSymbols {
 								? containerName + "." + property.key.value
 								: property.key.value
 							result.push({
-								name: property.key.getValue(),
+								name: property.key.value,
 								kind: this.getSymbolKind(valueNode.type),
 								location,
 								containerName
@@ -68,12 +68,10 @@ export class YAMLDocumentSymbols {
 
 		let results = []
 
-		doc.documents.forEach(yamlDoc => {
-			if (yamlDoc.root) {
-				const result = collectOutlineEntries([], yamlDoc.root, void 0)
-				results = results.concat(result)
-			}
-		})
+		if (doc.root) {
+			const result = collectOutlineEntries([], doc.root, void 0)
+			results = results.concat(result)
+		}
 
 		return results
 	}

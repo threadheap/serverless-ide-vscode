@@ -1,5 +1,10 @@
 # Change log
 
+## v0.4.0
+- Validation and autocompletion for resources references
+- Improved support of AWS Intrinsic Functions
+- Basic support for Serverless Framework
+
 ## v0.3.8
 - Fix SAM schema to support MethodSettings property in AWS::Serverless::Api resource type
 - Additional logging around cfn-lint validation

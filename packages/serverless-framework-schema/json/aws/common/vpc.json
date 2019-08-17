@@ -1,0 +1,19 @@
+{
+    "type": "object",
+    "description": "Optional VPC. But if you use VPC then both subproperties (securityGroupIds and subnetIds) are required",
+    "additionalProperties": false,
+    "properties": {
+        "securityGroupIds": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "subnetIds": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        }
+    }
+}

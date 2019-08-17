@@ -1,0 +1,26 @@
+{
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "sqs": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "arn": {
+                    "$ref": "aws/common/arn",
+                    "default": "arn:aws:sqs:region:XXXXXX:myQueue"
+                },
+                "batchSize": {
+                    "type": "number",
+                    "default": 10
+                }
+            },
+            "require": [
+                "arn"
+            ]
+        }
+    },
+    "required": [
+        "sqs"
+    ]
+}
