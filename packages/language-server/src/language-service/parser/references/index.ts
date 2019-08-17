@@ -3,14 +3,19 @@ import { ObjectASTNode } from "./../json/object-ast-node"
 import { ArrayASTNode } from "../json/array-ast-node"
 import { ASTNode } from "../json/ast-node"
 import { StringASTNode } from "../json/string-ast-node"
-import { Reference, ReferenceType } from "../../model/references"
+import { Reference, ReferenceType, References } from "../../model/references"
 import * as utils from "./utils"
 import keyBy = require("lodash/keyBy")
 import { PropertyASTNode } from "../json"
 
 const CUSTOM_TAGS_BY_PROPERTY_NAME = keyBy(CUSTOM_TAGS, "propertyName")
 
-export const collectRefencesFromStringNode = (
+export const generateEmptyReferences = (): References => ({
+	hash: {},
+	lookup: new WeakMap()
+})
+
+export const collectReferencesFromStringNode = (
 	node: StringASTNode,
 	customTag: CustomTag
 ): Reference[] => {
@@ -28,10 +33,17 @@ export const collectRefencesFromStringNode = (
 	}
 }
 
-export const collectReferences = (node: ASTNode): Reference[] => {
-	const references = []
+export const collectReferences = (node: ASTNode): References => {
+	const references = generateEmptyReferences()
 
-	const addToReferences = (item: Reference) => references.push(item)
+	const addToReferences = (item: Reference) => {
+		if (!references.hash[item.key]) {
+			references.hash[item.key] = [item]
+		} else {
+			references.hash[item.key].push(item)
+		}
+		references.lookup.set(item.node, item)
+	}
 
 	const traverse = (node: ASTNode, customTag?: CustomTag) => {
 		let currentCustomTag = customTag
@@ -42,7 +54,7 @@ export const collectReferences = (node: ASTNode): Reference[] => {
 
 		if (node instanceof StringASTNode) {
 			if (currentCustomTag) {
-				collectRefencesFromStringNode(node, currentCustomTag).forEach(
+				collectReferencesFromStringNode(node, currentCustomTag).forEach(
 					addToReferences
 				)
 			}

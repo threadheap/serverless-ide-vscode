@@ -2,18 +2,27 @@ import { CLOUD_FORMATION, SERVERLESS_FRAMEWORK } from "./../../model/document"
 import { ASTNode, ObjectASTNode, PropertyASTNode } from "./../../parser/json"
 import { getNodeItemByKey } from "../../utils/yaml"
 import { DocumentType, SAM } from "../../model/document"
-import { Referenceables, ReferenceablesHash } from "../../model/referenceables"
+import {
+	Referenceables,
+	ReferenceablesHash,
+	ReferenceableLookup
+} from "../../model/referenceables"
 import { ReferenceEntityType } from "../../model/references"
 
-export const generateEmptyReferenceables = () => ({
-	[ReferenceEntityType.PARAMETER]: {},
-	[ReferenceEntityType.RESOURCE]: {},
-	[ReferenceEntityType.MAPPING]: {},
-	[ReferenceEntityType.OUTPUT]: {}
+export const generateEmptyReferenceables = (): Referenceables => ({
+	hash: {
+		[ReferenceEntityType.PARAMETER]: {},
+		[ReferenceEntityType.RESOURCE]: {},
+		[ReferenceEntityType.MAPPING]: {},
+		[ReferenceEntityType.OUTPUT]: {}
+	},
+	lookup: new WeakMap()
 })
 
 const collectReferenceablesFromNode = (
-	node: PropertyASTNode | void
+	entityType: ReferenceEntityType,
+	node: PropertyASTNode | void,
+	lookup: ReferenceableLookup
 ): ReferenceablesHash => {
 	const referenceables: ReferenceablesHash = {}
 
@@ -24,8 +33,11 @@ const collectReferenceablesFromNode = (
 				const key = property.key.value
 
 				referenceables[key] = {
-					node: property
+					id: key,
+					node: property,
+					entityType
 				}
+				lookup.set(property, referenceables[key])
 			})
 		}
 	}
@@ -34,20 +46,32 @@ const collectReferenceablesFromNode = (
 }
 
 const collectCfnReferenceables = (node: ASTNode): Referenceables => {
-	return {
+	const referenceables = generateEmptyReferenceables()
+
+	referenceables.hash = {
 		[ReferenceEntityType.PARAMETER]: collectReferenceablesFromNode(
-			getNodeItemByKey(node, "Parameters")
+			ReferenceEntityType.PARAMETER,
+			getNodeItemByKey(node, "Parameters"),
+			referenceables.lookup
 		),
 		[ReferenceEntityType.RESOURCE]: collectReferenceablesFromNode(
-			getNodeItemByKey(node, "Resources")
+			ReferenceEntityType.RESOURCE,
+			getNodeItemByKey(node, "Resources"),
+			referenceables.lookup
 		),
 		[ReferenceEntityType.MAPPING]: collectReferenceablesFromNode(
-			getNodeItemByKey(node, "Mappings")
+			ReferenceEntityType.MAPPING,
+			getNodeItemByKey(node, "Mappings"),
+			referenceables.lookup
 		),
 		[ReferenceEntityType.OUTPUT]: collectReferenceablesFromNode(
-			getNodeItemByKey(node, "Output")
+			ReferenceEntityType.OUTPUT,
+			getNodeItemByKey(node, "Output"),
+			referenceables.lookup
 		)
 	}
+
+	return referenceables
 }
 
 const collectServerlessReferenceables = (node: ASTNode): Referenceables => {
@@ -58,9 +82,13 @@ const collectServerlessReferenceables = (node: ASTNode): Referenceables => {
 		const node = getNodeItemByKey(resourcesProperty.value, "Resources")
 
 		if (node) {
-			referenceables[
+			referenceables.hash[
 				ReferenceEntityType.RESOURCE
-			] = collectReferenceablesFromNode(node)
+			] = collectReferenceablesFromNode(
+				ReferenceEntityType.RESOURCE,
+				node,
+				referenceables.lookup
+			)
 		}
 	}
 

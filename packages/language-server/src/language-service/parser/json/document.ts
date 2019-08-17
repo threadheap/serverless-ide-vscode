@@ -14,8 +14,8 @@ import {
 	generateEmptyReferenceables,
 	collectReferenceables
 } from "../referenceables"
-import { collectReferences } from "../references"
-import { Reference } from "../../model/references"
+import { generateEmptyReferences, collectReferences } from "../references"
+import { References } from "../../model/references"
 import { ASTNode } from "./ast-node"
 import { PropertyASTNode } from "./property-ast-node"
 import { StringASTNode } from "./string-ast-node"
@@ -52,7 +52,7 @@ export class YAMLDocument extends JSONDocument {
 	warnings: Problem[] = []
 	globalsConfig: GlobalsConfig = getDefaultGlobalsConfig()
 	referenceables: Referenceables = generateEmptyReferenceables()
-	references: Reference[] = []
+	references: References = generateEmptyReferences()
 	parameters: string[] = []
 	documentType: DocumentType = UNKNOWN
 

@@ -172,5 +172,11 @@ export const CUSTOM_TAGS: CustomTag[] = [
 	}
 ]
 
-export const CUSTOM_TAGS_BY_PROPERTY_NAME = keyBy(CUSTOM_TAGS, "propertyName")
-export const CUSTOM_TAGS_BY_TYPE = keyBy(CUSTOM_TAGS, "type")
+export const CUSTOM_TAGS_BY_PROPERTY_NAME: { [key: string]: CustomTag } = keyBy(
+	CUSTOM_TAGS,
+	"propertyName"
+)
+export const CUSTOM_TAGS_BY_TYPE: { [key in ReferenceType]: CustomTag } = keyBy(
+	CUSTOM_TAGS,
+	"type"
+)

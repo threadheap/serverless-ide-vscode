@@ -79,11 +79,13 @@ describe("referenceables", () => {
 			const doc = generateDocument(SAM_DOCUMENT)
 			const referenceables = collectReferenceables(SAM, doc.root)
 
-			expect(referenceables).toEqual(
+			expect(referenceables.hash).toEqual(
 				expect.objectContaining({
 					[ReferenceEntityType.RESOURCE]: {
 						Function: {
-							node: expect.any(Object)
+							id: "Function",
+							node: expect.any(Object),
+							entityType: ReferenceEntityType.RESOURCE
 						}
 					}
 				})
@@ -106,11 +108,13 @@ describe("referenceables", () => {
 				doc.root
 			)
 
-			expect(referenceables).toEqual(
+			expect(referenceables.hash).toEqual(
 				expect.objectContaining({
 					[ReferenceEntityType.RESOURCE]: {
 						Table: {
-							node: expect.any(Object)
+							id: "Table",
+							node: expect.any(Object),
+							entityType: ReferenceEntityType.RESOURCE
 						}
 					}
 				})

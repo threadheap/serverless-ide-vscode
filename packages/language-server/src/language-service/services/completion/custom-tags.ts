@@ -22,7 +22,7 @@ const addReferenceablesOptions = (
 ): string => {
 	const options = customTag.referenceEntityTypes.reduce(
 		(memo, entityType) => {
-			return memo.concat(Object.keys(referenceables[entityType]))
+			return memo.concat(Object.keys(referenceables.hash[entityType]))
 		},
 		[]
 	)

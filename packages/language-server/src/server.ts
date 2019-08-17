@@ -10,7 +10,8 @@ import {
 	ProposedFeatures,
 	TextDocument,
 	TextDocumentPositionParams,
-	TextDocuments
+	TextDocuments,
+	ReferenceParams
 } from "vscode-languageserver"
 
 import { configure as configureHttpRequests } from "request-light"
@@ -33,6 +34,8 @@ import {
 	sendAnalytics
 } from "./language-service/services/analytics"
 import documentService from "./language-service/services/document"
+import { getDefinition } from "./language-service/services/definition"
+import { getReferences } from "./language-service/services/reference"
 
 nls.config(process.env.VSCODE_NLS_CONFIG as any)
 
@@ -65,7 +68,10 @@ connection.onInitialize(
 				signatureHelpProvider: {},
 				hoverProvider: true,
 				documentSymbolProvider: true,
-				documentFormattingProvider: false
+				documentFormattingProvider: false,
+				// test
+				definitionProvider: true,
+				referencesProvider: true
 			}
 		}
 	}
@@ -226,6 +232,36 @@ connection.onInitialized(() => {
 		} catch (err) {
 			// do nothing
 		}
+	})
+
+	connection.onDefinition(
+		async (documentPosition: TextDocumentPositionParams) => {
+			const document = documents.get(documentPosition.textDocument.uri)
+
+			try {
+				const yamlDocument = await documentService.get(document)
+
+				return getDefinition(documentPosition, document, yamlDocument)
+			} catch (err) {
+				// do nothing
+			}
+
+			return []
+		}
+	)
+
+	connection.onReferences(async (referenceParams: ReferenceParams) => {
+		const document = documents.get(referenceParams.textDocument.uri)
+
+		try {
+			const yamlDocument = await documentService.get(document)
+
+			return getReferences(referenceParams, document, yamlDocument)
+		} catch (err) {
+			// do nothing
+		}
+
+		return []
 	})
 
 	documents.all().forEach(triggerValidation)
