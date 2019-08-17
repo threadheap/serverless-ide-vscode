@@ -1,7 +1,7 @@
 {
     "name": "serverless-ide-vscode",
     "displayName": "Serverless IDE",
-    "description": "Enhanced support for AWS SAM and CloudFormation",
+    "description": "Enhanced support for AWS SAM, CloudFormation and Serverless Framework",
     "author": "Pavel Vlasov <freakycue@gmail.com>",
     "publisher": "ThreadHeap",
     "license": "MIT",
@@ -31,14 +31,16 @@
         "onLanguage:yaml"
     ],
     "keywords": [
+        "serverless",
         "aws",
         "sam",
+        "serverless framework",
+        "sls",
         "cloudformation",
-        "cfn",
-        "serverless",
-        "yaml",
         "autocompletion",
-        "validation"
+        "validation",
+        "cfn",
+        "yaml"
     ],
     "main": "./out/src/extension",
     "contributes": {
