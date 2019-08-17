@@ -28,7 +28,10 @@ import { parse as parseYAML } from "./language-service/parser"
 import { removeDuplicatesObj } from "./language-service/utils/arrayUtils"
 import { completionHelper } from "./language-service/utils/completion-helper"
 import { isSupportedDocument } from "./language-service/utils/document"
-import { initializeAnalytics } from "./language-service/services/analytics"
+import {
+	initializeAnalytics,
+	sendAnalytics
+} from "./language-service/services/analytics"
 import documentService from "./language-service/services/document"
 
 nls.config(process.env.VSCODE_NLS_CONFIG as any)
@@ -176,6 +179,13 @@ connection.onInitialized(() => {
 	})
 
 	connection.onCompletionResolve(completionItem => {
+		sendAnalytics({
+			action: "resolveCompletion",
+			attributes: {
+				label: completionItem.label
+			}
+		})
+
 		return customLanguageService.doResolve(completionItem)
 	})
 
@@ -252,6 +262,10 @@ async function validateTextDocument(textDocument: TextDocument) {
 
 	const text = textDocument.getText()
 
+	if (!isSupportedDocument(text)) {
+		return
+	}
+
 	if (text.length === 0) {
 		connection.sendDiagnostics({ uri: textDocument.uri, diagnostics: [] })
 		return
@@ -259,6 +273,12 @@ async function validateTextDocument(textDocument: TextDocument) {
 
 	try {
 		const yamlDocument = await documentService.get(textDocument)
+		sendAnalytics({
+			action: "validateDocument",
+			attributes: {
+				documentType: yamlDocument.documentType
+			}
+		})
 		customLanguageService
 			.doValidation(textDocument, yamlDocument)
 			.then(diagnosticResults => {
