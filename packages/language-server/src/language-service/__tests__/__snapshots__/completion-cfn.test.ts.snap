@@ -5,6 +5,720 @@ Object {
   "isIncomplete": false,
   "items": Array [
     Object {
+      "documentation": "The intrinsic function Fn::Base64 returns the Base64 representation of the input string.",
+      "insertText": "!Base64 ",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!Base64",
+      "textEdit": Object {
+        "newText": "!Base64 ",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "The intrinsic function Fn::Base64 returns the Base64 representation of the input string.",
+      "insertText": "",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::Base64",
+      "textEdit": Object {
+        "newText": "",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "The intrinsic function Fn::Cidr returns an array of CIDR address blocks.",
+      "insertText": "!Cidr ",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!Cidr",
+      "textEdit": Object {
+        "newText": "!Cidr ",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "The intrinsic function Fn::Cidr returns an array of CIDR address blocks.",
+      "insertText": "",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::Cidr",
+      "textEdit": Object {
+        "newText": "",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "Returns true if all the specified conditions evaluate to true, or returns false if any one of the conditions evaluates to false.",
+      "insertText": "!And ",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!And",
+      "textEdit": Object {
+        "newText": "!And ",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "Returns true if all the specified conditions evaluate to true, or returns false if any one of the conditions evaluates to false.",
+      "insertText": "",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::And",
+      "textEdit": Object {
+        "newText": "",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "Returns one value if the specified condition evaluates to true and another value if the specified condition evaluates to false.",
+      "insertText": "!If ",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!If",
+      "textEdit": Object {
+        "newText": "!If ",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "Returns one value if the specified condition evaluates to true and another value if the specified condition evaluates to false.",
+      "insertText": "",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::If",
+      "textEdit": Object {
+        "newText": "",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "Returns true for a condition that evaluates to false or returns false for a condition that evaluates to true.",
+      "insertText": "!Not ",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!Not",
+      "textEdit": Object {
+        "newText": "!Not ",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "Returns true for a condition that evaluates to false or returns false for a condition that evaluates to true.",
+      "insertText": "",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::Not",
+      "textEdit": Object {
+        "newText": "",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "Returns true if any one of the specified conditions evaluate to true, or returns false if all of the conditions evaluates to false.",
+      "insertText": "!Or ",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!Or",
+      "textEdit": Object {
+        "newText": "!Or ",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "Returns true if any one of the specified conditions evaluate to true, or returns false if all of the conditions evaluates to false.",
+      "insertText": "",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::Or",
+      "textEdit": Object {
+        "newText": "",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "Compares if two values are equal.",
+      "insertText": "!Equals ",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!Equals",
+      "textEdit": Object {
+        "newText": "!Equals ",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "Compares if two values are equal.",
+      "insertText": "",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::Equals",
+      "textEdit": Object {
+        "newText": "",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": undefined,
+      "insertText": "!FindInMap [ \${1||}, $2, $3 ]",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!FindInMap",
+      "textEdit": Object {
+        "newText": "!FindInMap [ \${1||}, $2, $3 ]",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": undefined,
+      "insertText": "Fn::FindInMap: [ \${1||}, $2, $3 ]",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::FindInMap",
+      "textEdit": Object {
+        "newText": "Fn::FindInMap: [ \${1||}, $2, $3 ]",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "insertText": "!GetAtt \${1||}",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!GetAtt",
+      "textEdit": Object {
+        "newText": "!GetAtt \${1||}",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "insertText": "Fn::GetAtt: \${1||}",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::GetAtt",
+      "textEdit": Object {
+        "newText": "Fn::GetAtt: \${1||}",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "The intrinsic function Fn::GetAZs returns an array that lists Availability Zones for a specified region.",
+      "insertText": "!GetAZs ",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!GetAZs",
+      "textEdit": Object {
+        "newText": "!GetAZs ",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "The intrinsic function Fn::GetAZs returns an array that lists Availability Zones for a specified region.",
+      "insertText": "",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::GetAZs",
+      "textEdit": Object {
+        "newText": "",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "The intrinsic function Fn::ImportValue returns the value of an output exported by another stack.",
+      "insertText": "!ImportValue ",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!ImportValue",
+      "textEdit": Object {
+        "newText": "!ImportValue ",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "The intrinsic function Fn::ImportValue returns the value of an output exported by another stack.",
+      "insertText": "",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::ImportValue",
+      "textEdit": Object {
+        "newText": "",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "The intrinsic function Fn::Join appends a set of values into a single value, separated by the specified delimiter.",
+      "insertText": "!Join ",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!Join",
+      "textEdit": Object {
+        "newText": "!Join ",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "The intrinsic function Fn::Join appends a set of values into a single value, separated by the specified delimiter.",
+      "insertText": "",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::Join",
+      "textEdit": Object {
+        "newText": "",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "The intrinsic function Fn::Select returns a single object from a list of objects by index.",
+      "insertText": "!Select ",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!Select",
+      "textEdit": Object {
+        "newText": "!Select ",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "The intrinsic function Fn::Select returns a single object from a list of objects by index.",
+      "insertText": "",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::Select",
+      "textEdit": Object {
+        "newText": "",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "To split a string into a list of string values so that you can select an element from the resulting string list, use the Fn::Split intrinsic function.",
+      "insertText": "!Split ",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!Split",
+      "textEdit": Object {
+        "newText": "!Split ",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "To split a string into a list of string values so that you can select an element from the resulting string list, use the Fn::Split intrinsic function.",
+      "insertText": "",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::Split",
+      "textEdit": Object {
+        "newText": "",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": undefined,
+      "insertText": "!Sub $1",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!Sub",
+      "textEdit": Object {
+        "newText": "!Sub $1",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": undefined,
+      "insertText": "Fn::Sub: $1",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::Sub",
+      "textEdit": Object {
+        "newText": "Fn::Sub: $1",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "The intrinsic function Fn::Transform specifies a macro to perform custom processing on part of a stack template.",
+      "insertText": "!Transform ",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!Transform",
+      "textEdit": Object {
+        "newText": "!Transform ",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "The intrinsic function Fn::Transform specifies a macro to perform custom processing on part of a stack template.",
+      "insertText": "",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::Transform",
+      "textEdit": Object {
+        "newText": "",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "insertText": "!Ref \${1||}",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!Ref",
+      "textEdit": Object {
+        "newText": "!Ref \${1||}",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "insertText": "Ref: \${1||}",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Ref",
+      "textEdit": Object {
+        "newText": "Ref: \${1||}",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "insertText": " \${1||}",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "",
+      "textEdit": Object {
+        "newText": " \${1||}",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "insertText": "DependsOn: \${1||}",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "DependsOn",
+      "textEdit": Object {
+        "newText": "DependsOn: \${1||}",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
       "documentation": "",
       "insertText": "Conditions:
 	",
@@ -186,6 +900,720 @@ exports[`Auto Completion Tests doComplete should autocomplete resources 1`] = `
 Object {
   "isIncomplete": false,
   "items": Array [
+    Object {
+      "documentation": "The intrinsic function Fn::Base64 returns the Base64 representation of the input string.",
+      "insertText": "!Base64 ",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!Base64",
+      "textEdit": Object {
+        "newText": "!Base64 ",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "The intrinsic function Fn::Base64 returns the Base64 representation of the input string.",
+      "insertText": "",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::Base64",
+      "textEdit": Object {
+        "newText": "",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "The intrinsic function Fn::Cidr returns an array of CIDR address blocks.",
+      "insertText": "!Cidr ",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!Cidr",
+      "textEdit": Object {
+        "newText": "!Cidr ",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "The intrinsic function Fn::Cidr returns an array of CIDR address blocks.",
+      "insertText": "",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::Cidr",
+      "textEdit": Object {
+        "newText": "",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "Returns true if all the specified conditions evaluate to true, or returns false if any one of the conditions evaluates to false.",
+      "insertText": "!And ",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!And",
+      "textEdit": Object {
+        "newText": "!And ",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "Returns true if all the specified conditions evaluate to true, or returns false if any one of the conditions evaluates to false.",
+      "insertText": "",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::And",
+      "textEdit": Object {
+        "newText": "",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "Returns one value if the specified condition evaluates to true and another value if the specified condition evaluates to false.",
+      "insertText": "!If ",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!If",
+      "textEdit": Object {
+        "newText": "!If ",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "Returns one value if the specified condition evaluates to true and another value if the specified condition evaluates to false.",
+      "insertText": "",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::If",
+      "textEdit": Object {
+        "newText": "",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "Returns true for a condition that evaluates to false or returns false for a condition that evaluates to true.",
+      "insertText": "!Not ",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!Not",
+      "textEdit": Object {
+        "newText": "!Not ",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "Returns true for a condition that evaluates to false or returns false for a condition that evaluates to true.",
+      "insertText": "",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::Not",
+      "textEdit": Object {
+        "newText": "",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "Returns true if any one of the specified conditions evaluate to true, or returns false if all of the conditions evaluates to false.",
+      "insertText": "!Or ",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!Or",
+      "textEdit": Object {
+        "newText": "!Or ",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "Returns true if any one of the specified conditions evaluate to true, or returns false if all of the conditions evaluates to false.",
+      "insertText": "",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::Or",
+      "textEdit": Object {
+        "newText": "",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "Compares if two values are equal.",
+      "insertText": "!Equals ",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!Equals",
+      "textEdit": Object {
+        "newText": "!Equals ",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "Compares if two values are equal.",
+      "insertText": "",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::Equals",
+      "textEdit": Object {
+        "newText": "",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": undefined,
+      "insertText": "!FindInMap [ \${1||}, $2, $3 ]",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!FindInMap",
+      "textEdit": Object {
+        "newText": "!FindInMap [ \${1||}, $2, $3 ]",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": undefined,
+      "insertText": "Fn::FindInMap: [ \${1||}, $2, $3 ]",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::FindInMap",
+      "textEdit": Object {
+        "newText": "Fn::FindInMap: [ \${1||}, $2, $3 ]",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "insertText": "!GetAtt \${1||}",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!GetAtt",
+      "textEdit": Object {
+        "newText": "!GetAtt \${1||}",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "insertText": "Fn::GetAtt: \${1||}",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::GetAtt",
+      "textEdit": Object {
+        "newText": "Fn::GetAtt: \${1||}",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "The intrinsic function Fn::GetAZs returns an array that lists Availability Zones for a specified region.",
+      "insertText": "!GetAZs ",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!GetAZs",
+      "textEdit": Object {
+        "newText": "!GetAZs ",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "The intrinsic function Fn::GetAZs returns an array that lists Availability Zones for a specified region.",
+      "insertText": "",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::GetAZs",
+      "textEdit": Object {
+        "newText": "",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "The intrinsic function Fn::ImportValue returns the value of an output exported by another stack.",
+      "insertText": "!ImportValue ",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!ImportValue",
+      "textEdit": Object {
+        "newText": "!ImportValue ",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "The intrinsic function Fn::ImportValue returns the value of an output exported by another stack.",
+      "insertText": "",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::ImportValue",
+      "textEdit": Object {
+        "newText": "",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "The intrinsic function Fn::Join appends a set of values into a single value, separated by the specified delimiter.",
+      "insertText": "!Join ",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!Join",
+      "textEdit": Object {
+        "newText": "!Join ",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "The intrinsic function Fn::Join appends a set of values into a single value, separated by the specified delimiter.",
+      "insertText": "",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::Join",
+      "textEdit": Object {
+        "newText": "",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "The intrinsic function Fn::Select returns a single object from a list of objects by index.",
+      "insertText": "!Select ",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!Select",
+      "textEdit": Object {
+        "newText": "!Select ",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "The intrinsic function Fn::Select returns a single object from a list of objects by index.",
+      "insertText": "",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::Select",
+      "textEdit": Object {
+        "newText": "",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "To split a string into a list of string values so that you can select an element from the resulting string list, use the Fn::Split intrinsic function.",
+      "insertText": "!Split ",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!Split",
+      "textEdit": Object {
+        "newText": "!Split ",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "To split a string into a list of string values so that you can select an element from the resulting string list, use the Fn::Split intrinsic function.",
+      "insertText": "",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::Split",
+      "textEdit": Object {
+        "newText": "",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": undefined,
+      "insertText": "!Sub $1",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!Sub",
+      "textEdit": Object {
+        "newText": "!Sub $1",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": undefined,
+      "insertText": "Fn::Sub: $1",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::Sub",
+      "textEdit": Object {
+        "newText": "Fn::Sub: $1",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "The intrinsic function Fn::Transform specifies a macro to perform custom processing on part of a stack template.",
+      "insertText": "!Transform ",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!Transform",
+      "textEdit": Object {
+        "newText": "!Transform ",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "The intrinsic function Fn::Transform specifies a macro to perform custom processing on part of a stack template.",
+      "insertText": "",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Fn::Transform",
+      "textEdit": Object {
+        "newText": "",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "insertText": "!Ref \${1||}",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!Ref",
+      "textEdit": Object {
+        "newText": "!Ref \${1||}",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "insertText": "Ref: \${1||}",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Ref",
+      "textEdit": Object {
+        "newText": "Ref: \${1||}",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "insertText": " \${1||}",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "",
+      "textEdit": Object {
+        "newText": " \${1||}",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "insertText": "DependsOn: \${1||}",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "DependsOn",
+      "textEdit": Object {
+        "newText": "DependsOn: \${1||}",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
     Object {
       "documentation": "",
       "insertText": "Conditions:

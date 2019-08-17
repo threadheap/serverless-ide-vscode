@@ -1,24 +1,41 @@
 [![Marketplace Version](https://vsmarketplacebadge.apphb.com/version/ThreadHeap.serverless-ide-vscode.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
 
+[![Rating](https://vsmarketplacebadge.apphb.com/rating-star/ThreadHeap.serverless-ide-vscode.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
+
+[![Installs](https://vsmarketplacebadge.apphb.com/installs/ThreadHeap.serverless-ide-vscode.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
+
+[![Downloads](https://vsmarketplacebadge.apphb.com/downloads/ThreadHeap.serverless-ide-vscode.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
+
 # Serverless IDE: Enhanced support of AWS SAM in Visual Studio Code
 
-Provides comprehensive AWS SAM (Serverless Application Model) and Cloudformation support to [Visual Studio Code](https://code.visualstudio.com/).
+Provides comprehensive [AWS SAM (Serverless Application Model)](https://aws.amazon.com/serverless/sam/), Cloudformation and [Serverless Framework](https://serverless.com/) support to [Visual Studio Code](https://code.visualstudio.com/).
 
 ## Features
 
-### Validation and smart autocompletion
+### Smart autocompletion
 
-Extension provides template valication and smart snippets for AWS CloudFormation resources.
-Just start typing and then pick from available options
+Boost your prodictivity with smart autocompletion for your yaml templates and AWS CloudFormation resources.
+Just start typing and then pick from available options:
 
-![Demo](https://raw.githubusercontent.com/threadheap/serverless-ide-vscode/master/packages/vscode/demo/autocomplete.gif)
+![ServerlessIDE autocompletion demo](https://raw.githubusercontent.com/threadheap/serverless-ide-vscode/master/packages/vscode/demo/autocomplete.gif)
+
+### Validation
+
+Serverless IDE can validation templates and references to resources, properties and outputs:
+![ServerlessIDE validation demo](https://raw.githubusercontent.com/threadheap/serverless-ide-vscode/master/packages/vscode/demo/validation.gif)
 
 ### AWS documentation at glance
 
-You can view resources documentation at glance just by hovering resources and properties
-in the template
+Get easy access to AWS documentation right from the template. Just hover over resources and properties:
 
-![Demo](https://raw.githubusercontent.com/threadheap/serverless-ide-vscode/master/packages/vscode/demo/documentation.gif)
+![ServerlessIDE AWS Documentation](https://raw.githubusercontent.com/threadheap/serverless-ide-vscode/master/packages/vscode/demo/documentation.gif)
+
+### Serverless Framework Support
+
+Extetion provides limited serverless framework support:
+![ServerlessIDE Serverless Framework Support](https://raw.githubusercontent.com/threadheap/serverless-ide-vscode/master/packages/vscode/demo/serverless_framework.gif)
+
+Note: ServerlessIDE does not support validation of resources and external imports and parameters for Serverless Framework
 
 ## Settings
 
@@ -73,10 +90,9 @@ Feature requests and feedback are very appreciated
 
 Feel free to raise a feature request in [the project repository](https://github.com/threadheap/serverless-ide-vscode/issues).
 
-Check out [public roadmap board](https://github.com/threadheap/serverless-ide-vscode/projects/1?add_cards_query=is%3Aopen) and vote for new features.
+Check out [public roadmap board](https://github.com/threadheap/serverless-ide-vscode/projects), propose and vote for new features.
 
 DM or follow me on [twitter](https://twitter.com/pvl4sov) or [medium](https://medium.com/@pvlasov)
-
 
 ### Author
 
@@ -85,3 +101,5 @@ DM or follow me on [twitter](https://twitter.com/pvl4sov) or [medium](https://me
 ### License
 
 Apache License 2.0
+
+All documentation provided has copyright by Amazon Web Services, Inc. or its affiliates, and was published under the terms that can be found at https://aws.amazon.com/terms/

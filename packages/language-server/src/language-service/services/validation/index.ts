@@ -210,9 +210,14 @@ export class YAMLValidation {
 		)
 
 		if (schema) {
-			diagnostics = diagnostics.concat(
-				await validateReferences(textDocument, yamlDocument)
-			)
+			if (
+				yamlDocument.documentType === CLOUD_FORMATION ||
+				yamlDocument.documentType === SAM
+			) {
+				diagnostics = diagnostics.concat(
+					await validateReferences(textDocument, yamlDocument)
+				)
+			}
 			const currentDocProblems = yamlDocument.getValidationProblems(
 				schema.schema
 			)

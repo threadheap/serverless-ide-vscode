@@ -182,9 +182,7 @@ export class YAMLCompletion {
 			}
 		}
 
-		if (node.getPath().length >= 1) {
-			getCustomTagValueCompletions(collector, doc.referenceables)
-		}
+		getCustomTagValueCompletions(collector, doc.referenceables)
 
 		// proposals for properties
 		if (node && node.type === "object") {

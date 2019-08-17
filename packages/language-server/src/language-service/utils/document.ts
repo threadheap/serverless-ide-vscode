@@ -66,8 +66,10 @@ export const getDocumentType = (text: string): DocumentType => {
 export const isSupportedDocument = (text: string): boolean => {
 	const documentType = getDocumentType(text)
 
-	const isSupported = documentType === SAM || documentType === CLOUD_FORMATION
-	// documentType === SERVERLESS_FRAMEWORK
+	const isSupported =
+		documentType === SAM ||
+		documentType === CLOUD_FORMATION ||
+		documentType === SERVERLESS_FRAMEWORK
 
 	return isSupported
 }
