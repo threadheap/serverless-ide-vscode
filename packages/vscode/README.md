@@ -3,7 +3,7 @@
 [![Installs](https://vsmarketplacebadge.apphb.com/installs/ThreadHeap.serverless-ide-vscode.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
 [![Downloads](https://vsmarketplacebadge.apphb.com/downloads/ThreadHeap.serverless-ide-vscode.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
 
-# Serverless IDE: Enhanced support of AWS SAM in Visual Studio Code
+# Serverless IDE: Enhanced support of AWS SAM, CloudFormation and Serverless Framework in Visual Studio Code
 
 Provides comprehensive [AWS SAM (Serverless Application Model)](https://aws.amazon.com/serverless/sam/), Cloudformation and [Serverless Framework](https://serverless.com/) support to [Visual Studio Code](https://code.visualstudio.com/).
 
