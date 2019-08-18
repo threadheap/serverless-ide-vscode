@@ -3,6 +3,11 @@ import { StringASTNode } from "../json/string-ast-node"
 
 const parameterRegExp = new RegExp("\\${[^}]*}", "g")
 
+const REST_API_RESOURCE = "ServerlessRestApi"
+
+const isValidKey = (key: string) =>
+	!key.startsWith("AWS::") && key !== REST_API_RESOURCE
+
 export const getSub = (node: StringASTNode): Reference[] => {
 	// rest regexp
 	parameterRegExp.lastIndex = 0
@@ -15,7 +20,7 @@ export const getSub = (node: StringASTNode): Reference[] => {
 		// Trim the ${} off of the match
 		const referencedKey = match[0].substring(2, match[0].length - 1)
 		// skip AWS variables references
-		if (!referencedKey.startsWith("AWS::")) {
+		if (isValidKey(referencedKey)) {
 			const reference = {
 				key: referencedKey,
 				type: ReferenceType.SUB,
@@ -30,7 +35,7 @@ export const getSub = (node: StringASTNode): Reference[] => {
 export const getRef = (node: StringASTNode): Reference[] => {
 	const referencedKey = node.value
 
-	if (!referencedKey.startsWith("AWS::")) {
+	if (isValidKey(referencedKey)) {
 		const reference = {
 			key: referencedKey,
 			type: ReferenceType.REF,
@@ -45,18 +50,22 @@ export const getGetAtt = (node: StringASTNode): Reference[] => {
 	// TODO: handle reference properties
 	const [referencedKey] = node.value.split(".")
 
-	return [
-		{
-			key: referencedKey,
-			type: ReferenceType.GET_ATT,
-			node
-		}
-	]
+	if (isValidKey(referencedKey)) {
+		return [
+			{
+				key: referencedKey,
+				type: ReferenceType.GET_ATT,
+				node
+			}
+		]
+	}
+
+	return []
 }
 
 export const getDependsOn = (node: StringASTNode): Reference[] => {
 	const referencedKey = node.value
-	if (!referencedKey.startsWith("AWS::")) {
+	if (isValidKey(referencedKey)) {
 		return [
 			{
 				key: referencedKey,

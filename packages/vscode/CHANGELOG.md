@@ -1,5 +1,11 @@
 # Change log
 
+## v0.4.2
+- Go to definition
+- References
+- Add default SAM resources
+- Minor performance improvements
+
 ## v0.4.0
 - Validation and autocompletion for resources references
 - Improved support of AWS Intrinsic Functions

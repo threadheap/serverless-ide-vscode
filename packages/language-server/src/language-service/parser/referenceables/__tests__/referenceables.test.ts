@@ -87,10 +87,17 @@ describe("referenceables", () => {
 						Function: {
 							id: "Function",
 							node: expect.any(Object),
-							entityType: ReferenceEntityType.RESOURCE
+							entityType: ReferenceEntityType.RESOURCE,
+							resourceName: "AWS::Serverless::Function"
+						},
+						FunctionRole: {
+							id: "FunctionRole",
+							node: expect.any(Object),
+							entityType: ReferenceEntityType.RESOURCE,
+							resourceName: "AWS::IAM::Role"
 						}
 					},
-					sequence: ["Function"]
+					sequence: ["Function", "FunctionRole"]
 				})
 			)
 		})
@@ -119,7 +126,8 @@ describe("referenceables", () => {
 						Table: {
 							id: "Table",
 							node: expect.any(Object),
-							entityType: ReferenceEntityType.RESOURCE
+							entityType: ReferenceEntityType.RESOURCE,
+							resourceName: "AWS::DynamoDB::Table"
 						}
 					},
 					sequence: ["Table"]

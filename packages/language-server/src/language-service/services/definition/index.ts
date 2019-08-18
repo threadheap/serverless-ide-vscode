@@ -37,14 +37,12 @@ export const getDefinition = (
 
 			for (let reference of references) {
 				for (let entityType of customTag.referenceEntityTypes) {
-					if (
-						reference.key in
-						yamlDocument.referenceables.hash[entityType]
-					) {
-						definitionNode =
-							yamlDocument.referenceables.hash[entityType][
-								reference.key
-							].node
+					const referenceable = yamlDocument.referenceables.hash[
+						entityType
+					].get(reference.key)
+
+					if (referenceable) {
+						definitionNode = referenceable.node
 						break
 					}
 				}

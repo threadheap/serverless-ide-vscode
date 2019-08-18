@@ -6,6 +6,7 @@ export interface Referenceable {
 	id: string
 	node: PropertyASTNode
 	entityType: ReferenceEntityType
+	resourceType?: string
 }
 
 export type ReferenceableLookup = WeakMap<PropertyASTNode, Referenceable>
