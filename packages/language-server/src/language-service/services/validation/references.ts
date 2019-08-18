@@ -22,7 +22,9 @@ export const validateReferences = async (
 				!customTag.referenceEntityTypes.some(
 					(entityType: ReferenceEntityType) => {
 						return Boolean(
-							referenceables.hash[entityType][reference.key]
+							referenceables.hash[entityType].contains(
+								reference.key
+							)
 						)
 					}
 				)

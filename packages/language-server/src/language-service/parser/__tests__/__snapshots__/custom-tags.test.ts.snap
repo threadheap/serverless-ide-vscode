@@ -24,10 +24,22 @@ ObjectASTNode {
     "parameters": Array [],
     "referenceables": Object {
       "hash": Object {
-        "MAPPING": Object {},
-        "OUTPUT": Object {},
-        "PARAMETER": Object {},
-        "RESOURCE": Object {},
+        "MAPPING": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "OUTPUT": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "PARAMETER": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "RESOURCE": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
       },
       "lookup": WeakMap {},
     },
@@ -67,10 +79,22 @@ ObjectASTNode {
           "parameters": Array [],
           "referenceables": Object {
             "hash": Object {
-              "MAPPING": Object {},
-              "OUTPUT": Object {},
-              "PARAMETER": Object {},
-              "RESOURCE": Object {},
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
             },
             "lookup": WeakMap {},
           },
@@ -107,10 +131,22 @@ ObjectASTNode {
               "parameters": Array [],
               "referenceables": Object {
                 "hash": Object {
-                  "MAPPING": Object {},
-                  "OUTPUT": Object {},
-                  "PARAMETER": Object {},
-                  "RESOURCE": Object {},
+                  "MAPPING": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "OUTPUT": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "PARAMETER": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "RESOURCE": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
                 },
                 "lookup": WeakMap {},
               },
@@ -152,10 +188,22 @@ ObjectASTNode {
               "parameters": Array [],
               "referenceables": Object {
                 "hash": Object {
-                  "MAPPING": Object {},
-                  "OUTPUT": Object {},
-                  "PARAMETER": Object {},
-                  "RESOURCE": Object {},
+                  "MAPPING": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "OUTPUT": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "PARAMETER": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "RESOURCE": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
                 },
                 "lookup": WeakMap {},
               },
@@ -202,10 +250,22 @@ ObjectASTNode {
         "parameters": Array [],
         "referenceables": Object {
           "hash": Object {
-            "MAPPING": Object {},
-            "OUTPUT": Object {},
-            "PARAMETER": Object {},
-            "RESOURCE": Object {},
+            "MAPPING": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "OUTPUT": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "PARAMETER": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "RESOURCE": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
           },
           "lookup": WeakMap {},
         },
@@ -241,10 +301,22 @@ ObjectASTNode {
           "parameters": Array [],
           "referenceables": Object {
             "hash": Object {
-              "MAPPING": Object {},
-              "OUTPUT": Object {},
-              "PARAMETER": Object {},
-              "RESOURCE": Object {},
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
             },
             "lookup": WeakMap {},
           },
@@ -298,10 +370,22 @@ ObjectASTNode {
     "parameters": Array [],
     "referenceables": Object {
       "hash": Object {
-        "MAPPING": Object {},
-        "OUTPUT": Object {},
-        "PARAMETER": Object {},
-        "RESOURCE": Object {},
+        "MAPPING": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "OUTPUT": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "PARAMETER": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "RESOURCE": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
       },
       "lookup": WeakMap {},
     },
@@ -350,10 +434,22 @@ ObjectASTNode {
           "parameters": Array [],
           "referenceables": Object {
             "hash": Object {
-              "MAPPING": Object {},
-              "OUTPUT": Object {},
-              "PARAMETER": Object {},
-              "RESOURCE": Object {},
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
             },
             "lookup": WeakMap {},
           },
@@ -390,10 +486,22 @@ ObjectASTNode {
               "parameters": Array [],
               "referenceables": Object {
                 "hash": Object {
-                  "MAPPING": Object {},
-                  "OUTPUT": Object {},
-                  "PARAMETER": Object {},
-                  "RESOURCE": Object {},
+                  "MAPPING": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "OUTPUT": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "PARAMETER": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "RESOURCE": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
                 },
                 "lookup": WeakMap {},
               },
@@ -435,10 +543,22 @@ ObjectASTNode {
               "parameters": Array [],
               "referenceables": Object {
                 "hash": Object {
-                  "MAPPING": Object {},
-                  "OUTPUT": Object {},
-                  "PARAMETER": Object {},
-                  "RESOURCE": Object {},
+                  "MAPPING": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "OUTPUT": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "PARAMETER": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "RESOURCE": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
                 },
                 "lookup": WeakMap {},
               },
@@ -485,10 +605,22 @@ ObjectASTNode {
         "parameters": Array [],
         "referenceables": Object {
           "hash": Object {
-            "MAPPING": Object {},
-            "OUTPUT": Object {},
-            "PARAMETER": Object {},
-            "RESOURCE": Object {},
+            "MAPPING": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "OUTPUT": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "PARAMETER": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "RESOURCE": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
           },
           "lookup": WeakMap {},
         },
@@ -524,10 +656,22 @@ ObjectASTNode {
           "parameters": Array [],
           "referenceables": Object {
             "hash": Object {
-              "MAPPING": Object {},
-              "OUTPUT": Object {},
-              "PARAMETER": Object {},
-              "RESOURCE": Object {},
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
             },
             "lookup": WeakMap {},
           },
@@ -581,10 +725,22 @@ ObjectASTNode {
     "parameters": Array [],
     "referenceables": Object {
       "hash": Object {
-        "MAPPING": Object {},
-        "OUTPUT": Object {},
-        "PARAMETER": Object {},
-        "RESOURCE": Object {},
+        "MAPPING": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "OUTPUT": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "PARAMETER": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "RESOURCE": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
       },
       "lookup": WeakMap {},
     },
@@ -681,10 +837,22 @@ ObjectASTNode {
           "parameters": Array [],
           "referenceables": Object {
             "hash": Object {
-              "MAPPING": Object {},
-              "OUTPUT": Object {},
-              "PARAMETER": Object {},
-              "RESOURCE": Object {},
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
             },
             "lookup": WeakMap {},
           },
@@ -733,10 +901,22 @@ ObjectASTNode {
         "parameters": Array [],
         "referenceables": Object {
           "hash": Object {
-            "MAPPING": Object {},
-            "OUTPUT": Object {},
-            "PARAMETER": Object {},
-            "RESOURCE": Object {},
+            "MAPPING": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "OUTPUT": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "PARAMETER": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "RESOURCE": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
           },
           "lookup": WeakMap {},
         },
@@ -799,10 +979,22 @@ ObjectASTNode {
           "parameters": Array [],
           "referenceables": Object {
             "hash": Object {
-              "MAPPING": Object {},
-              "OUTPUT": Object {},
-              "PARAMETER": Object {},
-              "RESOURCE": Object {},
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
             },
             "lookup": WeakMap {},
           },
@@ -883,10 +1075,22 @@ ObjectASTNode {
     "parameters": Array [],
     "referenceables": Object {
       "hash": Object {
-        "MAPPING": Object {},
-        "OUTPUT": Object {},
-        "PARAMETER": Object {},
-        "RESOURCE": Object {},
+        "MAPPING": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "OUTPUT": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "PARAMETER": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "RESOURCE": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
       },
       "lookup": WeakMap {},
     },
@@ -985,10 +1189,22 @@ ObjectASTNode {
           "parameters": Array [],
           "referenceables": Object {
             "hash": Object {
-              "MAPPING": Object {},
-              "OUTPUT": Object {},
-              "PARAMETER": Object {},
-              "RESOURCE": Object {},
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
             },
             "lookup": WeakMap {},
           },
@@ -1037,10 +1253,22 @@ ObjectASTNode {
         "parameters": Array [],
         "referenceables": Object {
           "hash": Object {
-            "MAPPING": Object {},
-            "OUTPUT": Object {},
-            "PARAMETER": Object {},
-            "RESOURCE": Object {},
+            "MAPPING": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "OUTPUT": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "PARAMETER": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "RESOURCE": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
           },
           "lookup": WeakMap {},
         },
@@ -1104,10 +1332,22 @@ ObjectASTNode {
           "parameters": Array [],
           "referenceables": Object {
             "hash": Object {
-              "MAPPING": Object {},
-              "OUTPUT": Object {},
-              "PARAMETER": Object {},
-              "RESOURCE": Object {},
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
             },
             "lookup": WeakMap {},
           },
@@ -1189,10 +1429,22 @@ ObjectASTNode {
     "parameters": Array [],
     "referenceables": Object {
       "hash": Object {
-        "MAPPING": Object {},
-        "OUTPUT": Object {},
-        "PARAMETER": Object {},
-        "RESOURCE": Object {},
+        "MAPPING": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "OUTPUT": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "PARAMETER": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "RESOURCE": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
       },
       "lookup": WeakMap {},
     },
@@ -1242,10 +1494,22 @@ ObjectASTNode {
           "parameters": Array [],
           "referenceables": Object {
             "hash": Object {
-              "MAPPING": Object {},
-              "OUTPUT": Object {},
-              "PARAMETER": Object {},
-              "RESOURCE": Object {},
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
             },
             "lookup": WeakMap {},
           },
@@ -1286,10 +1550,22 @@ ObjectASTNode {
         "parameters": Array [],
         "referenceables": Object {
           "hash": Object {
-            "MAPPING": Object {},
-            "OUTPUT": Object {},
-            "PARAMETER": Object {},
-            "RESOURCE": Object {},
+            "MAPPING": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "OUTPUT": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "PARAMETER": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "RESOURCE": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
           },
           "lookup": WeakMap {},
         },
@@ -1325,10 +1601,22 @@ ObjectASTNode {
           "parameters": Array [],
           "referenceables": Object {
             "hash": Object {
-              "MAPPING": Object {},
-              "OUTPUT": Object {},
-              "PARAMETER": Object {},
-              "RESOURCE": Object {},
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
             },
             "lookup": WeakMap {},
           },
