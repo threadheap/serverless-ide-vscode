@@ -16,6 +16,10 @@ Just start typing and then pick from available options:
 
 ![ServerlessIDE autocompletion demo](https://raw.githubusercontent.com/threadheap/serverless-ide-vscode/master/packages/vscode/demo/autocomplete.gif)
 
+### Go-to definitions and references
+
+Navigate in the code with resources links
+
 ### Validation
 
 Serverless IDE can validation templates and references to resources, properties and outputs:

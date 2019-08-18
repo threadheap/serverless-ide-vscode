@@ -7,7 +7,7 @@ import {
 import { LanguageSettings } from "./model/settings"
 import { YAMLDocument } from "./parser"
 import { YAMLCompletion } from "./services/completion"
-import { YAMLDocumentSymbols } from "./services/documentSymbols"
+import { findDocumentSymbols } from "./services/documentSymbols"
 import { YAMLHover } from "./services/hover"
 import { JSONSchemaService } from "./services/jsonSchema"
 import { YAMLValidation } from "./services/validation"
@@ -47,7 +47,6 @@ export function getLanguageService(
 
 	const completer = new YAMLCompletion(schemaService)
 	const hover = new YAMLHover(schemaService)
-	const yamlDocumentSymbols = new YAMLDocumentSymbols()
 	const yamlValidation = new YAMLValidation(
 		schemaService,
 		settings.workspaceRoot
@@ -65,8 +64,6 @@ export function getLanguageService(
 		doResolve: completer.doResolve.bind(completer),
 		doValidation: yamlValidation.doValidation.bind(yamlValidation),
 		doHover: hover.doHover.bind(hover),
-		findDocumentSymbols: yamlDocumentSymbols.findDocumentSymbols.bind(
-			yamlDocumentSymbols
-		)
+		findDocumentSymbols
 	}
 }

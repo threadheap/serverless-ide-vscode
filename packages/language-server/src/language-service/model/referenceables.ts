@@ -1,14 +1,19 @@
 import { PropertyASTNode } from "../parser/json"
 import { ReferenceEntityType } from "./references"
+import { SortedHash } from "./sortedHash"
 
 export interface Referenceable {
+	id: string
 	node: PropertyASTNode
+	entityType: ReferenceEntityType
+	resourceType?: string
 }
 
-export interface ReferenceablesHash {
-	[key: string]: Referenceable
-}
+export type ReferenceableLookup = WeakMap<PropertyASTNode, Referenceable>
 
-export type Referenceables = {
-	[key in ReferenceEntityType]: ReferenceablesHash
+export interface Referenceables {
+	hash: {
+		[key in ReferenceEntityType]: SortedHash<Referenceable>
+	}
+	lookup: ReferenceableLookup
 }

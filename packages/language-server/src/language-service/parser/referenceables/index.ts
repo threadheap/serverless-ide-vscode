@@ -1,30 +1,83 @@
 import { CLOUD_FORMATION, SERVERLESS_FRAMEWORK } from "./../../model/document"
-import { ASTNode, ObjectASTNode, PropertyASTNode } from "./../../parser/json"
+import {
+	ASTNode,
+	ObjectASTNode,
+	PropertyASTNode,
+	StringASTNode
+} from "./../../parser/json"
 import { getNodeItemByKey } from "../../utils/yaml"
 import { DocumentType, SAM } from "../../model/document"
-import { Referenceables, ReferenceablesHash } from "../../model/referenceables"
+import { Referenceables, Referenceable } from "../../model/referenceables"
 import { ReferenceEntityType } from "../../model/references"
+import { SortedHash } from "../../model/sortedHash"
 
-export const generateEmptyReferenceables = () => ({
-	[ReferenceEntityType.PARAMETER]: {},
-	[ReferenceEntityType.RESOURCE]: {},
-	[ReferenceEntityType.MAPPING]: {},
-	[ReferenceEntityType.OUTPUT]: {}
+export const generateEmptyReferenceables = (): Referenceables => ({
+	hash: {
+		[ReferenceEntityType.PARAMETER]: new SortedHash(),
+		[ReferenceEntityType.RESOURCE]: new SortedHash(),
+		[ReferenceEntityType.MAPPING]: new SortedHash(),
+		[ReferenceEntityType.OUTPUT]: new SortedHash()
+	},
+	lookup: new WeakMap()
 })
 
-const collectReferenceablesFromNode = (
-	node: PropertyASTNode | void
-): ReferenceablesHash => {
-	const referenceables: ReferenceablesHash = {}
+const addReferenceable = (
+	referenceables: Referenceables,
+	entityType: ReferenceEntityType,
+	referenceable: Referenceable
+) => {
+	referenceables.hash[entityType].add(referenceable.id, referenceable)
+	referenceables.lookup.set(referenceable.node, referenceable)
+}
 
+const getResourceName = (resourceNode: ASTNode): string | void => {
+	if (resourceNode) {
+		const resourceValue = resourceNode.get(["Type"])
+
+		if (resourceValue instanceof StringASTNode) {
+			return resourceValue.value
+		}
+	}
+}
+
+const collectReferenceablesFromNode = (
+	entityType: ReferenceEntityType,
+	node: PropertyASTNode | void,
+	referenceables: Referenceables,
+	isSam: boolean = false
+): Referenceables => {
 	if (node) {
 		const { value } = node
 		if (value instanceof ObjectASTNode) {
 			value.properties.forEach(property => {
 				const key = property.key.value
+				const resourceName =
+					entityType === ReferenceEntityType.RESOURCE
+						? getResourceName(property.value)
+						: undefined
 
-				referenceables[key] = {
-					node: property
+				const referenceable = {
+					id: key,
+					node: property,
+					entityType,
+					resourceName
+				}
+
+				addReferenceable(referenceables, entityType, referenceable)
+
+				if (isSam && resourceName === "AWS::Serverless::Function") {
+					const roleReferenceable = {
+						id: `${key}Role`,
+						node: property,
+						entityType,
+						resourceName: "AWS::IAM::Role"
+					}
+
+					// we don't need to add the role into lookup hash
+					referenceables.hash[entityType].add(
+						roleReferenceable.id,
+						roleReferenceable
+					)
 				}
 			})
 		}
@@ -33,21 +86,38 @@ const collectReferenceablesFromNode = (
 	return referenceables
 }
 
-const collectCfnReferenceables = (node: ASTNode): Referenceables => {
-	return {
-		[ReferenceEntityType.PARAMETER]: collectReferenceablesFromNode(
-			getNodeItemByKey(node, "Parameters")
-		),
-		[ReferenceEntityType.RESOURCE]: collectReferenceablesFromNode(
-			getNodeItemByKey(node, "Resources")
-		),
-		[ReferenceEntityType.MAPPING]: collectReferenceablesFromNode(
-			getNodeItemByKey(node, "Mappings")
-		),
-		[ReferenceEntityType.OUTPUT]: collectReferenceablesFromNode(
-			getNodeItemByKey(node, "Output")
-		)
-	}
+const collectCfnReferenceables = (
+	node: ASTNode,
+	isSam: boolean = false
+): Referenceables => {
+	const referenceables = generateEmptyReferenceables()
+
+	collectReferenceablesFromNode(
+		ReferenceEntityType.PARAMETER,
+		getNodeItemByKey(node, "Parameters"),
+		referenceables
+	)
+
+	collectReferenceablesFromNode(
+		ReferenceEntityType.RESOURCE,
+		getNodeItemByKey(node, "Resources"),
+		referenceables,
+		isSam
+	)
+
+	collectReferenceablesFromNode(
+		ReferenceEntityType.MAPPING,
+		getNodeItemByKey(node, "Mappings"),
+		referenceables
+	)
+
+	collectReferenceablesFromNode(
+		ReferenceEntityType.OUTPUT,
+		getNodeItemByKey(node, "Output"),
+		referenceables
+	)
+
+	return referenceables
 }
 
 const collectServerlessReferenceables = (node: ASTNode): Referenceables => {
@@ -58,9 +128,11 @@ const collectServerlessReferenceables = (node: ASTNode): Referenceables => {
 		const node = getNodeItemByKey(resourcesProperty.value, "Resources")
 
 		if (node) {
-			referenceables[
-				ReferenceEntityType.RESOURCE
-			] = collectReferenceablesFromNode(node)
+			collectReferenceablesFromNode(
+				ReferenceEntityType.RESOURCE,
+				node,
+				referenceables
+			)
 		}
 	}
 
@@ -73,6 +145,7 @@ export const collectReferenceables = (
 ): Referenceables => {
 	switch (documentType) {
 		case SAM:
+			return collectCfnReferenceables(node, true)
 		case CLOUD_FORMATION:
 			return collectCfnReferenceables(node)
 		case SERVERLESS_FRAMEWORK:

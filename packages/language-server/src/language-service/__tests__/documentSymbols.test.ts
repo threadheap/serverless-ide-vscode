@@ -56,7 +56,7 @@ describe("Document Symbols Tests", () => {
 	it("Document Symbols with object", done => {
 		const content = "scripts:\n  node1: test\n  node2: test"
 		const symbols = parseSetup(content)
-		expect(symbols).toHaveLength(3)
+		expect(symbols).toHaveLength(1)
 		done()
 	})
 
@@ -77,7 +77,7 @@ describe("Document Symbols Tests", () => {
 	it("Document Symbols with array", done => {
 		const content = "authors:\n  - name: Josh\n  - email: jp"
 		const symbols = parseSetup(content)
-		expect(symbols).toHaveLength(3)
+		expect(symbols).toHaveLength(1)
 		done()
 	})
 
@@ -85,7 +85,7 @@ describe("Document Symbols Tests", () => {
 		const content =
 			"scripts:\n  node1: test\n  node2: test\nauthors:\n  - name: Josh\n  - email: jp"
 		const symbols = parseSetup(content)
-		expect(symbols).toHaveLength(6)
+		expect(symbols).toHaveLength(2)
 		done()
 	})
 })

@@ -29,6 +29,26 @@ export class SortedHash<TItem> {
 		return this.hash[key]
 	}
 
+	contains(key: string): boolean {
+		return key in this.hash
+	}
+
+	getList(): TItem[] {
+		return this.map(item => item)
+	}
+
+	map<TValue>(callback: (item: TItem, index: number) => TValue): TValue[] {
+		return this.sequence.map((key, index) => {
+			return callback(this.hash[key], index)
+		})
+	}
+
+	forEach(callback: (item: TItem, index: number) => void) {
+		return this.sequence.forEach((key, index) => {
+			return callback(this.hash[key], index)
+		})
+	}
+
 	insertAtIndex(key: string, item: TItem, index: number) {
 		this.sequence = [
 			...this.sequence.slice(0, index),

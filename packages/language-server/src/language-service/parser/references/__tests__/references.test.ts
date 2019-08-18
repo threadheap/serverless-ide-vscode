@@ -15,14 +15,15 @@ describe("references collector", () => {
 
 				const references = collectReferences(root)
 
-				expect(references).toHaveLength(1)
-				expect(references).toEqual([
-					{
-						type: ReferenceType.REF,
-						key: "logicalName",
-						node: expect.any(Object)
-					}
-				])
+				expect(references.hash).toEqual({
+					logicalName: [
+						{
+							type: ReferenceType.REF,
+							key: "logicalName",
+							node: expect.any(Object)
+						}
+					]
+				})
 			})
 		})
 
@@ -33,14 +34,15 @@ describe("references collector", () => {
 
 				const references = collectReferences(root)
 
-				expect(references).toHaveLength(1)
-				expect(references).toEqual([
-					{
-						type: ReferenceType.GET_ATT,
-						key: "logicalName",
-						node: expect.any(Object)
-					}
-				])
+				expect(references.hash).toEqual({
+					logicalName: [
+						{
+							type: ReferenceType.GET_ATT,
+							key: "logicalName",
+							node: expect.any(Object)
+						}
+					]
+				})
 			})
 		})
 
@@ -50,15 +52,15 @@ describe("references collector", () => {
 				const root = generateNode(text)
 
 				const references = collectReferences(root)
-
-				expect(references).toHaveLength(1)
-				expect(references).toEqual([
-					{
-						type: ReferenceType.SUB,
-						key: "logicalName",
-						node: expect.any(Object)
-					}
-				])
+				expect(references.hash).toEqual({
+					logicalName: [
+						{
+							type: ReferenceType.SUB,
+							key: "logicalName",
+							node: expect.any(Object)
+						}
+					]
+				})
 			})
 
 			test("should collect references from parameters", () => {
@@ -72,14 +74,15 @@ describe("references collector", () => {
 
 				const references = collectReferences(root)
 
-				expect(references).toHaveLength(1)
-				expect(references).toEqual([
-					{
-						type: ReferenceType.REF,
-						key: "logicalName",
-						node: expect.any(Object)
-					}
-				])
+				expect(references.hash).toEqual({
+					logicalName: [
+						{
+							type: ReferenceType.REF,
+							key: "logicalName",
+							node: expect.any(Object)
+						}
+					]
+				})
 			})
 
 			test("should collect multiple references", () => {
@@ -88,17 +91,21 @@ describe("references collector", () => {
 				const root = generateNode(text)
 
 				const references = collectReferences(root)
-
-				expect(references).toHaveLength(2)
-				expect(references[0]).toEqual({
-					type: ReferenceType.SUB,
-					key: "logicalName1",
-					node: expect.any(Object)
-				})
-				expect(references[1]).toEqual({
-					type: ReferenceType.SUB,
-					key: "logicalName2",
-					node: expect.any(Object)
+				expect(references.hash).toEqual({
+					logicalName1: [
+						{
+							type: ReferenceType.SUB,
+							key: "logicalName1",
+							node: expect.any(Object)
+						}
+					],
+					logicalName2: [
+						{
+							type: ReferenceType.SUB,
+							key: "logicalName2",
+							node: expect.any(Object)
+						}
+					]
 				})
 			})
 
@@ -110,17 +117,21 @@ describe("references collector", () => {
 				const root = generateNode(text)
 
 				const references = collectReferences(root)
-
-				expect(references).toHaveLength(2)
-				expect(references[0]).toEqual({
-					type: ReferenceType.SUB,
-					key: "logicalName1",
-					node: expect.any(Object)
-				})
-				expect(references[1]).toEqual({
-					type: ReferenceType.SUB,
-					key: "logicalName2",
-					node: expect.any(Object)
+				expect(references.hash).toEqual({
+					logicalName1: [
+						{
+							type: ReferenceType.SUB,
+							key: "logicalName1",
+							node: expect.any(Object)
+						}
+					],
+					logicalName2: [
+						{
+							type: ReferenceType.SUB,
+							key: "logicalName2",
+							node: expect.any(Object)
+						}
+					]
 				})
 			})
 		})
@@ -135,20 +146,22 @@ describe("references collector", () => {
 				const root = generateNode(text)
 
 				const references = collectReferences(root)
-
-				expect(references).toHaveLength(2)
-				expect(references).toEqual([
-					{
-						type: ReferenceType.REF,
-						key: "logicalName1",
-						node: expect.any(Object)
-					},
-					{
-						type: ReferenceType.REF,
-						key: "logicalName2",
-						node: expect.any(Object)
-					}
-				])
+				expect(references.hash).toEqual({
+					logicalName1: [
+						{
+							type: ReferenceType.REF,
+							key: "logicalName1",
+							node: expect.any(Object)
+						}
+					],
+					logicalName2: [
+						{
+							type: ReferenceType.REF,
+							key: "logicalName2",
+							node: expect.any(Object)
+						}
+					]
+				})
 			})
 		})
 	})
@@ -160,15 +173,15 @@ describe("references collector", () => {
 				const root = generateNode(text)
 
 				const references = collectReferences(root)
-
-				expect(references).toHaveLength(1)
-				expect(references).toEqual([
-					{
-						type: ReferenceType.REF,
-						key: "logicalName",
-						node: expect.any(Object)
-					}
-				])
+				expect(references.hash).toEqual({
+					logicalName: [
+						{
+							type: ReferenceType.REF,
+							key: "logicalName",
+							node: expect.any(Object)
+						}
+					]
+				})
 			})
 		})
 
@@ -181,15 +194,15 @@ describe("references collector", () => {
 				const root = generateNode(text)
 
 				const references = collectReferences(root)
-
-				expect(references).toHaveLength(1)
-				expect(references).toEqual([
-					{
-						type: ReferenceType.GET_ATT,
-						key: "logicalName",
-						node: expect.any(Object)
-					}
-				])
+				expect(references.hash).toEqual({
+					logicalName: [
+						{
+							type: ReferenceType.GET_ATT,
+							key: "logicalName",
+							node: expect.any(Object)
+						}
+					]
+				})
 			})
 		})
 
@@ -204,14 +217,15 @@ describe("references collector", () => {
 
 				const references = collectReferences(root)
 
-				expect(references).toHaveLength(1)
-				expect(references).toEqual([
-					{
-						type: ReferenceType.SUB,
-						key: "logicalName",
-						node: expect.any(Object)
-					}
-				])
+				expect(references.hash).toEqual({
+					logicalName: [
+						{
+							type: ReferenceType.SUB,
+							key: "logicalName",
+							node: expect.any(Object)
+						}
+					]
+				})
 			})
 
 			test("should collect references from parameters", () => {
@@ -225,15 +239,15 @@ describe("references collector", () => {
 				const root = generateNode(text)
 
 				const references = collectReferences(root)
-
-				expect(references).toHaveLength(1)
-				expect(references).toEqual([
-					{
-						type: ReferenceType.REF,
-						key: "logicalName",
-						node: expect.any(Object)
-					}
-				])
+				expect(references.hash).toEqual({
+					logicalName: [
+						{
+							type: ReferenceType.REF,
+							key: "logicalName",
+							node: expect.any(Object)
+						}
+					]
+				})
 			})
 
 			test("should collect multiple references", () => {
@@ -244,17 +258,21 @@ describe("references collector", () => {
 				const root = generateNode(text)
 
 				const references = collectReferences(root)
-
-				expect(references).toHaveLength(2)
-				expect(references[0]).toEqual({
-					type: ReferenceType.SUB,
-					key: "logicalName1",
-					node: expect.any(Object)
-				})
-				expect(references[1]).toEqual({
-					type: ReferenceType.SUB,
-					key: "logicalName2",
-					node: expect.any(Object)
+				expect(references.hash).toEqual({
+					logicalName1: [
+						{
+							type: ReferenceType.SUB,
+							key: "logicalName1",
+							node: expect.any(Object)
+						}
+					],
+					logicalName2: [
+						{
+							type: ReferenceType.SUB,
+							key: "logicalName2",
+							node: expect.any(Object)
+						}
+					]
 				})
 			})
 		})
@@ -270,20 +288,22 @@ describe("references collector", () => {
 				const root = generateNode(text)
 
 				const references = collectReferences(root)
-
-				expect(references).toHaveLength(2)
-				expect(references).toEqual([
-					{
-						type: ReferenceType.REF,
-						key: "logicalName1",
-						node: expect.any(Object)
-					},
-					{
-						type: ReferenceType.REF,
-						key: "logicalName2",
-						node: expect.any(Object)
-					}
-				])
+				expect(references.hash).toEqual({
+					logicalName1: [
+						{
+							type: ReferenceType.REF,
+							key: "logicalName1",
+							node: expect.any(Object)
+						}
+					],
+					logicalName2: [
+						{
+							type: ReferenceType.REF,
+							key: "logicalName2",
+							node: expect.any(Object)
+						}
+					]
+				})
 			})
 		})
 	})
@@ -294,15 +314,15 @@ describe("references collector", () => {
 			const root = generateNode(text)
 
 			const references = collectReferences(root)
-
-			expect(references).toHaveLength(1)
-			expect(references).toEqual([
-				{
-					type: ReferenceType.DEPENDS_ON,
-					key: "logicalName",
-					node: expect.any(Object)
-				}
-			])
+			expect(references.hash).toEqual({
+				logicalName: [
+					{
+						type: ReferenceType.DEPENDS_ON,
+						key: "logicalName",
+						node: expect.any(Object)
+					}
+				]
+			})
 		})
 
 		test("should collect multiple depends on references", () => {
@@ -315,20 +335,22 @@ describe("references collector", () => {
 			const root = generateNode(text)
 
 			const references = collectReferences(root)
-
-			expect(references).toHaveLength(2)
-			expect(references).toEqual([
-				{
-					type: ReferenceType.DEPENDS_ON,
-					key: "logicalName1",
-					node: expect.any(Object)
-				},
-				{
-					type: ReferenceType.DEPENDS_ON,
-					key: "logicalName2",
-					node: expect.any(Object)
-				}
-			])
+			expect(references.hash).toEqual({
+				logicalName1: [
+					{
+						type: ReferenceType.DEPENDS_ON,
+						key: "logicalName1",
+						node: expect.any(Object)
+					}
+				],
+				logicalName2: [
+					{
+						type: ReferenceType.DEPENDS_ON,
+						key: "logicalName2",
+						node: expect.any(Object)
+					}
+				]
+			})
 		})
 	})
 })

@@ -1,96 +1,104 @@
-"use strict"
-
 import * as Parser from "../../parser/json"
 import { YAMLDocument } from "./../../parser/index"
 
 import {
-	Location,
 	Range,
-	SymbolInformation,
 	SymbolKind,
-	TextDocument
+	TextDocument,
+	DocumentSymbol
 } from "vscode-languageserver-types"
 
-export class YAMLDocumentSymbols {
-	findDocumentSymbols(
-		document: TextDocument,
-		doc: YAMLDocument
-	): SymbolInformation[] {
-		if (!doc) {
-			return null
-		}
+const filterChildren = (
+	children: (DocumentSymbol | void)[]
+): DocumentSymbol[] => {
+	return children.filter(Boolean) as DocumentSymbol[]
+}
 
-		const collectOutlineEntries = (
-			result: SymbolInformation[],
-			node: Parser.ASTNode,
-			containerName: string
-		): SymbolInformation[] => {
-			if (node.type === "array") {
-				;(node as Parser.ArrayASTNode).items.forEach(
-					(itemNode: Parser.ASTNode) => {
-						collectOutlineEntries(result, itemNode, containerName)
-					}
-				)
-			} else if (node.type === "object") {
-				const objectNode = node as Parser.ObjectASTNode
+export const findDocumentSymbols = (
+	document: TextDocument,
+	yamlDocument: YAMLDocument
+): DocumentSymbol[] => {
+	const { root } = yamlDocument
 
-				objectNode.properties.forEach(
-					(property: Parser.PropertyASTNode) => {
-						const location = Location.create(
-							document.uri,
-							Range.create(
-								document.positionAt(property.start),
-								document.positionAt(property.end)
-							)
-						)
-						const valueNode = property.value
-						if (valueNode) {
-							const childContainerName = containerName
-								? containerName + "." + property.key.value
-								: property.key.value
-							result.push({
-								name: property.key.value,
-								kind: this.getSymbolKind(valueNode.type),
-								location,
-								containerName
-							})
-							collectOutlineEntries(
-								result,
-								valueNode,
-								childContainerName
-							)
-						}
-					}
-				)
-			}
-			return result
-		}
-
-		let results = []
-
-		if (doc.root) {
-			const result = collectOutlineEntries([], doc.root, void 0)
-			results = results.concat(result)
-		}
-
-		return results
+	if (root instanceof Parser.ObjectASTNode) {
+		return filterChildren(
+			root.getChildNodes().map((childNode: Parser.PropertyASTNode) => {
+				return collectOutlineEntries(document, childNode)
+			})
+		)
 	}
 
-	private getSymbolKind(nodeType: string): SymbolKind {
-		switch (nodeType) {
-			case "object":
-				return SymbolKind.Module
-			case "string":
-				return SymbolKind.String
-			case "number":
-				return SymbolKind.Number
-			case "array":
-				return SymbolKind.Array
-			case "boolean":
-				return SymbolKind.Boolean
-			default:
-				// 'null'
-				return SymbolKind.Variable
-		}
+	return []
+}
+
+const collectOutlineEntries = (
+	document: TextDocument,
+	node: Parser.ASTNode
+): DocumentSymbol | void => {
+	const range = Range.create(
+		document.positionAt(node.start),
+		document.positionAt(node.end)
+	)
+
+	if (node instanceof Parser.ArrayASTNode) {
+		return DocumentSymbol.create(
+			node.location.toString(),
+			undefined,
+			SymbolKind.Array,
+			range,
+			range,
+			filterChildren(
+				node.getChildNodes().map(itemNode => {
+					return collectOutlineEntries(document, itemNode)
+				})
+			)
+		)
+	} else if (node instanceof Parser.ObjectASTNode) {
+		return DocumentSymbol.create(
+			node.location.toString(),
+			undefined,
+			SymbolKind.Module,
+			range,
+			range,
+			filterChildren(
+				node.getChildNodes().map(childNode => {
+					return collectOutlineEntries(document, childNode)
+				})
+			)
+		)
+	} else if (node instanceof Parser.PropertyASTNode) {
+		return collectOutlineEntries(document, node.value)
+	} else if (node instanceof Parser.BooleanASTNode) {
+		return DocumentSymbol.create(
+			node.location.toString(),
+			undefined,
+			SymbolKind.Boolean,
+			range,
+			range
+		)
+	} else if (node instanceof Parser.NumberASTNode) {
+		return DocumentSymbol.create(
+			node.location.toString(),
+			undefined,
+			SymbolKind.Number,
+			range,
+			range
+		)
+	} else if (node instanceof Parser.NullASTNode) {
+		return DocumentSymbol.create(
+			node.location.toString(),
+			undefined,
+			SymbolKind.Null,
+			range,
+			range
+		)
+	} else if (node instanceof Parser.StringASTNode) {
+		return DocumentSymbol.create(
+			node.location.toString(),
+			undefined,
+			SymbolKind.String,
+			range,
+			range
+		)
 	}
 }

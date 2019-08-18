@@ -23,12 +23,30 @@ ObjectASTNode {
     },
     "parameters": Array [],
     "referenceables": Object {
-      "MAPPING": Object {},
-      "OUTPUT": Object {},
-      "PARAMETER": Object {},
-      "RESOURCE": Object {},
+      "hash": Object {
+        "MAPPING": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "OUTPUT": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "PARAMETER": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "RESOURCE": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+      },
+      "lookup": WeakMap {},
     },
-    "references": Array [],
+    "references": Object {
+      "hash": Object {},
+      "lookup": WeakMap {},
+    },
     "root": [Circular],
     "syntaxErrors": Array [],
     "warnings": Array [],
@@ -60,12 +78,30 @@ ObjectASTNode {
           },
           "parameters": Array [],
           "referenceables": Object {
-            "MAPPING": Object {},
-            "OUTPUT": Object {},
-            "PARAMETER": Object {},
-            "RESOURCE": Object {},
+            "hash": Object {
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+            },
+            "lookup": WeakMap {},
           },
-          "references": Array [],
+          "references": Object {
+            "hash": Object {},
+            "lookup": WeakMap {},
+          },
           "root": [Circular],
           "syntaxErrors": Array [],
           "warnings": Array [],
@@ -94,12 +130,30 @@ ObjectASTNode {
               },
               "parameters": Array [],
               "referenceables": Object {
-                "MAPPING": Object {},
-                "OUTPUT": Object {},
-                "PARAMETER": Object {},
-                "RESOURCE": Object {},
+                "hash": Object {
+                  "MAPPING": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "OUTPUT": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "PARAMETER": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "RESOURCE": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                },
+                "lookup": WeakMap {},
               },
-              "references": Array [],
+              "references": Object {
+                "hash": Object {},
+                "lookup": WeakMap {},
+              },
               "root": [Circular],
               "syntaxErrors": Array [],
               "warnings": Array [],
@@ -133,12 +187,30 @@ ObjectASTNode {
               },
               "parameters": Array [],
               "referenceables": Object {
-                "MAPPING": Object {},
-                "OUTPUT": Object {},
-                "PARAMETER": Object {},
-                "RESOURCE": Object {},
+                "hash": Object {
+                  "MAPPING": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "OUTPUT": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "PARAMETER": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "RESOURCE": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                },
+                "lookup": WeakMap {},
               },
-              "references": Array [],
+              "references": Object {
+                "hash": Object {},
+                "lookup": WeakMap {},
+              },
               "root": [Circular],
               "syntaxErrors": Array [],
               "warnings": Array [],
@@ -177,12 +249,30 @@ ObjectASTNode {
         },
         "parameters": Array [],
         "referenceables": Object {
-          "MAPPING": Object {},
-          "OUTPUT": Object {},
-          "PARAMETER": Object {},
-          "RESOURCE": Object {},
+          "hash": Object {
+            "MAPPING": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "OUTPUT": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "PARAMETER": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "RESOURCE": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+          },
+          "lookup": WeakMap {},
         },
-        "references": Array [],
+        "references": Object {
+          "hash": Object {},
+          "lookup": WeakMap {},
+        },
         "root": [Circular],
         "syntaxErrors": Array [],
         "warnings": Array [],
@@ -210,12 +300,30 @@ ObjectASTNode {
           },
           "parameters": Array [],
           "referenceables": Object {
-            "MAPPING": Object {},
-            "OUTPUT": Object {},
-            "PARAMETER": Object {},
-            "RESOURCE": Object {},
+            "hash": Object {
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+            },
+            "lookup": WeakMap {},
           },
-          "references": Array [],
+          "references": Object {
+            "hash": Object {},
+            "lookup": WeakMap {},
+          },
           "root": [Circular],
           "syntaxErrors": Array [],
           "warnings": Array [],
@@ -261,12 +369,30 @@ ObjectASTNode {
     },
     "parameters": Array [],
     "referenceables": Object {
-      "MAPPING": Object {},
-      "OUTPUT": Object {},
-      "PARAMETER": Object {},
-      "RESOURCE": Object {},
+      "hash": Object {
+        "MAPPING": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "OUTPUT": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "PARAMETER": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "RESOURCE": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+      },
+      "lookup": WeakMap {},
     },
-    "references": Array [],
+    "references": Object {
+      "hash": Object {},
+      "lookup": WeakMap {},
+    },
     "root": [Circular],
     "syntaxErrors": Array [],
     "warnings": Array [],
@@ -307,12 +433,30 @@ ObjectASTNode {
           },
           "parameters": Array [],
           "referenceables": Object {
-            "MAPPING": Object {},
-            "OUTPUT": Object {},
-            "PARAMETER": Object {},
-            "RESOURCE": Object {},
+            "hash": Object {
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+            },
+            "lookup": WeakMap {},
           },
-          "references": Array [],
+          "references": Object {
+            "hash": Object {},
+            "lookup": WeakMap {},
+          },
           "root": [Circular],
           "syntaxErrors": Array [],
           "warnings": Array [],
@@ -341,12 +485,30 @@ ObjectASTNode {
               },
               "parameters": Array [],
               "referenceables": Object {
-                "MAPPING": Object {},
-                "OUTPUT": Object {},
-                "PARAMETER": Object {},
-                "RESOURCE": Object {},
+                "hash": Object {
+                  "MAPPING": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "OUTPUT": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "PARAMETER": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "RESOURCE": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                },
+                "lookup": WeakMap {},
               },
-              "references": Array [],
+              "references": Object {
+                "hash": Object {},
+                "lookup": WeakMap {},
+              },
               "root": [Circular],
               "syntaxErrors": Array [],
               "warnings": Array [],
@@ -380,12 +542,30 @@ ObjectASTNode {
               },
               "parameters": Array [],
               "referenceables": Object {
-                "MAPPING": Object {},
-                "OUTPUT": Object {},
-                "PARAMETER": Object {},
-                "RESOURCE": Object {},
+                "hash": Object {
+                  "MAPPING": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "OUTPUT": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "PARAMETER": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "RESOURCE": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                },
+                "lookup": WeakMap {},
               },
-              "references": Array [],
+              "references": Object {
+                "hash": Object {},
+                "lookup": WeakMap {},
+              },
               "root": [Circular],
               "syntaxErrors": Array [],
               "warnings": Array [],
@@ -424,12 +604,30 @@ ObjectASTNode {
         },
         "parameters": Array [],
         "referenceables": Object {
-          "MAPPING": Object {},
-          "OUTPUT": Object {},
-          "PARAMETER": Object {},
-          "RESOURCE": Object {},
+          "hash": Object {
+            "MAPPING": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "OUTPUT": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "PARAMETER": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "RESOURCE": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+          },
+          "lookup": WeakMap {},
         },
-        "references": Array [],
+        "references": Object {
+          "hash": Object {},
+          "lookup": WeakMap {},
+        },
         "root": [Circular],
         "syntaxErrors": Array [],
         "warnings": Array [],
@@ -457,12 +655,30 @@ ObjectASTNode {
           },
           "parameters": Array [],
           "referenceables": Object {
-            "MAPPING": Object {},
-            "OUTPUT": Object {},
-            "PARAMETER": Object {},
-            "RESOURCE": Object {},
+            "hash": Object {
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+            },
+            "lookup": WeakMap {},
           },
-          "references": Array [],
+          "references": Object {
+            "hash": Object {},
+            "lookup": WeakMap {},
+          },
           "root": [Circular],
           "syntaxErrors": Array [],
           "warnings": Array [],
@@ -508,58 +724,78 @@ ObjectASTNode {
     },
     "parameters": Array [],
     "referenceables": Object {
-      "MAPPING": Object {},
-      "OUTPUT": Object {},
-      "PARAMETER": Object {},
-      "RESOURCE": Object {},
+      "hash": Object {
+        "MAPPING": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "OUTPUT": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "PARAMETER": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "RESOURCE": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+      },
+      "lookup": WeakMap {},
     },
-    "references": Array [
-      Object {
-        "key": "logicVariable",
-        "node": StringASTNode {
-          "_value": "logicVariable",
-          "customTag": Object {
-            "description": "The Fn::GetAtt intrinsic function returns the value of an attribute from a resource in the template.",
-            "kind": "scalar",
-            "propertyName": "Fn::GetAtt",
-            "referenceEntityTypes": Array [
-              "RESOURCE",
-            ],
-            "tag": "!GetAtt",
-            "type": "GET_ATT",
-          },
-          "document": [Circular],
-          "end": 31,
-          "isKey": false,
-          "location": "property",
-          "parent": PropertyASTNode {
-            "_value": [Circular],
-            "colonOffset": -1,
-            "customTag": undefined,
-            "document": [Circular],
-            "end": 31,
-            "key": StringASTNode {
-              "_value": "property",
-              "customTag": undefined,
+    "references": Object {
+      "hash": Object {
+        "logicVariable": Array [
+          Object {
+            "key": "logicVariable",
+            "node": StringASTNode {
+              "_value": "logicVariable",
+              "customTag": Object {
+                "description": "The Fn::GetAtt intrinsic function returns the value of an attribute from a resource in the template.",
+                "kind": "scalar",
+                "propertyName": "Fn::GetAtt",
+                "referenceEntityTypes": Array [
+                  "RESOURCE",
+                ],
+                "tag": "!GetAtt",
+                "type": "GET_ATT",
+              },
               "document": [Circular],
-              "end": 8,
-              "isKey": true,
+              "end": 31,
+              "isKey": false,
               "location": "property",
-              "parent": [Circular],
-              "start": 0,
+              "parent": PropertyASTNode {
+                "_value": [Circular],
+                "colonOffset": -1,
+                "customTag": undefined,
+                "document": [Circular],
+                "end": 31,
+                "key": StringASTNode {
+                  "_value": "property",
+                  "customTag": undefined,
+                  "document": [Circular],
+                  "end": 8,
+                  "isKey": true,
+                  "location": "property",
+                  "parent": [Circular],
+                  "start": 0,
+                  "type": "string",
+                },
+                "location": null,
+                "parent": [Circular],
+                "start": 0,
+                "type": "property",
+              },
+              "start": 18,
               "type": "string",
             },
-            "location": null,
-            "parent": [Circular],
-            "start": 0,
-            "type": "property",
+            "type": "GET_ATT",
           },
-          "start": 18,
-          "type": "string",
-        },
-        "type": "GET_ATT",
+        ],
       },
-    ],
+      "lookup": WeakMap {},
+    },
     "root": [Circular],
     "syntaxErrors": Array [],
     "warnings": Array [],
@@ -600,18 +836,38 @@ ObjectASTNode {
           },
           "parameters": Array [],
           "referenceables": Object {
-            "MAPPING": Object {},
-            "OUTPUT": Object {},
-            "PARAMETER": Object {},
-            "RESOURCE": Object {},
-          },
-          "references": Array [
-            Object {
-              "key": "logicVariable",
-              "node": [Circular],
-              "type": "GET_ATT",
+            "hash": Object {
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
             },
-          ],
+            "lookup": WeakMap {},
+          },
+          "references": Object {
+            "hash": Object {
+              "logicVariable": Array [
+                Object {
+                  "key": "logicVariable",
+                  "node": [Circular],
+                  "type": "GET_ATT",
+                },
+              ],
+            },
+            "lookup": WeakMap {},
+          },
           "root": [Circular],
           "syntaxErrors": Array [],
           "warnings": Array [],
@@ -644,37 +900,57 @@ ObjectASTNode {
         },
         "parameters": Array [],
         "referenceables": Object {
-          "MAPPING": Object {},
-          "OUTPUT": Object {},
-          "PARAMETER": Object {},
-          "RESOURCE": Object {},
+          "hash": Object {
+            "MAPPING": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "OUTPUT": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "PARAMETER": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "RESOURCE": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+          },
+          "lookup": WeakMap {},
         },
-        "references": Array [
-          Object {
-            "key": "logicVariable",
-            "node": StringASTNode {
-              "_value": "logicVariable",
-              "customTag": Object {
-                "description": "The Fn::GetAtt intrinsic function returns the value of an attribute from a resource in the template.",
-                "kind": "scalar",
-                "propertyName": "Fn::GetAtt",
-                "referenceEntityTypes": Array [
-                  "RESOURCE",
-                ],
-                "tag": "!GetAtt",
+        "references": Object {
+          "hash": Object {
+            "logicVariable": Array [
+              Object {
+                "key": "logicVariable",
+                "node": StringASTNode {
+                  "_value": "logicVariable",
+                  "customTag": Object {
+                    "description": "The Fn::GetAtt intrinsic function returns the value of an attribute from a resource in the template.",
+                    "kind": "scalar",
+                    "propertyName": "Fn::GetAtt",
+                    "referenceEntityTypes": Array [
+                      "RESOURCE",
+                    ],
+                    "tag": "!GetAtt",
+                    "type": "GET_ATT",
+                  },
+                  "document": [Circular],
+                  "end": 31,
+                  "isKey": false,
+                  "location": "property",
+                  "parent": [Circular],
+                  "start": 18,
+                  "type": "string",
+                },
                 "type": "GET_ATT",
               },
-              "document": [Circular],
-              "end": 31,
-              "isKey": false,
-              "location": "property",
-              "parent": [Circular],
-              "start": 18,
-              "type": "string",
-            },
-            "type": "GET_ATT",
+            ],
           },
-        ],
+          "lookup": WeakMap {},
+        },
         "root": [Circular],
         "syntaxErrors": Array [],
         "warnings": Array [],
@@ -702,37 +978,57 @@ ObjectASTNode {
           },
           "parameters": Array [],
           "referenceables": Object {
-            "MAPPING": Object {},
-            "OUTPUT": Object {},
-            "PARAMETER": Object {},
-            "RESOURCE": Object {},
+            "hash": Object {
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+            },
+            "lookup": WeakMap {},
           },
-          "references": Array [
-            Object {
-              "key": "logicVariable",
-              "node": StringASTNode {
-                "_value": "logicVariable",
-                "customTag": Object {
-                  "description": "The Fn::GetAtt intrinsic function returns the value of an attribute from a resource in the template.",
-                  "kind": "scalar",
-                  "propertyName": "Fn::GetAtt",
-                  "referenceEntityTypes": Array [
-                    "RESOURCE",
-                  ],
-                  "tag": "!GetAtt",
+          "references": Object {
+            "hash": Object {
+              "logicVariable": Array [
+                Object {
+                  "key": "logicVariable",
+                  "node": StringASTNode {
+                    "_value": "logicVariable",
+                    "customTag": Object {
+                      "description": "The Fn::GetAtt intrinsic function returns the value of an attribute from a resource in the template.",
+                      "kind": "scalar",
+                      "propertyName": "Fn::GetAtt",
+                      "referenceEntityTypes": Array [
+                        "RESOURCE",
+                      ],
+                      "tag": "!GetAtt",
+                      "type": "GET_ATT",
+                    },
+                    "document": [Circular],
+                    "end": 31,
+                    "isKey": false,
+                    "location": "property",
+                    "parent": [Circular],
+                    "start": 18,
+                    "type": "string",
+                  },
                   "type": "GET_ATT",
                 },
-                "document": [Circular],
-                "end": 31,
-                "isKey": false,
-                "location": "property",
-                "parent": [Circular],
-                "start": 18,
-                "type": "string",
-              },
-              "type": "GET_ATT",
+              ],
             },
-          ],
+            "lookup": WeakMap {},
+          },
           "root": [Circular],
           "syntaxErrors": Array [],
           "warnings": Array [],
@@ -778,59 +1074,79 @@ ObjectASTNode {
     },
     "parameters": Array [],
     "referenceables": Object {
-      "MAPPING": Object {},
-      "OUTPUT": Object {},
-      "PARAMETER": Object {},
-      "RESOURCE": Object {},
+      "hash": Object {
+        "MAPPING": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "OUTPUT": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "PARAMETER": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "RESOURCE": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+      },
+      "lookup": WeakMap {},
     },
-    "references": Array [
-      Object {
-        "key": "logicVariable",
-        "node": StringASTNode {
-          "_value": "logicVariable",
-          "customTag": Object {
-            "description": "The intrinsic function Ref returns the value of the specified parameter or resource.",
-            "kind": "scalar",
-            "propertyName": "Ref",
-            "referenceEntityTypes": Array [
-              "PARAMETER",
-              "RESOURCE",
-            ],
-            "tag": "!Ref",
-            "type": "REF",
-          },
-          "document": [Circular],
-          "end": 28,
-          "isKey": false,
-          "location": "property",
-          "parent": PropertyASTNode {
-            "_value": [Circular],
-            "colonOffset": -1,
-            "customTag": undefined,
-            "document": [Circular],
-            "end": 28,
-            "key": StringASTNode {
-              "_value": "property",
-              "customTag": undefined,
+    "references": Object {
+      "hash": Object {
+        "logicVariable": Array [
+          Object {
+            "key": "logicVariable",
+            "node": StringASTNode {
+              "_value": "logicVariable",
+              "customTag": Object {
+                "description": "The intrinsic function Ref returns the value of the specified parameter or resource.",
+                "kind": "scalar",
+                "propertyName": "Ref",
+                "referenceEntityTypes": Array [
+                  "PARAMETER",
+                  "RESOURCE",
+                ],
+                "tag": "!Ref",
+                "type": "REF",
+              },
               "document": [Circular],
-              "end": 8,
-              "isKey": true,
+              "end": 28,
+              "isKey": false,
               "location": "property",
-              "parent": [Circular],
-              "start": 0,
+              "parent": PropertyASTNode {
+                "_value": [Circular],
+                "colonOffset": -1,
+                "customTag": undefined,
+                "document": [Circular],
+                "end": 28,
+                "key": StringASTNode {
+                  "_value": "property",
+                  "customTag": undefined,
+                  "document": [Circular],
+                  "end": 8,
+                  "isKey": true,
+                  "location": "property",
+                  "parent": [Circular],
+                  "start": 0,
+                  "type": "string",
+                },
+                "location": null,
+                "parent": [Circular],
+                "start": 0,
+                "type": "property",
+              },
+              "start": 15,
               "type": "string",
             },
-            "location": null,
-            "parent": [Circular],
-            "start": 0,
-            "type": "property",
+            "type": "REF",
           },
-          "start": 15,
-          "type": "string",
-        },
-        "type": "REF",
+        ],
       },
-    ],
+      "lookup": WeakMap {},
+    },
     "root": [Circular],
     "syntaxErrors": Array [],
     "warnings": Array [],
@@ -872,18 +1188,38 @@ ObjectASTNode {
           },
           "parameters": Array [],
           "referenceables": Object {
-            "MAPPING": Object {},
-            "OUTPUT": Object {},
-            "PARAMETER": Object {},
-            "RESOURCE": Object {},
-          },
-          "references": Array [
-            Object {
-              "key": "logicVariable",
-              "node": [Circular],
-              "type": "REF",
+            "hash": Object {
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
             },
-          ],
+            "lookup": WeakMap {},
+          },
+          "references": Object {
+            "hash": Object {
+              "logicVariable": Array [
+                Object {
+                  "key": "logicVariable",
+                  "node": [Circular],
+                  "type": "REF",
+                },
+              ],
+            },
+            "lookup": WeakMap {},
+          },
           "root": [Circular],
           "syntaxErrors": Array [],
           "warnings": Array [],
@@ -916,38 +1252,58 @@ ObjectASTNode {
         },
         "parameters": Array [],
         "referenceables": Object {
-          "MAPPING": Object {},
-          "OUTPUT": Object {},
-          "PARAMETER": Object {},
-          "RESOURCE": Object {},
+          "hash": Object {
+            "MAPPING": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "OUTPUT": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "PARAMETER": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "RESOURCE": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+          },
+          "lookup": WeakMap {},
         },
-        "references": Array [
-          Object {
-            "key": "logicVariable",
-            "node": StringASTNode {
-              "_value": "logicVariable",
-              "customTag": Object {
-                "description": "The intrinsic function Ref returns the value of the specified parameter or resource.",
-                "kind": "scalar",
-                "propertyName": "Ref",
-                "referenceEntityTypes": Array [
-                  "PARAMETER",
-                  "RESOURCE",
-                ],
-                "tag": "!Ref",
+        "references": Object {
+          "hash": Object {
+            "logicVariable": Array [
+              Object {
+                "key": "logicVariable",
+                "node": StringASTNode {
+                  "_value": "logicVariable",
+                  "customTag": Object {
+                    "description": "The intrinsic function Ref returns the value of the specified parameter or resource.",
+                    "kind": "scalar",
+                    "propertyName": "Ref",
+                    "referenceEntityTypes": Array [
+                      "PARAMETER",
+                      "RESOURCE",
+                    ],
+                    "tag": "!Ref",
+                    "type": "REF",
+                  },
+                  "document": [Circular],
+                  "end": 28,
+                  "isKey": false,
+                  "location": "property",
+                  "parent": [Circular],
+                  "start": 15,
+                  "type": "string",
+                },
                 "type": "REF",
               },
-              "document": [Circular],
-              "end": 28,
-              "isKey": false,
-              "location": "property",
-              "parent": [Circular],
-              "start": 15,
-              "type": "string",
-            },
-            "type": "REF",
+            ],
           },
-        ],
+          "lookup": WeakMap {},
+        },
         "root": [Circular],
         "syntaxErrors": Array [],
         "warnings": Array [],
@@ -975,38 +1331,58 @@ ObjectASTNode {
           },
           "parameters": Array [],
           "referenceables": Object {
-            "MAPPING": Object {},
-            "OUTPUT": Object {},
-            "PARAMETER": Object {},
-            "RESOURCE": Object {},
+            "hash": Object {
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+            },
+            "lookup": WeakMap {},
           },
-          "references": Array [
-            Object {
-              "key": "logicVariable",
-              "node": StringASTNode {
-                "_value": "logicVariable",
-                "customTag": Object {
-                  "description": "The intrinsic function Ref returns the value of the specified parameter or resource.",
-                  "kind": "scalar",
-                  "propertyName": "Ref",
-                  "referenceEntityTypes": Array [
-                    "PARAMETER",
-                    "RESOURCE",
-                  ],
-                  "tag": "!Ref",
+          "references": Object {
+            "hash": Object {
+              "logicVariable": Array [
+                Object {
+                  "key": "logicVariable",
+                  "node": StringASTNode {
+                    "_value": "logicVariable",
+                    "customTag": Object {
+                      "description": "The intrinsic function Ref returns the value of the specified parameter or resource.",
+                      "kind": "scalar",
+                      "propertyName": "Ref",
+                      "referenceEntityTypes": Array [
+                        "PARAMETER",
+                        "RESOURCE",
+                      ],
+                      "tag": "!Ref",
+                      "type": "REF",
+                    },
+                    "document": [Circular],
+                    "end": 28,
+                    "isKey": false,
+                    "location": "property",
+                    "parent": [Circular],
+                    "start": 15,
+                    "type": "string",
+                  },
                   "type": "REF",
                 },
-                "document": [Circular],
-                "end": 28,
-                "isKey": false,
-                "location": "property",
-                "parent": [Circular],
-                "start": 15,
-                "type": "string",
-              },
-              "type": "REF",
+              ],
             },
-          ],
+            "lookup": WeakMap {},
+          },
           "root": [Circular],
           "syntaxErrors": Array [],
           "warnings": Array [],
@@ -1052,12 +1428,30 @@ ObjectASTNode {
     },
     "parameters": Array [],
     "referenceables": Object {
-      "MAPPING": Object {},
-      "OUTPUT": Object {},
-      "PARAMETER": Object {},
-      "RESOURCE": Object {},
+      "hash": Object {
+        "MAPPING": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "OUTPUT": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "PARAMETER": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "RESOURCE": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+      },
+      "lookup": WeakMap {},
     },
-    "references": Array [],
+    "references": Object {
+      "hash": Object {},
+      "lookup": WeakMap {},
+    },
     "root": [Circular],
     "syntaxErrors": Array [],
     "warnings": Array [],
@@ -1099,12 +1493,30 @@ ObjectASTNode {
           },
           "parameters": Array [],
           "referenceables": Object {
-            "MAPPING": Object {},
-            "OUTPUT": Object {},
-            "PARAMETER": Object {},
-            "RESOURCE": Object {},
+            "hash": Object {
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+            },
+            "lookup": WeakMap {},
           },
-          "references": Array [],
+          "references": Object {
+            "hash": Object {},
+            "lookup": WeakMap {},
+          },
           "root": [Circular],
           "syntaxErrors": Array [],
           "warnings": Array [],
@@ -1137,12 +1549,30 @@ ObjectASTNode {
         },
         "parameters": Array [],
         "referenceables": Object {
-          "MAPPING": Object {},
-          "OUTPUT": Object {},
-          "PARAMETER": Object {},
-          "RESOURCE": Object {},
+          "hash": Object {
+            "MAPPING": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "OUTPUT": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "PARAMETER": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "RESOURCE": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+          },
+          "lookup": WeakMap {},
         },
-        "references": Array [],
+        "references": Object {
+          "hash": Object {},
+          "lookup": WeakMap {},
+        },
         "root": [Circular],
         "syntaxErrors": Array [],
         "warnings": Array [],
@@ -1170,12 +1600,30 @@ ObjectASTNode {
           },
           "parameters": Array [],
           "referenceables": Object {
-            "MAPPING": Object {},
-            "OUTPUT": Object {},
-            "PARAMETER": Object {},
-            "RESOURCE": Object {},
+            "hash": Object {
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+            },
+            "lookup": WeakMap {},
           },
-          "references": Array [],
+          "references": Object {
+            "hash": Object {},
+            "lookup": WeakMap {},
+          },
           "root": [Circular],
           "syntaxErrors": Array [],
           "warnings": Array [],

@@ -79,13 +79,25 @@ describe("referenceables", () => {
 			const doc = generateDocument(SAM_DOCUMENT)
 			const referenceables = collectReferenceables(SAM, doc.root)
 
-			expect(referenceables).toEqual(
+			expect(
+				referenceables.hash[ReferenceEntityType.RESOURCE].serialize()
+			).toEqual(
 				expect.objectContaining({
-					[ReferenceEntityType.RESOURCE]: {
+					hash: {
 						Function: {
-							node: expect.any(Object)
+							id: "Function",
+							node: expect.any(Object),
+							entityType: ReferenceEntityType.RESOURCE,
+							resourceName: "AWS::Serverless::Function"
+						},
+						FunctionRole: {
+							id: "FunctionRole",
+							node: expect.any(Object),
+							entityType: ReferenceEntityType.RESOURCE,
+							resourceName: "AWS::IAM::Role"
 						}
-					}
+					},
+					sequence: ["Function", "FunctionRole"]
 				})
 			)
 		})
@@ -106,13 +118,19 @@ describe("referenceables", () => {
 				doc.root
 			)
 
-			expect(referenceables).toEqual(
+			expect(
+				referenceables.hash[ReferenceEntityType.RESOURCE].serialize()
+			).toEqual(
 				expect.objectContaining({
-					[ReferenceEntityType.RESOURCE]: {
+					hash: {
 						Table: {
-							node: expect.any(Object)
+							id: "Table",
+							node: expect.any(Object),
+							entityType: ReferenceEntityType.RESOURCE,
+							resourceName: "AWS::DynamoDB::Table"
 						}
-					}
+					},
+					sequence: ["Table"]
 				})
 			)
 		})

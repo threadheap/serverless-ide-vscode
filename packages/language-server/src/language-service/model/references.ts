@@ -24,3 +24,10 @@ export interface Reference {
 	key: string
 	node: ASTNode
 }
+
+export type ReferencesLookup = WeakMap<ASTNode, Reference>
+
+export interface References {
+	hash: { [key: string]: Reference[] }
+	lookup: ReferencesLookup
+}
