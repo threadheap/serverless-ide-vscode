@@ -286,12 +286,12 @@ Object {
     },
     Object {
       "documentation": undefined,
-      "insertText": "!FindInMap [ \${1|hash,sequence|}, $2, $3 ]",
+      "insertText": "!FindInMap [ \${1||}, $2, $3 ]",
       "insertTextFormat": 2,
       "kind": 12,
       "label": "!FindInMap",
       "textEdit": Object {
-        "newText": "!FindInMap [ \${1|hash,sequence|}, $2, $3 ]",
+        "newText": "!FindInMap [ \${1||}, $2, $3 ]",
         "range": Object {
           "end": Object {
             "character": 9,
@@ -306,12 +306,12 @@ Object {
     },
     Object {
       "documentation": undefined,
-      "insertText": "Fn::FindInMap: [ \${1|hash,sequence|}, $2, $3 ]",
+      "insertText": "Fn::FindInMap: [ \${1||}, $2, $3 ]",
       "insertTextFormat": 2,
       "kind": 10,
       "label": "Fn::FindInMap",
       "textEdit": Object {
-        "newText": "Fn::FindInMap: [ \${1|hash,sequence|}, $2, $3 ]",
+        "newText": "Fn::FindInMap: [ \${1||}, $2, $3 ]",
         "range": Object {
           "end": Object {
             "character": 9,
@@ -325,12 +325,12 @@ Object {
       },
     },
     Object {
-      "insertText": "!GetAtt \${1|hash,sequence|}",
+      "insertText": "!GetAtt \${1||}",
       "insertTextFormat": 2,
       "kind": 12,
       "label": "!GetAtt",
       "textEdit": Object {
-        "newText": "!GetAtt \${1|hash,sequence|}",
+        "newText": "!GetAtt \${1||}",
         "range": Object {
           "end": Object {
             "character": 9,
@@ -344,12 +344,12 @@ Object {
       },
     },
     Object {
-      "insertText": "Fn::GetAtt: \${1|hash,sequence|}",
+      "insertText": "Fn::GetAtt: \${1||}",
       "insertTextFormat": 2,
       "kind": 10,
       "label": "Fn::GetAtt",
       "textEdit": Object {
-        "newText": "Fn::GetAtt: \${1|hash,sequence|}",
+        "newText": "Fn::GetAtt: \${1||}",
         "range": Object {
           "end": Object {
             "character": 9,
@@ -643,12 +643,12 @@ Object {
       },
     },
     Object {
-      "insertText": "!Ref \${1|hash,hash,sequence,sequence|}",
+      "insertText": "!Ref \${1||}",
       "insertTextFormat": 2,
       "kind": 12,
       "label": "!Ref",
       "textEdit": Object {
-        "newText": "!Ref \${1|hash,hash,sequence,sequence|}",
+        "newText": "!Ref \${1||}",
         "range": Object {
           "end": Object {
             "character": 9,
@@ -662,12 +662,12 @@ Object {
       },
     },
     Object {
-      "insertText": "Ref: \${1|hash,hash,sequence,sequence|}",
+      "insertText": "Ref: \${1||}",
       "insertTextFormat": 2,
       "kind": 10,
       "label": "Ref",
       "textEdit": Object {
-        "newText": "Ref: \${1|hash,hash,sequence,sequence|}",
+        "newText": "Ref: \${1||}",
         "range": Object {
           "end": Object {
             "character": 9,
@@ -681,12 +681,12 @@ Object {
       },
     },
     Object {
-      "insertText": " \${1|hash,sequence|}",
+      "insertText": " \${1||}",
       "insertTextFormat": 2,
       "kind": 12,
       "label": "",
       "textEdit": Object {
-        "newText": " \${1|hash,sequence|}",
+        "newText": " \${1||}",
         "range": Object {
           "end": Object {
             "character": 9,
@@ -700,12 +700,12 @@ Object {
       },
     },
     Object {
-      "insertText": "DependsOn: \${1|hash,sequence|}",
+      "insertText": "DependsOn: \${1||}",
       "insertTextFormat": 2,
       "kind": 10,
       "label": "DependsOn",
       "textEdit": Object {
-        "newText": "DependsOn: \${1|hash,sequence|}",
+        "newText": "DependsOn: \${1||}",
         "range": Object {
           "end": Object {
             "character": 9,
@@ -1182,12 +1182,12 @@ Object {
     },
     Object {
       "documentation": undefined,
-      "insertText": "!FindInMap [ \${1|hash,sequence|}, $2, $3 ]",
+      "insertText": "!FindInMap [ \${1||}, $2, $3 ]",
       "insertTextFormat": 2,
       "kind": 12,
       "label": "!FindInMap",
       "textEdit": Object {
-        "newText": "!FindInMap [ \${1|hash,sequence|}, $2, $3 ]",
+        "newText": "!FindInMap [ \${1||}, $2, $3 ]",
         "range": Object {
           "end": Object {
             "character": 0,
@@ -1202,12 +1202,12 @@ Object {
     },
     Object {
       "documentation": undefined,
-      "insertText": "Fn::FindInMap: [ \${1|hash,sequence|}, $2, $3 ]",
+      "insertText": "Fn::FindInMap: [ \${1||}, $2, $3 ]",
       "insertTextFormat": 2,
       "kind": 10,
       "label": "Fn::FindInMap",
       "textEdit": Object {
-        "newText": "Fn::FindInMap: [ \${1|hash,sequence|}, $2, $3 ]",
+        "newText": "Fn::FindInMap: [ \${1||}, $2, $3 ]",
         "range": Object {
           "end": Object {
             "character": 0,
@@ -1221,12 +1221,12 @@ Object {
       },
     },
     Object {
-      "insertText": "!GetAtt \${1|hash,sequence|}",
+      "insertText": "!GetAtt \${1||}",
       "insertTextFormat": 2,
       "kind": 12,
       "label": "!GetAtt",
       "textEdit": Object {
-        "newText": "!GetAtt \${1|hash,sequence|}",
+        "newText": "!GetAtt \${1||}",
         "range": Object {
           "end": Object {
             "character": 0,
@@ -1240,12 +1240,12 @@ Object {
       },
     },
     Object {
-      "insertText": "Fn::GetAtt: \${1|hash,sequence|}",
+      "insertText": "Fn::GetAtt: \${1||}",
       "insertTextFormat": 2,
       "kind": 10,
       "label": "Fn::GetAtt",
       "textEdit": Object {
-        "newText": "Fn::GetAtt: \${1|hash,sequence|}",
+        "newText": "Fn::GetAtt: \${1||}",
         "range": Object {
           "end": Object {
             "character": 0,
@@ -1539,12 +1539,12 @@ Object {
       },
     },
     Object {
-      "insertText": "!Ref \${1|hash,hash,sequence,sequence|}",
+      "insertText": "!Ref \${1||}",
       "insertTextFormat": 2,
       "kind": 12,
       "label": "!Ref",
       "textEdit": Object {
-        "newText": "!Ref \${1|hash,hash,sequence,sequence|}",
+        "newText": "!Ref \${1||}",
         "range": Object {
           "end": Object {
             "character": 0,
@@ -1558,12 +1558,12 @@ Object {
       },
     },
     Object {
-      "insertText": "Ref: \${1|hash,hash,sequence,sequence|}",
+      "insertText": "Ref: \${1||}",
       "insertTextFormat": 2,
       "kind": 10,
       "label": "Ref",
       "textEdit": Object {
-        "newText": "Ref: \${1|hash,hash,sequence,sequence|}",
+        "newText": "Ref: \${1||}",
         "range": Object {
           "end": Object {
             "character": 0,
@@ -1577,12 +1577,12 @@ Object {
       },
     },
     Object {
-      "insertText": " \${1|hash,sequence|}",
+      "insertText": " \${1||}",
       "insertTextFormat": 2,
       "kind": 12,
       "label": "",
       "textEdit": Object {
-        "newText": " \${1|hash,sequence|}",
+        "newText": " \${1||}",
         "range": Object {
           "end": Object {
             "character": 0,
@@ -1596,12 +1596,12 @@ Object {
       },
     },
     Object {
-      "insertText": "DependsOn: \${1|hash,sequence|}",
+      "insertText": "DependsOn: \${1||}",
       "insertTextFormat": 2,
       "kind": 10,
       "label": "DependsOn",
       "textEdit": Object {
-        "newText": "DependsOn: \${1|hash,sequence|}",
+        "newText": "DependsOn: \${1||}",
         "range": Object {
           "end": Object {
             "character": 0,

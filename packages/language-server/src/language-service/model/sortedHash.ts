@@ -29,6 +29,10 @@ export class SortedHash<TItem> {
 		return this.hash[key]
 	}
 
+	keys(): string[] {
+		return this.sequence
+	}
+
 	contains(key: string): boolean {
 		return key in this.hash
 	}
