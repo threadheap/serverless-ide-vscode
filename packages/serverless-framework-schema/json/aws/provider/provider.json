@@ -21,6 +21,10 @@
             "default": "${opt:region, 'us-east-1'}",
             "description": "Overwrite the default region used. Default is us-east-1"
         },
+        "accountId": {
+            "type": "string",
+            "description": "AWS Account ID"
+        },
         "stackName": {
             "type": "string",
             "description": "Use a custom name for the CloudFormation stack"

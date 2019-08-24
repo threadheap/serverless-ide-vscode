@@ -60,6 +60,12 @@ const buildSchema = async () => {
 			...cloudFormationSchema.definitions
 		},
 		properties: {
+			app: {
+				type: "string"
+			},
+			tenant: {
+				type: "string"
+			},
 			service: {
 				$ref: "#/definitions/aws:service"
 			},
@@ -82,9 +88,17 @@ const buildSchema = async () => {
 				type: "object",
 				properties: {
 					Resources: cloudFormationSchema.properties.Resources,
+					Parameters: cloudFormationSchema.properties.Parameters,
+					Metadata: cloudFormationSchema.properties.Metadata,
 					Outputs: cloudFormationSchema.properties.Outputs
 				},
-				required: ["Resources"]
+				additionalProperties: false
+			},
+			custom: {
+				type: "object"
+			},
+			plugins: {
+				type: "array"
 			}
 		},
 		required: ["service", "provider", "functions"]

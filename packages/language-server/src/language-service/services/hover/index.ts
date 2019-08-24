@@ -42,6 +42,7 @@ export class YAMLHover {
 		position: Position,
 		doc: YAMLDocument
 	): Promise<Hover> {
+		const contents = []
 		if (!this.shouldHover || !document) {
 			return Promise.resolve(void 0)
 		}
@@ -70,6 +71,17 @@ export class YAMLHover {
 			document.positionAt(hoverRangeNode.start),
 			document.positionAt(hoverRangeNode.end)
 		)
+		const path = node.getPath()
+
+		if (path.length > 1) {
+			const description = schema.getLastDescription(
+				node.getPath() as string[]
+			)
+
+			if (description) {
+				contents.push(description)
+			}
+		}
 
 		if (node.getPath().length >= 2) {
 			const resourceType = getResourceName(node)
@@ -90,9 +102,13 @@ export class YAMLHover {
 				}
 
 				if (markdown) {
-					return createHover([markdown], hoverRange)
+					contents.push(markdown)
 				}
 			}
+		}
+
+		if (contents.length > 0) {
+			return createHover(contents, hoverRange)
 		}
 
 		return void 0

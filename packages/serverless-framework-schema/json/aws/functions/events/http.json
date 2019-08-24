@@ -1,48 +1,211 @@
 {
+    "description": "This creates an API Gateway HTTP endpoint which can be used to trigger this function.",
     "type": "object",
     "additionalProperties": false,
-    "description": "This creates an API Gateway HTTP endpoint which can be used to trigger this function.",
     "properties": {
         "http": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "path": {
-                    "type": "string",
-                    "description": "Path for this endpoint",
-                    "default": "users/create"
+            "oneOf": [
+                {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "path": {
+                            "type": "string",
+                            "description": "Path for this endpoint",
+                            "default": "users/create"
+                        },
+                        "integration": {
+                            "type": "string",
+                            "enum": [
+                                "lambda"
+                            ]
+                        },
+                        "request": {
+                            "type": "object",
+                            "description": "To pass optional and required parameters to your functions, so you can use them in API Gateway tests and SDK generation, marking them as true will make them required, false will make them optional.",
+                            "properties": {
+                                "parameters": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "querystrings": {
+                                            "type": "object",
+                                            "patternProperties": {
+                                                "^[a-zA-Z0-9]+$": {
+                                                    "type": "boolean"
+                                                }
+                                            }
+                                        },
+                                        "headers": {
+                                            "type": "object",
+                                            "patternProperties": {
+                                                "^[a-zA-Z0-9]+$": {
+                                                    "type": "boolean"
+                                                }
+                                            }
+                                        },
+                                        "paths": {
+                                            "type": "object",
+                                            "patternProperties": {
+                                                "^[a-zA-Z0-9]+$": {
+                                                    "type": "boolean"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "paths": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "parameters": {
+                                                "type": "object",
+                                                "additionalProperties": false,
+                                                "properties": {
+                                                    "querystrings": {
+                                                        "type": "object",
+                                                        "patternProperties": {
+                                                            "^[a-zA-Z0-9]+$": {
+                                                                "type": "boolean"
+                                                            }
+                                                        }
+                                                    },
+                                                    "headers": {
+                                                        "type": "object",
+                                                        "patternProperties": {
+                                                            "^[a-zA-Z0-9]+$": {
+                                                                "type": "boolean"
+                                                            }
+                                                        }
+                                                    },
+                                                    "paths": {
+                                                        "type": "object",
+                                                        "patternProperties": {
+                                                            "^[a-zA-Z0-9]+$": {
+                                                                "type": "boolean"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "object",
+                                            "patternProperties": {
+                                                "^[a-zA-Z0-9]+$": {
+                                                    "type": "boolean"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                },
+                                "template": {
+                                    "type": "object"
+                                },
+                                "passThrough": {
+                                    "type": "string",
+                                    "enum": [
+                                        "NEVER",
+                                        "WHEN_NO_MATCH",
+                                        "WHEN_NO_TEMPLATES"
+                                    ]
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "response": {
+                            "type": "object",
+                            "description": "Serverless lets you setup custom headers and a response template for your http event.",
+                            "properties": {
+                                "headers": {
+                                    "type": "object",
+                                    "description": "Custom Response Headers"
+                                },
+                                "template": {
+                                    "type": "string"
+                                },
+                                "statusCodes": {
+                                    "patternProperties": {
+                                        "^[0-9]+$": {
+                                            "pattern": {
+                                                "type": "string"
+                                            },
+                                            "template": {
+                                                "oneOf": [
+                                                    {
+                                                        "type": "string"
+                                                    },
+                                                    {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                            "headers": {
+                                                "type": "object"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "method": {
+                            "type": "string",
+                            "description": "HTTP method for this endpoint",
+                            "enum": [
+                                "get",
+                                "head",
+                                "post",
+                                "put",
+                                "delete",
+                                "trace",
+                                "connect",
+                                "any",
+                                "GET",
+                                "HEAD",
+                                "POST",
+                                "PUT",
+                                "DELETE",
+                                "TRACE",
+                                "CONNECT"
+                            ],
+                            "default": "get"
+                        },
+                        "cors": {
+                            "description": "Turn on CORS for this endpoint, but don't forget to return the right header in your response",
+                            "oneOf": [
+                                {
+                                    "type": "boolean"
+                                },
+                                {
+                                    "type": "object"
+                                }
+                            ]
+                        },
+                        "private": {
+                            "type": "boolean",
+                            "description": "Requires clients to add API keys values in the `x-api-key` header of their request",
+                            "default": true
+                        },
+                        "authorizer": {
+                            "$ref": "#/definitions/aws:common:authorizer"
+                        },
+                        "schema": {
+                            "type": "object",
+                            "description": "To use request schema validation with API gateway, add the JSON Schema for your content type. Since JSON Schema is represented in JSON, it's easier to include it from a file."
+                        }
+                    },
+                    "require": [
+                        "path",
+                        "method"
+                    ]
                 },
-                "method": {
-                    "type": "string",
-                    "description": "HTTP method for this endpoint",
-                    "enum": [
-                        "get",
-                        "head",
-                        "post",
-                        "put",
-                        "delete",
-                        "trace",
-                        "connect"
-                    ],
-                    "default": "get"
-                },
-                "cors": {
-                    "type": "boolean",
-                    "description": "Turn on CORS for this endpoint, but don't forget to return the right header in your response",
-                    "default": true
-                },
-                "private": {
-                    "type": "boolean",
-                    "description": "Requires clients to add API keys values in the `x-api-key` header of their request",
-                    "default": true
-                },
-                "authorizer": {
-                    "$ref": "#/definitions/aws:common:authorizer"
+                {
+                    "type": "string"
                 }
-            },
-            "require": [
-                "path",
-                "method"
             ]
         }
     },

@@ -1,62 +1,69 @@
 {
-    "type": "object",
-    "additionalProperties": false,
     "description": "An AWS API Gateway custom authorizer function",
-    "properties": {
-        "name": {
-            "type": "string",
-            "description": "The name of the authorizer function (must be in this service)",
-            "default": "authorizerFunc"
-        },
-        "arn": {
-            "$ref": "aws/common/arn",
-            "description": "Can be used instead of name to reference a function outside of service",
-            "default": "xxx:xxx:Lambda-Name"
-        },
-        "resultTtlInSeconds": {
-            "type": "number",
-            "default": 0
-        },
-        "identitySource": {
+    "oneOf": [
+        {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "The name of the authorizer function (must be in this service)",
+                    "default": "authorizerFunc"
+                },
+                "arn": {
+                    "$ref": "aws/common/arn",
+                    "description": "Can be used instead of name to reference a function outside of service",
+                    "default": "xxx:xxx:Lambda-Name"
+                },
+                "resultTtlInSeconds": {
+                    "type": "number",
+                    "default": 0
+                },
+                "identitySource": {
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "default": "method.request.header.Authorization"
+                        },
+                        {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "identityValidationExpression": {
+                    "type": "string",
+                    "default": "someRegex"
+                },
+                "type": {
+                    "type": "string",
+                    "enum": [
+                        "token",
+                        "request"
+                    ],
+                    "default": "token",
+                    "description": "token or request. Determines input to the authorier function, called with the auth token or the entire request event. Defaults to token"
+                }
+            },
             "oneOf": [
                 {
-                    "type": "string",
-                    "default": "method.request.header.Authorization"
+                    "required": [
+                        "name"
+                    ]
                 },
                 {
-                    "type": "array",
-                    "items": [
-                        {
-                            "type": "string"
-                        }
+                    "required": [
+                        "arn"
                     ]
                 }
             ]
         },
-        "identityValidationExpression": {
-            "type": "string",
-            "default": "someRegex"
-        },
-        "type": {
-            "type": "string",
-            "enum": [
-                "token",
-                "request"
-            ],
-            "default": "token",
-            "description": "token or request. Determines input to the authorier function, called with the auth token or the entire request event. Defaults to token"
-        }
-    },
-    "oneOf": [
         {
-            "required": [
-                "name"
-            ]
-        },
-        {
-            "required": [
-                "arn"
-            ]
+            "type": "string"
         }
     ]
 }
