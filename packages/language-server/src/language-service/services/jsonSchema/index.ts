@@ -1,5 +1,6 @@
 import * as Json from "jsonc-parser"
 import forEach = require("lodash/forEach")
+import noop = require("lodash/noop")
 import { TextDocument } from "vscode-languageserver"
 import * as nls from "vscode-nls"
 import URI from "vscode-uri"
@@ -76,43 +77,72 @@ export class ResolvedSchema {
 		this.errors = errors
 	}
 
-	getSection(path: string[]): JSONSchema {
+	getLastDescription(path: string[]): string | void {
+		let description = undefined
+
+		this.getSectionRecursive(path, this.schema, schemaNode => {
+			if (schemaNode && schemaNode.description) {
+				description = schemaNode.description
+			}
+		})
+
+		return description
+	}
+
+	getSection(path: string[]): JSONSchema | null {
 		return this.getSectionRecursive(path, this.schema)
 	}
 
 	private getSectionRecursive(
 		path: string[],
-		schema: JSONSchema
-	): JSONSchema {
+		schema: JSONSchema,
+		visitor: (schema: JSONSchema) => void = noop
+	): JSONSchema | null {
+		visitor(schema)
+
 		if (!schema || path.length === 0) {
 			return schema
 		}
 		const next = path.shift()
 
+		if (!next) {
+			return null
+		}
+
 		if (schema.properties && schema.properties[next]) {
-			return this.getSectionRecursive(path, schema.properties[next])
+			return this.getSectionRecursive(
+				path,
+				schema.properties[next],
+				visitor
+			)
 		} else if (schema.patternProperties) {
 			Object.keys(schema.patternProperties).forEach(pattern => {
 				const regex = new RegExp(pattern)
 				if (regex.test(next)) {
 					return this.getSectionRecursive(
 						path,
-						schema.patternProperties[pattern]
+						schema.patternProperties[pattern],
+						visitor
 					)
 				}
 			})
 		} else if (schema.additionalProperties) {
-			return this.getSectionRecursive(path, schema.additionalProperties)
+			return this.getSectionRecursive(
+				path,
+				schema.additionalProperties,
+				visitor
+			)
 		} else if (next.match("[0-9]+")) {
 			if (schema.items) {
-				return this.getSectionRecursive(path, schema.items)
+				return this.getSectionRecursive(path, schema.items, visitor)
 			} else if (Array.isArray(schema.items)) {
 				try {
 					const index = parseInt(next, 10)
 					if (schema.items[index]) {
 						return this.getSectionRecursive(
 							path,
-							schema.items[index]
+							schema.items[index],
+							visitor
 						)
 					}
 					return null

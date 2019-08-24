@@ -222,7 +222,10 @@ export class YAMLValidation {
 				schema.schema
 			)
 			currentDocProblems.forEach(problem => {
-				if (problem.message.startsWith("Incorrect type")) {
+				if (
+					problem.message.startsWith("Incorrect type") ||
+					problem.message.startsWith("Value is not accepted")
+				) {
 					const node = yamlDocument.getNodeFromOffset(
 						problem.location.start
 					)
@@ -230,7 +233,7 @@ export class YAMLValidation {
 					if (node.type === "string") {
 						const stringNode = node as StringASTNode
 
-						if (stringNode.value.startsWith("${file(")) {
+						if (stringNode.value.startsWith("${")) {
 							return
 						}
 					}

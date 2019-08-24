@@ -1,7 +1,7 @@
 {
     "name": "@serverless-ide/language-server",
     "description": "Serverless IDE language server",
-    "version": "0.4.3",
+    "version": "0.4.4",
     "author": "Pavel Vlasov <freakycue@gmail.com>",
     "license": "MIT",
     "engines": {
@@ -24,7 +24,7 @@
     },
     "dependencies": {
         "@serverless-ide/sam-schema": "^0.4.3",
-        "@serverless-ide/serverless-framework-schema": "^0.4.3",
+        "@serverless-ide/serverless-framework-schema": "^0.4.4",
         "js-yaml": "^3.13.1",
         "jsonc-parser": "^1.0.3",
         "lru-cache": "^5.1.1",

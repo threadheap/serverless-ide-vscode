@@ -720,6 +720,46 @@ Object {
     },
     Object {
       "documentation": "",
+      "insertText": "app: $1",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "app",
+      "textEdit": Object {
+        "newText": "app: $1",
+        "range": Object {
+          "end": Object {
+            "character": 4,
+            "line": 7,
+          },
+          "start": Object {
+            "character": 4,
+            "line": 7,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "",
+      "insertText": "tenant: $1",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "tenant",
+      "textEdit": Object {
+        "newText": "tenant: $1",
+        "range": Object {
+          "end": Object {
+            "character": 4,
+            "line": 7,
+          },
+          "start": Object {
+            "character": 4,
+            "line": 7,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "",
       "insertText": "frameworkVersion: $1",
       "insertTextFormat": 2,
       "kind": 10,
@@ -792,6 +832,50 @@ Object {
       "textEdit": Object {
         "newText": "layers:
 	",
+        "range": Object {
+          "end": Object {
+            "character": 4,
+            "line": 7,
+          },
+          "start": Object {
+            "character": 4,
+            "line": 7,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "",
+      "insertText": "custom:
+	",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "custom",
+      "textEdit": Object {
+        "newText": "custom:
+	",
+        "range": Object {
+          "end": Object {
+            "character": 4,
+            "line": 7,
+          },
+          "start": Object {
+            "character": 4,
+            "line": 7,
+          },
+        },
+      },
+    },
+    Object {
+      "documentation": "",
+      "insertText": "plugins:
+	- ",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "plugins",
+      "textEdit": Object {
+        "newText": "plugins:
+	- ",
         "range": Object {
           "end": Object {
             "character": 4,

@@ -40,6 +40,12 @@
             "description": "IAM role which will be used for this function",
             "default": "arn:aws:iam::XXXXXX:role/role"
         },
+        "iamRoleStatements": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/aws:common:role-statement"
+            }
+        },
         "onError": {
             "type": "string",
             "description": "Optional SNS topic / SQS arn (Ref, Fn::GetAtt and Fn::ImportValue are supported as well) which will be used for the DeadLetterConfig",

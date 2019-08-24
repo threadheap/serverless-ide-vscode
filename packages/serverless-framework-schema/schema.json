@@ -13,64 +13,71 @@
       ]
     },
     "aws:common:authorizer": {
-      "type": "object",
-      "additionalProperties": false,
       "description": "An AWS API Gateway custom authorizer function",
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "The name of the authorizer function (must be in this service)",
-          "default": "authorizerFunc"
-        },
-        "arn": {
-          "$ref": "aws/common/arn",
-          "description": "Can be used instead of name to reference a function outside of service",
-          "default": "xxx:xxx:Lambda-Name"
-        },
-        "resultTtlInSeconds": {
-          "type": "number",
-          "default": 0
-        },
-        "identitySource": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "The name of the authorizer function (must be in this service)",
+              "default": "authorizerFunc"
+            },
+            "arn": {
+              "$ref": "aws/common/arn",
+              "description": "Can be used instead of name to reference a function outside of service",
+              "default": "xxx:xxx:Lambda-Name"
+            },
+            "resultTtlInSeconds": {
+              "type": "number",
+              "default": 0
+            },
+            "identitySource": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "default": "method.request.header.Authorization"
+                },
+                {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "string"
+                    }
+                  ]
+                }
+              ]
+            },
+            "identityValidationExpression": {
+              "type": "string",
+              "default": "someRegex"
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "token",
+                "request"
+              ],
+              "default": "token",
+              "description": "token or request. Determines input to the authorier function, called with the auth token or the entire request event. Defaults to token"
+            }
+          },
           "oneOf": [
             {
-              "type": "string",
-              "default": "method.request.header.Authorization"
+              "required": [
+                "name"
+              ]
             },
             {
-              "type": "array",
-              "items": [
-                {
-                  "type": "string"
-                }
+              "required": [
+                "arn"
               ]
             }
           ]
         },
-        "identityValidationExpression": {
-          "type": "string",
-          "default": "someRegex"
-        },
-        "type": {
-          "type": "string",
-          "enum": [
-            "token",
-            "request"
-          ],
-          "default": "token",
-          "description": "token or request. Determines input to the authorier function, called with the auth token or the entire request event. Defaults to token"
-        }
-      },
-      "oneOf": [
         {
-          "required": [
-            "name"
-          ]
-        },
-        {
-          "required": [
-            "arn"
-          ]
+          "type": "string"
         }
       ]
     },
@@ -384,50 +391,213 @@
       ]
     },
     "aws:functions:events:http": {
+      "description": "This creates an API Gateway HTTP endpoint which can be used to trigger this function.",
       "type": "object",
       "additionalProperties": false,
-      "description": "This creates an API Gateway HTTP endpoint which can be used to trigger this function.",
       "properties": {
         "http": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "path": {
-              "type": "string",
-              "description": "Path for this endpoint",
-              "default": "users/create"
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "description": "Path for this endpoint",
+                  "default": "users/create"
+                },
+                "integration": {
+                  "type": "string",
+                  "enum": [
+                    "lambda"
+                  ]
+                },
+                "request": {
+                  "type": "object",
+                  "description": "To pass optional and required parameters to your functions, so you can use them in API Gateway tests and SDK generation, marking them as true will make them required, false will make them optional.",
+                  "properties": {
+                    "parameters": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "querystrings": {
+                          "type": "object",
+                          "patternProperties": {
+                            "^[a-zA-Z0-9]+$": {
+                              "type": "boolean"
+                            }
+                          }
+                        },
+                        "headers": {
+                          "type": "object",
+                          "patternProperties": {
+                            "^[a-zA-Z0-9]+$": {
+                              "type": "boolean"
+                            }
+                          }
+                        },
+                        "paths": {
+                          "type": "object",
+                          "patternProperties": {
+                            "^[a-zA-Z0-9]+$": {
+                              "type": "boolean"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "paths": {
+                      "anyOf": [
+                        {
+                          "type": "object",
+                          "parameters": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                              "querystrings": {
+                                "type": "object",
+                                "patternProperties": {
+                                  "^[a-zA-Z0-9]+$": {
+                                    "type": "boolean"
+                                  }
+                                }
+                              },
+                              "headers": {
+                                "type": "object",
+                                "patternProperties": {
+                                  "^[a-zA-Z0-9]+$": {
+                                    "type": "boolean"
+                                  }
+                                }
+                              },
+                              "paths": {
+                                "type": "object",
+                                "patternProperties": {
+                                  "^[a-zA-Z0-9]+$": {
+                                    "type": "boolean"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "patternProperties": {
+                            "^[a-zA-Z0-9]+$": {
+                              "type": "boolean"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "template": {
+                      "type": "object"
+                    },
+                    "passThrough": {
+                      "type": "string",
+                      "enum": [
+                        "NEVER",
+                        "WHEN_NO_MATCH",
+                        "WHEN_NO_TEMPLATES"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "response": {
+                  "type": "object",
+                  "description": "Serverless lets you setup custom headers and a response template for your http event.",
+                  "properties": {
+                    "headers": {
+                      "type": "object",
+                      "description": "Custom Response Headers"
+                    },
+                    "template": {
+                      "type": "string"
+                    },
+                    "statusCodes": {
+                      "patternProperties": {
+                        "^[0-9]+$": {
+                          "pattern": {
+                            "type": "string"
+                          },
+                          "template": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            ]
+                          },
+                          "headers": {
+                            "type": "object"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "method": {
+                  "type": "string",
+                  "description": "HTTP method for this endpoint",
+                  "enum": [
+                    "get",
+                    "head",
+                    "post",
+                    "put",
+                    "delete",
+                    "trace",
+                    "connect",
+                    "any",
+                    "GET",
+                    "HEAD",
+                    "POST",
+                    "PUT",
+                    "DELETE",
+                    "TRACE",
+                    "CONNECT"
+                  ],
+                  "default": "get"
+                },
+                "cors": {
+                  "description": "Turn on CORS for this endpoint, but don't forget to return the right header in your response",
+                  "oneOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "object"
+                    }
+                  ]
+                },
+                "private": {
+                  "type": "boolean",
+                  "description": "Requires clients to add API keys values in the `x-api-key` header of their request",
+                  "default": true
+                },
+                "authorizer": {
+                  "$ref": "#/definitions/aws:common:authorizer"
+                },
+                "schema": {
+                  "type": "object",
+                  "description": "To use request schema validation with API gateway, add the JSON Schema for your content type. Since JSON Schema is represented in JSON, it's easier to include it from a file."
+                }
+              },
+              "require": [
+                "path",
+                "method"
+              ]
             },
-            "method": {
-              "type": "string",
-              "description": "HTTP method for this endpoint",
-              "enum": [
-                "get",
-                "head",
-                "post",
-                "put",
-                "delete",
-                "trace",
-                "connect"
-              ],
-              "default": "get"
-            },
-            "cors": {
-              "type": "boolean",
-              "description": "Turn on CORS for this endpoint, but don't forget to return the right header in your response",
-              "default": true
-            },
-            "private": {
-              "type": "boolean",
-              "description": "Requires clients to add API keys values in the `x-api-key` header of their request",
-              "default": true
-            },
-            "authorizer": {
-              "$ref": "#/definitions/aws:common:authorizer"
+            {
+              "type": "string"
             }
-          },
-          "require": [
-            "path",
-            "method"
           ]
         }
       },
@@ -512,56 +682,63 @@
       "additionalProperties": false,
       "properties": {
         "schedule": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "name": {
-              "type": "string",
-              "default": "my scheduled event"
-            },
-            "description": {
-              "type": "string",
-              "default": "a description of my scheduled event's purpose"
-            },
-            "rate": {
-              "type": "string",
-              "default": "rate(10 minutes)"
-            },
-            "enabled": {
-              "type": "boolean",
-              "default": true
-            },
-            "input": {
-              "type": "object"
-            },
-            "inputPath": {
-              "type": "string",
-              "default": "$.stageVariables"
-            },
-            "inputTransformer": {
-              "type": "object"
-            }
-          },
           "oneOf": [
             {
-              "required": [
-                "input"
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "default": "my scheduled event"
+                },
+                "description": {
+                  "type": "string",
+                  "default": "a description of my scheduled event's purpose"
+                },
+                "rate": {
+                  "type": "string",
+                  "default": "rate(10 minutes)"
+                },
+                "enabled": {
+                  "type": "boolean",
+                  "default": true
+                },
+                "input": {
+                  "type": "object"
+                },
+                "inputPath": {
+                  "type": "string",
+                  "default": "$.stageVariables"
+                },
+                "inputTransformer": {
+                  "type": "object"
+                }
+              },
+              "oneOf": [
+                {
+                  "required": [
+                    "input"
+                  ]
+                },
+                {
+                  "required": [
+                    "inputPath"
+                  ]
+                },
+                {
+                  "required": [
+                    "inputTransformer"
+                  ]
+                }
+              ],
+              "require": [
+                "name",
+                "rate"
               ]
             },
             {
-              "required": [
-                "inputPath"
-              ]
-            },
-            {
-              "required": [
-                "inputTransformer"
-              ]
+              "type": "string"
             }
-          ],
-          "require": [
-            "name",
-            "rate"
           ]
         }
       },
@@ -739,6 +916,12 @@
           "type": "string",
           "description": "IAM role which will be used for this function",
           "default": "arn:aws:iam::XXXXXX:role/role"
+        },
+        "iamRoleStatements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/aws:common:role-statement"
+          }
         },
         "onError": {
           "type": "string",
@@ -922,6 +1105,10 @@
           "type": "string",
           "default": "${opt:region, 'us-east-1'}",
           "description": "Overwrite the default region used. Default is us-east-1"
+        },
+        "accountId": {
+          "type": "string",
+          "description": "AWS Account ID"
         },
         "stackName": {
           "type": "string",
@@ -1196,20 +1383,27 @@
       ]
     },
     "aws:service": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "name": {
-          "type": "string",
-          "default": "myService"
+      "oneOf": [
+        {
+          "type": "string"
         },
-        "awsKmsKeyArn": {
-          "type": "string",
-          "description": "Optional KMS key arn which will be used for encryption for all functions"
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "default": "myService"
+            },
+            "awsKmsKeyArn": {
+              "type": "string",
+              "description": "Optional KMS key arn which will be used for encryption for all functions"
+            }
+          },
+          "required": [
+            "name"
+          ]
         }
-      },
-      "required": [
-        "name"
       ]
     },
     "common:package-config": {
@@ -52677,6 +52871,12 @@
     }
   },
   "properties": {
+    "app": {
+      "type": "string"
+    },
+    "tenant": {
+      "type": "string"
+    },
     "service": {
       "$ref": "#/definitions/aws:service"
     },
@@ -54037,6 +54237,19 @@
           },
           "type": "object"
         },
+        "Parameters": {
+          "additionalProperties": false,
+          "maxProperties": 50,
+          "patternProperties": {
+            "^[a-zA-Z0-9]+$": {
+              "$ref": "#/definitions/Parameter"
+            }
+          },
+          "type": "object"
+        },
+        "Metadata": {
+          "type": "object"
+        },
         "Outputs": {
           "additionalProperties": false,
           "maxProperties": 60,
@@ -54049,9 +54262,13 @@
           "type": "object"
         }
       },
-      "required": [
-        "Resources"
-      ]
+      "additionalProperties": false
+    },
+    "custom": {
+      "type": "object"
+    },
+    "plugins": {
+      "type": "array"
     }
   },
   "required": [
