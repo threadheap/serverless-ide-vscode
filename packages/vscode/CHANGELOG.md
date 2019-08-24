@@ -1,5 +1,8 @@
 # Change log
 
+## v0.4.4
+- Bug fixes and improvements for Serverless Framework
+
 ## v0.4.2
 - Go to definition
 - References
