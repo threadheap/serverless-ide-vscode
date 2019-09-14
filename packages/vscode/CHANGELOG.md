@@ -1,5 +1,9 @@
 # Change log
 
+## v0.4.5
+- Quick installation dialog for cfn-lint
+- Remove fallback to default schema validation when cfn-lint validation failed
+
 ## v0.4.4
 - Bug fixes and improvements for Serverless Framework
 
