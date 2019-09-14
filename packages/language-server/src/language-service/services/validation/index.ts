@@ -1,3 +1,4 @@
+import { CfnLintFailedToExecuteError } from "./errors"
 import { StringASTNode, ErrorCode } from "./../../parser/json"
 import { CLOUD_FORMATION, SAM } from "./../../model/document"
 import { spawn } from "child_process"
@@ -14,7 +15,7 @@ import {
 	LanguageSettings,
 	ValidationProvider
 } from "./../../model/settings"
-import { sendException, sendAnalytics } from "../analytics"
+import { sendAnalytics } from "../analytics"
 import { getDocumentType } from "../../utils/document"
 import { validateReferences } from "./references"
 
@@ -66,14 +67,7 @@ export class YAMLValidation {
 			try {
 				return await this.validateWithCfnLint(textDocument)
 			} catch (err) {
-				// eslint-disable-next-line no-console
-				sendException(err, "Unable to run cfn lint")
-				// eslint-disable-next-line no-console
-				console.log(
-					`[Serverless IDE] cfn-lint falidation failed. Fallback to default validation method: "${err.message}"`
-				)
-
-				return await this.validateWithSchema(textDocument, yamlDocument)
+				throw new CfnLintFailedToExecuteError(err.message)
 			}
 		}
 
@@ -111,7 +105,7 @@ export class YAMLValidation {
 
 		this.inProgressMap[fileName] = true
 
-		const child = spawn(this.settings.path, args, {
+		const child = spawn(this.settings.path || "cfn-lint", args, {
 			cwd: this.workspaceRoot
 		})
 

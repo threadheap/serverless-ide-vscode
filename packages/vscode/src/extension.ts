@@ -12,6 +12,8 @@ import {
 import * as packageJSON from "../package.json"
 import { schemaContributor } from "./schema-contributor"
 import { createReporter, AnalyticsEvent, Exception } from "./analytics"
+import createValidationErrorDialog from "./validation-error-dialog"
+import registerCommands from "./commands"
 
 export interface ISchemaAssociations {
 	[pattern: string]: string[]
@@ -93,6 +95,11 @@ export async function activate(context: ExtensionContext) {
 	const disposable = client.start()
 
 	client.onReady().then(() => {
+		const validationErrorDialog = createValidationErrorDialog(
+			context,
+			analytics
+		)
+
 		client.onNotification(
 			"custom/analytics",
 			(payload: AnalyticsPayload) => {
@@ -102,6 +109,10 @@ export async function activate(context: ExtensionContext) {
 				)
 			}
 		)
+
+		client.onNotification("custom/cfn-lint-installation-error", () => {
+			validationErrorDialog.showNotification()
+		})
 
 		client.onNotification(
 			"custom/exception",
@@ -122,6 +133,7 @@ export async function activate(context: ExtensionContext) {
 
 	context.subscriptions.push(disposable)
 	context.subscriptions.push(analytics)
+	registerCommands(context)
 
 	languages.setLanguageConfiguration("yaml", {
 		wordPattern: /("(?:[^\\\"]*(?:\\.)?)*"?)|[^\s{}\[\],:]+/

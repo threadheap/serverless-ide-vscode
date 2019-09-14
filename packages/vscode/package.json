@@ -59,6 +59,11 @@
                 "configuration": "./language-configuration.json"
             }
         ],
+        "commands": {
+            "command": "ServerlessIDE.installCfnLint",
+            "title": "Install cfn-lint",
+            "category": "helpers"
+        },
         "grammars": [
             {
                 "language": "yaml",
