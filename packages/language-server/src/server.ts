@@ -1,5 +1,6 @@
 "use strict"
 
+import { CfnLintFailedToExecuteError } from "./language-service/services/validation/errors"
 import get from "ts-get"
 import {
 	CompletionList,
@@ -37,7 +38,7 @@ import documentService from "./language-service/services/document"
 import { getDefinition } from "./language-service/services/definition"
 import { getReferences } from "./language-service/services/reference"
 
-nls.config(process.env.VSCODE_NLS_CONFIG as any)
+nls.config(process.env.VSCODE_NLS_CONFIG as nls.Options)
 
 // Create a connection for the server.
 let connection: IConnection = null
@@ -315,23 +316,26 @@ async function validateTextDocument(textDocument: TextDocument) {
 				documentType: yamlDocument.documentType
 			}
 		})
-		customLanguageService
-			.doValidation(textDocument, yamlDocument)
-			.then(diagnosticResults => {
-				const diagnostics = []
+		const diagnosticResults = await customLanguageService.doValidation(
+			textDocument,
+			yamlDocument
+		)
 
-				diagnosticResults.forEach(diagnosticItem => {
-					diagnosticItem.severity = 1 // Convert all warnings to errors
-					diagnostics.push(diagnosticItem)
-				})
+		const diagnostics = []
 
-				connection.sendDiagnostics({
-					uri: textDocument.uri,
-					diagnostics: removeDuplicatesObj(diagnostics)
-				})
-			})
+		diagnosticResults.forEach(diagnosticItem => {
+			diagnosticItem.severity = 1 // Convert all warnings to errors
+			diagnostics.push(diagnosticItem)
+		})
+
+		connection.sendDiagnostics({
+			uri: textDocument.uri,
+			diagnostics: removeDuplicatesObj(diagnostics)
+		})
 	} catch (err) {
-		// do nothing
+		if (err instanceof CfnLintFailedToExecuteError) {
+			connection.sendNotification("custom/cfn-lint-installation-error")
+		}
 	}
 }
 
