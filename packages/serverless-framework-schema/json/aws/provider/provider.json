@@ -293,7 +293,6 @@
         }
     },
     "required": [
-        "name",
-        "runtime"
+        "name"
     ]
 }

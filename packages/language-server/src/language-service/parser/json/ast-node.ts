@@ -401,7 +401,7 @@ export class ASTNode<TValue = unknown> {
 		let currentNode: ASTNode = this
 
 		for (let segment of path) {
-			currentNode.getChildNodes().find(node => {
+			const found = currentNode.getChildNodes().find(node => {
 				if (node.location === null) {
 					const { value } = node
 
@@ -421,7 +421,7 @@ export class ASTNode<TValue = unknown> {
 				return false
 			})
 
-			if (!currentNode) {
+			if (!found) {
 				return null
 			}
 		}

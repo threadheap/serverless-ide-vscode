@@ -141,6 +141,7 @@
         }
     },
     "required": [
-        "handler"
+        "handler",
+        "runtime"
     ]
 }

@@ -1,12 +1,11 @@
 import cloneDeep = require("lodash/cloneDeep")
 import toArray = require("lodash/toArray")
 import without = require("lodash/without")
-import { GlobalsConfig, isEmpty } from "../../model/globals"
-import { ResolvedSchema } from "./"
-import { YAMLDocument } from "./../../parser/index"
-import { sendException } from "../analytics"
+import { GlobalsConfig } from "../../../model/globals"
+import { ResolvedSchema } from ".."
+import { sendException } from "../../analytics"
 
-const applyGlobalsConfigMutations = (
+export const applyGlobalsConfigMutations = (
 	schema: ResolvedSchema,
 	globalsConfig: GlobalsConfig
 ): ResolvedSchema => {
@@ -50,22 +49,4 @@ const applyGlobalsConfigMutations = (
 	}
 
 	return schema
-}
-
-export const applyDocumentMutations = (
-	schema: ResolvedSchema | void,
-	yamlDocument: YAMLDocument
-): ResolvedSchema | void => {
-	// early exit, if schema is not defined
-	if (!schema) {
-		return schema
-	}
-
-	const { globalsConfig } = yamlDocument
-
-	if (isEmpty(globalsConfig)) {
-		return schema
-	}
-
-	return applyGlobalsConfigMutations(schema, globalsConfig)
 }

@@ -16,7 +16,6 @@ import {
 	ValidationProvider
 } from "./../../model/settings"
 import { sendAnalytics } from "../analytics"
-import { getDocumentType } from "../../utils/document"
 import { validateReferences } from "./references"
 
 const transformCfnLintSeverity = (errorType: string): DiagnosticSeverity => {
@@ -58,7 +57,7 @@ export class YAMLValidation {
 			return Promise.resolve([])
 		}
 
-		const documentType = getDocumentType(textDocument.getText())
+		const documentType = yamlDocument.documentType
 
 		if (
 			this.provider === ValidationProvider["cfn-lint"] &&
