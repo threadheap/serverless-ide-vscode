@@ -1,3 +1,4 @@
+import { ExternalImportASTNode } from "./external-import-ast-node"
 import { CLOUD_FORMATION, SAM } from "./../../model/document"
 import { JSONDocument } from "./json-document"
 import { Referenceables } from "../../model/referenceables"
@@ -47,6 +48,7 @@ export interface Problem {
 }
 
 export class YAMLDocument extends JSONDocument {
+	uri: string
 	root: ASTNode | null = null
 	errors: Problem[] = []
 	warnings: Problem[] = []
@@ -55,11 +57,18 @@ export class YAMLDocument extends JSONDocument {
 	references: References = generateEmptyReferences()
 	parameters: string[] = []
 	documentType: DocumentType = UNKNOWN
+	parent: YAMLDocument | void = undefined
 
-	constructor(documentType: DocumentType, yamlDoc: Yaml.YAMLNode | void) {
-		super(null, [])
+	constructor(
+		uri: string,
+		documentType: DocumentType,
+		yamlDoc: Yaml.YAMLNode | void,
+		parent?: YAMLDocument
+	) {
+		super(uri, null, [])
 		this.documentType = documentType
 		this.globalsConfig = getDefaultGlobalsConfig()
+		this.parent = parent
 		if (yamlDoc) {
 			this.root = this.recursivelyBuildAst(null, yamlDoc)
 
@@ -337,17 +346,28 @@ export class YAMLDocument extends JSONDocument {
 						return result
 					}
 					case Yaml.ScalarType.string: {
-						const result = new StringASTNode(
-							this,
-							parent,
-							name,
-							false,
-							node.startPosition,
-							node.endPosition,
-							instance.customTag
-						)
-						result.value = node.value
-						return result
+						if (ExternalImportASTNode.isImportPath(node.value)) {
+							return new ExternalImportASTNode(
+								this,
+								parent,
+								name,
+								node.value,
+								node.startPosition,
+								node.endPosition
+							)
+						} else {
+							const result = new StringASTNode(
+								this,
+								parent,
+								name,
+								false,
+								node.startPosition,
+								node.endPosition,
+								instance.customTag
+							)
+							result.value = node.value
+							return result
+						}
 					}
 				}
 

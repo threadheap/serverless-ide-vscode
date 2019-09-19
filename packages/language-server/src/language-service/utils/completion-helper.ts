@@ -6,7 +6,7 @@ const isEOL = (c: number) => {
 }
 
 interface Output {
-	newText: string
+	newDocument: TextDocument
 	newPosition: Position
 }
 
@@ -69,14 +69,19 @@ export const completionHelper = (
 		}
 
 		return {
-			newText,
+			newDocument: TextDocument.create(
+				document.uri,
+				document.languageId,
+				document.version,
+				newText
+			),
 			newPosition: textDocumentPosition
 		}
 	} else {
 		// All the nodes are loaded
 		position.character = position.character - 1
 		return {
-			newText: document.getText(),
+			newDocument: document,
 			newPosition: position
 		}
 	}

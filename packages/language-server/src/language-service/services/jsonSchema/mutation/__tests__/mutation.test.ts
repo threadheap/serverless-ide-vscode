@@ -1,3 +1,4 @@
+import { TextDocument } from "vscode-languageserver-types"
 import { UNKNOWN, SAM } from "../../../../model/document"
 import { ResolvedSchema } from "../.."
 import { FUNCTION } from "../../../../model/globals"
@@ -50,7 +51,7 @@ describe("sam", () => {
 		const globals = getDefaultGlobalsConfig()
 		globals[FUNCTION].properties = ["Runtime"]
 		const resolvedSchema = new ResolvedSchema(schema)
-		const doc = new YAMLDocument(SAM, undefined)
+		const doc = new YAMLDocument("", SAM, undefined)
 		doc.globalsConfig = globals
 
 		const newResolvedSchema = applyDocumentMutations(
@@ -107,8 +108,9 @@ Resources:
 				}
 			}
 		}
+		const document = TextDocument.create("", "", 1, templateWithRuntime)
 		const resolvedSchema = new ResolvedSchema(schema)
-		const doc = parse(templateWithRuntime)
+		const doc = parse(document)
 
 		const newResolvedSchema = applyDocumentMutations(
 			resolvedSchema,
@@ -142,7 +144,8 @@ Resources:
 			}
 		}
 		const resolvedSchema = new ResolvedSchema(schema)
-		const doc = parse(templateWithoutRuntime)
+		const document = TextDocument.create("", "", 1, templateWithoutRuntime)
+		const doc = parse(document)
 
 		const newResolvedSchema = applyDocumentMutations(
 			resolvedSchema,

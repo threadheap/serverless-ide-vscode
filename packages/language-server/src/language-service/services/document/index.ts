@@ -19,24 +19,18 @@ class DocumentService {
 		this.documents = documents
 	}
 
-	get(textDocument: TextDocument): Promise<YAMLDocument> {
-		if (
-			this.cache[textDocument.uri] &&
-			this.cache[textDocument.uri].version === textDocument.version
-		) {
-			return this.cache[textDocument.uri].yamlDocument
-		} else {
-			delete this.cache[textDocument.uri]
+	get(textDocument: TextDocument): Promise<YAMLDocument | null> {
+		return this.getDocument(textDocument)
+	}
 
-			const newEntry = {
-				uri: textDocument.uri,
-				version: textDocument.version,
-				yamlDocument: this.parseDocument(textDocument)
-			}
-			this.cache[textDocument.uri] = newEntry
+	getChildByUri(uri: string, parent: YAMLDocument) {
+		const textDocument = this.documents.get(uri)
 
-			return newEntry.yamlDocument
+		if (textDocument) {
+			return this.getDocument(textDocument, parent)
 		}
+
+		return null
 	}
 
 	getByUri(documentUri: string): Promise<YAMLDocument | null> {
@@ -53,11 +47,37 @@ class DocumentService {
 		delete this.cache[textDocument.uri]
 	}
 
-	parseDocument(textDocument: TextDocument): Promise<YAMLDocument> {
+	private getDocument(
+		textDocument: TextDocument,
+		parent?: YAMLDocument
+	): Promise<YAMLDocument> {
+		if (
+			this.cache[textDocument.uri] &&
+			this.cache[textDocument.uri].version === textDocument.version
+		) {
+			return this.cache[textDocument.uri].yamlDocument
+		} else {
+			delete this.cache[textDocument.uri]
+
+			const newEntry = {
+				uri: textDocument.uri,
+				version: textDocument.version,
+				yamlDocument: this.parseDocument(textDocument, parent)
+			}
+			this.cache[textDocument.uri] = newEntry
+
+			return newEntry.yamlDocument
+		}
+	}
+
+	private parseDocument(
+		textDocument: TextDocument,
+		parent?: YAMLDocument
+	): Promise<YAMLDocument> {
 		const text = textDocument.getText()
 
-		if (isSupportedDocument(text)) {
-			return Promise.resolve(parse(text))
+		if (parent || isSupportedDocument(text)) {
+			return Promise.resolve(parse(textDocument, parent))
 		}
 
 		return Promise.reject(new Error("Document is not supported"))

@@ -5,10 +5,12 @@ import { IProblem, ValidationResult } from "./validation-result"
 import { NoOpSchemaCollector, SchemaCollector } from "./schema-collector"
 
 export class JSONDocument {
+	readonly uri: string
 	readonly root: ASTNode
 	readonly syntaxErrors: IProblem[]
 
-	constructor(root: ASTNode, syntaxErrors: IProblem[]) {
+	constructor(uri: string, root: ASTNode, syntaxErrors: IProblem[]) {
+		this.uri = uri
 		this.root = root
 		this.syntaxErrors = syntaxErrors
 	}

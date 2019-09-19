@@ -26,7 +26,7 @@ describe("Auto Completion Tests", () => {
 			return languageService.doComplete(
 				testTextDocument,
 				output.newPosition,
-				parseYAML(output.newText)
+				parseYAML(output.newDocument)
 			)
 		}
 

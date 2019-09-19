@@ -22,6 +22,7 @@ ObjectASTNode {
       },
     },
     "parameters": Array [],
+    "parent": undefined,
     "referenceables": Object {
       "hash": Object {
         "MAPPING": SortedHash {
@@ -49,6 +50,7 @@ ObjectASTNode {
     },
     "root": [Circular],
     "syntaxErrors": Array [],
+    "uri": "",
     "warnings": Array [],
   },
   "end": 55,
@@ -77,6 +79,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
+          "parent": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -104,6 +107,7 @@ ObjectASTNode {
           },
           "root": [Circular],
           "syntaxErrors": Array [],
+          "uri": "",
           "warnings": Array [],
         },
         "end": 56,
@@ -129,6 +133,7 @@ ObjectASTNode {
                 },
               },
               "parameters": Array [],
+              "parent": undefined,
               "referenceables": Object {
                 "hash": Object {
                   "MAPPING": SortedHash {
@@ -156,6 +161,7 @@ ObjectASTNode {
               },
               "root": [Circular],
               "syntaxErrors": Array [],
+              "uri": "",
               "warnings": Array [],
             },
             "end": 33,
@@ -186,6 +192,7 @@ ObjectASTNode {
                 },
               },
               "parameters": Array [],
+              "parent": undefined,
               "referenceables": Object {
                 "hash": Object {
                   "MAPPING": SortedHash {
@@ -213,6 +220,7 @@ ObjectASTNode {
               },
               "root": [Circular],
               "syntaxErrors": Array [],
+              "uri": "",
               "warnings": Array [],
             },
             "end": 55,
@@ -248,6 +256,7 @@ ObjectASTNode {
           },
         },
         "parameters": Array [],
+        "parent": undefined,
         "referenceables": Object {
           "hash": Object {
             "MAPPING": SortedHash {
@@ -275,6 +284,7 @@ ObjectASTNode {
         },
         "root": [Circular],
         "syntaxErrors": Array [],
+        "uri": "",
         "warnings": Array [],
       },
       "end": 56,
@@ -299,6 +309,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
+          "parent": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -326,6 +337,7 @@ ObjectASTNode {
           },
           "root": [Circular],
           "syntaxErrors": Array [],
+          "uri": "",
           "warnings": Array [],
         },
         "end": 8,
@@ -368,6 +380,7 @@ ObjectASTNode {
       },
     },
     "parameters": Array [],
+    "parent": undefined,
     "referenceables": Object {
       "hash": Object {
         "MAPPING": SortedHash {
@@ -395,6 +408,7 @@ ObjectASTNode {
     },
     "root": [Circular],
     "syntaxErrors": Array [],
+    "uri": "",
     "warnings": Array [],
   },
   "end": 65,
@@ -432,6 +446,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
+          "parent": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -459,6 +474,7 @@ ObjectASTNode {
           },
           "root": [Circular],
           "syntaxErrors": Array [],
+          "uri": "",
           "warnings": Array [],
         },
         "end": 66,
@@ -484,6 +500,7 @@ ObjectASTNode {
                 },
               },
               "parameters": Array [],
+              "parent": undefined,
               "referenceables": Object {
                 "hash": Object {
                   "MAPPING": SortedHash {
@@ -511,6 +528,7 @@ ObjectASTNode {
               },
               "root": [Circular],
               "syntaxErrors": Array [],
+              "uri": "",
               "warnings": Array [],
             },
             "end": 43,
@@ -541,6 +559,7 @@ ObjectASTNode {
                 },
               },
               "parameters": Array [],
+              "parent": undefined,
               "referenceables": Object {
                 "hash": Object {
                   "MAPPING": SortedHash {
@@ -568,6 +587,7 @@ ObjectASTNode {
               },
               "root": [Circular],
               "syntaxErrors": Array [],
+              "uri": "",
               "warnings": Array [],
             },
             "end": 65,
@@ -603,6 +623,7 @@ ObjectASTNode {
           },
         },
         "parameters": Array [],
+        "parent": undefined,
         "referenceables": Object {
           "hash": Object {
             "MAPPING": SortedHash {
@@ -630,6 +651,7 @@ ObjectASTNode {
         },
         "root": [Circular],
         "syntaxErrors": Array [],
+        "uri": "",
         "warnings": Array [],
       },
       "end": 66,
@@ -654,6 +676,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
+          "parent": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -681,6 +704,7 @@ ObjectASTNode {
           },
           "root": [Circular],
           "syntaxErrors": Array [],
+          "uri": "",
           "warnings": Array [],
         },
         "end": 8,
@@ -723,6 +747,7 @@ ObjectASTNode {
       },
     },
     "parameters": Array [],
+    "parent": undefined,
     "referenceables": Object {
       "hash": Object {
         "MAPPING": SortedHash {
@@ -798,6 +823,7 @@ ObjectASTNode {
     },
     "root": [Circular],
     "syntaxErrors": Array [],
+    "uri": "",
     "warnings": Array [],
   },
   "end": 31,
@@ -835,6 +861,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
+          "parent": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -870,6 +897,7 @@ ObjectASTNode {
           },
           "root": [Circular],
           "syntaxErrors": Array [],
+          "uri": "",
           "warnings": Array [],
         },
         "end": 31,
@@ -899,6 +927,7 @@ ObjectASTNode {
           },
         },
         "parameters": Array [],
+        "parent": undefined,
         "referenceables": Object {
           "hash": Object {
             "MAPPING": SortedHash {
@@ -953,6 +982,7 @@ ObjectASTNode {
         },
         "root": [Circular],
         "syntaxErrors": Array [],
+        "uri": "",
         "warnings": Array [],
       },
       "end": 31,
@@ -977,6 +1007,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
+          "parent": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -1031,6 +1062,7 @@ ObjectASTNode {
           },
           "root": [Circular],
           "syntaxErrors": Array [],
+          "uri": "",
           "warnings": Array [],
         },
         "end": 8,
@@ -1073,6 +1105,7 @@ ObjectASTNode {
       },
     },
     "parameters": Array [],
+    "parent": undefined,
     "referenceables": Object {
       "hash": Object {
         "MAPPING": SortedHash {
@@ -1149,6 +1182,7 @@ ObjectASTNode {
     },
     "root": [Circular],
     "syntaxErrors": Array [],
+    "uri": "",
     "warnings": Array [],
   },
   "end": 28,
@@ -1187,6 +1221,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
+          "parent": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -1222,6 +1257,7 @@ ObjectASTNode {
           },
           "root": [Circular],
           "syntaxErrors": Array [],
+          "uri": "",
           "warnings": Array [],
         },
         "end": 28,
@@ -1251,6 +1287,7 @@ ObjectASTNode {
           },
         },
         "parameters": Array [],
+        "parent": undefined,
         "referenceables": Object {
           "hash": Object {
             "MAPPING": SortedHash {
@@ -1306,6 +1343,7 @@ ObjectASTNode {
         },
         "root": [Circular],
         "syntaxErrors": Array [],
+        "uri": "",
         "warnings": Array [],
       },
       "end": 28,
@@ -1330,6 +1368,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
+          "parent": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -1385,6 +1424,7 @@ ObjectASTNode {
           },
           "root": [Circular],
           "syntaxErrors": Array [],
+          "uri": "",
           "warnings": Array [],
         },
         "end": 8,
@@ -1427,6 +1467,7 @@ ObjectASTNode {
       },
     },
     "parameters": Array [],
+    "parent": undefined,
     "referenceables": Object {
       "hash": Object {
         "MAPPING": SortedHash {
@@ -1454,6 +1495,7 @@ ObjectASTNode {
     },
     "root": [Circular],
     "syntaxErrors": Array [],
+    "uri": "",
     "warnings": Array [],
   },
   "end": 28,
@@ -1492,6 +1534,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
+          "parent": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -1519,6 +1562,7 @@ ObjectASTNode {
           },
           "root": [Circular],
           "syntaxErrors": Array [],
+          "uri": "",
           "warnings": Array [],
         },
         "end": 28,
@@ -1548,6 +1592,7 @@ ObjectASTNode {
           },
         },
         "parameters": Array [],
+        "parent": undefined,
         "referenceables": Object {
           "hash": Object {
             "MAPPING": SortedHash {
@@ -1575,6 +1620,7 @@ ObjectASTNode {
         },
         "root": [Circular],
         "syntaxErrors": Array [],
+        "uri": "",
         "warnings": Array [],
       },
       "end": 28,
@@ -1599,6 +1645,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
+          "parent": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -1626,6 +1673,7 @@ ObjectASTNode {
           },
           "root": [Circular],
           "syntaxErrors": Array [],
+          "uri": "",
           "warnings": Array [],
         },
         "end": 8,

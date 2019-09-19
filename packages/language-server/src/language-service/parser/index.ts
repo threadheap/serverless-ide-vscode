@@ -9,6 +9,7 @@ import { Schema, Type } from "js-yaml"
 import * as Yaml from "yaml-ast-parser"
 
 import { getDocumentType } from "../utils/document"
+import { TextDocument } from "vscode-languageserver"
 
 export { YAMLDocument, Problem }
 
@@ -23,8 +24,19 @@ function convertError(e: Yaml.YAMLException): Problem {
 	}
 }
 
-function createJSONDocument(yamlDoc: Yaml.YAMLNode | void, text: string) {
-	const doc = new YAMLDocument(getDocumentType(text), yamlDoc)
+function createJSONDocument(
+	document: TextDocument,
+	yamlDoc: Yaml.YAMLNode | void,
+	parentDocument?: YAMLDocument
+) {
+	const doc = new YAMLDocument(
+		document.uri,
+		parentDocument
+			? parentDocument.documentType
+			: getDocumentType(document.getText()),
+		yamlDoc,
+		parentDocument
+	)
 
 	if (!yamlDoc || !doc.root) {
 		// TODO: When this is true, consider not pushing the other errors.
@@ -70,7 +82,7 @@ function createJSONDocument(yamlDoc: Yaml.YAMLNode | void, text: string) {
 		.filter(
 			e =>
 				(e.reason === duplicateKeyReason &&
-					isDuplicateAndNotMergeKey(e, text)) ||
+					isDuplicateAndNotMergeKey(e, document.getText())) ||
 				e.isWarning
 		)
 		.map(e => convertError(e))
@@ -78,7 +90,10 @@ function createJSONDocument(yamlDoc: Yaml.YAMLNode | void, text: string) {
 	return doc
 }
 
-export const parse = (text: string): YAMLDocument => {
+export const parse = (
+	document: TextDocument,
+	parentDocument?: YAMLDocument
+): YAMLDocument => {
 	// We need compiledTypeMap to be available from schemaWithAdditionalTags before we add the new custom propertie
 	const compiledTypeMap: { [key: string]: Type } = {}
 
@@ -107,6 +122,11 @@ export const parse = (text: string): YAMLDocument => {
 	const additionalOptions: Yaml.LoadOptions = {
 		schema: schemaWithAdditionalTags
 	}
+	const text = document.getText()
 
-	return createJSONDocument(Yaml.load(text, additionalOptions), text)
+	return createJSONDocument(
+		document,
+		Yaml.load(text, additionalOptions),
+		parentDocument
+	)
 }

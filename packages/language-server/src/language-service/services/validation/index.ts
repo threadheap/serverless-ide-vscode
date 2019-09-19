@@ -6,7 +6,8 @@ import {
 	Diagnostic,
 	DiagnosticSeverity,
 	Files,
-	TextDocument
+	TextDocument,
+	IConnection
 } from "vscode-languageserver"
 import { Problem, YAMLDocument } from "../../parser"
 import { JSONSchemaService } from "../jsonSchema"
@@ -17,6 +18,7 @@ import {
 } from "./../../model/settings"
 import { sendAnalytics } from "../analytics"
 import { validateReferences } from "./references"
+import { removeDuplicatesObj } from "../../utils/arrayUtils"
 
 const transformCfnLintSeverity = (errorType: string): DiagnosticSeverity => {
 	switch (errorType) {
@@ -39,11 +41,17 @@ export class YAMLValidation {
 	private provider: ValidationProvider
 	private workspaceRoot: string
 	private inProgressMap: { [key: string]: boolean } = {}
+	private connection: IConnection
 
-	constructor(jsonSchemaService: JSONSchemaService, workspaceRoot: string) {
+	constructor(
+		jsonSchemaService: JSONSchemaService,
+		workspaceRoot: string,
+		connection: IConnection
+	) {
 		this.jsonSchemaService = jsonSchemaService
 		this.validationEnabled = true
 		this.workspaceRoot = workspaceRoot
+		this.connection = connection
 	}
 
 	configure(settings: LanguageSettings) {
@@ -64,18 +72,18 @@ export class YAMLValidation {
 			(documentType === CLOUD_FORMATION || documentType === SAM)
 		) {
 			try {
-				return await this.validateWithCfnLint(textDocument)
+				await this.validateWithCfnLint(textDocument)
 			} catch (err) {
 				throw new CfnLintFailedToExecuteError(err.message)
 			}
 		}
 
-		return await this.validateWithSchema(textDocument, yamlDocument)
+		await this.validateWithSchema(textDocument, yamlDocument)
 	}
 
 	private async validateWithCfnLint(
 		textDocument: TextDocument
-	): Promise<Diagnostic[]> {
+	): Promise<void> {
 		const args = ["--format", "json"]
 		const filePath = Files.uriToFilePath(textDocument.uri)
 		const fileName = textDocument.uri
@@ -119,7 +127,8 @@ export class YAMLValidation {
 			child.on("error", reject)
 			child.on("close", () => {
 				delete this.inProgressMap[fileName]
-				resolve(diagnostics)
+
+				this.sendDiagnostics(textDocument.uri, diagnostics)
 			})
 
 			child.on("exit", () => {
@@ -298,6 +307,17 @@ export class YAMLValidation {
 			}
 		})
 
-		return diagnostics
+		this.sendDiagnostics(textDocument.uri, diagnostics)
+	}
+
+	private sendDiagnostics(uri: string, diagnostics: Diagnostic[]) {
+		diagnostics.forEach(diagnosticItem => {
+			diagnosticItem.severity = 1
+		})
+
+		this.connection.sendDiagnostics({
+			uri,
+			diagnostics: removeDuplicatesObj(diagnostics)
+		})
 	}
 }

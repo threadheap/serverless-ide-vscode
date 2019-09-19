@@ -27,7 +27,6 @@ import {
 	ValidationProvider
 } from "./language-service/model/settings"
 import { parse as parseYAML } from "./language-service/parser"
-import { removeDuplicatesObj } from "./language-service/utils/arrayUtils"
 import { completionHelper } from "./language-service/utils/completion-helper"
 import { isSupportedDocument } from "./language-service/utils/document"
 import {
@@ -147,7 +146,10 @@ connection.onInitialized(() => {
 		if (customLanguageService) {
 			customLanguageService.configure(languageSettings)
 		} else {
-			customLanguageService = getCustomLanguageService(languageSettings)
+			customLanguageService = getCustomLanguageService(
+				languageSettings,
+				connection
+			)
 			customLanguageService.configure(languageSettings)
 		}
 
@@ -176,8 +178,7 @@ connection.onInitialized(() => {
 			textDocument,
 			textDocumentPosition.position
 		)
-		const newText = completionFix.newText
-		const jsonDocument = parseYAML(newText)
+		const jsonDocument = parseYAML(completionFix.newDocument)
 		return customLanguageService.doComplete(
 			textDocument,
 			textDocumentPosition.position,
@@ -316,22 +317,8 @@ async function validateTextDocument(textDocument: TextDocument) {
 				documentType: yamlDocument.documentType
 			}
 		})
-		const diagnosticResults = await customLanguageService.doValidation(
-			textDocument,
-			yamlDocument
-		)
 
-		const diagnostics = []
-
-		diagnosticResults.forEach(diagnosticItem => {
-			diagnosticItem.severity = 1 // Convert all warnings to errors
-			diagnostics.push(diagnosticItem)
-		})
-
-		connection.sendDiagnostics({
-			uri: textDocument.uri,
-			diagnostics: removeDuplicatesObj(diagnostics)
-		})
+		await customLanguageService.doValidation(textDocument, yamlDocument)
 	} catch (err) {
 		if (err instanceof CfnLintFailedToExecuteError) {
 			connection.sendNotification("custom/cfn-lint-installation-error")

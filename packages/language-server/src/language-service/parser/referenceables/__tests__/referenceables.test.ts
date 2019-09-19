@@ -1,3 +1,4 @@
+import { TextDocument } from "vscode-languageserver"
 import { collectReferenceables, generateEmptyReferenceables } from "./../index"
 import { parse } from "./../../../parser/index"
 import { SAM, SERVERLESS_FRAMEWORK } from "./../../../model/document"
@@ -71,7 +72,8 @@ frameworkVersion: '>=1.0.0 <2.0.0'
 
 describe("referenceables", () => {
 	const generateDocument = (text: string) => {
-		return parse(text)
+		const document = TextDocument.create("", "", 1, text)
+		return parse(document)
 	}
 
 	describe(SAM, () => {

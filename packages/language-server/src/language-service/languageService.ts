@@ -1,3 +1,4 @@
+import { IConnection } from "vscode-languageserver"
 import {
 	CompletionList,
 	Diagnostic,
@@ -41,7 +42,8 @@ export interface LanguageService {
 }
 
 export function getLanguageService(
-	settings: LanguageSettings
+	settings: LanguageSettings,
+	connection: IConnection
 ): LanguageService {
 	const schemaService = new JSONSchemaService()
 
@@ -49,7 +51,8 @@ export function getLanguageService(
 	const hover = new YAMLHover(schemaService)
 	const yamlValidation = new YAMLValidation(
 		schemaService,
-		settings.workspaceRoot
+		settings.workspaceRoot,
+		connection
 	)
 
 	const configure = (newSettings: LanguageSettings) => {

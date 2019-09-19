@@ -34,7 +34,7 @@ describe("Serverless Framework autocompletion", () => {
 			return await languageService.doComplete(
 				testTextDocument,
 				position,
-				parseYAML(content)
+				parseYAML(testTextDocument)
 			)
 		}
 

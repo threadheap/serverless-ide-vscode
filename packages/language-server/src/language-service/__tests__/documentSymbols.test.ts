@@ -18,7 +18,7 @@ describe("Document Symbols Tests", () => {
 
 	function parseSetup(content: string) {
 		const testTextDocument = setup(content)
-		const jsonDocument = parseYAML(testTextDocument.getText())
+		const jsonDocument = parseYAML(testTextDocument)
 		return languageService.findDocumentSymbols(
 			testTextDocument,
 			jsonDocument

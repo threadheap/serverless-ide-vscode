@@ -1,4 +1,4 @@
-import { TextDocument } from "vscode-languageserver"
+import { TextDocument, IConnection, Diagnostic } from "vscode-languageserver"
 import { getLanguageService } from "../languageService"
 import {
 	getDefaultLanguageSettings,
@@ -10,6 +10,10 @@ import { LanguageSettings } from "./../model/settings"
 
 // Tests for validator
 describe("Validation", () => {
+	const mockSendDiagnostics = jest.fn()
+	const mockConnection = {
+		sendDiagnostics: mockSendDiagnostics
+	}
 	let languageService: LanguageService
 	let languageSettings: LanguageSettings
 
@@ -22,10 +26,12 @@ describe("Validation", () => {
 		)
 	}
 
-	const parseSetup = (content: string) => {
+	const parseSetup = async (content: string) => {
 		const testTextDocument = setup(content)
-		const yDoc = parseYAML(testTextDocument.getText())
-		return languageService.doValidation(testTextDocument, yDoc)
+		const yDoc = parseYAML(testTextDocument)
+		await languageService.doValidation(testTextDocument, yDoc)
+		return mockConnection.sendDiagnostics.mock.calls[0][0]
+			.diagnostics as Diagnostic[]
 	}
 	;["default", "cfn-lint"].forEach(validationType => {
 		languageSettings = getDefaultLanguageSettings()
@@ -33,9 +39,15 @@ describe("Validation", () => {
 		if (validationType === "default") {
 			languageSettings.validationProvider = ValidationProvider.default
 		}
-		languageService = getLanguageService(languageSettings)
+		languageService = getLanguageService(
+			languageSettings,
+			(mockConnection as unknown) as IConnection
+		)
 
 		describe(validationType, () => {
+			beforeEach(() => {
+				jest.clearAllMocks()
+			})
 			test("does basic validation for empty file", async () => {
 				const content = ""
 				const result = await parseSetup(content)
