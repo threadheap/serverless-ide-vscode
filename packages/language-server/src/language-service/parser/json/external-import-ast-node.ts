@@ -2,10 +2,22 @@ import { YAMLDocument } from "../index"
 import { ASTNode, ISchemaCollector } from "./ast-node"
 import * as Json from "jsonc-parser"
 import { JSONSchema } from "../../jsonSchema"
-import { CustomTag } from "../../model/custom-tags"
 import { ValidationResult } from "./validation-result"
 
 const IMPORT_REGEXP = /^\${file\((.+).(yml|yaml)\)(:\w+)?}$/
+
+export type OnRegisterExternalImport = (uri: string, parentUri: string) => void
+
+export type OnValidateExternalImport = (
+	uri: string,
+	schema: JSONSchema,
+	property: string | void
+) => void
+
+export interface ExternalImportsCallbacks {
+	onRegisterExternalImport: OnRegisterExternalImport
+	onValidateExternalImport: OnValidateExternalImport
+}
 
 export class ExternalImportASTNode extends ASTNode<string> {
 	static isImportPath(path: string) {
@@ -14,6 +26,7 @@ export class ExternalImportASTNode extends ASTNode<string> {
 
 	private path: string
 	private parameter: string | void = undefined
+	private callbacks: ExternalImportsCallbacks
 
 	constructor(
 		document: YAMLDocument,
@@ -21,11 +34,12 @@ export class ExternalImportASTNode extends ASTNode<string> {
 		name: Json.Segment,
 		value: string,
 		start: number,
-		end?: number,
-		customTag?: CustomTag
+		end: number,
+		callbacks: ExternalImportsCallbacks
 	) {
-		super(document, parent, "string", name, start, end, customTag)
+		super(document, parent, "string", name, start, end)
 		this.value = value
+		this.callbacks = callbacks
 	}
 
 	set value(newValue: string) {
@@ -33,6 +47,7 @@ export class ExternalImportASTNode extends ASTNode<string> {
 
 		this.path = path
 		this.parameter = parameter
+		this.callbacks.onRegisterExternalImport(this.path, this.document.uri)
 	}
 
 	validate(
@@ -44,6 +59,10 @@ export class ExternalImportASTNode extends ASTNode<string> {
 			return
 		}
 
-		super.validate(schema, validationResult, matchingSchemas)
+		this.callbacks.onValidateExternalImport(
+			this.path,
+			schema,
+			this.parameter
+		)
 	}
 }

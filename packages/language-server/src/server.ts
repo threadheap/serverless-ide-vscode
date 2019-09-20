@@ -1,15 +1,12 @@
 "use strict"
 
-import { CfnLintFailedToExecuteError } from "./language-service/services/validation/errors"
 import get from "ts-get"
 import {
-	CompletionList,
 	createConnection,
 	IConnection,
 	InitializeParams,
 	InitializeResult,
 	ProposedFeatures,
-	TextDocument,
 	TextDocumentPositionParams,
 	TextDocuments,
 	ReferenceParams
@@ -18,24 +15,15 @@ import {
 import { configure as configureHttpRequests } from "request-light"
 import * as nls from "vscode-nls"
 import {
-	getLanguageService as getCustomLanguageService,
-	LanguageService
+	LanguageService,
+	LanguageServiceImpl
 } from "./language-service/languageService"
 import {
 	ExtensionSettings,
 	LanguageSettings,
 	ValidationProvider
 } from "./language-service/model/settings"
-import { parse as parseYAML } from "./language-service/parser"
-import { completionHelper } from "./language-service/utils/completion-helper"
-import { isSupportedDocument } from "./language-service/utils/document"
-import {
-	initializeAnalytics,
-	sendAnalytics
-} from "./language-service/services/analytics"
-import documentService from "./language-service/services/document"
-import { getDefinition } from "./language-service/services/definition"
-import { getReferences } from "./language-service/services/reference"
+import { initializeAnalytics } from "./language-service/services/analytics"
 
 nls.config(process.env.VSCODE_NLS_CONFIG as nls.Options)
 
@@ -77,23 +65,7 @@ connection.onInitialize(
 	}
 )
 
-documents.onDidClose(event => {
-	cleanPendingValidation(event.document)
-	documentService.clear(event.document)
-	connection.sendDiagnostics({ uri: event.document.uri, diagnostics: [] })
-})
-
-documents.onDidSave(async event => {
-	await triggerValidation(event.document)
-})
-
-documents.onDidOpen(async event => {
-	await triggerValidation(event.document)
-})
-
 connection.onInitialized(() => {
-	documentService.init(documents)
-
 	connection.onDidChangeConfiguration(change => {
 		const settings = change.settings as ExtensionSettings
 		configureHttpRequests(
@@ -146,14 +118,17 @@ connection.onInitialized(() => {
 		if (customLanguageService) {
 			customLanguageService.configure(languageSettings)
 		} else {
-			customLanguageService = getCustomLanguageService(
+			customLanguageService = new LanguageServiceImpl(
 				languageSettings,
-				connection
+				connection,
+				documents
 			)
 			customLanguageService.configure(languageSettings)
 		}
 
-		documents.all().forEach(triggerValidation)
+		documents.all().forEach(document => {
+			customLanguageService.doValidation(document)
+		})
 	})
 
 	connection.onCompletion(textDocumentPosition => {
@@ -161,39 +136,13 @@ connection.onInitialized(() => {
 			textDocumentPosition.textDocument.uri
 		)
 
-		const result: CompletionList = {
-			items: [],
-			isIncomplete: false
-		}
-
-		if (!textDocument) {
-			return Promise.resolve(result)
-		}
-
-		if (!isSupportedDocument(textDocument.getText())) {
-			return Promise.resolve(void 0)
-		}
-
-		const completionFix = completionHelper(
-			textDocument,
-			textDocumentPosition.position
-		)
-		const jsonDocument = parseYAML(completionFix.newDocument)
 		return customLanguageService.doComplete(
 			textDocument,
-			textDocumentPosition.position,
-			jsonDocument
+			textDocumentPosition.position
 		)
 	})
 
 	connection.onCompletionResolve(completionItem => {
-		sendAnalytics({
-			action: "resolveCompletion",
-			attributes: {
-				label: completionItem.label
-			}
-		})
-
 		return customLanguageService.doResolve(completionItem)
 	})
 
@@ -204,127 +153,38 @@ connection.onInitialized(() => {
 			)
 
 			if (!document) {
-				return Promise.resolve(void 0)
+				return
 			}
 
-			try {
-				const jsonDocument = await documentService.get(document)
-
-				return customLanguageService.doHover(
-					document,
-					textDocumentPositionParams.position,
-					jsonDocument
-				)
-			} catch (err) {
-				// do nothing
-			}
+			return customLanguageService.doHover(
+				document,
+				textDocumentPositionParams.position
+			)
 		}
 	)
 
-	connection.onDocumentSymbol(async document => {
-		const uri = documents.get(document.textDocument.uri)
+	connection.onDocumentSymbol(async documentParams => {
+		const document = documents.get(documentParams.textDocument.uri)
 
-		if (!uri) {
+		if (!document) {
 			return
 		}
 
-		try {
-			const jsonDocument = await documentService.get(uri)
-			return customLanguageService.findDocumentSymbols(uri, jsonDocument)
-		} catch (err) {
-			// do nothing
-		}
+		return customLanguageService.findDocumentSymbols(document)
 	})
 
-	connection.onDefinition(
-		async (documentPosition: TextDocumentPositionParams) => {
-			const document = documents.get(documentPosition.textDocument.uri)
-
-			try {
-				const yamlDocument = await documentService.get(document)
-
-				return getDefinition(documentPosition, document, yamlDocument)
-			} catch (err) {
-				// do nothing
-			}
-
-			return []
-		}
-	)
-
-	connection.onReferences(async (referenceParams: ReferenceParams) => {
-		const document = documents.get(referenceParams.textDocument.uri)
-
-		try {
-			const yamlDocument = await documentService.get(document)
-
-			return getReferences(referenceParams, document, yamlDocument)
-		} catch (err) {
-			// do nothing
-		}
-
-		return []
+	connection.onDefinition((documentPosition: TextDocumentPositionParams) => {
+		return customLanguageService.findDefinitions(documentPosition)
 	})
 
-	documents.all().forEach(triggerValidation)
+	connection.onReferences((referenceParams: ReferenceParams) => {
+		return customLanguageService.findReferences(referenceParams)
+	})
+
+	documents.all().forEach(document => {
+		customLanguageService.doValidation(document)
+	})
 })
-
-const pendingValidationRequests: { [uri: string]: NodeJS.Timer } = {}
-const validationDelayMs = 200
-
-function cleanPendingValidation(textDocument: TextDocument): void {
-	const request = pendingValidationRequests[textDocument.uri]
-	if (request) {
-		clearTimeout(request)
-		delete pendingValidationRequests[textDocument.uri]
-	}
-}
-
-function triggerValidation(textDocument: TextDocument) {
-	cleanPendingValidation(textDocument)
-
-	return new Promise((resolve, reject) => {
-		pendingValidationRequests[textDocument.uri] = setTimeout(() => {
-			delete pendingValidationRequests[textDocument.uri]
-			validateTextDocument(textDocument)
-				.then(resolve)
-				.catch(reject)
-		}, validationDelayMs)
-	})
-}
-
-async function validateTextDocument(textDocument: TextDocument) {
-	if (!textDocument) {
-		return
-	}
-
-	const text = textDocument.getText()
-
-	if (!isSupportedDocument(text)) {
-		return
-	}
-
-	if (text.length === 0) {
-		connection.sendDiagnostics({ uri: textDocument.uri, diagnostics: [] })
-		return
-	}
-
-	try {
-		const yamlDocument = await documentService.get(textDocument)
-		sendAnalytics({
-			action: "validateDocument",
-			attributes: {
-				documentType: yamlDocument.documentType
-			}
-		})
-
-		await customLanguageService.doValidation(textDocument, yamlDocument)
-	} catch (err) {
-		if (err instanceof CfnLintFailedToExecuteError) {
-			connection.sendNotification("custom/cfn-lint-installation-error")
-		}
-	}
-}
 
 documents.listen(connection)
 connection.listen()

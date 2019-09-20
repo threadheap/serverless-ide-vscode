@@ -1,4 +1,4 @@
-import { YAMLDocument, parse } from "./../../parser/index"
+import { YAMLDocument, parse, ExternalImportsCallbacks } from "../../parser"
 import { TextDocument, TextDocuments } from "vscode-languageserver"
 import { isSupportedDocument } from "../../utils/document"
 
@@ -11,12 +11,14 @@ interface CacheEntry {
 /**
  * Parsed document provider service
  */
-class DocumentService {
+export class DocumentService {
 	private cache: { [key: string]: CacheEntry } = {}
 	private documents: TextDocuments | null = null
+	private callbacks: ExternalImportsCallbacks
 
-	init(documents: TextDocuments) {
+	constructor(documents: TextDocuments, callbacks: ExternalImportsCallbacks) {
 		this.documents = documents
+		this.callbacks = callbacks
 	}
 
 	get(textDocument: TextDocument): Promise<YAMLDocument | null> {
@@ -77,11 +79,9 @@ class DocumentService {
 		const text = textDocument.getText()
 
 		if (parent || isSupportedDocument(text)) {
-			return Promise.resolve(parse(textDocument, parent))
+			return Promise.resolve(parse(textDocument, this.callbacks, parent))
 		}
 
 		return Promise.reject(new Error("Document is not supported"))
 	}
 }
-
-export default new DocumentService()

@@ -7,6 +7,10 @@ ObjectASTNode {
   "document": YAMLDocument {
     "documentType": "UNKNOWN",
     "errors": Array [],
+    "externalImportCallbacks": Object {
+      "onRegisterExternalImport": [Function],
+      "onValidateExternalImport": [Function],
+    },
     "globalsConfig": Object {
       "Api": Object {
         "properties": Array [],
@@ -64,6 +68,10 @@ ObjectASTNode {
         "document": YAMLDocument {
           "documentType": "UNKNOWN",
           "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
           "globalsConfig": Object {
             "Api": Object {
               "properties": Array [],
@@ -118,6 +126,10 @@ ObjectASTNode {
             "document": YAMLDocument {
               "documentType": "UNKNOWN",
               "errors": Array [],
+              "externalImportCallbacks": Object {
+                "onRegisterExternalImport": [Function],
+                "onValidateExternalImport": [Function],
+              },
               "globalsConfig": Object {
                 "Api": Object {
                   "properties": Array [],
@@ -177,6 +189,10 @@ ObjectASTNode {
             "document": YAMLDocument {
               "documentType": "UNKNOWN",
               "errors": Array [],
+              "externalImportCallbacks": Object {
+                "onRegisterExternalImport": [Function],
+                "onValidateExternalImport": [Function],
+              },
               "globalsConfig": Object {
                 "Api": Object {
                   "properties": Array [],
@@ -241,6 +257,10 @@ ObjectASTNode {
       "document": YAMLDocument {
         "documentType": "UNKNOWN",
         "errors": Array [],
+        "externalImportCallbacks": Object {
+          "onRegisterExternalImport": [Function],
+          "onValidateExternalImport": [Function],
+        },
         "globalsConfig": Object {
           "Api": Object {
             "properties": Array [],
@@ -294,6 +314,10 @@ ObjectASTNode {
         "document": YAMLDocument {
           "documentType": "UNKNOWN",
           "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
           "globalsConfig": Object {
             "Api": Object {
               "properties": Array [],
@@ -365,6 +389,10 @@ ObjectASTNode {
   "document": YAMLDocument {
     "documentType": "UNKNOWN",
     "errors": Array [],
+    "externalImportCallbacks": Object {
+      "onRegisterExternalImport": [Function],
+      "onValidateExternalImport": [Function],
+    },
     "globalsConfig": Object {
       "Api": Object {
         "properties": Array [],
@@ -431,6 +459,10 @@ ObjectASTNode {
         "document": YAMLDocument {
           "documentType": "UNKNOWN",
           "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
           "globalsConfig": Object {
             "Api": Object {
               "properties": Array [],
@@ -485,6 +517,10 @@ ObjectASTNode {
             "document": YAMLDocument {
               "documentType": "UNKNOWN",
               "errors": Array [],
+              "externalImportCallbacks": Object {
+                "onRegisterExternalImport": [Function],
+                "onValidateExternalImport": [Function],
+              },
               "globalsConfig": Object {
                 "Api": Object {
                   "properties": Array [],
@@ -544,6 +580,10 @@ ObjectASTNode {
             "document": YAMLDocument {
               "documentType": "UNKNOWN",
               "errors": Array [],
+              "externalImportCallbacks": Object {
+                "onRegisterExternalImport": [Function],
+                "onValidateExternalImport": [Function],
+              },
               "globalsConfig": Object {
                 "Api": Object {
                   "properties": Array [],
@@ -608,6 +648,10 @@ ObjectASTNode {
       "document": YAMLDocument {
         "documentType": "UNKNOWN",
         "errors": Array [],
+        "externalImportCallbacks": Object {
+          "onRegisterExternalImport": [Function],
+          "onValidateExternalImport": [Function],
+        },
         "globalsConfig": Object {
           "Api": Object {
             "properties": Array [],
@@ -661,6 +705,10 @@ ObjectASTNode {
         "document": YAMLDocument {
           "documentType": "UNKNOWN",
           "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
           "globalsConfig": Object {
             "Api": Object {
               "properties": Array [],
@@ -732,6 +780,10 @@ ObjectASTNode {
   "document": YAMLDocument {
     "documentType": "UNKNOWN",
     "errors": Array [],
+    "externalImportCallbacks": Object {
+      "onRegisterExternalImport": [Function],
+      "onValidateExternalImport": [Function],
+    },
     "globalsConfig": Object {
       "Api": Object {
         "properties": Array [],
@@ -846,6 +898,10 @@ ObjectASTNode {
         "document": YAMLDocument {
           "documentType": "UNKNOWN",
           "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
           "globalsConfig": Object {
             "Api": Object {
               "properties": Array [],
@@ -912,6 +968,10 @@ ObjectASTNode {
       "document": YAMLDocument {
         "documentType": "UNKNOWN",
         "errors": Array [],
+        "externalImportCallbacks": Object {
+          "onRegisterExternalImport": [Function],
+          "onValidateExternalImport": [Function],
+        },
         "globalsConfig": Object {
           "Api": Object {
             "properties": Array [],
@@ -992,6 +1052,10 @@ ObjectASTNode {
         "document": YAMLDocument {
           "documentType": "UNKNOWN",
           "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
           "globalsConfig": Object {
             "Api": Object {
               "properties": Array [],
@@ -1090,6 +1154,10 @@ ObjectASTNode {
   "document": YAMLDocument {
     "documentType": "UNKNOWN",
     "errors": Array [],
+    "externalImportCallbacks": Object {
+      "onRegisterExternalImport": [Function],
+      "onValidateExternalImport": [Function],
+    },
     "globalsConfig": Object {
       "Api": Object {
         "properties": Array [],
@@ -1206,6 +1274,10 @@ ObjectASTNode {
         "document": YAMLDocument {
           "documentType": "UNKNOWN",
           "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
           "globalsConfig": Object {
             "Api": Object {
               "properties": Array [],
@@ -1272,6 +1344,10 @@ ObjectASTNode {
       "document": YAMLDocument {
         "documentType": "UNKNOWN",
         "errors": Array [],
+        "externalImportCallbacks": Object {
+          "onRegisterExternalImport": [Function],
+          "onValidateExternalImport": [Function],
+        },
         "globalsConfig": Object {
           "Api": Object {
             "properties": Array [],
@@ -1353,6 +1429,10 @@ ObjectASTNode {
         "document": YAMLDocument {
           "documentType": "UNKNOWN",
           "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
           "globalsConfig": Object {
             "Api": Object {
               "properties": Array [],
@@ -1452,6 +1532,10 @@ ObjectASTNode {
   "document": YAMLDocument {
     "documentType": "UNKNOWN",
     "errors": Array [],
+    "externalImportCallbacks": Object {
+      "onRegisterExternalImport": [Function],
+      "onValidateExternalImport": [Function],
+    },
     "globalsConfig": Object {
       "Api": Object {
         "properties": Array [],
@@ -1519,6 +1603,10 @@ ObjectASTNode {
         "document": YAMLDocument {
           "documentType": "UNKNOWN",
           "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
           "globalsConfig": Object {
             "Api": Object {
               "properties": Array [],
@@ -1577,6 +1665,10 @@ ObjectASTNode {
       "document": YAMLDocument {
         "documentType": "UNKNOWN",
         "errors": Array [],
+        "externalImportCallbacks": Object {
+          "onRegisterExternalImport": [Function],
+          "onValidateExternalImport": [Function],
+        },
         "globalsConfig": Object {
           "Api": Object {
             "properties": Array [],
@@ -1630,6 +1722,10 @@ ObjectASTNode {
         "document": YAMLDocument {
           "documentType": "UNKNOWN",
           "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
           "globalsConfig": Object {
             "Api": Object {
               "properties": Array [],

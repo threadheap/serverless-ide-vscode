@@ -1,6 +1,6 @@
-import { ExternalImportASTNode } from "./external-import-ast-node"
 import { CLOUD_FORMATION, SAM } from "./../../model/document"
 import { JSONDocument } from "./json-document"
+import noop = require("lodash/noop")
 import { Referenceables } from "../../model/referenceables"
 import {
 	CUSTOM_TAGS_BY_PROPERTY_NAME,
@@ -20,6 +20,10 @@ import { References } from "../../model/references"
 import { ASTNode } from "./ast-node"
 import { PropertyASTNode } from "./property-ast-node"
 import { StringASTNode } from "./string-ast-node"
+import {
+	ExternalImportASTNode,
+	ExternalImportsCallbacks
+} from "./external-import-ast-node"
 import { NumberASTNode } from "./number-ast-node"
 import { BooleanASTNode } from "./boolean-ast-node"
 import { ObjectASTNode } from "./object-ast-node"
@@ -58,17 +62,23 @@ export class YAMLDocument extends JSONDocument {
 	parameters: string[] = []
 	documentType: DocumentType = UNKNOWN
 	parent: YAMLDocument | void = undefined
+	externalImportCallbacks: ExternalImportsCallbacks
 
 	constructor(
 		uri: string,
 		documentType: DocumentType,
 		yamlDoc: Yaml.YAMLNode | void,
+		callbacks: ExternalImportsCallbacks = {
+			onRegisterExternalImport: noop,
+			onValidateExternalImport: noop
+		},
 		parent?: YAMLDocument
 	) {
 		super(uri, null, [])
 		this.documentType = documentType
 		this.globalsConfig = getDefaultGlobalsConfig()
 		this.parent = parent
+		this.externalImportCallbacks = callbacks
 		if (yamlDoc) {
 			this.root = this.recursivelyBuildAst(null, yamlDoc)
 
@@ -353,7 +363,8 @@ export class YAMLDocument extends JSONDocument {
 								name,
 								node.value,
 								node.startPosition,
-								node.endPosition
+								node.endPosition,
+								this.externalImportCallbacks
 							)
 						} else {
 							const result = new StringASTNode(

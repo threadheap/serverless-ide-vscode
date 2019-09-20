@@ -10,7 +10,7 @@ import {
 	IConnection
 } from "vscode-languageserver"
 import { Problem, YAMLDocument } from "../../parser"
-import { JSONSchemaService } from "../jsonSchema"
+import { JSONSchemaService, ResolvedSchema } from "../jsonSchema"
 import {
 	CFNLintSettings,
 	LanguageSettings,
@@ -58,6 +58,14 @@ export class YAMLValidation {
 		this.validationEnabled = settings.validate
 		this.settings = settings.cfnLint
 		this.provider = settings.validationProvider
+	}
+
+	async doExternalImportValidation(
+		textDocument: TextDocument,
+		yamlDocument: YAMLDocument,
+		schema: ResolvedSchema
+	) {
+		await this.validateWithSchema(textDocument, yamlDocument, schema)
 	}
 
 	async doValidation(textDocument: TextDocument, yamlDocument: YAMLDocument) {
@@ -129,6 +137,7 @@ export class YAMLValidation {
 				delete this.inProgressMap[fileName]
 
 				this.sendDiagnostics(textDocument.uri, diagnostics)
+				resolve()
 			})
 
 			child.on("exit", () => {
@@ -193,7 +202,8 @@ export class YAMLValidation {
 
 	private async validateWithSchema(
 		textDocument: TextDocument,
-		yamlDocument: YAMLDocument
+		yamlDocument: YAMLDocument,
+		documentSchema?: ResolvedSchema
 	) {
 		let diagnostics = []
 		const added = {}
@@ -206,10 +216,12 @@ export class YAMLValidation {
 			}
 		})
 
-		const schema = await this.jsonSchemaService.getSchemaForDocument(
-			textDocument,
-			yamlDocument
-		)
+		const schema =
+			documentSchema ||
+			(await this.jsonSchemaService.getSchemaForDocument(
+				textDocument,
+				yamlDocument
+			))
 
 		if (schema) {
 			if (

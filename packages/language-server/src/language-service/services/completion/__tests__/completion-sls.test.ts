@@ -1,10 +1,10 @@
+import { YAMLCompletion } from "./../index"
 import { TextDocument } from "vscode-languageserver"
-import { getLanguageService } from "../languageService"
-import { getDefaultLanguageSettings } from "../model/settings"
-import { parse as parseYAML } from "../parser"
+import { parse as parseYAML } from "../../../parser"
+import { JSONSchemaService } from "../../jsonSchema"
 
-const languageSettings = getDefaultLanguageSettings()
-const languageService = getLanguageService(languageSettings)
+const schemaService = new JSONSchemaService()
+const completionProvider = new YAMLCompletion(schemaService)
 
 const RESOURCES_TEMPLATE = `
 service:
@@ -31,7 +31,7 @@ describe("Serverless Framework autocompletion", () => {
 			const testTextDocument = setup(content)
 			const position = testTextDocument.positionAt(offset)
 
-			return await languageService.doComplete(
+			return await completionProvider.doComplete(
 				testTextDocument,
 				position,
 				parseYAML(testTextDocument)

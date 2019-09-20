@@ -1,10 +1,6 @@
+import { findDocumentSymbols } from "../"
 import { TextDocument } from "vscode-languageserver"
-import { getLanguageService } from "../languageService"
-import { getDefaultLanguageSettings } from "../model/settings"
-import { parse as parseYAML } from "../parser"
-
-const languageSettings = getDefaultLanguageSettings()
-const languageService = getLanguageService(languageSettings)
+import { parse as parseYAML } from "../../../parser"
 
 describe("Document Symbols Tests", () => {
 	function setup(content: string) {
@@ -19,10 +15,7 @@ describe("Document Symbols Tests", () => {
 	function parseSetup(content: string) {
 		const testTextDocument = setup(content)
 		const jsonDocument = parseYAML(testTextDocument)
-		return languageService.findDocumentSymbols(
-			testTextDocument,
-			jsonDocument
-		)
+		return findDocumentSymbols(testTextDocument, jsonDocument)
 	}
 
 	it("Document is empty", done => {

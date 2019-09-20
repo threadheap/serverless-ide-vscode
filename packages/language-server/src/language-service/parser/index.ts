@@ -1,8 +1,14 @@
 import { CUSTOM_TAGS } from "./../model/custom-tags"
 
-import { YAMLDocument, ErrorCode, Problem } from "./json"
+import {
+	YAMLDocument,
+	ErrorCode,
+	Problem,
+	ExternalImportsCallbacks
+} from "./json"
 
 import * as nls from "vscode-nls"
+import noop = require("lodash/noop")
 const localize = nls.loadMessageBundle()
 
 import { Schema, Type } from "js-yaml"
@@ -11,7 +17,7 @@ import * as Yaml from "yaml-ast-parser"
 import { getDocumentType } from "../utils/document"
 import { TextDocument } from "vscode-languageserver"
 
-export { YAMLDocument, Problem }
+export { YAMLDocument, Problem, ExternalImportsCallbacks }
 
 function convertError(e: Yaml.YAMLException): Problem {
 	return {
@@ -27,6 +33,7 @@ function convertError(e: Yaml.YAMLException): Problem {
 function createJSONDocument(
 	document: TextDocument,
 	yamlDoc: Yaml.YAMLNode | void,
+	callbacks: ExternalImportsCallbacks,
 	parentDocument?: YAMLDocument
 ) {
 	const doc = new YAMLDocument(
@@ -35,6 +42,7 @@ function createJSONDocument(
 			? parentDocument.documentType
 			: getDocumentType(document.getText()),
 		yamlDoc,
+		callbacks,
 		parentDocument
 	)
 
@@ -92,6 +100,10 @@ function createJSONDocument(
 
 export const parse = (
 	document: TextDocument,
+	callbacks: ExternalImportsCallbacks = {
+		onRegisterExternalImport: noop,
+		onValidateExternalImport: noop
+	},
 	parentDocument?: YAMLDocument
 ): YAMLDocument => {
 	// We need compiledTypeMap to be available from schemaWithAdditionalTags before we add the new custom propertie
@@ -127,6 +139,7 @@ export const parse = (
 	return createJSONDocument(
 		document,
 		Yaml.load(text, additionalOptions),
+		callbacks,
 		parentDocument
 	)
 }
