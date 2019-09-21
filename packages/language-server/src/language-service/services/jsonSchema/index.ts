@@ -8,12 +8,6 @@ import { DocumentType } from "../../model/document"
 import { YAMLDocument } from "../../parser"
 import requestService from "../request"
 import { JSONSchema, JSONSchemaMap } from "./../../jsonSchema"
-import {
-	CLOUD_FORMATION,
-	SAM,
-	SERVERLESS_FRAMEWORK,
-	UNKNOWN
-} from "./../../model/document"
 import { applyDocumentMutations } from "./mutation"
 import { sendException } from "../analytics"
 
@@ -277,39 +271,108 @@ const resolveSchemaContent = async (
 const CLOUD_FORMATION_SCHEMA_URL =
 	"https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json"
 
+interface PartialSchema {
+	properties: {
+		[key: string]: ResolvedSchema
+	}
+	global?: ResolvedSchema
+}
+
 // tslint:disable-next-line: max-classes-per-file
 export class JSONSchemaService {
 	private schemas: { [Key in DocumentType]: Promise<ResolvedSchema | void> }
+
+	private partialSchemas: { [uri: string]: PartialSchema }
 
 	constructor() {
 		const samSchema = require("@serverless-ide/sam-schema/schema.json") as JSONSchema
 		const serverlessFrameworkSchema = require("@serverless-ide/serverless-framework-schema/schema.json") as JSONSchema
 
 		this.schemas = {
-			[CLOUD_FORMATION]: this.loadSchema(CLOUD_FORMATION_SCHEMA_URL).then(
-				unresolvedSchema => {
-					return resolveSchemaContent(unresolvedSchema)
-				}
+			[DocumentType.CLOUD_FORMATION]: this.loadSchema(
+				CLOUD_FORMATION_SCHEMA_URL
+			).then(unresolvedSchema => {
+				return resolveSchemaContent(unresolvedSchema)
+			}),
+			[DocumentType.SAM]: resolveSchemaContent(
+				new UnresolvedSchema(samSchema)
 			),
-			[SAM]: resolveSchemaContent(new UnresolvedSchema(samSchema)),
-			[SERVERLESS_FRAMEWORK]: resolveSchemaContent(
+			[DocumentType.SERVERLESS_FRAMEWORK]: resolveSchemaContent(
 				new UnresolvedSchema(serverlessFrameworkSchema)
 			),
-			[UNKNOWN]: Promise.resolve(undefined)
+			[DocumentType.UNKNOWN]: Promise.resolve(undefined)
 		}
+
+		this.partialSchemas = {}
 	}
 
 	async getSchemaForDocument(
 		document: TextDocument,
 		yamlDocument: YAMLDocument
 	): Promise<ResolvedSchema | void> {
-		const schema = await this.getSchemaForDocumentType(
-			yamlDocument.documentType
-		)
+		if (yamlDocument.parentParams) {
+			return this.getPartialSchemaForDocumentUri(document.uri)
+		} else {
+			const schema = await this.getSchemaForDocumentType(
+				yamlDocument.documentType
+			)
 
-		if (schema) {
-			return applyDocumentMutations(schema, yamlDocument)
+			if (schema) {
+				return applyDocumentMutations(schema, yamlDocument)
+			}
 		}
+	}
+
+	async getPartialSchemaForDocumentUri(
+		uri: string
+	): Promise<ResolvedSchema | void> {
+		const partialSchema = this.partialSchemas[uri]
+
+		if (partialSchema) {
+			let schema: JSONSchema = { allOf: [] }
+
+			if (partialSchema.global) {
+				schema.allOf.push(partialSchema.global.schema)
+
+				forEach(
+					partialSchema.properties,
+					(key: string, propertySchema: ResolvedSchema) => {
+						schema.allOf.push({
+							type: "object",
+							properties: {
+								[key]: propertySchema.schema
+							},
+							required: [key]
+						})
+					}
+				)
+			}
+
+			if (schema.allOf.length === 1) {
+				schema = schema.allOf[0]
+			}
+
+			return new ResolvedSchema(schema)
+		}
+	}
+
+	registerPartialSchema(uri: string, schema: JSONSchema, property?: string) {
+		const resolvedSchema = new ResolvedSchema(schema)
+
+		if (!this.partialSchemas[uri]) {
+			this.partialSchemas[uri] = {
+				properties: {}
+			}
+		}
+
+		if (property) {
+			this.partialSchemas[uri].properties[property] = resolvedSchema
+		}
+		this.partialSchemas[uri].global = resolvedSchema
+	}
+
+	clearPartialSchema(uri: string) {
+		delete this.partialSchemas[uri]
 	}
 
 	private async getSchemaForDocumentType(documentType: DocumentType) {

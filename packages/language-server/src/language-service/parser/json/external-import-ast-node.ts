@@ -1,15 +1,17 @@
 import { YAMLDocument } from "../index"
-import { ASTNode, ISchemaCollector } from "./ast-node"
+import { ASTNode } from "./ast-node"
 import * as Json from "jsonc-parser"
 import { JSONSchema } from "../../jsonSchema"
-import { ValidationResult } from "./validation-result"
+import * as Path from "path"
 
-const IMPORT_REGEXP = /^\${file\((.+).(yml|yaml)\)(:\w+)?}$/
+const IMPORT_REGEXP = /^\${file\((.+)\.(yml|yaml)\)(:\w+)?}$/
+const FILE_URI_PREFIX = "file://"
 
 export type OnRegisterExternalImport = (uri: string, parentUri: string) => void
 
 export type OnValidateExternalImport = (
 	uri: string,
+	parentUri: string,
 	schema: JSONSchema,
 	property: string | void
 ) => void
@@ -24,7 +26,7 @@ export class ExternalImportASTNode extends ASTNode<string> {
 		return IMPORT_REGEXP.test(path)
 	}
 
-	private path: string
+	private uri: string | void
 	private parameter: string | void = undefined
 	private callbacks: ExternalImportsCallbacks
 
@@ -38,31 +40,47 @@ export class ExternalImportASTNode extends ASTNode<string> {
 		callbacks: ExternalImportsCallbacks
 	) {
 		super(document, parent, "string", name, start, end)
-		this.value = value
 		this.callbacks = callbacks
+		this.value = value
 	}
 
 	set value(newValue: string) {
-		const [, path, parameter] = IMPORT_REGEXP.exec(newValue)
+		const [, path, extension, parameter] = IMPORT_REGEXP.exec(newValue)
 
-		this.path = path
+		this.uri = this.resolvePath(`${path}.${extension}`)
 		this.parameter = parameter
-		this.callbacks.onRegisterExternalImport(this.path, this.document.uri)
+
+		if (this.uri) {
+			this.callbacks.onRegisterExternalImport(this.uri, this.document.uri)
+		}
 	}
 
-	validate(
-		schema: JSONSchema,
-		validationResult: ValidationResult,
-		matchingSchemas: ISchemaCollector
-	): void {
-		if (!matchingSchemas.include(this)) {
-			return
+	validate(schema: JSONSchema): void {
+		if (this.uri) {
+			this.callbacks.onValidateExternalImport(
+				this.uri,
+				this.document.uri,
+				schema,
+				this.parameter
+			)
 		}
+	}
 
-		this.callbacks.onValidateExternalImport(
-			this.path,
-			schema,
-			this.parameter
-		)
+	private resolvePath(path: string): string | void {
+		if (Path.isAbsolute(path)) {
+			return path
+		} else {
+			if (this.document.uri.startsWith(FILE_URI_PREFIX)) {
+				return (
+					FILE_URI_PREFIX +
+					Path.join(
+						Path.dirname(
+							this.document.uri.replace(FILE_URI_PREFIX, "")
+						),
+						path
+					)
+				)
+			}
+		}
 	}
 }

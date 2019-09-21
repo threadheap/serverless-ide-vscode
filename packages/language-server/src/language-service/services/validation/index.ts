@@ -1,6 +1,6 @@
 import { CfnLintFailedToExecuteError } from "./errors"
 import { StringASTNode, ErrorCode } from "./../../parser/json"
-import { CLOUD_FORMATION, SAM } from "./../../model/document"
+import { DocumentType } from "./../../model/document"
 import { spawn } from "child_process"
 import {
 	Diagnostic,
@@ -50,8 +50,8 @@ export class YAMLValidation {
 	) {
 		this.jsonSchemaService = jsonSchemaService
 		this.validationEnabled = true
-		this.workspaceRoot = workspaceRoot
 		this.connection = connection
+		this.workspaceRoot = workspaceRoot
 	}
 
 	configure(settings: LanguageSettings) {
@@ -62,10 +62,15 @@ export class YAMLValidation {
 
 	async doExternalImportValidation(
 		textDocument: TextDocument,
-		yamlDocument: YAMLDocument,
-		schema: ResolvedSchema
+		yamlDocument: YAMLDocument
 	) {
-		await this.validateWithSchema(textDocument, yamlDocument, schema)
+		const schema = await this.jsonSchemaService.getPartialSchemaForDocumentUri(
+			textDocument.uri
+		)
+
+		if (schema) {
+			await this.validateWithSchema(textDocument, yamlDocument, schema)
+		}
 	}
 
 	async doValidation(textDocument: TextDocument, yamlDocument: YAMLDocument) {
@@ -77,7 +82,8 @@ export class YAMLValidation {
 
 		if (
 			this.provider === ValidationProvider["cfn-lint"] &&
-			(documentType === CLOUD_FORMATION || documentType === SAM)
+			(documentType === DocumentType.CLOUD_FORMATION ||
+				documentType === DocumentType.SAM)
 		) {
 			try {
 				await this.validateWithCfnLint(textDocument)
@@ -225,8 +231,8 @@ export class YAMLValidation {
 
 		if (schema) {
 			if (
-				yamlDocument.documentType === CLOUD_FORMATION ||
-				yamlDocument.documentType === SAM
+				yamlDocument.documentType === DocumentType.CLOUD_FORMATION ||
+				yamlDocument.documentType === DocumentType.SAM
 			) {
 				diagnostics = diagnostics.concat(
 					await validateReferences(textDocument, yamlDocument)

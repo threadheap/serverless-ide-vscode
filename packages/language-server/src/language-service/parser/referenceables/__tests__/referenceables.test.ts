@@ -1,7 +1,7 @@
 import { TextDocument } from "vscode-languageserver"
 import { collectReferenceables, generateEmptyReferenceables } from "./../index"
 import { parse } from "./../../../parser/index"
-import { SAM, SERVERLESS_FRAMEWORK } from "./../../../model/document"
+import { DocumentType } from "../../../model/document"
 import { ReferenceEntityType } from "../../../model/references"
 
 const SAM_DOCUMENT = `
@@ -76,10 +76,13 @@ describe("referenceables", () => {
 		return parse(document)
 	}
 
-	describe(SAM, () => {
+	describe(DocumentType.SAM, () => {
 		test("should collect referenceables", () => {
 			const doc = generateDocument(SAM_DOCUMENT)
-			const referenceables = collectReferenceables(SAM, doc.root)
+			const referenceables = collectReferenceables(
+				DocumentType.SAM,
+				doc.root
+			)
 
 			expect(
 				referenceables.hash[ReferenceEntityType.RESOURCE].serialize()
@@ -106,17 +109,20 @@ describe("referenceables", () => {
 
 		test("should return empty array for empty document", () => {
 			const doc = generateDocument(EMPTY_SAM_DOCUMENT)
-			const referenceables = collectReferenceables(SAM, doc.root)
+			const referenceables = collectReferenceables(
+				DocumentType.SAM,
+				doc.root
+			)
 
 			expect(referenceables).toEqual(generateEmptyReferenceables())
 		})
 	})
 
-	describe(SERVERLESS_FRAMEWORK, () => {
+	describe(DocumentType.SERVERLESS_FRAMEWORK, () => {
 		test("should collect referenceables", () => {
 			const doc = generateDocument(SERVERLESS_DOCUMENT)
 			const referenceables = collectReferenceables(
-				SERVERLESS_FRAMEWORK,
+				DocumentType.SERVERLESS_FRAMEWORK,
 				doc.root
 			)
 
@@ -140,7 +146,7 @@ describe("referenceables", () => {
 		test("should return empty array for empty document", () => {
 			const doc = generateDocument(EMPTY_SERVERLESS_DOCUMENT)
 			const referenceables = collectReferenceables(
-				SERVERLESS_FRAMEWORK,
+				DocumentType.SERVERLESS_FRAMEWORK,
 				doc.root
 			)
 

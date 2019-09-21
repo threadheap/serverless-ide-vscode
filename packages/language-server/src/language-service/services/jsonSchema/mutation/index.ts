@@ -1,5 +1,4 @@
-import { SERVERLESS_FRAMEWORK } from "./../../../model/document"
-import { SAM } from "../../../model/document"
+import { DocumentType } from "../../../model/document"
 import { YAMLDocument } from "../../../parser/index"
 import { isEmpty } from "../../../model/globals"
 import { ResolvedSchema } from ".."
@@ -15,7 +14,7 @@ export const applyDocumentMutations = (
 		return schema
 	}
 
-	if (yamlDocument.documentType === SAM) {
+	if (yamlDocument.documentType === DocumentType.SAM) {
 		const { globalsConfig } = yamlDocument
 
 		if (isEmpty(globalsConfig)) {
@@ -25,7 +24,7 @@ export const applyDocumentMutations = (
 		return applyGlobalsConfigMutations(schema, globalsConfig)
 	}
 
-	if (yamlDocument.documentType === SERVERLESS_FRAMEWORK) {
+	if (yamlDocument.documentType === DocumentType.SERVERLESS_FRAMEWORK) {
 		return applyProviderMutations(schema, yamlDocument)
 	}
 

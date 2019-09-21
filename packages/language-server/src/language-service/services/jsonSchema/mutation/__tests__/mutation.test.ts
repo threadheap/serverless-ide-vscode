@@ -1,5 +1,5 @@
 import { TextDocument } from "vscode-languageserver-types"
-import { UNKNOWN, SAM } from "../../../../model/document"
+import { DocumentType } from "../../../../model/document"
 import { ResolvedSchema } from "../.."
 import { FUNCTION } from "../../../../model/globals"
 import { YAMLDocument, parse } from "../../../../parser"
@@ -8,7 +8,7 @@ import { getDefaultGlobalsConfig } from "../../../../parser/json/globals"
 
 describe("sam", () => {
 	test("should do nothing if schema was not resolved", () => {
-		const doc = new YAMLDocument(UNKNOWN, undefined)
+		const doc = new YAMLDocument(DocumentType.UNKNOWN, undefined)
 		doc.globalsConfig = getDefaultGlobalsConfig()
 
 		expect(applyDocumentMutations(undefined, doc)).toBeUndefined()
@@ -18,7 +18,7 @@ describe("sam", () => {
 		const emptySchema = {}
 		const emptyGlobals = getDefaultGlobalsConfig()
 		const resolvedSchema = new ResolvedSchema(emptySchema)
-		const doc = new YAMLDocument(UNKNOWN, undefined)
+		const doc = new YAMLDocument(DocumentType.UNKNOWN, undefined)
 		doc.globalsConfig = emptyGlobals
 
 		expect(applyDocumentMutations(resolvedSchema, doc)).toBe(resolvedSchema)
@@ -30,7 +30,7 @@ describe("sam", () => {
 		}
 		const emptyGlobals = getDefaultGlobalsConfig()
 		const resolvedSchema = new ResolvedSchema(schema)
-		const doc = new YAMLDocument(UNKNOWN, undefined)
+		const doc = new YAMLDocument(DocumentType.UNKNOWN, undefined)
 		doc.globalsConfig = emptyGlobals
 
 		expect(applyDocumentMutations(resolvedSchema, doc)).toBe(resolvedSchema)
@@ -51,7 +51,7 @@ describe("sam", () => {
 		const globals = getDefaultGlobalsConfig()
 		globals[FUNCTION].properties = ["Runtime"]
 		const resolvedSchema = new ResolvedSchema(schema)
-		const doc = new YAMLDocument("", SAM, undefined)
+		const doc = new YAMLDocument("", DocumentType.SAM, undefined)
 		doc.globalsConfig = globals
 
 		const newResolvedSchema = applyDocumentMutations(

@@ -1,3 +1,4 @@
+import { JSONSchema } from "./jsonSchema"
 import { CompletionItem } from "vscode-json-languageservice"
 import { CfnLintFailedToExecuteError } from "./services/validation/errors"
 import {
@@ -8,7 +9,6 @@ import {
 	ReferenceParams,
 	Location
 } from "vscode-languageserver"
-import noop = require("lodash/noop")
 import {
 	CompletionList,
 	Position,
@@ -26,7 +26,6 @@ import { JSONSchemaService } from "./services/jsonSchema"
 import { YAMLValidation } from "./services/validation"
 import { DocumentService } from "./services/document"
 import { sendAnalytics } from "./services/analytics"
-import { isSupportedDocument } from "./utils/document"
 import { completionHelper } from "./utils/completion-helper"
 import { getDefinition } from "./services/definition"
 import { getReferences } from "./services/reference"
@@ -65,6 +64,7 @@ export interface LanguageService {
 		params: ReferenceParams
 	): Promise<Location[] | ResponseError<void>>
 	doResolve(completionItem: CompletionItem): Promise<CompletionItem>
+	clearDocument(uri: string): void
 }
 
 const VALIDATION_DELAY_MS = 200
@@ -89,8 +89,30 @@ export class LanguageServiceImpl implements LanguageService {
 		this.documents = documents
 
 		this.callbacks = {
-			onRegisterExternalImport: noop,
-			onValidateExternalImport: noop
+			onRegisterExternalImport: (uri: string, parentUri: string) => {
+				this.documentService.registerChildParentRelation(uri, parentUri)
+			},
+			onValidateExternalImport: async (
+				uri: string,
+				parentUri: string,
+				schema: JSONSchema,
+				property?: string
+			) => {
+				const document = this.documents.get(uri)
+				this.schemaService.registerPartialSchema(uri, schema, property)
+
+				if (document) {
+					const yamlDocument = await this.documentService.getChildByUri(
+						uri,
+						parentUri
+					)
+
+					this.validation.doExternalImportValidation(
+						document,
+						yamlDocument
+					)
+				}
+			}
 		}
 
 		this.schemaService = new JSONSchemaService()
@@ -106,7 +128,7 @@ export class LanguageServiceImpl implements LanguageService {
 
 		documents.onDidClose(event => {
 			this.cleanPendingValidation(event.document)
-			this.documentService.clear(event.document)
+			this.clearDocument(event.document.uri)
 			connection.sendDiagnostics({
 				uri: event.document.uri,
 				diagnostics: []
@@ -114,6 +136,16 @@ export class LanguageServiceImpl implements LanguageService {
 		})
 
 		documents.onDidSave(async event => {
+			const children = this.documentService.getChildrenUris(
+				event.document.uri
+			)
+
+			// if parent document is changed
+			if (children && children.length) {
+				this.schemaService.clearPartialSchema(event.document.uri)
+				this.documentService.clearRelations(event.document.uri)
+			}
+
 			await this.doValidation(event.document)
 		})
 
@@ -135,10 +167,6 @@ export class LanguageServiceImpl implements LanguageService {
 		}
 
 		if (!document) {
-			return result
-		}
-
-		if (!isSupportedDocument(document.getText())) {
 			return result
 		}
 
@@ -200,8 +228,6 @@ export class LanguageServiceImpl implements LanguageService {
 		} catch (err) {
 			return new ResponseError(1, err.message)
 		}
-
-		return []
 	}
 
 	doResolve(completionItem: CompletionItem): Promise<CompletionItem> {
@@ -213,6 +239,18 @@ export class LanguageServiceImpl implements LanguageService {
 		})
 
 		return this.completer.doResolve(completionItem)
+	}
+
+	clearDocument(uri: string) {
+		const children = this.documentService.getChildrenUris(uri)
+
+		this.documentService.clear(uri)
+
+		if (children && children.length > 0) {
+			children.forEach(childUri =>
+				this.schemaService.clearPartialSchema(childUri)
+			)
+		}
 	}
 
 	async doHover(
@@ -234,10 +272,6 @@ export class LanguageServiceImpl implements LanguageService {
 		}
 
 		const text = document.getText()
-
-		if (!isSupportedDocument(text)) {
-			return
-		}
 
 		if (text.length === 0) {
 			this.connection.sendDiagnostics({

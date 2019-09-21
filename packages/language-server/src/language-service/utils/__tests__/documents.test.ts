@@ -1,8 +1,4 @@
-import {
-	CLOUD_FORMATION,
-	SAM,
-	SERVERLESS_FRAMEWORK
-} from "./../../model/document"
+import { DocumentType } from "../../model/document"
 import {
 	getDocumentType,
 	isCloudFormationTemplate,
@@ -71,10 +67,12 @@ test("should check for sam template", () => {
 })
 
 test("should detect document type", () => {
-	expect(getDocumentType(slsTemplate)).toBe(SERVERLESS_FRAMEWORK)
-	expect(getDocumentType(cfnTemplate)).toBe(CLOUD_FORMATION)
-	expect(getDocumentType(cfnTemplateWithFormatVersion)).toBe(CLOUD_FORMATION)
-	expect(getDocumentType(samTemplate)).toBe(SAM)
+	expect(getDocumentType(slsTemplate)).toBe(DocumentType.SERVERLESS_FRAMEWORK)
+	expect(getDocumentType(cfnTemplate)).toBe(DocumentType.CLOUD_FORMATION)
+	expect(getDocumentType(cfnTemplateWithFormatVersion)).toBe(
+		DocumentType.CLOUD_FORMATION
+	)
+	expect(getDocumentType(samTemplate)).toBe(DocumentType.SAM)
 })
 
 test("should detect supported documents", () => {

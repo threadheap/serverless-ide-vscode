@@ -16,6 +16,8 @@ import * as Yaml from "yaml-ast-parser"
 
 import { getDocumentType } from "../utils/document"
 import { TextDocument } from "vscode-languageserver"
+import { DocumentType } from "../model/document"
+import { ParentParams } from "./json/document"
 
 export { YAMLDocument, Problem, ExternalImportsCallbacks }
 
@@ -34,16 +36,16 @@ function createJSONDocument(
 	document: TextDocument,
 	yamlDoc: Yaml.YAMLNode | void,
 	callbacks: ExternalImportsCallbacks,
-	parentDocument?: YAMLDocument
+	parentParams?: ParentParams
 ) {
 	const doc = new YAMLDocument(
 		document.uri,
-		parentDocument
-			? parentDocument.documentType
+		parentParams
+			? DocumentType.UNKNOWN
 			: getDocumentType(document.getText()),
 		yamlDoc,
 		callbacks,
-		parentDocument
+		parentParams
 	)
 
 	if (!yamlDoc || !doc.root) {
@@ -104,7 +106,7 @@ export const parse = (
 		onRegisterExternalImport: noop,
 		onValidateExternalImport: noop
 	},
-	parentDocument?: YAMLDocument
+	parentParams?: ParentParams
 ): YAMLDocument => {
 	// We need compiledTypeMap to be available from schemaWithAdditionalTags before we add the new custom propertie
 	const compiledTypeMap: { [key: string]: Type } = {}
@@ -140,6 +142,6 @@ export const parse = (
 		document,
 		Yaml.load(text, additionalOptions),
 		callbacks,
-		parentDocument
+		parentParams
 	)
 }

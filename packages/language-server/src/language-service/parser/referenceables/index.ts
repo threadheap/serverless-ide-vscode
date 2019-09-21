@@ -1,4 +1,3 @@
-import { CLOUD_FORMATION, SERVERLESS_FRAMEWORK } from "./../../model/document"
 import {
 	ASTNode,
 	ObjectASTNode,
@@ -6,7 +5,7 @@ import {
 	StringASTNode
 } from "./../../parser/json"
 import { getNodeItemByKey } from "../../utils/yaml"
-import { DocumentType, SAM } from "../../model/document"
+import { DocumentType } from "../../model/document"
 import { Referenceables, Referenceable } from "../../model/referenceables"
 import { ReferenceEntityType } from "../../model/references"
 import { SortedHash } from "../../model/sortedHash"
@@ -144,11 +143,11 @@ export const collectReferenceables = (
 	node: ASTNode
 ): Referenceables => {
 	switch (documentType) {
-		case SAM:
+		case DocumentType.SAM:
 			return collectCfnReferenceables(node, true)
-		case CLOUD_FORMATION:
+		case DocumentType.CLOUD_FORMATION:
 			return collectCfnReferenceables(node)
-		case SERVERLESS_FRAMEWORK:
+		case DocumentType.SERVERLESS_FRAMEWORK:
 			return collectServerlessReferenceables(node)
 		default:
 			return generateEmptyReferenceables()

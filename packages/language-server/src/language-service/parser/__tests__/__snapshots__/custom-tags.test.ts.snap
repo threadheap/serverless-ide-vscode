@@ -26,7 +26,7 @@ ObjectASTNode {
       },
     },
     "parameters": Array [],
-    "parent": undefined,
+    "parentParams": undefined,
     "referenceables": Object {
       "hash": Object {
         "MAPPING": SortedHash {
@@ -87,7 +87,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
-          "parent": undefined,
+          "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -145,7 +145,7 @@ ObjectASTNode {
                 },
               },
               "parameters": Array [],
-              "parent": undefined,
+              "parentParams": undefined,
               "referenceables": Object {
                 "hash": Object {
                   "MAPPING": SortedHash {
@@ -208,7 +208,7 @@ ObjectASTNode {
                 },
               },
               "parameters": Array [],
-              "parent": undefined,
+              "parentParams": undefined,
               "referenceables": Object {
                 "hash": Object {
                   "MAPPING": SortedHash {
@@ -276,7 +276,7 @@ ObjectASTNode {
           },
         },
         "parameters": Array [],
-        "parent": undefined,
+        "parentParams": undefined,
         "referenceables": Object {
           "hash": Object {
             "MAPPING": SortedHash {
@@ -333,7 +333,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
-          "parent": undefined,
+          "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -408,7 +408,7 @@ ObjectASTNode {
       },
     },
     "parameters": Array [],
-    "parent": undefined,
+    "parentParams": undefined,
     "referenceables": Object {
       "hash": Object {
         "MAPPING": SortedHash {
@@ -478,7 +478,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
-          "parent": undefined,
+          "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -536,7 +536,7 @@ ObjectASTNode {
                 },
               },
               "parameters": Array [],
-              "parent": undefined,
+              "parentParams": undefined,
               "referenceables": Object {
                 "hash": Object {
                   "MAPPING": SortedHash {
@@ -599,7 +599,7 @@ ObjectASTNode {
                 },
               },
               "parameters": Array [],
-              "parent": undefined,
+              "parentParams": undefined,
               "referenceables": Object {
                 "hash": Object {
                   "MAPPING": SortedHash {
@@ -667,7 +667,7 @@ ObjectASTNode {
           },
         },
         "parameters": Array [],
-        "parent": undefined,
+        "parentParams": undefined,
         "referenceables": Object {
           "hash": Object {
             "MAPPING": SortedHash {
@@ -724,7 +724,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
-          "parent": undefined,
+          "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -799,7 +799,7 @@ ObjectASTNode {
       },
     },
     "parameters": Array [],
-    "parent": undefined,
+    "parentParams": undefined,
     "referenceables": Object {
       "hash": Object {
         "MAPPING": SortedHash {
@@ -917,7 +917,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
-          "parent": undefined,
+          "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -987,7 +987,7 @@ ObjectASTNode {
           },
         },
         "parameters": Array [],
-        "parent": undefined,
+        "parentParams": undefined,
         "referenceables": Object {
           "hash": Object {
             "MAPPING": SortedHash {
@@ -1071,7 +1071,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
-          "parent": undefined,
+          "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -1173,7 +1173,7 @@ ObjectASTNode {
       },
     },
     "parameters": Array [],
-    "parent": undefined,
+    "parentParams": undefined,
     "referenceables": Object {
       "hash": Object {
         "MAPPING": SortedHash {
@@ -1293,7 +1293,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
-          "parent": undefined,
+          "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -1363,7 +1363,7 @@ ObjectASTNode {
           },
         },
         "parameters": Array [],
-        "parent": undefined,
+        "parentParams": undefined,
         "referenceables": Object {
           "hash": Object {
             "MAPPING": SortedHash {
@@ -1448,7 +1448,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
-          "parent": undefined,
+          "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -1551,7 +1551,7 @@ ObjectASTNode {
       },
     },
     "parameters": Array [],
-    "parent": undefined,
+    "parentParams": undefined,
     "referenceables": Object {
       "hash": Object {
         "MAPPING": SortedHash {
@@ -1622,7 +1622,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
-          "parent": undefined,
+          "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -1684,7 +1684,7 @@ ObjectASTNode {
           },
         },
         "parameters": Array [],
-        "parent": undefined,
+        "parentParams": undefined,
         "referenceables": Object {
           "hash": Object {
             "MAPPING": SortedHash {
@@ -1741,7 +1741,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
-          "parent": undefined,
+          "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {

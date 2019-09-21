@@ -1,4 +1,3 @@
-import { CLOUD_FORMATION, SAM } from "./../../model/document"
 import { JSONDocument } from "./json-document"
 import noop = require("lodash/noop")
 import { Referenceables } from "../../model/referenceables"
@@ -10,7 +9,7 @@ import * as Yaml from "yaml-ast-parser"
 import { GlobalsConfig } from "../../model/globals"
 import { getDefaultGlobalsConfig, collectGlobals } from "./globals"
 import { parseYamlBoolean } from "../scalar-type"
-import { DocumentType, UNKNOWN } from "../../model/document"
+import { DocumentType } from "../../model/document"
 import {
 	generateEmptyReferenceables,
 	collectReferenceables
@@ -51,6 +50,11 @@ export interface Problem {
 	code: ErrorCode
 }
 
+export interface ParentParams {
+	uri: string
+	documentType: DocumentType
+}
+
 export class YAMLDocument extends JSONDocument {
 	uri: string
 	root: ASTNode | null = null
@@ -60,8 +64,8 @@ export class YAMLDocument extends JSONDocument {
 	referenceables: Referenceables = generateEmptyReferenceables()
 	references: References = generateEmptyReferences()
 	parameters: string[] = []
-	documentType: DocumentType = UNKNOWN
-	parent: YAMLDocument | void = undefined
+	documentType: DocumentType = DocumentType.UNKNOWN
+	parentParams?: ParentParams
 	externalImportCallbacks: ExternalImportsCallbacks
 
 	constructor(
@@ -72,12 +76,12 @@ export class YAMLDocument extends JSONDocument {
 			onRegisterExternalImport: noop,
 			onValidateExternalImport: noop
 		},
-		parent?: YAMLDocument
+		parentParams?: ParentParams
 	) {
 		super(uri, null, [])
 		this.documentType = documentType
 		this.globalsConfig = getDefaultGlobalsConfig()
-		this.parent = parent
+		this.parentParams = parentParams
 		this.externalImportCallbacks = callbacks
 		if (yamlDoc) {
 			this.root = this.recursivelyBuildAst(null, yamlDoc)
@@ -110,8 +114,8 @@ export class YAMLDocument extends JSONDocument {
 		const subStacks: SubStack[] = []
 
 		if (
-			(this.root && this.documentType === CLOUD_FORMATION) ||
-			this.documentType === SAM
+			(this.root && this.documentType === DocumentType.CLOUD_FORMATION) ||
+			this.documentType === DocumentType.SAM
 		) {
 			const resourcesNode = this.root.get(["Resources"])
 
