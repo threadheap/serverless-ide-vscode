@@ -8,7 +8,8 @@ import {
 	TextDocumentPositionParams,
 	ResponseError,
 	ReferenceParams,
-	Location
+	Location,
+	DocumentLinkParams
 } from "vscode-languageserver"
 import {
 	CompletionList,
@@ -16,7 +17,8 @@ import {
 	TextDocument,
 	DocumentSymbol,
 	Hover,
-	Definition
+	Definition,
+	DocumentLink
 } from "vscode-languageserver-types"
 import { LanguageSettings } from "./model/settings"
 import { parse } from "./parser"
@@ -35,6 +37,7 @@ import { completionHelper } from "./utils/completion-helper"
 import { getDefinition } from "./services/definition"
 import { getReferences } from "./services/reference"
 import { promiseRejectionHandler } from "./utils/errorHandler"
+import { findDocumentLinks } from "./services/links"
 
 export interface LanguageService {
 	configure(settings: LanguageSettings): void
@@ -54,6 +57,7 @@ export interface LanguageService {
 	findReferences(
 		params: ReferenceParams
 	): Promise<Location[] | ResponseError<void>>
+	findLinks(params: DocumentLinkParams): Promise<DocumentLink[]>
 	doResolve(completionItem: CompletionItem): Promise<CompletionItem>
 	clearDocument(uri: string): void
 }
@@ -274,6 +278,22 @@ export class LanguageServiceImpl implements LanguageService {
 		} catch (err) {
 			sendException(err)
 			return new ResponseError(1, err.message)
+		}
+	}
+
+	async findLinks(linkParams: DocumentLinkParams): Promise<DocumentLink[]> {
+		try {
+			const document = await this.documentService.getTextDocument(
+				linkParams.textDocument.uri
+			)
+			const yamlDocument = await this.documentService.getYamlDocument(
+				document.uri
+			)
+
+			return findDocumentLinks(document, yamlDocument)
+		} catch (err) {
+			sendException(err)
+			return []
 		}
 	}
 

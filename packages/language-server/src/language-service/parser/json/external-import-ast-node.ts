@@ -67,6 +67,10 @@ export class ExternalImportASTNode extends ASTNode<string> {
 		}
 	}
 
+	getUri(): string | void {
+		return this.uri
+	}
+
 	private resolveOpts(path: string): string | void {
 		const newPath = path.replace("${opt:stage}", "dev")
 

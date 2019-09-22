@@ -59,7 +59,8 @@ connection.onInitialize(
 				documentFormattingProvider: false,
 				// test
 				definitionProvider: true,
-				referencesProvider: true
+				referencesProvider: true,
+				documentLinkProvider: { resolveProvider: false }
 			}
 		}
 	}
@@ -175,6 +176,10 @@ connection.onInitialized(() => {
 
 	connection.onReferences((referenceParams: ReferenceParams) => {
 		return customLanguageService.findReferences(referenceParams)
+	})
+
+	connection.onDocumentLinks(linkParams => {
+		return customLanguageService.findLinks(linkParams)
 	})
 })
 
