@@ -67,19 +67,29 @@ export class ExternalImportASTNode extends ASTNode<string> {
 		}
 	}
 
+	private resolveOpts(path: string): string | void {
+		const newPath = path.replace("${opt:stage}", "dev")
+
+		if (newPath.includes("${")) {
+			return undefined
+		}
+
+		return newPath
+	}
+
 	private resolvePath(path: string): string | void {
 		if (Path.isAbsolute(path)) {
-			return path
+			return this.resolveOpts(path)
 		} else {
 			if (this.document.uri.startsWith(FILE_URI_PREFIX)) {
-				return (
+				return this.resolveOpts(
 					FILE_URI_PREFIX +
-					Path.join(
-						Path.dirname(
-							this.document.uri.replace(FILE_URI_PREFIX, "")
-						),
-						path
-					)
+						Path.join(
+							Path.dirname(
+								this.document.uri.replace(FILE_URI_PREFIX, "")
+							),
+							path
+						)
 				)
 			}
 		}

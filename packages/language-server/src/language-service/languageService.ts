@@ -195,9 +195,21 @@ export class LanguageServiceImpl implements LanguageService {
 			return result
 		}
 
-		const completionFix = completionHelper(document, position)
-		const yamlDocument = parse(completionFix.newDocument)
-		return this.completer.doComplete(document, position, yamlDocument)
+		try {
+			const completionFix = completionHelper(document, position)
+			const originalYamlDocument = await this.documentService.getYamlDocument(
+				document.uri
+			)
+			const yamlDocument = parse(
+				completionFix.newDocument,
+				undefined,
+				originalYamlDocument.parentParams
+			)
+			return this.completer.doComplete(document, position, yamlDocument)
+		} catch (err) {
+			sendException(err)
+			return result
+		}
 	}
 
 	doValidation = promiseRejectionHandler(

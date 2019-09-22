@@ -310,7 +310,7 @@ export class JSONSchemaService {
 		document: TextDocument,
 		yamlDocument: YAMLDocument
 	): Promise<ResolvedSchema | void> {
-		if (yamlDocument.parentParams) {
+		if (this.partialSchemas[document.uri]) {
 			return this.getPartialSchemaForDocumentUri(document.uri)
 		} else {
 			const schema = await this.getSchemaForDocumentType(
