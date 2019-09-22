@@ -125,10 +125,6 @@ connection.onInitialized(() => {
 			)
 			customLanguageService.configure(languageSettings)
 		}
-
-		documents.all().forEach(document => {
-			customLanguageService.doValidation(document)
-		})
 	})
 
 	connection.onCompletion(textDocumentPosition => {
@@ -179,10 +175,6 @@ connection.onInitialized(() => {
 
 	connection.onReferences((referenceParams: ReferenceParams) => {
 		return customLanguageService.findReferences(referenceParams)
-	})
-
-	documents.all().forEach(document => {
-		customLanguageService.doValidation(document)
 	})
 })
 

@@ -367,8 +367,9 @@ export class JSONSchemaService {
 
 		if (property) {
 			this.partialSchemas[uri].properties[property] = resolvedSchema
+		} else {
+			this.partialSchemas[uri].global = resolvedSchema
 		}
-		this.partialSchemas[uri].global = resolvedSchema
 	}
 
 	clearPartialSchema(uri: string) {

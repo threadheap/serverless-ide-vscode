@@ -1,5 +1,6 @@
 import { JSONSchema } from "./jsonSchema"
 import { CompletionItem } from "vscode-json-languageservice"
+import * as PromisePool from "es6-promise-pool"
 import { CfnLintFailedToExecuteError } from "./services/validation/errors"
 import {
 	IConnection,
@@ -18,32 +19,22 @@ import {
 	Definition
 } from "vscode-languageserver-types"
 import { LanguageSettings } from "./model/settings"
-import { ExternalImportsCallbacks, parse } from "./parser"
+import { parse } from "./parser"
 import { YAMLCompletion } from "./services/completion"
 import { findDocumentSymbols } from "./services/documentSymbols"
 import { YAMLHover } from "./services/hover"
 import { JSONSchemaService } from "./services/jsonSchema"
 import { YAMLValidation } from "./services/validation"
-import { DocumentService } from "./services/document"
-import { sendAnalytics } from "./services/analytics"
+import {
+	DocumentService,
+	WorkplaceFiles,
+	LifecycleCallbacks
+} from "./services/document"
+import { sendAnalytics, sendException } from "./services/analytics"
 import { completionHelper } from "./utils/completion-helper"
 import { getDefinition } from "./services/definition"
 import { getReferences } from "./services/reference"
-
-export interface WorkspaceContextService {
-	resolveRelativePath(relativePath: string, resource: string): string
-}
-/**
- * The schema request service is used to fetch schemas. The result should the schema file comment, or,
- * in case of an error, a displayable error string
- */
-export type SchemaRequestService = (uri: string) => Promise<string>
-
-export interface CustomFormatterOptions {
-	singleQuote?: boolean
-	bracketSpacing?: boolean
-	proseWrap?: string
-}
+import { promiseRejectionHandler } from "./utils/errorHandler"
 
 export interface LanguageService {
 	configure(settings: LanguageSettings): void
@@ -51,7 +42,7 @@ export interface LanguageService {
 		document: TextDocument,
 		position: Position
 	): Promise<CompletionList>
-	doValidation(document: TextDocument): Promise<void>
+	doValidation(uri: string): Promise<void>
 	doHover(
 		document: TextDocument,
 		position: Position
@@ -70,9 +61,7 @@ export interface LanguageService {
 const VALIDATION_DELAY_MS = 200
 
 export class LanguageServiceImpl implements LanguageService {
-	private documents: TextDocuments
 	private connection: IConnection
-	private callbacks: ExternalImportsCallbacks
 	private schemaService: JSONSchemaService
 	private documentService: DocumentService
 	private completer: YAMLCompletion
@@ -86,37 +75,100 @@ export class LanguageServiceImpl implements LanguageService {
 		documents: TextDocuments
 	) {
 		this.connection = connection
-		this.documents = documents
 
-		this.callbacks = {
+		const externalImportsCallbacks = {
 			onRegisterExternalImport: (uri: string, parentUri: string) => {
 				this.documentService.registerChildParentRelation(uri, parentUri)
 			},
-			onValidateExternalImport: async (
-				uri: string,
-				parentUri: string,
-				schema: JSONSchema,
-				property?: string
-			) => {
-				const document = this.documents.get(uri)
-				this.schemaService.registerPartialSchema(uri, schema, property)
-
-				if (document) {
-					const yamlDocument = await this.documentService.getChildByUri(
-						uri,
-						parentUri
+			onValidateExternalImport: promiseRejectionHandler(
+				async (
+					uri: string,
+					parentUri: string,
+					schema: JSONSchema,
+					property?: string
+				): Promise<void> => {
+					const document = await this.documentService.getTextDocument(
+						uri
 					)
 
-					this.validation.doExternalImportValidation(
+					this.schemaService.registerPartialSchema(
+						uri,
+						schema,
+						property
+					)
+
+					const yamlDocument = await this.documentService.getYamlDocument(
+						uri
+					)
+
+					await this.validation.doExternalImportValidation(
 						document,
 						yamlDocument
 					)
 				}
+			)
+		}
+
+		const triggerValidationForWorkspaceFiles = (files: WorkplaceFiles) => {
+			const uris = Object.keys(files)
+			let currentIndex = 0
+
+			const nextPromise = () => {
+				if (currentIndex >= uris.length) {
+					return null
+				}
+
+				const promise = this.doValidation(uris[currentIndex]).catch(
+					sendException
+				)
+
+				currentIndex += 1
+
+				return promise
+			}
+
+			const pool = new (PromisePool as any)(nextPromise, 3)
+
+			pool.start()
+		}
+
+		const lifecycleCallbacks: LifecycleCallbacks = {
+			onWorkplaceFilesInitialized: triggerValidationForWorkspaceFiles,
+			onWorkplaceFilesChanged: triggerValidationForWorkspaceFiles,
+			onFileCreated: (uri: string) => {
+				this.doValidation(uri)
+			},
+			onFileDeleted: (uri: string) => {
+				this.clearDocument(uri)
+			},
+			onFileChanged: promiseRejectionHandler(async (uri: string) => {
+				const children = this.documentService.getChildrenUris(uri)
+
+				// if parent document is changed
+				if (children && children.length) {
+					children.forEach(childUri => {
+						this.schemaService.clearPartialSchema(childUri)
+					})
+					this.documentService.clearRelations(uri)
+				}
+
+				await this.doValidation(uri)
+			}),
+			onFileOpened: promiseRejectionHandler(async (uri: string) => {
+				await this.doValidation(uri)
+			}),
+			onFileClosed: (uri: string) => {
+				this.cleanPendingValidation(uri)
 			}
 		}
 
 		this.schemaService = new JSONSchemaService()
-		this.documentService = new DocumentService(documents, this.callbacks)
+		this.documentService = new DocumentService(
+			connection,
+			documents,
+			externalImportsCallbacks,
+			lifecycleCallbacks
+		)
 
 		this.completer = new YAMLCompletion(this.schemaService)
 		this.hover = new YAMLHover(this.schemaService)
@@ -125,33 +177,6 @@ export class LanguageServiceImpl implements LanguageService {
 			settings.workspaceRoot,
 			connection
 		)
-
-		documents.onDidClose(event => {
-			this.cleanPendingValidation(event.document)
-			this.clearDocument(event.document.uri)
-			connection.sendDiagnostics({
-				uri: event.document.uri,
-				diagnostics: []
-			})
-		})
-
-		documents.onDidSave(async event => {
-			const children = this.documentService.getChildrenUris(
-				event.document.uri
-			)
-
-			// if parent document is changed
-			if (children && children.length) {
-				this.schemaService.clearPartialSchema(event.document.uri)
-				this.documentService.clearRelations(event.document.uri)
-			}
-
-			await this.doValidation(event.document)
-		})
-
-		documents.onDidOpen(async event => {
-			await this.doValidation(event.document)
-		})
 	}
 
 	configure(newSettings: LanguageSettings) {
@@ -160,7 +185,7 @@ export class LanguageServiceImpl implements LanguageService {
 		this.completer.configure(newSettings)
 	}
 
-	async doComplete(document: TextDocument, position: Position) {
+	doComplete = async (document: TextDocument, position: Position) => {
 		const result: CompletionList = {
 			items: [],
 			isIncomplete: false
@@ -175,27 +200,28 @@ export class LanguageServiceImpl implements LanguageService {
 		return this.completer.doComplete(document, position, yamlDocument)
 	}
 
-	doValidation(textDocument: TextDocument): Promise<void> {
-		this.cleanPendingValidation(textDocument)
+	doValidation = promiseRejectionHandler(
+		(uri: string): Promise<void> => {
+			this.cleanPendingValidation(uri)
 
-		return new Promise((resolve, reject) => {
-			this.pendingValidationRequests[textDocument.uri] = setTimeout(
-				() => {
-					delete this.pendingValidationRequests[textDocument.uri]
-					this.validate(textDocument)
+			return new Promise((resolve, reject) => {
+				this.pendingValidationRequests[uri] = setTimeout(() => {
+					delete this.pendingValidationRequests[uri]
+					this.validate(uri)
 						.then(resolve)
 						.catch(reject)
-				},
-				VALIDATION_DELAY_MS
-			)
-		})
-	}
+				}, VALIDATION_DELAY_MS)
+			})
+		}
+	)
 
 	async findDocumentSymbols(
 		document: TextDocument
 	): Promise<DocumentSymbol[]> {
 		try {
-			const yamlDocument = await this.documentService.get(document)
+			const yamlDocument = await this.documentService.getYamlDocument(
+				document.uri
+			)
 			return findDocumentSymbols(document, yamlDocument)
 		} catch (err) {
 			return []
@@ -205,13 +231,17 @@ export class LanguageServiceImpl implements LanguageService {
 	async findDefinitions(
 		documentPosition: TextDocumentPositionParams
 	): Promise<Definition | ResponseError<void>> {
-		const document = this.documents.get(documentPosition.textDocument.uri)
-
 		try {
-			const yamlDocument = await this.documentService.get(document)
+			const document = await this.documentService.getTextDocument(
+				documentPosition.textDocument.uri
+			)
+			const yamlDocument = await this.documentService.getYamlDocument(
+				documentPosition.textDocument.uri
+			)
 
 			return getDefinition(documentPosition, document, yamlDocument)
 		} catch (err) {
+			sendException(err)
 			return new ResponseError(1, err.message)
 		}
 	}
@@ -219,13 +249,18 @@ export class LanguageServiceImpl implements LanguageService {
 	async findReferences(
 		referenceParams: ReferenceParams
 	): Promise<Location[] | ResponseError<void>> {
-		const document = this.documents.get(referenceParams.textDocument.uri)
+		const document = await this.documentService.getTextDocument(
+			referenceParams.textDocument.uri
+		)
 
 		try {
-			const yamlDocument = await this.documentService.get(document)
+			const yamlDocument = await this.documentService.getYamlDocument(
+				document.uri
+			)
 
 			return getReferences(referenceParams, document, yamlDocument)
 		} catch (err) {
+			sendException(err)
 			return new ResponseError(1, err.message)
 		}
 	}
@@ -244,7 +279,14 @@ export class LanguageServiceImpl implements LanguageService {
 	clearDocument(uri: string) {
 		const children = this.documentService.getChildrenUris(uri)
 
+		this.cleanPendingValidation(uri)
 		this.documentService.clear(uri)
+
+		// clear diagnostics
+		this.connection.sendDiagnostics({
+			uri,
+			diagnostics: []
+		})
 
 		if (children && children.length > 0) {
 			children.forEach(childUri =>
@@ -258,15 +300,20 @@ export class LanguageServiceImpl implements LanguageService {
 		position: Position
 	): Promise<Hover | ResponseError<void>> {
 		try {
-			const yamlDocument = await this.documentService.get(document)
+			const yamlDocument = await this.documentService.getYamlDocument(
+				document.uri
+			)
 
 			return this.hover.doHover(document, position, yamlDocument)
 		} catch (err) {
+			sendException(err)
 			return new ResponseError(1, err.message)
 		}
 	}
 
-	private async validate(document: TextDocument) {
+	private async validate(uri: string) {
+		const document = await this.documentService.getTextDocument(uri)
+
 		if (!document) {
 			return
 		}
@@ -282,7 +329,9 @@ export class LanguageServiceImpl implements LanguageService {
 		}
 
 		try {
-			const yamlDocument = await this.documentService.get(document)
+			const yamlDocument = await this.documentService.getYamlDocument(
+				document.uri
+			)
 			sendAnalytics({
 				action: "validateDocument",
 				attributes: {
@@ -300,11 +349,11 @@ export class LanguageServiceImpl implements LanguageService {
 		}
 	}
 
-	private cleanPendingValidation = (textDocument: TextDocument): void => {
-		const request = this.pendingValidationRequests[textDocument.uri]
+	private cleanPendingValidation = (uri: string): void => {
+		const request = this.pendingValidationRequests[uri]
 		if (request) {
 			clearTimeout(request)
-			delete this.pendingValidationRequests[textDocument.uri]
+			delete this.pendingValidationRequests[uri]
 		}
 	}
 }

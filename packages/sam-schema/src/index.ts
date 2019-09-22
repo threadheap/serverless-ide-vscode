@@ -148,6 +148,18 @@ const generateSchema = (schema: any): any => {
 		}
 	}
 
+	schema.definitions["AWS::Serverless::Function.EC2VPNDescribePolicy"] = {
+		additionalProperties: false,
+		properties: {},
+		type: "object"
+	}
+
+	schema.definitions[
+		"AWS::Serverless::Function.SAMPolicyTemplate"
+	].properties["EC2VPNDescribePolicy"] = {
+		$ref: "#/definitions/AWS::Serverless::Function.EC2VPNDescribePolicy"
+	}
+
 	processEventSources(schema.definitions)
 
 	return schema

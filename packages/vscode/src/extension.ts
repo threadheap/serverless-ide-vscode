@@ -2,7 +2,7 @@
 
 import * as path from "path"
 
-import { ExtensionContext, languages, workspace } from "vscode"
+import { ExtensionContext, languages, workspace, Uri } from "vscode"
 import {
 	LanguageClient,
 	LanguageClientOptions,
@@ -10,14 +10,10 @@ import {
 	TransportKind
 } from "vscode-languageclient"
 import * as packageJSON from "../package.json"
-import { schemaContributor } from "./schema-contributor"
 import { createReporter, AnalyticsEvent, Exception } from "./analytics"
 import createValidationErrorDialog from "./validation-error-dialog"
 import registerCommands from "./commands"
-
-export interface ISchemaAssociations {
-	[pattern: string]: string[]
-}
+import { filterGitIgnoredFiles } from "./workplace/find.js"
 
 let client: LanguageClient
 
@@ -68,6 +64,10 @@ export async function activate(context: ExtensionContext) {
 		}
 	}
 
+	const yamlFilesWatcher = workspace.createFileSystemWatcher(
+		"**/*.{yaml,yml}"
+	)
+
 	const clientOptions: LanguageClientOptions = {
 		documentSelector: [
 			{ language: "yaml", scheme: "file" },
@@ -79,10 +79,7 @@ export async function activate(context: ExtensionContext) {
 				"http.proxy",
 				"http.proxyStrictSSL"
 			],
-			fileEvents: [
-				workspace.createFileSystemWatcher("**/*.?(e)y?(a)ml"),
-				workspace.createFileSystemWatcher("**/.clientrc")
-			]
+			fileEvents: [yamlFilesWatcher]
 		}
 	}
 
@@ -94,11 +91,49 @@ export async function activate(context: ExtensionContext) {
 	)
 	const disposable = client.start()
 
+	const onFileSync = async (uri: Uri) => {
+		const uris = await filterGitIgnoredFiles([uri])
+
+		if (uris.length) {
+			client.sendNotification("workplace/oncreate", uris[0].toString())
+		}
+	}
+
+	yamlFilesWatcher.onDidCreate(onFileSync)
+	yamlFilesWatcher.onDidDelete(onFileSync)
+	yamlFilesWatcher.onDidChange(onFileSync)
+
 	client.onReady().then(() => {
 		const validationErrorDialog = createValidationErrorDialog(
 			context,
 			analytics
 		)
+
+		client.onRequest("workplace/list", async pattern => {
+			// https://github.com/Microsoft/vscode/issues/48674#issuecomment-422950502
+			const exclude = [
+				...Object.keys(
+					(await workspace
+						.getConfiguration("search", null)
+						.get("exclude")) || {}
+				),
+				...Object.keys(
+					(await workspace
+						.getConfiguration("files", null)
+						.get("exclude")) || {}
+				)
+			].join(",")
+
+			const uris = await workspace.findFiles(pattern, `{${exclude}}`)
+
+			return (await filterGitIgnoredFiles(uris)).map(String)
+		})
+
+		client.onRequest("workplace/file", async (uri: string) => {
+			const file = await workspace.openTextDocument(Uri.parse(uri))
+
+			return file.getText()
+		})
 
 		client.onNotification(
 			"custom/analytics",
@@ -140,8 +175,6 @@ export async function activate(context: ExtensionContext) {
 	})
 
 	await analytics.sendEvent(new AnalyticsEvent("activated", {}))
-
-	return schemaContributor
 }
 
 export async function deactivate(): Promise<void> {

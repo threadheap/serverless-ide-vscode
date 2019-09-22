@@ -4,7 +4,8 @@
 		"module": "commonjs",
 		"moduleResolution": "node",
 		"lib": [
-			"es2016"
+			"es2016",
+			"dom"
 		],
 		"sourceMap": true,
 		"outDir": "./out"

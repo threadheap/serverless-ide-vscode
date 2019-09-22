@@ -1,24 +1,24 @@
-export class ErrorHandler {
-	private errorResultsList
-	private textDocument
+import { sendException } from "../services/analytics"
 
-	constructor(textDocument) {
-		this.errorResultsList = []
-		this.textDocument = textDocument
-	}
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type PromiseProducer<TR> = (...args: any[]) => Promise<TR>
 
-	addErrorResult(errorNode, errorMessage, errorType) {
-		this.errorResultsList.push({
-			severity: errorType,
-			range: {
-				start: this.textDocument.positionAt(errorNode.startPosition),
-				end: this.textDocument.positionAt(errorNode.endPosition)
-			},
-			message: errorMessage
-		})
-	}
+type PromiseProducerParams<TR, TF extends PromiseProducer<TR>> = TF extends (
+	...args: infer P
+) => Promise<TR>
+	? P
+	: never
 
-	getErrorResultsList() {
-		return this.errorResultsList
-	}
+export const promiseRejectionHandler = <
+	TR,
+	TProducer extends PromiseProducer<TR>
+>(
+	promiseProducer: TProducer
+): PromiseProducer<void> => {
+	return (...args: PromiseProducerParams<TR, TProducer>) =>
+		promiseProducer(...args)
+			.catch(err => {
+				sendException(err)
+			})
+			.then()
 }

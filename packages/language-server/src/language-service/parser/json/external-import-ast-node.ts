@@ -48,7 +48,8 @@ export class ExternalImportASTNode extends ASTNode<string> {
 		const [, path, extension, parameter] = IMPORT_REGEXP.exec(newValue)
 
 		this.uri = this.resolvePath(`${path}.${extension}`)
-		this.parameter = parameter
+		// remove leading `:`
+		this.parameter = parameter && parameter.substr(1)
 
 		if (this.uri) {
 			this.callbacks.onRegisterExternalImport(this.uri, this.document.uri)
