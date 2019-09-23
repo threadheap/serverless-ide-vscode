@@ -216,6 +216,19 @@ export class LanguageServiceImpl implements LanguageService {
 		}
 	}
 
+	doResolve(completionItem: CompletionItem): Promise<CompletionItem> {
+		sendAnalytics({
+			action: "resolveCompletion",
+			attributes: {
+				label: completionItem.label,
+				documentType:
+					completionItem.data && completionItem.data.documentType
+			}
+		})
+
+		return this.completer.doResolve(completionItem)
+	}
+
 	doValidation = promiseRejectionHandler(
 		(uri: string): Promise<void> => {
 			this.cleanPendingValidation(uri)
@@ -295,17 +308,6 @@ export class LanguageServiceImpl implements LanguageService {
 			sendException(err)
 			return []
 		}
-	}
-
-	doResolve(completionItem: CompletionItem): Promise<CompletionItem> {
-		sendAnalytics({
-			action: "resolveCompletion",
-			attributes: {
-				label: completionItem.label
-			}
-		})
-
-		return this.completer.doResolve(completionItem)
 	}
 
 	clearDocument(uri: string) {
