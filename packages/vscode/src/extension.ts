@@ -91,17 +91,17 @@ export async function activate(context: ExtensionContext) {
 	)
 	const disposable = client.start()
 
-	const onFileSync = async (uri: Uri) => {
+	const createFileSyncHandler = (action: string) => async (uri: Uri) => {
 		const uris = await filterGitIgnoredFiles([uri])
 
 		if (uris.length) {
-			client.sendNotification("workplace/oncreate", uris[0].toString())
+			client.sendNotification(action, uris[0].toString())
 		}
 	}
 
-	yamlFilesWatcher.onDidCreate(onFileSync)
-	yamlFilesWatcher.onDidDelete(onFileSync)
-	yamlFilesWatcher.onDidChange(onFileSync)
+	yamlFilesWatcher.onDidCreate(createFileSyncHandler("workplace/oncreate"))
+	yamlFilesWatcher.onDidDelete(createFileSyncHandler("workplace/ondelete"))
+	yamlFilesWatcher.onDidChange(createFileSyncHandler("workplace/onchanged"))
 
 	client.onReady().then(() => {
 		const validationErrorDialog = createValidationErrorDialog(
@@ -110,7 +110,6 @@ export async function activate(context: ExtensionContext) {
 		)
 
 		client.onRequest("workplace/list", async pattern => {
-			// https://github.com/Microsoft/vscode/issues/48674#issuecomment-422950502
 			const exclude = [
 				...Object.keys(
 					(await workspace

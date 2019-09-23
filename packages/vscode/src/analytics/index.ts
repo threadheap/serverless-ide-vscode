@@ -30,7 +30,10 @@ class AnalyticsClient implements IAnalyticsClient {
 			dsn: "https://710778be7bd847558250574eb19e52e9@sentry.io/1509685",
 			integrations: function(integrations) {
 				return integrations.filter(integration => {
-					return integration.name !== "GlobalHandlers"
+					return (
+						integration.name !== "OnUncaughtException" &&
+						integration.name !== "OnUnhandledRejection"
+					)
 				})
 			},
 			release: `${packageJson.name}@${packageJson.version}`
