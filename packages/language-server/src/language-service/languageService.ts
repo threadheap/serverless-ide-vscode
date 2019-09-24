@@ -1,6 +1,7 @@
 import { JSONSchema } from "./jsonSchema"
 import { CompletionItem } from "vscode-json-languageservice"
 import * as PromisePool from "es6-promise-pool"
+import noop = require("lodash/noop")
 import { CfnLintFailedToExecuteError } from "./services/validation/errors"
 import {
 	IConnection,
@@ -161,9 +162,7 @@ export class LanguageServiceImpl implements LanguageService {
 			onFileOpened: promiseRejectionHandler(async (uri: string) => {
 				await this.doValidation(uri)
 			}),
-			onFileClosed: (uri: string) => {
-				this.cleanPendingValidation(uri)
-			}
+			onFileClosed: noop
 		}
 
 		this.schemaService = new JSONSchemaService()

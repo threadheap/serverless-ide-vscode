@@ -333,20 +333,20 @@ export class JSONSchemaService {
 
 			if (partialSchema.global) {
 				schema.allOf.push(partialSchema.global.schema)
-
-				forEach(
-					partialSchema.properties,
-					(key: string, propertySchema: ResolvedSchema) => {
-						schema.allOf.push({
-							type: "object",
-							properties: {
-								[key]: propertySchema.schema
-							},
-							required: [key]
-						})
-					}
-				)
 			}
+
+			forEach(
+				partialSchema.properties,
+				(propertySchema: ResolvedSchema, key: string) => {
+					schema.allOf.push({
+						type: "object",
+						properties: {
+							[key]: propertySchema.schema
+						},
+						required: [key]
+					})
+				}
+			)
 
 			if (schema.allOf.length === 1) {
 				schema = schema.allOf[0]
