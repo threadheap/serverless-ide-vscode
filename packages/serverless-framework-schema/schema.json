@@ -1018,7 +1018,8 @@
         }
       },
       "required": [
-        "handler"
+        "handler",
+        "runtime"
       ]
     },
     "aws:functions:functions": {
@@ -1378,8 +1379,7 @@
         }
       },
       "required": [
-        "name",
-        "runtime"
+        "name"
       ]
     },
     "aws:service": {
