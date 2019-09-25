@@ -1,11 +1,11 @@
+import { JSONSchemaService } from "./../../jsonSchema/index"
+import { YAMLCompletion } from "./../index"
 import { TextDocument } from "vscode-languageserver"
-import { getLanguageService } from "../languageService"
-import { getDefaultLanguageSettings } from "../model/settings"
-import { parse as parseYAML } from "../parser"
-import { completionHelper } from "../utils/completion-helper"
+import { parse as parseYAML } from "../../../parser"
+import { completionHelper } from "../../../utils/completion-helper"
 
-const languageSettings = getDefaultLanguageSettings()
-const languageService = getLanguageService(languageSettings)
+const schemaService = new JSONSchemaService()
+const completionProvider = new YAMLCompletion(schemaService)
 
 describe("Auto Completion Tests", () => {
 	describe("doComplete", () => {
@@ -23,10 +23,10 @@ describe("Auto Completion Tests", () => {
 			const position = testTextDocument.positionAt(offset)
 			const output = completionHelper(testTextDocument, position)
 
-			return languageService.doComplete(
+			return completionProvider.doComplete(
 				testTextDocument,
 				output.newPosition,
-				parseYAML(output.newText)
+				parseYAML(output.newDocument)
 			)
 		}
 

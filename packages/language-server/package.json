@@ -1,7 +1,7 @@
 {
     "name": "@serverless-ide/language-server",
     "description": "Serverless IDE language server",
-    "version": "0.4.5",
+    "version": "0.4.7",
     "author": "Pavel Vlasov <freakycue@gmail.com>",
     "license": "MIT",
     "engines": {
@@ -23,8 +23,9 @@
         "url": "https://github.com/threadheap/serverless-ide-language-server.git"
     },
     "dependencies": {
-        "@serverless-ide/sam-schema": "^0.4.3",
-        "@serverless-ide/serverless-framework-schema": "^0.4.5",
+        "@serverless-ide/sam-schema": "^0.4.6",
+        "@serverless-ide/serverless-framework-schema": "^0.4.7",
+        "es6-promise-pool": "^2.5.0",
         "js-yaml": "^3.13.1",
         "jsonc-parser": "^1.0.3",
         "lru-cache": "^5.1.1",
@@ -32,7 +33,7 @@
         "request-light": "^0.2.3",
         "ts-get": "^1.0.3",
         "vscode-json-languageservice": "3.0.12",
-        "vscode-languageserver": "^5.1.1",
+        "vscode-languageserver": "^5.2.1",
         "vscode-languageserver-types": "^3.14.0",
         "vscode-nls": "^3.2.2",
         "vscode-uri": "^1.0.6",

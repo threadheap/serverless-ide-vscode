@@ -1,4 +1,4 @@
-import { YAMLDocument } from "./../index"
+import { YAMLDocument } from "../index"
 import { ASTNode, ISchemaCollector } from "./ast-node"
 import * as Json from "jsonc-parser"
 import { JSONSchema } from "../../jsonSchema"

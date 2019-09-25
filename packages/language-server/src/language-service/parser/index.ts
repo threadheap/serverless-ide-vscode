@@ -1,16 +1,25 @@
 import { CUSTOM_TAGS } from "./../model/custom-tags"
 
-import { YAMLDocument, ErrorCode, Problem } from "./json"
+import {
+	YAMLDocument,
+	ErrorCode,
+	Problem,
+	ExternalImportsCallbacks
+} from "./json"
 
 import * as nls from "vscode-nls"
+import noop = require("lodash/noop")
 const localize = nls.loadMessageBundle()
 
 import { Schema, Type } from "js-yaml"
 import * as Yaml from "yaml-ast-parser"
 
 import { getDocumentType } from "../utils/document"
+import { TextDocument } from "vscode-languageserver"
+import { DocumentType } from "../model/document"
+import { ParentParams } from "./json/document"
 
-export { YAMLDocument, Problem }
+export { YAMLDocument, Problem, ExternalImportsCallbacks }
 
 function convertError(e: Yaml.YAMLException): Problem {
 	return {
@@ -23,8 +32,21 @@ function convertError(e: Yaml.YAMLException): Problem {
 	}
 }
 
-function createJSONDocument(yamlDoc: Yaml.YAMLNode | void, text: string) {
-	const doc = new YAMLDocument(getDocumentType(text), yamlDoc)
+function createJSONDocument(
+	document: TextDocument,
+	yamlDoc: Yaml.YAMLNode | void,
+	callbacks: ExternalImportsCallbacks,
+	parentParams?: ParentParams
+) {
+	const doc = new YAMLDocument(
+		document.uri,
+		parentParams
+			? DocumentType.UNKNOWN
+			: getDocumentType(document.getText()),
+		yamlDoc,
+		callbacks,
+		parentParams
+	)
 
 	if (!yamlDoc || !doc.root) {
 		// TODO: When this is true, consider not pushing the other errors.
@@ -70,7 +92,7 @@ function createJSONDocument(yamlDoc: Yaml.YAMLNode | void, text: string) {
 		.filter(
 			e =>
 				(e.reason === duplicateKeyReason &&
-					isDuplicateAndNotMergeKey(e, text)) ||
+					isDuplicateAndNotMergeKey(e, document.getText())) ||
 				e.isWarning
 		)
 		.map(e => convertError(e))
@@ -78,7 +100,14 @@ function createJSONDocument(yamlDoc: Yaml.YAMLNode | void, text: string) {
 	return doc
 }
 
-export const parse = (text: string): YAMLDocument => {
+export const parse = (
+	document: TextDocument,
+	callbacks: ExternalImportsCallbacks = {
+		onRegisterExternalImport: noop,
+		onValidateExternalImport: noop
+	},
+	parentParams?: ParentParams
+): YAMLDocument => {
 	// We need compiledTypeMap to be available from schemaWithAdditionalTags before we add the new custom propertie
 	const compiledTypeMap: { [key: string]: Type } = {}
 
@@ -107,6 +136,12 @@ export const parse = (text: string): YAMLDocument => {
 	const additionalOptions: Yaml.LoadOptions = {
 		schema: schemaWithAdditionalTags
 	}
+	const text = document.getText()
 
-	return createJSONDocument(Yaml.load(text, additionalOptions), text)
+	return createJSONDocument(
+		document,
+		Yaml.load(text, additionalOptions),
+		callbacks,
+		parentParams
+	)
 }

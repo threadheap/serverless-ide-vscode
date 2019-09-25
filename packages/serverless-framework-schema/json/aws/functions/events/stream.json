@@ -21,16 +21,17 @@
                             "default": "arn:aws:kinesis:region:XXXXXX:stream/foo"
                         },
                         "batchSize": {
-                            "type": "number",
-                            "default": 10
+                            "type": "number"
+                        },
+                        "batchWindow": {
+                            "type": "number"
                         },
                         "startingPosition": {
                             "type": "string",
                             "default": "LATEST"
                         },
                         "enabled": {
-                            "type": "boolean",
-                            "default": false
+                            "type": "boolean"
                         }
                     },
                     "require": [

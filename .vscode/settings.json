@@ -10,5 +10,6 @@
         "other": true,
         "comments": true,
         "strings": true
-    }
+	},
+	"typescript.tsdk": "node_modules/typescript/lib"
 }

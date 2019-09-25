@@ -1,3 +1,4 @@
+import { TextDocument } from "vscode-languageserver"
 import { parse as parseYaml } from ".."
 
 const templateWithSubStack = `
@@ -37,7 +38,8 @@ Resources:
 `
 
 test("should collect sub-stacks paths", () => {
-	const doc = parseYaml(templateWithSubStack)
+	const document = TextDocument.create("", "", 1, templateWithSubStack)
+	const doc = parseYaml(document)
 
 	expect(doc.collectSubStacks()).toEqual([
 		false,
@@ -51,7 +53,13 @@ test("should collect sub-stacks paths", () => {
 })
 
 test("should collect multiple sub stacks", () => {
-	const doc = parseYaml(templateWithMultipleSubStacks)
+	const document = TextDocument.create(
+		"",
+		"",
+		1,
+		templateWithMultipleSubStacks
+	)
+	const doc = parseYaml(document)
 
 	expect(doc.collectSubStacks()).toEqual([
 		false,
@@ -63,7 +71,8 @@ test("should collect multiple sub stacks", () => {
 })
 
 test("should not collect remote sub stacks", () => {
-	const doc = parseYaml(templateWithRemoteSubStack)
+	const document = TextDocument.create("", "", 1, templateWithRemoteSubStack)
+	const doc = parseYaml(document)
 
 	expect(doc.collectSubStacks()).toEqual([true, []])
 })

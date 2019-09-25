@@ -1,10 +1,12 @@
+import { TextDocument } from "vscode-languageserver-types"
 import { collectReferences } from "./../index"
 import { parse as parseYaml } from "../.."
 import { ReferenceType } from "../../../model/references"
 
 describe("references collector", () => {
 	const generateNode = (text: string) => {
-		return parseYaml(text).root
+		const document = TextDocument.create("", "", 1, text)
+		return parseYaml(document).root
 	}
 
 	describe("short syntax", () => {

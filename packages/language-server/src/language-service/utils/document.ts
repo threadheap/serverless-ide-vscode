@@ -1,10 +1,4 @@
-import {
-	CLOUD_FORMATION,
-	DocumentType,
-	SAM,
-	SERVERLESS_FRAMEWORK
-} from "../model/document"
-import { UNKNOWN } from "./../model/document"
+import { DocumentType } from "../model/document"
 
 const transformRegExp = /"?'?Transform"?'?:\s*"?'?AWS::Serverless-2016-10-31"?'?/
 const slsServiceRegExp = /service:/
@@ -47,19 +41,19 @@ export const isSAMTemplate = (document: string): boolean => {
 
 export const getDocumentType = (text: string): DocumentType => {
 	if (!text) {
-		return UNKNOWN
+		return DocumentType.UNKNOWN
 	}
 
 	if (text) {
 		if (isSAMTemplate(text)) {
-			return SAM
+			return DocumentType.SAM
 		} else if (isCloudFormationTemplate(text)) {
-			return CLOUD_FORMATION
+			return DocumentType.CLOUD_FORMATION
 		} else if (isServerlessFrameworkTemplate(text)) {
-			return SERVERLESS_FRAMEWORK
+			return DocumentType.SERVERLESS_FRAMEWORK
 		}
 
-		return UNKNOWN
+		return DocumentType.UNKNOWN
 	}
 }
 
@@ -67,9 +61,9 @@ export const isSupportedDocument = (text: string): boolean => {
 	const documentType = getDocumentType(text)
 
 	const isSupported =
-		documentType === SAM ||
-		documentType === CLOUD_FORMATION ||
-		documentType === SERVERLESS_FRAMEWORK
+		documentType === DocumentType.SAM ||
+		documentType === DocumentType.CLOUD_FORMATION ||
+		documentType === DocumentType.SERVERLESS_FRAMEWORK
 
 	return isSupported
 }

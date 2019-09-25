@@ -119,6 +119,10 @@ export class YAMLCompletion {
 		const proposed: { [key: string]: CompletionItem } = {}
 		const collector: CompletionsCollector = {
 			add: (suggestion: CompletionItem) => {
+				if (!suggestion.data) {
+					suggestion.data = {}
+				}
+				suggestion.data.documentType = doc.documentType
 				const existing = proposed[suggestion.label]
 				if (!existing) {
 					proposed[suggestion.label] = suggestion

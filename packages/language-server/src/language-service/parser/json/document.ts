@@ -1,5 +1,5 @@
-import { CLOUD_FORMATION, SAM } from "./../../model/document"
 import { JSONDocument } from "./json-document"
+import noop = require("lodash/noop")
 import { Referenceables } from "../../model/referenceables"
 import {
 	CUSTOM_TAGS_BY_PROPERTY_NAME,
@@ -9,7 +9,7 @@ import * as Yaml from "yaml-ast-parser"
 import { GlobalsConfig } from "../../model/globals"
 import { getDefaultGlobalsConfig, collectGlobals } from "./globals"
 import { parseYamlBoolean } from "../scalar-type"
-import { DocumentType, UNKNOWN } from "../../model/document"
+import { DocumentType } from "../../model/document"
 import {
 	generateEmptyReferenceables,
 	collectReferenceables
@@ -19,6 +19,10 @@ import { References } from "../../model/references"
 import { ASTNode } from "./ast-node"
 import { PropertyASTNode } from "./property-ast-node"
 import { StringASTNode } from "./string-ast-node"
+import {
+	ExternalImportASTNode,
+	ExternalImportsCallbacks
+} from "./external-import-ast-node"
 import { NumberASTNode } from "./number-ast-node"
 import { BooleanASTNode } from "./boolean-ast-node"
 import { ObjectASTNode } from "./object-ast-node"
@@ -46,7 +50,13 @@ export interface Problem {
 	code: ErrorCode
 }
 
+export interface ParentParams {
+	uri: string
+	documentType: DocumentType
+}
+
 export class YAMLDocument extends JSONDocument {
+	uri: string
 	root: ASTNode | null = null
 	errors: Problem[] = []
 	warnings: Problem[] = []
@@ -54,12 +64,25 @@ export class YAMLDocument extends JSONDocument {
 	referenceables: Referenceables = generateEmptyReferenceables()
 	references: References = generateEmptyReferences()
 	parameters: string[] = []
-	documentType: DocumentType = UNKNOWN
+	documentType: DocumentType = DocumentType.UNKNOWN
+	parentParams?: ParentParams
+	externalImportCallbacks: ExternalImportsCallbacks
 
-	constructor(documentType: DocumentType, yamlDoc: Yaml.YAMLNode | void) {
-		super(null, [])
+	constructor(
+		uri: string,
+		documentType: DocumentType,
+		yamlDoc: Yaml.YAMLNode | void,
+		callbacks: ExternalImportsCallbacks = {
+			onRegisterExternalImport: noop,
+			onValidateExternalImport: noop
+		},
+		parentParams?: ParentParams
+	) {
+		super(uri, null, [])
 		this.documentType = documentType
 		this.globalsConfig = getDefaultGlobalsConfig()
+		this.parentParams = parentParams
+		this.externalImportCallbacks = callbacks
 		if (yamlDoc) {
 			this.root = this.recursivelyBuildAst(null, yamlDoc)
 
@@ -91,8 +114,8 @@ export class YAMLDocument extends JSONDocument {
 		const subStacks: SubStack[] = []
 
 		if (
-			(this.root && this.documentType === CLOUD_FORMATION) ||
-			this.documentType === SAM
+			(this.root && this.documentType === DocumentType.CLOUD_FORMATION) ||
+			this.documentType === DocumentType.SAM
 		) {
 			const resourcesNode = this.root.get(["Resources"])
 
@@ -337,17 +360,29 @@ export class YAMLDocument extends JSONDocument {
 						return result
 					}
 					case Yaml.ScalarType.string: {
-						const result = new StringASTNode(
-							this,
-							parent,
-							name,
-							false,
-							node.startPosition,
-							node.endPosition,
-							instance.customTag
-						)
-						result.value = node.value
-						return result
+						if (ExternalImportASTNode.isImportPath(node.value)) {
+							return new ExternalImportASTNode(
+								this,
+								parent,
+								name,
+								node.value,
+								node.startPosition,
+								node.endPosition,
+								this.externalImportCallbacks
+							)
+						} else {
+							const result = new StringASTNode(
+								this,
+								parent,
+								name,
+								false,
+								node.startPosition,
+								node.endPosition,
+								instance.customTag
+							)
+							result.value = node.value
+							return result
+						}
 					}
 				}
 

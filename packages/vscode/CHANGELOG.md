@@ -1,5 +1,10 @@
 # Change log
 
+## v0.4.6
+- Workplace capabilities for validation
+- Fix runtime handling for serverless framework
+- Minor changes and fixes
+
 ## v0.4.5
 - Quick installation dialog for cfn-lint
 - Remove fallback to default schema validation when cfn-lint validation failed

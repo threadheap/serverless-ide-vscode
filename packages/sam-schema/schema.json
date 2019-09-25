@@ -48436,6 +48436,12 @@
             ],
             "type": "object"
         },
+        "AWS::Serverless::Function.EC2VPNDescribePolicy": {
+            "additionalProperties": false,
+            "properties": {
+            },
+            "type": "object"
+        },
         "AWS::Serverless::Function.EmptySAMPT": {
             "additionalProperties": false,
             "properties": {
@@ -48737,6 +48743,9 @@
                 },
                 "EC2DescribePolicy": {
                     "$ref": "#/definitions/AWS::Serverless::Function.EmptySAMPT"
+                },
+                "EC2VPNDescribePolicy": {
+                    "$ref": "#/definitions/AWS::Serverless::Function.EC2VPNDescribePolicy"
                 },
                 "ElasticsearchHttpPostPolicy": {
                     "$ref": "#/definitions/AWS::Serverless::Function.DomainSAMPT"

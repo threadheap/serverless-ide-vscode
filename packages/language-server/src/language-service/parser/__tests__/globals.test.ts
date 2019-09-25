@@ -1,3 +1,4 @@
+import { TextDocument } from "vscode-languageserver-types"
 import { parse as parseYaml } from ".."
 
 const noGlobals = `
@@ -57,7 +58,8 @@ Resources:
 `
 
 test("should collect globals for empty doc", () => {
-	const doc = parseYaml(noGlobals)
+	const document = TextDocument.create("", "", 1, noGlobals)
+	const doc = parseYaml(document)
 
 	expect(doc.globalsConfig).toEqual({
 		Api: {
@@ -76,7 +78,8 @@ test("should collect globals for empty doc", () => {
 })
 
 test("should collect globals for fully defined globals doc", () => {
-	const doc = parseYaml(fullyDefinedGlobals)
+	const document = TextDocument.create("", "", 1, fullyDefinedGlobals)
+	const doc = parseYaml(document)
 
 	expect(doc.globalsConfig).toEqual({
 		Api: {
@@ -95,7 +98,8 @@ test("should collect globals for fully defined globals doc", () => {
 })
 
 test("should collect globals for partially defined globals doc", () => {
-	const doc = parseYaml(partiallyDefinedGlobals)
+	const document = TextDocument.create("", "", 1, partiallyDefinedGlobals)
+	const doc = parseYaml(document)
 
 	expect(doc.globalsConfig).toEqual({
 		Api: {
@@ -114,7 +118,8 @@ test("should collect globals for partially defined globals doc", () => {
 })
 
 test("should collect globals from invalid globals node", () => {
-	const doc = parseYaml(invalidGlobals)
+	const document = TextDocument.create("", "", 1, invalidGlobals)
+	const doc = parseYaml(document)
 
 	expect(doc.globalsConfig).toEqual({
 		Api: {
@@ -133,7 +138,8 @@ test("should collect globals from invalid globals node", () => {
 })
 
 test("should collect globals with other properties", () => {
-	const doc = parseYaml(globalsWithOtherProperties)
+	const document = TextDocument.create("", "", 1, globalsWithOtherProperties)
+	const doc = parseYaml(document)
 
 	expect(doc.globalsConfig).toEqual({
 		Api: {

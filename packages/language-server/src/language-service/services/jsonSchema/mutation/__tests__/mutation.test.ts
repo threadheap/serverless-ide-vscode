@@ -1,4 +1,5 @@
-import { UNKNOWN, SAM } from "../../../../model/document"
+import { TextDocument } from "vscode-languageserver-types"
+import { DocumentType } from "../../../../model/document"
 import { ResolvedSchema } from "../.."
 import { FUNCTION } from "../../../../model/globals"
 import { YAMLDocument, parse } from "../../../../parser"
@@ -7,7 +8,7 @@ import { getDefaultGlobalsConfig } from "../../../../parser/json/globals"
 
 describe("sam", () => {
 	test("should do nothing if schema was not resolved", () => {
-		const doc = new YAMLDocument(UNKNOWN, undefined)
+		const doc = new YAMLDocument(DocumentType.UNKNOWN, undefined)
 		doc.globalsConfig = getDefaultGlobalsConfig()
 
 		expect(applyDocumentMutations(undefined, doc)).toBeUndefined()
@@ -17,7 +18,7 @@ describe("sam", () => {
 		const emptySchema = {}
 		const emptyGlobals = getDefaultGlobalsConfig()
 		const resolvedSchema = new ResolvedSchema(emptySchema)
-		const doc = new YAMLDocument(UNKNOWN, undefined)
+		const doc = new YAMLDocument(DocumentType.UNKNOWN, undefined)
 		doc.globalsConfig = emptyGlobals
 
 		expect(applyDocumentMutations(resolvedSchema, doc)).toBe(resolvedSchema)
@@ -29,7 +30,7 @@ describe("sam", () => {
 		}
 		const emptyGlobals = getDefaultGlobalsConfig()
 		const resolvedSchema = new ResolvedSchema(schema)
-		const doc = new YAMLDocument(UNKNOWN, undefined)
+		const doc = new YAMLDocument(DocumentType.UNKNOWN, undefined)
 		doc.globalsConfig = emptyGlobals
 
 		expect(applyDocumentMutations(resolvedSchema, doc)).toBe(resolvedSchema)
@@ -50,7 +51,7 @@ describe("sam", () => {
 		const globals = getDefaultGlobalsConfig()
 		globals[FUNCTION].properties = ["Runtime"]
 		const resolvedSchema = new ResolvedSchema(schema)
-		const doc = new YAMLDocument(SAM, undefined)
+		const doc = new YAMLDocument("", DocumentType.SAM, undefined)
 		doc.globalsConfig = globals
 
 		const newResolvedSchema = applyDocumentMutations(
@@ -107,8 +108,9 @@ Resources:
 				}
 			}
 		}
+		const document = TextDocument.create("", "", 1, templateWithRuntime)
 		const resolvedSchema = new ResolvedSchema(schema)
-		const doc = parse(templateWithRuntime)
+		const doc = parse(document)
 
 		const newResolvedSchema = applyDocumentMutations(
 			resolvedSchema,
@@ -142,7 +144,8 @@ Resources:
 			}
 		}
 		const resolvedSchema = new ResolvedSchema(schema)
-		const doc = parse(templateWithoutRuntime)
+		const document = TextDocument.create("", "", 1, templateWithoutRuntime)
+		const doc = parse(document)
 
 		const newResolvedSchema = applyDocumentMutations(
 			resolvedSchema,

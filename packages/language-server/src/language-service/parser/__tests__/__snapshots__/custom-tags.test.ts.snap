@@ -7,6 +7,10 @@ ObjectASTNode {
   "document": YAMLDocument {
     "documentType": "UNKNOWN",
     "errors": Array [],
+    "externalImportCallbacks": Object {
+      "onRegisterExternalImport": [Function],
+      "onValidateExternalImport": [Function],
+    },
     "globalsConfig": Object {
       "Api": Object {
         "properties": Array [],
@@ -22,6 +26,7 @@ ObjectASTNode {
       },
     },
     "parameters": Array [],
+    "parentParams": undefined,
     "referenceables": Object {
       "hash": Object {
         "MAPPING": SortedHash {
@@ -49,6 +54,7 @@ ObjectASTNode {
     },
     "root": [Circular],
     "syntaxErrors": Array [],
+    "uri": "",
     "warnings": Array [],
   },
   "end": 55,
@@ -62,6 +68,10 @@ ObjectASTNode {
         "document": YAMLDocument {
           "documentType": "UNKNOWN",
           "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
           "globalsConfig": Object {
             "Api": Object {
               "properties": Array [],
@@ -77,6 +87,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
+          "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -104,6 +115,7 @@ ObjectASTNode {
           },
           "root": [Circular],
           "syntaxErrors": Array [],
+          "uri": "",
           "warnings": Array [],
         },
         "end": 56,
@@ -114,6 +126,10 @@ ObjectASTNode {
             "document": YAMLDocument {
               "documentType": "UNKNOWN",
               "errors": Array [],
+              "externalImportCallbacks": Object {
+                "onRegisterExternalImport": [Function],
+                "onValidateExternalImport": [Function],
+              },
               "globalsConfig": Object {
                 "Api": Object {
                   "properties": Array [],
@@ -129,6 +145,7 @@ ObjectASTNode {
                 },
               },
               "parameters": Array [],
+              "parentParams": undefined,
               "referenceables": Object {
                 "hash": Object {
                   "MAPPING": SortedHash {
@@ -156,6 +173,7 @@ ObjectASTNode {
               },
               "root": [Circular],
               "syntaxErrors": Array [],
+              "uri": "",
               "warnings": Array [],
             },
             "end": 33,
@@ -171,6 +189,10 @@ ObjectASTNode {
             "document": YAMLDocument {
               "documentType": "UNKNOWN",
               "errors": Array [],
+              "externalImportCallbacks": Object {
+                "onRegisterExternalImport": [Function],
+                "onValidateExternalImport": [Function],
+              },
               "globalsConfig": Object {
                 "Api": Object {
                   "properties": Array [],
@@ -186,6 +208,7 @@ ObjectASTNode {
                 },
               },
               "parameters": Array [],
+              "parentParams": undefined,
               "referenceables": Object {
                 "hash": Object {
                   "MAPPING": SortedHash {
@@ -213,6 +236,7 @@ ObjectASTNode {
               },
               "root": [Circular],
               "syntaxErrors": Array [],
+              "uri": "",
               "warnings": Array [],
             },
             "end": 55,
@@ -233,6 +257,10 @@ ObjectASTNode {
       "document": YAMLDocument {
         "documentType": "UNKNOWN",
         "errors": Array [],
+        "externalImportCallbacks": Object {
+          "onRegisterExternalImport": [Function],
+          "onValidateExternalImport": [Function],
+        },
         "globalsConfig": Object {
           "Api": Object {
             "properties": Array [],
@@ -248,6 +276,7 @@ ObjectASTNode {
           },
         },
         "parameters": Array [],
+        "parentParams": undefined,
         "referenceables": Object {
           "hash": Object {
             "MAPPING": SortedHash {
@@ -275,6 +304,7 @@ ObjectASTNode {
         },
         "root": [Circular],
         "syntaxErrors": Array [],
+        "uri": "",
         "warnings": Array [],
       },
       "end": 56,
@@ -284,6 +314,10 @@ ObjectASTNode {
         "document": YAMLDocument {
           "documentType": "UNKNOWN",
           "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
           "globalsConfig": Object {
             "Api": Object {
               "properties": Array [],
@@ -299,6 +333,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
+          "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -326,6 +361,7 @@ ObjectASTNode {
           },
           "root": [Circular],
           "syntaxErrors": Array [],
+          "uri": "",
           "warnings": Array [],
         },
         "end": 8,
@@ -353,6 +389,10 @@ ObjectASTNode {
   "document": YAMLDocument {
     "documentType": "UNKNOWN",
     "errors": Array [],
+    "externalImportCallbacks": Object {
+      "onRegisterExternalImport": [Function],
+      "onValidateExternalImport": [Function],
+    },
     "globalsConfig": Object {
       "Api": Object {
         "properties": Array [],
@@ -368,6 +408,7 @@ ObjectASTNode {
       },
     },
     "parameters": Array [],
+    "parentParams": undefined,
     "referenceables": Object {
       "hash": Object {
         "MAPPING": SortedHash {
@@ -395,6 +436,7 @@ ObjectASTNode {
     },
     "root": [Circular],
     "syntaxErrors": Array [],
+    "uri": "",
     "warnings": Array [],
   },
   "end": 65,
@@ -417,6 +459,10 @@ ObjectASTNode {
         "document": YAMLDocument {
           "documentType": "UNKNOWN",
           "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
           "globalsConfig": Object {
             "Api": Object {
               "properties": Array [],
@@ -432,6 +478,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
+          "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -459,6 +506,7 @@ ObjectASTNode {
           },
           "root": [Circular],
           "syntaxErrors": Array [],
+          "uri": "",
           "warnings": Array [],
         },
         "end": 66,
@@ -469,6 +517,10 @@ ObjectASTNode {
             "document": YAMLDocument {
               "documentType": "UNKNOWN",
               "errors": Array [],
+              "externalImportCallbacks": Object {
+                "onRegisterExternalImport": [Function],
+                "onValidateExternalImport": [Function],
+              },
               "globalsConfig": Object {
                 "Api": Object {
                   "properties": Array [],
@@ -484,6 +536,7 @@ ObjectASTNode {
                 },
               },
               "parameters": Array [],
+              "parentParams": undefined,
               "referenceables": Object {
                 "hash": Object {
                   "MAPPING": SortedHash {
@@ -511,6 +564,7 @@ ObjectASTNode {
               },
               "root": [Circular],
               "syntaxErrors": Array [],
+              "uri": "",
               "warnings": Array [],
             },
             "end": 43,
@@ -526,6 +580,10 @@ ObjectASTNode {
             "document": YAMLDocument {
               "documentType": "UNKNOWN",
               "errors": Array [],
+              "externalImportCallbacks": Object {
+                "onRegisterExternalImport": [Function],
+                "onValidateExternalImport": [Function],
+              },
               "globalsConfig": Object {
                 "Api": Object {
                   "properties": Array [],
@@ -541,6 +599,7 @@ ObjectASTNode {
                 },
               },
               "parameters": Array [],
+              "parentParams": undefined,
               "referenceables": Object {
                 "hash": Object {
                   "MAPPING": SortedHash {
@@ -568,6 +627,7 @@ ObjectASTNode {
               },
               "root": [Circular],
               "syntaxErrors": Array [],
+              "uri": "",
               "warnings": Array [],
             },
             "end": 65,
@@ -588,6 +648,10 @@ ObjectASTNode {
       "document": YAMLDocument {
         "documentType": "UNKNOWN",
         "errors": Array [],
+        "externalImportCallbacks": Object {
+          "onRegisterExternalImport": [Function],
+          "onValidateExternalImport": [Function],
+        },
         "globalsConfig": Object {
           "Api": Object {
             "properties": Array [],
@@ -603,6 +667,7 @@ ObjectASTNode {
           },
         },
         "parameters": Array [],
+        "parentParams": undefined,
         "referenceables": Object {
           "hash": Object {
             "MAPPING": SortedHash {
@@ -630,6 +695,7 @@ ObjectASTNode {
         },
         "root": [Circular],
         "syntaxErrors": Array [],
+        "uri": "",
         "warnings": Array [],
       },
       "end": 66,
@@ -639,6 +705,10 @@ ObjectASTNode {
         "document": YAMLDocument {
           "documentType": "UNKNOWN",
           "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
           "globalsConfig": Object {
             "Api": Object {
               "properties": Array [],
@@ -654,6 +724,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
+          "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -681,6 +752,7 @@ ObjectASTNode {
           },
           "root": [Circular],
           "syntaxErrors": Array [],
+          "uri": "",
           "warnings": Array [],
         },
         "end": 8,
@@ -708,6 +780,10 @@ ObjectASTNode {
   "document": YAMLDocument {
     "documentType": "UNKNOWN",
     "errors": Array [],
+    "externalImportCallbacks": Object {
+      "onRegisterExternalImport": [Function],
+      "onValidateExternalImport": [Function],
+    },
     "globalsConfig": Object {
       "Api": Object {
         "properties": Array [],
@@ -723,6 +799,7 @@ ObjectASTNode {
       },
     },
     "parameters": Array [],
+    "parentParams": undefined,
     "referenceables": Object {
       "hash": Object {
         "MAPPING": SortedHash {
@@ -798,6 +875,7 @@ ObjectASTNode {
     },
     "root": [Circular],
     "syntaxErrors": Array [],
+    "uri": "",
     "warnings": Array [],
   },
   "end": 31,
@@ -820,6 +898,10 @@ ObjectASTNode {
         "document": YAMLDocument {
           "documentType": "UNKNOWN",
           "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
           "globalsConfig": Object {
             "Api": Object {
               "properties": Array [],
@@ -835,6 +917,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
+          "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -870,6 +953,7 @@ ObjectASTNode {
           },
           "root": [Circular],
           "syntaxErrors": Array [],
+          "uri": "",
           "warnings": Array [],
         },
         "end": 31,
@@ -884,6 +968,10 @@ ObjectASTNode {
       "document": YAMLDocument {
         "documentType": "UNKNOWN",
         "errors": Array [],
+        "externalImportCallbacks": Object {
+          "onRegisterExternalImport": [Function],
+          "onValidateExternalImport": [Function],
+        },
         "globalsConfig": Object {
           "Api": Object {
             "properties": Array [],
@@ -899,6 +987,7 @@ ObjectASTNode {
           },
         },
         "parameters": Array [],
+        "parentParams": undefined,
         "referenceables": Object {
           "hash": Object {
             "MAPPING": SortedHash {
@@ -953,6 +1042,7 @@ ObjectASTNode {
         },
         "root": [Circular],
         "syntaxErrors": Array [],
+        "uri": "",
         "warnings": Array [],
       },
       "end": 31,
@@ -962,6 +1052,10 @@ ObjectASTNode {
         "document": YAMLDocument {
           "documentType": "UNKNOWN",
           "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
           "globalsConfig": Object {
             "Api": Object {
               "properties": Array [],
@@ -977,6 +1071,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
+          "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -1031,6 +1126,7 @@ ObjectASTNode {
           },
           "root": [Circular],
           "syntaxErrors": Array [],
+          "uri": "",
           "warnings": Array [],
         },
         "end": 8,
@@ -1058,6 +1154,10 @@ ObjectASTNode {
   "document": YAMLDocument {
     "documentType": "UNKNOWN",
     "errors": Array [],
+    "externalImportCallbacks": Object {
+      "onRegisterExternalImport": [Function],
+      "onValidateExternalImport": [Function],
+    },
     "globalsConfig": Object {
       "Api": Object {
         "properties": Array [],
@@ -1073,6 +1173,7 @@ ObjectASTNode {
       },
     },
     "parameters": Array [],
+    "parentParams": undefined,
     "referenceables": Object {
       "hash": Object {
         "MAPPING": SortedHash {
@@ -1149,6 +1250,7 @@ ObjectASTNode {
     },
     "root": [Circular],
     "syntaxErrors": Array [],
+    "uri": "",
     "warnings": Array [],
   },
   "end": 28,
@@ -1172,6 +1274,10 @@ ObjectASTNode {
         "document": YAMLDocument {
           "documentType": "UNKNOWN",
           "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
           "globalsConfig": Object {
             "Api": Object {
               "properties": Array [],
@@ -1187,6 +1293,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
+          "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -1222,6 +1329,7 @@ ObjectASTNode {
           },
           "root": [Circular],
           "syntaxErrors": Array [],
+          "uri": "",
           "warnings": Array [],
         },
         "end": 28,
@@ -1236,6 +1344,10 @@ ObjectASTNode {
       "document": YAMLDocument {
         "documentType": "UNKNOWN",
         "errors": Array [],
+        "externalImportCallbacks": Object {
+          "onRegisterExternalImport": [Function],
+          "onValidateExternalImport": [Function],
+        },
         "globalsConfig": Object {
           "Api": Object {
             "properties": Array [],
@@ -1251,6 +1363,7 @@ ObjectASTNode {
           },
         },
         "parameters": Array [],
+        "parentParams": undefined,
         "referenceables": Object {
           "hash": Object {
             "MAPPING": SortedHash {
@@ -1306,6 +1419,7 @@ ObjectASTNode {
         },
         "root": [Circular],
         "syntaxErrors": Array [],
+        "uri": "",
         "warnings": Array [],
       },
       "end": 28,
@@ -1315,6 +1429,10 @@ ObjectASTNode {
         "document": YAMLDocument {
           "documentType": "UNKNOWN",
           "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
           "globalsConfig": Object {
             "Api": Object {
               "properties": Array [],
@@ -1330,6 +1448,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
+          "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -1385,6 +1504,7 @@ ObjectASTNode {
           },
           "root": [Circular],
           "syntaxErrors": Array [],
+          "uri": "",
           "warnings": Array [],
         },
         "end": 8,
@@ -1412,6 +1532,10 @@ ObjectASTNode {
   "document": YAMLDocument {
     "documentType": "UNKNOWN",
     "errors": Array [],
+    "externalImportCallbacks": Object {
+      "onRegisterExternalImport": [Function],
+      "onValidateExternalImport": [Function],
+    },
     "globalsConfig": Object {
       "Api": Object {
         "properties": Array [],
@@ -1427,6 +1551,7 @@ ObjectASTNode {
       },
     },
     "parameters": Array [],
+    "parentParams": undefined,
     "referenceables": Object {
       "hash": Object {
         "MAPPING": SortedHash {
@@ -1454,6 +1579,7 @@ ObjectASTNode {
     },
     "root": [Circular],
     "syntaxErrors": Array [],
+    "uri": "",
     "warnings": Array [],
   },
   "end": 28,
@@ -1477,6 +1603,10 @@ ObjectASTNode {
         "document": YAMLDocument {
           "documentType": "UNKNOWN",
           "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
           "globalsConfig": Object {
             "Api": Object {
               "properties": Array [],
@@ -1492,6 +1622,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
+          "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -1519,6 +1650,7 @@ ObjectASTNode {
           },
           "root": [Circular],
           "syntaxErrors": Array [],
+          "uri": "",
           "warnings": Array [],
         },
         "end": 28,
@@ -1533,6 +1665,10 @@ ObjectASTNode {
       "document": YAMLDocument {
         "documentType": "UNKNOWN",
         "errors": Array [],
+        "externalImportCallbacks": Object {
+          "onRegisterExternalImport": [Function],
+          "onValidateExternalImport": [Function],
+        },
         "globalsConfig": Object {
           "Api": Object {
             "properties": Array [],
@@ -1548,6 +1684,7 @@ ObjectASTNode {
           },
         },
         "parameters": Array [],
+        "parentParams": undefined,
         "referenceables": Object {
           "hash": Object {
             "MAPPING": SortedHash {
@@ -1575,6 +1712,7 @@ ObjectASTNode {
         },
         "root": [Circular],
         "syntaxErrors": Array [],
+        "uri": "",
         "warnings": Array [],
       },
       "end": 28,
@@ -1584,6 +1722,10 @@ ObjectASTNode {
         "document": YAMLDocument {
           "documentType": "UNKNOWN",
           "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
           "globalsConfig": Object {
             "Api": Object {
               "properties": Array [],
@@ -1599,6 +1741,7 @@ ObjectASTNode {
             },
           },
           "parameters": Array [],
+          "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
               "MAPPING": SortedHash {
@@ -1626,6 +1769,7 @@ ObjectASTNode {
           },
           "root": [Circular],
           "syntaxErrors": Array [],
+          "uri": "",
           "warnings": Array [],
         },
         "end": 8,

@@ -1,4 +1,4 @@
-import { CLOUD_FORMATION, SAM } from "./../../model/document"
+import { DocumentType } from "./../../model/document"
 import { YAMLDocument } from "./document"
 import {
 	API,
@@ -69,8 +69,8 @@ export const collectGlobalPropertiesFromNode = (
 
 export const collectGlobals = (document: YAMLDocument): GlobalsConfig => {
 	if (
-		document.documentType === CLOUD_FORMATION ||
-		document.documentType === SAM
+		document.documentType === DocumentType.CLOUD_FORMATION ||
+		document.documentType === DocumentType.SAM
 	) {
 		const globalsNode = document.root.get(GLOBALS_PATH)
 

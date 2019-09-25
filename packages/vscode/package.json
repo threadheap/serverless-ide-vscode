@@ -2,10 +2,10 @@
     "name": "serverless-ide-vscode",
     "displayName": "Serverless IDE",
     "description": "Enhanced support for AWS SAM, CloudFormation and Serverless Framework",
-    "author": "Pavel Vlasov <freakycue@gmail.com>",
+    "author": "Pavel Vlasov <pavel@serverless-ide.com>",
     "publisher": "ThreadHeap",
     "license": "MIT",
-    "version": "0.4.5",
+    "version": "0.4.7",
     "preview": false,
     "bugs": "https://github.com/threadheap/serverless-ide-vscode/issues",
     "repository": {
@@ -168,7 +168,7 @@
     },
     "dependencies": {
         "@sentry/node": "5.5.0",
-        "@serverless-ide/language-server": "^0.4.5",
+        "@serverless-ide/language-server": "^0.4.7",
         "amplitude-client-node": "^0.2.0",
         "amplitude-js": "^5.2.2",
         "node-machine-id": "^1.1.12",

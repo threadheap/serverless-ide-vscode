@@ -3,10 +3,19 @@
 		"target": "es6",
 		"module": "commonjs",
 		"moduleResolution": "node",
-		"lib": ["es2016"],
+		"lib": [
+			"es2016",
+			"dom"
+		],
 		"sourceMap": true,
 		"outDir": "./out"
 	},
-	"exclude": ["node_modules", "**/node_modules/**", "**/__tests__/**"],
-	"include": ["src"]
+	"exclude": [
+		"node_modules",
+		"**/node_modules/**",
+		"**/__tests__/**"
+	],
+	"include": [
+		"src"
+	]
 }

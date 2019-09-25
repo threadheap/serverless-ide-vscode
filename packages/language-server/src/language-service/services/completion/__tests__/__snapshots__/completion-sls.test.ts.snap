@@ -5,6 +5,9 @@ Object {
   "isIncomplete": false,
   "items": Array [
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "The intrinsic function Fn::Base64 returns the Base64 representation of the input string.",
       "insertText": "!Base64 ",
       "insertTextFormat": 2,
@@ -25,6 +28,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "The intrinsic function Fn::Base64 returns the Base64 representation of the input string.",
       "insertText": "",
       "insertTextFormat": 2,
@@ -45,6 +51,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "The intrinsic function Fn::Cidr returns an array of CIDR address blocks.",
       "insertText": "!Cidr ",
       "insertTextFormat": 2,
@@ -65,6 +74,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "The intrinsic function Fn::Cidr returns an array of CIDR address blocks.",
       "insertText": "",
       "insertTextFormat": 2,
@@ -85,6 +97,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "Returns true if all the specified conditions evaluate to true, or returns false if any one of the conditions evaluates to false.",
       "insertText": "!And ",
       "insertTextFormat": 2,
@@ -105,6 +120,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "Returns true if all the specified conditions evaluate to true, or returns false if any one of the conditions evaluates to false.",
       "insertText": "",
       "insertTextFormat": 2,
@@ -125,6 +143,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "Returns one value if the specified condition evaluates to true and another value if the specified condition evaluates to false.",
       "insertText": "!If ",
       "insertTextFormat": 2,
@@ -145,6 +166,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "Returns one value if the specified condition evaluates to true and another value if the specified condition evaluates to false.",
       "insertText": "",
       "insertTextFormat": 2,
@@ -165,6 +189,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "Returns true for a condition that evaluates to false or returns false for a condition that evaluates to true.",
       "insertText": "!Not ",
       "insertTextFormat": 2,
@@ -185,6 +212,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "Returns true for a condition that evaluates to false or returns false for a condition that evaluates to true.",
       "insertText": "",
       "insertTextFormat": 2,
@@ -205,6 +235,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "Returns true if any one of the specified conditions evaluate to true, or returns false if all of the conditions evaluates to false.",
       "insertText": "!Or ",
       "insertTextFormat": 2,
@@ -225,6 +258,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "Returns true if any one of the specified conditions evaluate to true, or returns false if all of the conditions evaluates to false.",
       "insertText": "",
       "insertTextFormat": 2,
@@ -245,6 +281,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "Compares if two values are equal.",
       "insertText": "!Equals ",
       "insertTextFormat": 2,
@@ -265,6 +304,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "Compares if two values are equal.",
       "insertText": "",
       "insertTextFormat": 2,
@@ -285,6 +327,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": undefined,
       "insertText": "!FindInMap [ \${1||}, $2, $3 ]",
       "insertTextFormat": 2,
@@ -305,6 +350,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": undefined,
       "insertText": "Fn::FindInMap: [ \${1||}, $2, $3 ]",
       "insertTextFormat": 2,
@@ -325,6 +373,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "insertText": "!GetAtt \${1||}",
       "insertTextFormat": 2,
       "kind": 12,
@@ -344,6 +395,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "insertText": "Fn::GetAtt: \${1||}",
       "insertTextFormat": 2,
       "kind": 10,
@@ -363,6 +417,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "The intrinsic function Fn::GetAZs returns an array that lists Availability Zones for a specified region.",
       "insertText": "!GetAZs ",
       "insertTextFormat": 2,
@@ -383,6 +440,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "The intrinsic function Fn::GetAZs returns an array that lists Availability Zones for a specified region.",
       "insertText": "",
       "insertTextFormat": 2,
@@ -403,6 +463,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "The intrinsic function Fn::ImportValue returns the value of an output exported by another stack.",
       "insertText": "!ImportValue ",
       "insertTextFormat": 2,
@@ -423,6 +486,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "The intrinsic function Fn::ImportValue returns the value of an output exported by another stack.",
       "insertText": "",
       "insertTextFormat": 2,
@@ -443,6 +509,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "The intrinsic function Fn::Join appends a set of values into a single value, separated by the specified delimiter.",
       "insertText": "!Join ",
       "insertTextFormat": 2,
@@ -463,6 +532,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "The intrinsic function Fn::Join appends a set of values into a single value, separated by the specified delimiter.",
       "insertText": "",
       "insertTextFormat": 2,
@@ -483,6 +555,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "The intrinsic function Fn::Select returns a single object from a list of objects by index.",
       "insertText": "!Select ",
       "insertTextFormat": 2,
@@ -503,6 +578,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "The intrinsic function Fn::Select returns a single object from a list of objects by index.",
       "insertText": "",
       "insertTextFormat": 2,
@@ -523,6 +601,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "To split a string into a list of string values so that you can select an element from the resulting string list, use the Fn::Split intrinsic function.",
       "insertText": "!Split ",
       "insertTextFormat": 2,
@@ -543,6 +624,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "To split a string into a list of string values so that you can select an element from the resulting string list, use the Fn::Split intrinsic function.",
       "insertText": "",
       "insertTextFormat": 2,
@@ -563,6 +647,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": undefined,
       "insertText": "!Sub $1",
       "insertTextFormat": 2,
@@ -583,6 +670,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": undefined,
       "insertText": "Fn::Sub: $1",
       "insertTextFormat": 2,
@@ -603,6 +693,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "The intrinsic function Fn::Transform specifies a macro to perform custom processing on part of a stack template.",
       "insertText": "!Transform ",
       "insertTextFormat": 2,
@@ -623,6 +716,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "The intrinsic function Fn::Transform specifies a macro to perform custom processing on part of a stack template.",
       "insertText": "",
       "insertTextFormat": 2,
@@ -643,6 +739,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "insertText": "!Ref \${1||}",
       "insertTextFormat": 2,
       "kind": 12,
@@ -662,6 +761,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "insertText": "Ref: \${1||}",
       "insertTextFormat": 2,
       "kind": 10,
@@ -681,6 +783,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "insertText": " \${1||}",
       "insertTextFormat": 2,
       "kind": 12,
@@ -700,6 +805,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "insertText": "DependsOn: \${1||}",
       "insertTextFormat": 2,
       "kind": 10,
@@ -719,6 +827,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "",
       "insertText": "app: $1",
       "insertTextFormat": 2,
@@ -739,6 +850,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "",
       "insertText": "tenant: $1",
       "insertTextFormat": 2,
@@ -759,6 +873,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "",
       "insertText": "frameworkVersion: $1",
       "insertTextFormat": 2,
@@ -779,6 +896,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "Optional deployment packaging configuration",
       "insertText": "package:
 	excludeDevDependencies: \${1:false}",
@@ -801,6 +921,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "",
       "insertText": "functions:
 	",
@@ -823,6 +946,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "",
       "insertText": "layers:
 	",
@@ -845,6 +971,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "",
       "insertText": "custom:
 	",
@@ -867,6 +996,9 @@ Object {
       },
     },
     Object {
+      "data": Object {
+        "documentType": "SERVERLESS_FRAMEWORK",
+      },
       "documentation": "",
       "insertText": "plugins:
 	- ",

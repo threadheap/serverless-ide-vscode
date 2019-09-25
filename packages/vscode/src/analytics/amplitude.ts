@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import * as http from "http"
 import * as https from "https"
-import * as querystring from "querystring"
 import { URL } from "url"
 
 type LogLevel = "debug" | "info" | "warn" | "error"
@@ -132,7 +131,7 @@ interface ApiKeyData {
 }
 
 export interface AmplitudeEventRequestData extends ApiKeyData {
-	event: string
+	events: Record<string, any>[]
 }
 
 export interface AmplitudeGroupIdentifyRequestData extends ApiKeyData {
@@ -143,6 +142,8 @@ export interface AmplitudeIdentifyRequestData extends ApiKeyData {
 	identification: string
 }
 
+const MS_IN_HOUR = 10000
+
 export class AmplitudeClient<TEventNames = string> {
 	private readonly apiKey: string
 	private readonly enabled: boolean
@@ -151,6 +152,9 @@ export class AmplitudeClient<TEventNames = string> {
 	private readonly maxRetries: number
 	private readonly timeoutMs: number
 	private readonly endpoint: string
+	private batch: AmplitudeEventData<TEventNames>[] = []
+	private lastSentTime: number = 0
+	private isRequestInProgress: boolean = false
 	private readonly logging?: (level: LogLevel, message: string) => void
 
 	constructor(apiKey: string, options: ClientOptions = {}) {
@@ -169,93 +173,72 @@ export class AmplitudeClient<TEventNames = string> {
 		event: AmplitudeEventData<TEventNames>,
 		reqOptions?: https.RequestOptions
 	): Promise<AmplitudeResponse<AmplitudeEventRequestData>> {
+		const now = Date.now()
+
 		if (this.setTime) {
-			event.time = Date.now()
+			event.time = now
 		}
 		if (this.appVersion) {
 			event.app_version = this.appVersion
 		}
 		if (!event.insert_id) {
 			event.insert_id =
-				Date.now() +
+				now +
 				"_" +
 				Math.random()
 					.toString()
 					.substring(2)
 		}
 
-		const formData: AmplitudeEventRequestData = {
-			api_key: this.apiKey,
-			event: JSON.stringify(event)
-		}
-
 		const options: http.RequestOptions = {
 			method: "POST",
-			path: "/httpapi",
+			path: "/2/httpapi",
 			...reqOptions
 		}
 
-		return this.sendRequest(options, formData)
+		this.batch.push(event)
+
+		if (!this.isRequestInProgress && now - this.lastSentTime > MS_IN_HOUR) {
+			const events = this.batch
+			this.batch = []
+			return await this.sendRequest(options, events)
+		}
 	}
 
-	async identify(
-		identify: UserIdentification,
+	async dispose(
 		reqOptions?: https.RequestOptions
-	): Promise<AmplitudeResponse<AmplitudeIdentifyRequestData>> {
-		const formData: AmplitudeIdentifyRequestData = {
-			api_key: this.apiKey,
-			identification: JSON.stringify(identify)
-		}
-
+	): Promise<AmplitudeResponse<AmplitudeEventRequestData>> {
 		const options: http.RequestOptions = {
 			method: "POST",
-			path: "/identify",
+			path: "/2/httpapi",
 			...reqOptions
 		}
 
-		return this.sendRequest(options, formData)
-	}
-
-	async groupIdentify(
-		groupType: string,
-		groupValue: string,
-		groupProps: GroupProperties,
-		reqOptions?: https.RequestOptions
-	): Promise<AmplitudeResponse<AmplitudeGroupIdentifyRequestData>> {
-		const formData: AmplitudeGroupIdentifyRequestData = {
-			api_key: this.apiKey,
-			identification: JSON.stringify({
-				group_type: groupType,
-				group_value: groupValue,
-				group_properties: groupProps
-			})
-		}
-
-		const options: http.RequestOptions = {
-			method: "POST",
-			path: "/groupidentify",
-			...reqOptions
-		}
-
-		return this.sendRequest(options, formData)
+		return await this.sendRequest(options, this.batch)
 	}
 
 	private async sendRequest<T>(
 		options: https.RequestOptions,
-		formData: any,
+		events: AmplitudeEventData<TEventNames>[],
 		retryCount = 0
-	): Promise<AmplitudeResponse<T>> {
+	): Promise<AmplitudeResponse<AmplitudeEventRequestData>> {
+		this.isRequestInProgress = true
+
 		const url = new URL(this.endpoint)
 		options.protocol = url.protocol
 		options.hostname = url.hostname
 		options.port = url.port
 		options.timeout = this.timeoutMs
 
-		const postData = querystring.stringify(formData)
+		const data: AmplitudeEventRequestData = {
+			api_key: this.apiKey,
+			events
+		}
+		const postData = JSON.stringify(data)
 		const byteLength = Buffer.byteLength(postData)
 
 		options.headers = options.headers || {}
-		options.headers["Content-Type"] = "application/x-www-form-urlencoded"
+		options.headers["Content-Type"] = "application/json"
 		options.headers["Content-Length"] = byteLength
 
 		if (!this.enabled) {
@@ -268,7 +251,7 @@ export class AmplitudeClient<TEventNames = string> {
 				statusCode: 0,
 				succeeded: true,
 				retryCount: 0,
-				requestData: formData
+				requestData: data
 			}
 		}
 
@@ -276,45 +259,45 @@ export class AmplitudeClient<TEventNames = string> {
 			`${options.protocol}//${options.hostname}` +
 			`${options.port ? ":" + options.port : ""}${options.path}`
 
-		const result = await new Promise<AmplitudeResponse<T>>(
-			(resolve, reject) => {
-				const start = new Date()
+		const result = await new Promise<
+			AmplitudeResponse<AmplitudeEventRequestData>
+		>((resolve, reject) => {
+			const start = new Date()
 
-				try {
-					const httpLib = options.protocol === "https:" ? https : http
-					this.log(
-						"debug",
-						`sending request to Amplitude API ${apiUrl} (${byteLength} bytes)`
-					)
-					const req = httpLib.request(options, res => {
-						res.on("error", reject)
-						const chunks: Buffer[] = []
-						res.on("data", (chunk: Buffer) => chunks.push(chunk))
-						res.on("end", () => {
-							resolve({
-								start,
-								end: new Date(),
-								// should be "success" for successful requests
-								// or some kind of message for failures (or HTML for 502s)
-								body: Buffer.concat(chunks),
-								requestOptions: options,
-								responseHeaders: res.headers,
-								statusCode: res.statusCode || 0,
-								succeeded: res.statusCode === 200,
-								retryCount,
-								requestData: formData
-							})
+			try {
+				const httpLib = options.protocol === "https:" ? https : http
+				this.log(
+					"debug",
+					`sending request to Amplitude API ${apiUrl} (${byteLength} bytes)`
+				)
+				const req = httpLib.request(options, res => {
+					res.on("error", reject)
+					const chunks: Buffer[] = []
+					res.on("data", (chunk: Buffer) => chunks.push(chunk))
+					res.on("end", () => {
+						resolve({
+							start,
+							end: new Date(),
+							// should be "success" for successful requests
+							// or some kind of message for failures (or HTML for 502s)
+							body: Buffer.concat(chunks),
+							requestOptions: options,
+							responseHeaders: res.headers,
+							statusCode: res.statusCode || 0,
+							succeeded: res.statusCode === 200,
+							retryCount,
+							requestData: data
 						})
 					})
+				})
 
-					req.on("error", reject)
-					req.write(postData)
-					req.end()
-				} catch (err) {
-					reject(err)
-				}
+				req.on("error", reject)
+				req.write(postData)
+				req.end()
+			} catch (err) {
+				reject(err)
 			}
-		)
+		})
 
 		// https://developers.amplitude.com/#http-status-codes--amp--retrying-failed-requests
 		const retryableStatusCodes = {
@@ -330,6 +313,9 @@ export class AmplitudeClient<TEventNames = string> {
 			!retryableStatusCodes[result.statusCode] ||
 			retryCount >= this.maxRetries
 		) {
+			this.isRequestInProgress = false
+			this.lastSentTime = Date.now()
+
 			if (result.succeeded) {
 				this.log(
 					"info",
@@ -352,7 +338,7 @@ export class AmplitudeClient<TEventNames = string> {
 			`retrying Amplitude request to ${apiUrl} ` +
 				`(status code: ${result.statusCode}, retries: ${retryCount})`
 		)
-		return this.sendRequest(options, formData, retryCount + 1)
+		return this.sendRequest(options, events, retryCount + 1)
 	}
 
 	private log(level: LogLevel, message: string): void {

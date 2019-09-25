@@ -1,5 +1,6 @@
 import { CUSTOM_TAGS, TagKind } from "./../../model/custom-tags"
 import { parse as parseYaml } from ".."
+import { TextDocument } from "vscode-languageserver"
 
 const optionsMapping: { [key in TagKind]: string } = {
 	scalar: "logicVariable",
@@ -10,7 +11,8 @@ const optionsMapping: { [key in TagKind]: string } = {
 describe("custom tags parse", () => {
 	describe("smoke tests", () => {
 		const generateNode = (text: string) => {
-			return parseYaml(text).root
+			const document = TextDocument.create("", "", 1, text)
+			return parseYaml(document).root
 		}
 
 		CUSTOM_TAGS.forEach(tag => {

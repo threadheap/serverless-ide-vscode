@@ -41,7 +41,7 @@ test("should resolve CloudFormation schema", async () => {
 
 	const schema = await service.getSchemaForDocument(
 		document,
-		new YAMLDocument(getDocumentType(document.getText()))
+		new YAMLDocument("", getDocumentType(document.getText()))
 	)
 
 	expect(schema).toBeDefined()
@@ -58,7 +58,7 @@ test("should resolve SAM schema", async () => {
 
 	const schema = await service.getSchemaForDocument(
 		document,
-		new YAMLDocument(getDocumentType(document.getText()))
+		new YAMLDocument("", getDocumentType(document.getText()))
 	)
 
 	expect(schema).toBeDefined()
@@ -75,7 +75,7 @@ test("should return Serverless schema for sls document", async () => {
 
 	const schema = await service.getSchemaForDocument(
 		document,
-		new YAMLDocument(getDocumentType(document.getText()))
+		new YAMLDocument("", getDocumentType(document.getText()))
 	)
 
 	if (schema) {

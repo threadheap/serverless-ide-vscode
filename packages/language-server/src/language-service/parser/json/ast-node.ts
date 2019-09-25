@@ -79,7 +79,7 @@ export class ASTNode<TValue = unknown> {
 	location: Json.Segment
 	customTag: CustomTag
 	document: YAMLDocument
-	private _value: TValue = null
+	protected _value: TValue = null
 
 	constructor(
 		document: YAMLDocument,

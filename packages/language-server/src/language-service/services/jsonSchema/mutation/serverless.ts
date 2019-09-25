@@ -1,6 +1,6 @@
 import cloneDeep = require("lodash/cloneDeep")
 import without = require("lodash/without")
-import { SERVERLESS_FRAMEWORK } from "./../../../model/document"
+import { DocumentType } from "../../../model/document"
 import { YAMLDocument } from "./../../../parser/json/document"
 import { ResolvedSchema } from ".."
 import { sendException } from "../../analytics"
@@ -12,7 +12,7 @@ export const applyProviderMutations = (
 	const jsonSchema = schema.schema
 
 	if (
-		yamlDocument.documentType === SERVERLESS_FRAMEWORK &&
+		yamlDocument.documentType === DocumentType.SERVERLESS_FRAMEWORK &&
 		yamlDocument.root
 	) {
 		const clonedSchema = cloneDeep(jsonSchema)

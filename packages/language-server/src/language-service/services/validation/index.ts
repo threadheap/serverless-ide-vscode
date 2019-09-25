@@ -1,15 +1,16 @@
 import { CfnLintFailedToExecuteError } from "./errors"
 import { StringASTNode, ErrorCode } from "./../../parser/json"
-import { CLOUD_FORMATION, SAM } from "./../../model/document"
+import { DocumentType } from "./../../model/document"
 import { spawn } from "child_process"
 import {
 	Diagnostic,
 	DiagnosticSeverity,
 	Files,
-	TextDocument
+	TextDocument,
+	IConnection
 } from "vscode-languageserver"
 import { Problem, YAMLDocument } from "../../parser"
-import { JSONSchemaService } from "../jsonSchema"
+import { JSONSchemaService, ResolvedSchema } from "../jsonSchema"
 import {
 	CFNLintSettings,
 	LanguageSettings,
@@ -17,6 +18,7 @@ import {
 } from "./../../model/settings"
 import { sendAnalytics } from "../analytics"
 import { validateReferences } from "./references"
+import { removeDuplicatesObj } from "../../utils/arrayUtils"
 
 const transformCfnLintSeverity = (errorType: string): DiagnosticSeverity => {
 	switch (errorType) {
@@ -39,10 +41,16 @@ export class YAMLValidation {
 	private provider: ValidationProvider
 	private workspaceRoot: string
 	private inProgressMap: { [key: string]: boolean } = {}
+	private connection: IConnection
 
-	constructor(jsonSchemaService: JSONSchemaService, workspaceRoot: string) {
+	constructor(
+		jsonSchemaService: JSONSchemaService,
+		workspaceRoot: string,
+		connection: IConnection
+	) {
 		this.jsonSchemaService = jsonSchemaService
 		this.validationEnabled = true
+		this.connection = connection
 		this.workspaceRoot = workspaceRoot
 	}
 
@@ -50,6 +58,19 @@ export class YAMLValidation {
 		this.validationEnabled = settings.validate
 		this.settings = settings.cfnLint
 		this.provider = settings.validationProvider
+	}
+
+	async doExternalImportValidation(
+		textDocument: TextDocument,
+		yamlDocument: YAMLDocument
+	) {
+		const schema = await this.jsonSchemaService.getPartialSchemaForDocumentUri(
+			textDocument.uri
+		)
+
+		if (schema) {
+			await this.validateWithSchema(textDocument, yamlDocument, schema)
+		}
 	}
 
 	async doValidation(textDocument: TextDocument, yamlDocument: YAMLDocument) {
@@ -61,21 +82,22 @@ export class YAMLValidation {
 
 		if (
 			this.provider === ValidationProvider["cfn-lint"] &&
-			(documentType === CLOUD_FORMATION || documentType === SAM)
+			(documentType === DocumentType.CLOUD_FORMATION ||
+				documentType === DocumentType.SAM)
 		) {
 			try {
-				return await this.validateWithCfnLint(textDocument)
+				await this.validateWithCfnLint(textDocument)
 			} catch (err) {
 				throw new CfnLintFailedToExecuteError(err.message)
 			}
 		}
 
-		return await this.validateWithSchema(textDocument, yamlDocument)
+		await this.validateWithSchema(textDocument, yamlDocument)
 	}
 
 	private async validateWithCfnLint(
 		textDocument: TextDocument
-	): Promise<Diagnostic[]> {
+	): Promise<void> {
 		const args = ["--format", "json"]
 		const filePath = Files.uriToFilePath(textDocument.uri)
 		const fileName = textDocument.uri
@@ -119,7 +141,9 @@ export class YAMLValidation {
 			child.on("error", reject)
 			child.on("close", () => {
 				delete this.inProgressMap[fileName]
-				resolve(diagnostics)
+
+				this.sendDiagnostics(textDocument.uri, diagnostics)
+				resolve()
 			})
 
 			child.on("exit", () => {
@@ -184,7 +208,8 @@ export class YAMLValidation {
 
 	private async validateWithSchema(
 		textDocument: TextDocument,
-		yamlDocument: YAMLDocument
+		yamlDocument: YAMLDocument,
+		documentSchema?: ResolvedSchema
 	) {
 		let diagnostics = []
 		const added = {}
@@ -197,15 +222,17 @@ export class YAMLValidation {
 			}
 		})
 
-		const schema = await this.jsonSchemaService.getSchemaForDocument(
-			textDocument,
-			yamlDocument
-		)
+		const schema =
+			documentSchema ||
+			(await this.jsonSchemaService.getSchemaForDocument(
+				textDocument,
+				yamlDocument
+			))
 
 		if (schema) {
 			if (
-				yamlDocument.documentType === CLOUD_FORMATION ||
-				yamlDocument.documentType === SAM
+				yamlDocument.documentType === DocumentType.CLOUD_FORMATION ||
+				yamlDocument.documentType === DocumentType.SAM
 			) {
 				diagnostics = diagnostics.concat(
 					await validateReferences(textDocument, yamlDocument)
@@ -298,6 +325,17 @@ export class YAMLValidation {
 			}
 		})
 
-		return diagnostics
+		this.sendDiagnostics(textDocument.uri, diagnostics)
+	}
+
+	private sendDiagnostics(uri: string, diagnostics: Diagnostic[]) {
+		diagnostics.forEach(diagnosticItem => {
+			diagnosticItem.severity = 1
+		})
+
+		this.connection.sendDiagnostics({
+			uri,
+			diagnostics: removeDuplicatesObj(diagnostics)
+		})
 	}
 }
