@@ -7,6 +7,8 @@
 
 Provides comprehensive [AWS SAM (Serverless Application Model)](https://aws.amazon.com/serverless/sam/), Cloudformation and [Serverless Framework](https://serverless.com/) support to [Visual Studio Code](https://code.visualstudio.com/).
 
+[serverless-ide.com](https://serverless-ide.com/)
+
 ## Features
 
 ### Smart autocompletion
@@ -94,6 +96,7 @@ Feel free to raise a feature request in [the project repository](https://github.
 Check out [public roadmap board](https://github.com/threadheap/serverless-ide-vscode/projects), propose and vote for new features.
 
 DM or follow me on [twitter](https://twitter.com/pvl4sov) or [medium](https://medium.com/@pvlasov)
+or contact [by email](mailto:hello@serverless-ide.com)
 
 ### Author
 
