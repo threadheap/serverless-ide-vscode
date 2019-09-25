@@ -51,8 +51,8 @@ class AnalyticsClient implements IAnalyticsClient {
 		})
 	}
 
-	flush() {
-		return Promise.resolve()
+	async flush(): Promise<void> {
+		await this.amplitudeInstance.dispose()
 	}
 
 	async sendEvent(event: AnalyticsEvent) {
