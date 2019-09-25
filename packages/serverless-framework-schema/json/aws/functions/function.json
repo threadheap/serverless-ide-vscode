@@ -88,6 +88,15 @@
             ],
             "default": "Active"
         },
+        "condition": {
+            "type": "string"
+        },
+        "dependsOn": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
         "events": {
             "type": "array",
             "minLength": 1,
@@ -135,6 +144,9 @@
                     },
                     {
                         "$ref": "#/definitions/aws:functions:events:alb"
+                    },
+                    {
+                        "$ref": "#/definitions/aws:functions:events:eventBridge"
                     }
                 ]
             }

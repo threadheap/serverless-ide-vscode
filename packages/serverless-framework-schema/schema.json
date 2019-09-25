@@ -390,6 +390,18 @@
         "cognitoUserPool"
       ]
     },
+    "aws:functions:events:eventBridge": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "eventBridge": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "eventBridge"
+      ]
+    },
     "aws:functions:events:http": {
       "description": "This creates an API Gateway HTTP endpoint which can be used to trigger this function.",
       "type": "object",
@@ -822,16 +834,17 @@
                   "default": "arn:aws:kinesis:region:XXXXXX:stream/foo"
                 },
                 "batchSize": {
-                  "type": "number",
-                  "default": 10
+                  "type": "number"
+                },
+                "batchWindow": {
+                  "type": "number"
                 },
                 "startingPosition": {
                   "type": "string",
                   "default": "LATEST"
                 },
                 "enabled": {
-                  "type": "boolean",
-                  "default": false
+                  "type": "boolean"
                 }
               },
               "require": [
@@ -965,6 +978,15 @@
           ],
           "default": "Active"
         },
+        "condition": {
+          "type": "string"
+        },
+        "dependsOn": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "events": {
           "type": "array",
           "minLength": 1,
@@ -1012,6 +1034,9 @@
               },
               {
                 "$ref": "#/definitions/aws:functions:events:alb"
+              },
+              {
+                "$ref": "#/definitions/aws:functions:events:eventBridge"
               }
             ]
           }
