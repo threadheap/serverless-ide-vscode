@@ -854,12 +854,12 @@ Object {
         "documentType": "SERVERLESS_FRAMEWORK",
       },
       "documentation": "",
-      "insertText": "tenant: $1",
+      "insertText": "org: $1",
       "insertTextFormat": 2,
       "kind": 10,
-      "label": "tenant",
+      "label": "org",
       "textEdit": Object {
-        "newText": "tenant: $1",
+        "newText": "org: $1",
         "range": Object {
           "end": Object {
             "character": 4,
