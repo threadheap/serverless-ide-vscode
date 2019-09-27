@@ -63,7 +63,7 @@ const buildSchema = async () => {
 			app: {
 				type: "string"
 			},
-			tenant: {
+			org: {
 				type: "string"
 			},
 			service: {

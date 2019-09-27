@@ -1,5 +1,8 @@
 # Change log
 
+## v0.4.8
+- Rename `org` to `tenant` in serverless framework schema
+
 ## v0.4.6
 - Workplace capabilities for validation
 - Fix runtime handling for serverless framework
