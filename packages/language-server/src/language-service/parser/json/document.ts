@@ -74,7 +74,9 @@ export class YAMLDocument extends JSONDocument {
 		yamlDoc: Yaml.YAMLNode | void,
 		callbacks: ExternalImportsCallbacks = {
 			onRegisterExternalImport: noop,
-			onValidateExternalImport: noop
+			onRegisterPartialSchema: noop,
+			onValidateExternalImport: noop,
+			getExternalImportDocument: noop
 		},
 		parentParams?: ParentParams
 	) {

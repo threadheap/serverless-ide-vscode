@@ -72,11 +72,11 @@ export class ObjectASTNode extends ASTNode<null> {
 		return ctn
 	}
 
-	validate(
+	async validate(
 		schema: JSONSchema,
 		validationResult: ValidationResult,
 		matchingSchemas: ISchemaCollector
-	): void {
+	): Promise<void> {
 		if (!matchingSchemas.include(this)) {
 			return
 		}
@@ -92,7 +92,7 @@ export class ObjectASTNode extends ASTNode<null> {
 			return
 		}
 
-		super.validate(schema, validationResult, matchingSchemas)
+		await super.validate(schema, validationResult, matchingSchemas)
 		const seenKeys: { [key: string]: ASTNode } = Object.create(null)
 		const unprocessedProperties: string[] = []
 		this.properties.forEach(node => {
@@ -165,13 +165,13 @@ export class ObjectASTNode extends ASTNode<null> {
 		}
 
 		if (schema.properties) {
-			Object.keys(schema.properties).forEach((propertyName: string) => {
+			for (const propertyName of Object.keys(schema.properties)) {
 				propertyProcessed(propertyName)
 				const prop = schema.properties[propertyName]
 				const child = seenKeys[propertyName]
 				if (child) {
 					const propertyValidationResult = new ValidationResult()
-					child.validate(
+					await child.validate(
 						prop,
 						propertyValidationResult,
 						matchingSchemas
@@ -180,44 +180,41 @@ export class ObjectASTNode extends ASTNode<null> {
 						propertyValidationResult
 					)
 				}
-			})
+			}
 		}
 
 		if (schema.patternProperties) {
-			Object.keys(schema.patternProperties).forEach(
-				(propertyPattern: string) => {
-					const regex = new RegExp(propertyPattern)
-					unprocessedProperties
-						.slice(0)
-						.forEach((propertyName: string) => {
-							if (regex.test(propertyName)) {
-								propertyProcessed(propertyName)
-								const child = seenKeys[propertyName]
-								if (child) {
-									const propertyValidationResult = new ValidationResult()
-									child.validate(
-										schema.patternProperties[
-											propertyPattern
-										],
-										propertyValidationResult,
-										matchingSchemas
-									)
-									validationResult.mergePropertyMatch(
-										propertyValidationResult
-									)
-								}
-							}
-						})
+			for (const propertyPattern of Object.keys(
+				schema.patternProperties
+			)) {
+				const regex = new RegExp(propertyPattern)
+
+				for (const propertyName of unprocessedProperties.slice(0)) {
+					if (regex.test(propertyName)) {
+						propertyProcessed(propertyName)
+						const child = seenKeys[propertyName]
+						if (child) {
+							const propertyValidationResult = new ValidationResult()
+							await child.validate(
+								schema.patternProperties[propertyPattern],
+								propertyValidationResult,
+								matchingSchemas
+							)
+							validationResult.mergePropertyMatch(
+								propertyValidationResult
+							)
+						}
+					}
 				}
-			)
+			}
 		}
 
 		if (typeof schema.additionalProperties === "object") {
-			unprocessedProperties.forEach((propertyName: string) => {
+			for (const propertyName of unprocessedProperties) {
 				const child = seenKeys[propertyName]
 				if (child) {
 					const propertyValidationResult = new ValidationResult()
-					child.validate(
+					await child.validate(
 						schema.additionalProperties as any,
 						propertyValidationResult,
 						matchingSchemas
@@ -226,10 +223,10 @@ export class ObjectASTNode extends ASTNode<null> {
 						propertyValidationResult
 					)
 				}
-			})
+			}
 		} else if (schema.additionalProperties === false) {
 			if (unprocessedProperties.length > 0) {
-				unprocessedProperties.forEach((propertyName: string) => {
+				for (const propertyName of unprocessedProperties) {
 					const child = seenKeys[propertyName]
 					if (child) {
 						let propertyNode = null
@@ -256,7 +253,7 @@ export class ObjectASTNode extends ASTNode<null> {
 								)
 						})
 					}
-				})
+				}
 			}
 		}
 
@@ -289,7 +286,7 @@ export class ObjectASTNode extends ASTNode<null> {
 		}
 
 		if (schema.dependencies) {
-			Object.keys(schema.dependencies).forEach((key: string) => {
+			for (const key of Object.keys(schema.dependencies)) {
 				const prop = seenKeys[key]
 				if (prop) {
 					const propertyDep = schema.dependencies[key]
@@ -315,7 +312,7 @@ export class ObjectASTNode extends ASTNode<null> {
 						})
 					} else if (propertyDep) {
 						const propertyvalidationResult = new ValidationResult()
-						this.validate(
+						await this.validate(
 							propertyDep,
 							propertyvalidationResult,
 							matchingSchemas
@@ -325,7 +322,7 @@ export class ObjectASTNode extends ASTNode<null> {
 						)
 					}
 				}
-			})
+			}
 		}
 	}
 }

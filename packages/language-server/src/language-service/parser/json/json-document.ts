@@ -35,10 +35,10 @@ export class JSONDocument {
 		}
 	}
 
-	validate(schema: JSONSchema): IProblem[] {
+	async validate(schema: JSONSchema): Promise<IProblem[]> {
 		if (this.root && schema) {
 			const validationResult = new ValidationResult()
-			this.root.validate(
+			await this.root.validate(
 				schema,
 				validationResult,
 				new NoOpSchemaCollector()
@@ -48,29 +48,29 @@ export class JSONDocument {
 		return null
 	}
 
-	getMatchingSchemas(
+	async getValidationProblems(
 		schema: JSONSchema,
 		focusOffset: number = -1,
 		exclude: ASTNode = null
-	): IApplicableSchema[] {
+	): Promise<IProblem[]> {
 		const matchingSchemas = new SchemaCollector(focusOffset, exclude)
 		const validationResult = new ValidationResult()
 		if (this.root && schema) {
-			this.root.validate(schema, validationResult, matchingSchemas)
-		}
-		return matchingSchemas.schemas
-	}
-
-	getValidationProblems(
-		schema: JSONSchema,
-		focusOffset: number = -1,
-		exclude: ASTNode = null
-	) {
-		const matchingSchemas = new SchemaCollector(focusOffset, exclude)
-		const validationResult = new ValidationResult()
-		if (this.root && schema) {
-			this.root.validate(schema, validationResult, matchingSchemas)
+			await this.root.validate(schema, validationResult, matchingSchemas)
 		}
 		return validationResult.problems
+	}
+
+	async getMatchingSchemas(
+		schema: JSONSchema,
+		focusOffset: number = -1,
+		exclude: ASTNode = null
+	): Promise<IApplicableSchema[]> {
+		const matchingSchemas = new SchemaCollector(focusOffset, exclude)
+		const validationResult = new ValidationResult()
+		if (this.root && schema) {
+			await this.root.validate(schema, validationResult, matchingSchemas)
+		}
+		return matchingSchemas.schemas
 	}
 }

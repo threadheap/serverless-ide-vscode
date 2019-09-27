@@ -20,11 +20,11 @@ export class NumberASTNode extends ASTNode<number> {
 		this.value = Number.NaN
 	}
 
-	validate(
+	async validate(
 		schema: JSONSchema,
 		validationResult: ValidationResult,
 		matchingSchemas: ISchemaCollector
-	): void {
+	): Promise<void> {
 		if (!matchingSchemas.include(this)) {
 			return
 		}
@@ -41,7 +41,7 @@ export class NumberASTNode extends ASTNode<number> {
 		if (typeIsInteger && this.isInteger === true) {
 			this.type = "integer"
 		}
-		super.validate(schema, validationResult, matchingSchemas)
+		await super.validate(schema, validationResult, matchingSchemas)
 		this.type = "number"
 
 		const val = this.value

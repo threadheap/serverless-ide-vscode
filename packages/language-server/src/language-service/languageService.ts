@@ -22,7 +22,7 @@ import {
 	DocumentLink
 } from "vscode-languageserver-types"
 import { LanguageSettings } from "./model/settings"
-import { parse } from "./parser"
+import { parse, ExternalImportsCallbacks, YAMLDocument } from "./parser"
 import { YAMLCompletion } from "./services/completion"
 import { findDocumentSymbols } from "./services/documentSymbols"
 import { YAMLHover } from "./services/hover"
@@ -39,6 +39,7 @@ import { getDefinition } from "./services/definition"
 import { getReferences } from "./services/reference"
 import { promiseRejectionHandler } from "./utils/errorHandler"
 import { findDocumentLinks } from "./services/links"
+import { IProblem } from "./parser/json/validation-result"
 
 export interface LanguageService {
 	configure(settings: LanguageSettings): void
@@ -81,37 +82,39 @@ export class LanguageServiceImpl implements LanguageService {
 	) {
 		this.connection = connection
 
-		const externalImportsCallbacks = {
+		const externalImportsCallbacks: ExternalImportsCallbacks = {
 			onRegisterExternalImport: (uri: string, parentUri: string) => {
 				this.documentService.registerChildParentRelation(uri, parentUri)
+			},
+			onRegisterPartialSchema: (
+				uri: string,
+				parentUri: string,
+				schema: JSONSchema,
+				property?: string
+			) => {
+				this.schemaService.registerPartialSchema(uri, schema, property)
 			},
 			onValidateExternalImport: promiseRejectionHandler(
 				async (
 					uri: string,
 					parentUri: string,
-					schema: JSONSchema,
-					property?: string
-				): Promise<void> => {
-					const document = await this.documentService.getTextDocument(
+					problems: IProblem[]
+				) => {
+					const textDocument = await this.documentService.getTextDocument(
 						uri
 					)
 
-					this.schemaService.registerPartialSchema(
-						uri,
-						schema,
-						property
-					)
-
-					const yamlDocument = await this.documentService.getYamlDocument(
-						uri
-					)
-
-					await this.validation.doExternalImportValidation(
-						document,
-						yamlDocument
+					this.validation.sendValidationProblems(
+						textDocument,
+						problems
 					)
 				}
-			)
+			),
+			getExternalImportDocument: async (
+				uri: string
+			): Promise<YAMLDocument> => {
+				return await this.documentService.getYamlDocument(uri)
+			}
 		}
 
 		const triggerValidationForWorkspaceFiles = (files: WorkplaceFiles) => {

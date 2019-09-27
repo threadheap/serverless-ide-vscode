@@ -3,22 +3,41 @@ import { ASTNode } from "./ast-node"
 import * as Json from "jsonc-parser"
 import { JSONSchema } from "../../jsonSchema"
 import * as Path from "path"
+import {
+	ValidationResult,
+	IProblem,
+	ProblemSeverity
+} from "./validation-result"
+import { DocumentNotFoundError } from "../../services/document"
 
 const IMPORT_REGEXP = /^\${file\((.+)\.(yml|yaml)\)(:\w+)?}$/
 const FILE_URI_PREFIX = "file://"
 
 export type OnRegisterExternalImport = (uri: string, parentUri: string) => void
 
-export type OnValidateExternalImport = (
+export type OnRegisterPartialSchema = (
 	uri: string,
 	parentUri: string,
 	schema: JSONSchema,
 	property: string | void
 ) => void
 
+export type OnValidateExternalImport = (
+	uri: string,
+	parentUri: string,
+	problems: IProblem[]
+) => void
+
+export type GetExternalImportDocument = (
+	uri: string,
+	parentUri: string
+) => Promise<YAMLDocument>
+
 export interface ExternalImportsCallbacks {
 	onRegisterExternalImport: OnRegisterExternalImport
+	onRegisterPartialSchema: OnRegisterPartialSchema
 	onValidateExternalImport: OnValidateExternalImport
+	getExternalImportDocument: GetExternalImportDocument
 }
 
 export class ExternalImportASTNode extends ASTNode<string> {
@@ -56,19 +75,67 @@ export class ExternalImportASTNode extends ASTNode<string> {
 		}
 	}
 
-	validate(schema: JSONSchema): void {
+	async validate(
+		schema: JSONSchema,
+		validationResult: ValidationResult
+	): Promise<void> {
 		if (this.uri) {
-			this.callbacks.onValidateExternalImport(
+			this.callbacks.onRegisterPartialSchema(
 				this.uri,
 				this.document.uri,
 				schema,
 				this.parameter
 			)
+
+			try {
+				const yamlDocument = await this.callbacks.getExternalImportDocument(
+					this.uri,
+					this.document.uri
+				)
+				const importSchema = this.getImportSchema(schema)
+
+				const problems = await yamlDocument.validate(importSchema)
+
+				this.callbacks.onValidateExternalImport(
+					this.uri,
+					this.document.uri,
+					problems
+				)
+			} catch (err) {
+				if (err instanceof DocumentNotFoundError) {
+					validationResult.problems.push({
+						message: "File not found",
+						location: {
+							start: this.start,
+							end: this.end
+						},
+						severity: ProblemSeverity.Warning
+					})
+				}
+
+				return
+			}
 		}
 	}
 
 	getUri(): string | void {
 		return this.uri
+	}
+
+	private getImportSchema(schema: JSONSchema): JSONSchema {
+		if (!this.parameter) {
+			return schema
+		}
+
+		const newSchema: JSONSchema = {
+			additionalProperties: true,
+			type: "object",
+			properties: {
+				[this.parameter]: schema
+			}
+		}
+
+		return newSchema
 	}
 
 	private resolveOpts(path: string): string | void {

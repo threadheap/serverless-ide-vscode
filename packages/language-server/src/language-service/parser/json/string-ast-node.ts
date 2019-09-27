@@ -23,16 +23,16 @@ export class StringASTNode extends ASTNode<string> {
 		this.value = ""
 	}
 
-	validate(
+	async validate(
 		schema: JSONSchema,
 		validationResult: ValidationResult,
 		matchingSchemas: ISchemaCollector
-	): void {
+	): Promise<void> {
 		if (!matchingSchemas.include(this)) {
 			return
 		}
 
-		super.validate(schema, validationResult, matchingSchemas)
+		await super.validate(schema, validationResult, matchingSchemas)
 
 		if (schema.minLength && this.value.length < schema.minLength) {
 			validationResult.problems.push({

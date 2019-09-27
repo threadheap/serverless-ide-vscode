@@ -19,6 +19,7 @@ import {
 import { sendAnalytics } from "../analytics"
 import { validateReferences } from "./references"
 import { removeDuplicatesObj } from "../../utils/arrayUtils"
+import { IProblem, ProblemSeverity } from "../../parser/json/validation-result"
 
 const transformCfnLintSeverity = (errorType: string): DiagnosticSeverity => {
 	switch (errorType) {
@@ -238,7 +239,7 @@ export class YAMLValidation {
 					await validateReferences(textDocument, yamlDocument)
 				)
 			}
-			const currentDocProblems = yamlDocument.getValidationProblems(
+			const currentDocProblems = await yamlDocument.getValidationProblems(
 				schema.schema
 			)
 			currentDocProblems.forEach(problem => {
@@ -258,14 +259,21 @@ export class YAMLValidation {
 						}
 					}
 				}
-				yamlDocument.errors.push({
+
+				const documentProblem: Problem = {
 					location: {
 						start: problem.location.start,
 						end: problem.location.end
 					},
 					message: problem.message,
 					code: ErrorCode.Undefined
-				})
+				}
+
+				if (problem.severity === ProblemSeverity.Error) {
+					yamlDocument.errors.push(documentProblem)
+				} else {
+					yamlDocument.warnings.push(documentProblem)
+				}
 			})
 
 			if (schema && schema.errors.length > 0) {
@@ -328,11 +336,24 @@ export class YAMLValidation {
 		this.sendDiagnostics(textDocument.uri, diagnostics)
 	}
 
-	private sendDiagnostics(uri: string, diagnostics: Diagnostic[]) {
-		diagnostics.forEach(diagnosticItem => {
-			diagnosticItem.severity = 1
-		})
+	sendValidationProblems(textDocument: TextDocument, problems: IProblem[]) {
+		this.sendDiagnostics(
+			textDocument.uri,
+			problems.map(({ severity, location, message }: IProblem) => ({
+				severity:
+					severity === ProblemSeverity.Error
+						? DiagnosticSeverity.Error
+						: DiagnosticSeverity.Warning,
+				range: {
+					start: textDocument.positionAt(location.start),
+					end: textDocument.positionAt(location.end)
+				},
+				message: `[Serverless IDE] ${message}`
+			}))
+		)
+	}
 
+	private sendDiagnostics(uri: string, diagnostics: Diagnostic[]) {
 		this.connection.sendDiagnostics({
 			uri,
 			diagnostics: removeDuplicatesObj(diagnostics)

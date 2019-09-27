@@ -19,15 +19,15 @@ import * as textCompletions from "./text"
 
 const localize = nls.loadMessageBundle()
 
-export const getPropertyCompletions = (
+export const getPropertyCompletions = async (
 	textDocument: TextDocument,
 	schema: ResolvedSchema,
 	doc: YAMLDocument,
 	node: ASTNode,
 	collector: CompletionsCollector,
 	separatorAfter: string
-): void => {
-	const matchingSchemas = doc.getMatchingSchemas(schema.schema)
+): Promise<void> => {
+	const matchingSchemas = await doc.getMatchingSchemas(schema.schema)
 	matchingSchemas.forEach(s => {
 		if (s.node === node && !s.inverted) {
 			const schemaProperties = s.schema.properties
@@ -136,7 +136,7 @@ export const getValueCompletions = async (
 		node &&
 		(parentKey !== null || node.type === "array" || node.type === "object")
 	) {
-		const matchingSchemas = doc.getMatchingSchemas(schema.schema)
+		const matchingSchemas = await doc.getMatchingSchemas(schema.schema)
 
 		await Promise.all(
 			matchingSchemas.map(async s => {

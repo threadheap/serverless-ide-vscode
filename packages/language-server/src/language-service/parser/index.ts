@@ -104,7 +104,9 @@ export const parse = (
 	document: TextDocument,
 	callbacks: ExternalImportsCallbacks = {
 		onRegisterExternalImport: noop,
-		onValidateExternalImport: noop
+		onRegisterPartialSchema: noop,
+		onValidateExternalImport: noop,
+		getExternalImportDocument: noop
 	},
 	parentParams?: ParentParams
 ): YAMLDocument => {

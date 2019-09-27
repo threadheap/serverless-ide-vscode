@@ -45,16 +45,16 @@ export class PropertyASTNode extends ASTNode<ASTNode> {
 		)
 	}
 
-	validate(
+	async validate(
 		schema: JSONSchema,
 		validationResult: ValidationResult,
 		matchingSchemas: ISchemaCollector
-	): void {
+	): Promise<void> {
 		if (!matchingSchemas.include(this)) {
 			return
 		}
 		if (this.value) {
-			this.value.validate(schema, validationResult, matchingSchemas)
+			await this.value.validate(schema, validationResult, matchingSchemas)
 		}
 	}
 }

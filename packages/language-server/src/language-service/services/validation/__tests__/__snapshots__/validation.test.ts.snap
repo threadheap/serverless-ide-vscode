@@ -14,7 +14,7 @@ Array [
         "line": 1,
       },
     },
-    "severity": 1,
+    "severity": 2,
   },
 ]
 `;
@@ -33,7 +33,7 @@ Array [
         "line": 2,
       },
     },
-    "severity": 1,
+    "severity": 2,
   },
 ]
 `;

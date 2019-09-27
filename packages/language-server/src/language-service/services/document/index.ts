@@ -102,15 +102,17 @@ export class DocumentService {
 		let document = this.documents.get(uri)
 
 		if (!document) {
-			const requestedDocument = await this.requestWorkspaceFile(uri)
+			try {
+				const requestedDocument = await this.requestWorkspaceFile(uri)
 
-			if (requestedDocument) {
-				this.workspaceFiles[uri] = uri
+				if (requestedDocument) {
+					this.workspaceFiles[uri] = uri
 
-				return requestedDocument
+					return requestedDocument
+				}
+			} catch (err) {
+				throw new DocumentNotFoundError(uri)
 			}
-
-			throw new DocumentNotFoundError(uri)
 		}
 
 		return document
@@ -121,11 +123,7 @@ export class DocumentService {
 
 		const document = await this.getTextDocument(uri)
 
-		if (document) {
-			return this.getDocument(document, parentUri)
-		} else {
-			throw new DocumentNotFoundError(uri)
-		}
+		return this.getDocument(document, parentUri)
 	}
 
 	registerChildParentRelation(uri: string, parentUri: string) {

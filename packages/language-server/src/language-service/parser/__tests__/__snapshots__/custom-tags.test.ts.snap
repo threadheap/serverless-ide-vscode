@@ -8,7 +8,9 @@ ObjectASTNode {
     "documentType": "UNKNOWN",
     "errors": Array [],
     "externalImportCallbacks": Object {
+      "getExternalImportDocument": [Function],
       "onRegisterExternalImport": [Function],
+      "onRegisterPartialSchema": [Function],
       "onValidateExternalImport": [Function],
     },
     "globalsConfig": Object {
@@ -69,7 +71,9 @@ ObjectASTNode {
           "documentType": "UNKNOWN",
           "errors": Array [],
           "externalImportCallbacks": Object {
+            "getExternalImportDocument": [Function],
             "onRegisterExternalImport": [Function],
+            "onRegisterPartialSchema": [Function],
             "onValidateExternalImport": [Function],
           },
           "globalsConfig": Object {
@@ -127,7 +131,9 @@ ObjectASTNode {
               "documentType": "UNKNOWN",
               "errors": Array [],
               "externalImportCallbacks": Object {
+                "getExternalImportDocument": [Function],
                 "onRegisterExternalImport": [Function],
+                "onRegisterPartialSchema": [Function],
                 "onValidateExternalImport": [Function],
               },
               "globalsConfig": Object {
@@ -190,7 +196,9 @@ ObjectASTNode {
               "documentType": "UNKNOWN",
               "errors": Array [],
               "externalImportCallbacks": Object {
+                "getExternalImportDocument": [Function],
                 "onRegisterExternalImport": [Function],
+                "onRegisterPartialSchema": [Function],
                 "onValidateExternalImport": [Function],
               },
               "globalsConfig": Object {
@@ -258,7 +266,9 @@ ObjectASTNode {
         "documentType": "UNKNOWN",
         "errors": Array [],
         "externalImportCallbacks": Object {
+          "getExternalImportDocument": [Function],
           "onRegisterExternalImport": [Function],
+          "onRegisterPartialSchema": [Function],
           "onValidateExternalImport": [Function],
         },
         "globalsConfig": Object {
@@ -315,7 +325,9 @@ ObjectASTNode {
           "documentType": "UNKNOWN",
           "errors": Array [],
           "externalImportCallbacks": Object {
+            "getExternalImportDocument": [Function],
             "onRegisterExternalImport": [Function],
+            "onRegisterPartialSchema": [Function],
             "onValidateExternalImport": [Function],
           },
           "globalsConfig": Object {
@@ -390,7 +402,9 @@ ObjectASTNode {
     "documentType": "UNKNOWN",
     "errors": Array [],
     "externalImportCallbacks": Object {
+      "getExternalImportDocument": [Function],
       "onRegisterExternalImport": [Function],
+      "onRegisterPartialSchema": [Function],
       "onValidateExternalImport": [Function],
     },
     "globalsConfig": Object {
@@ -460,7 +474,9 @@ ObjectASTNode {
           "documentType": "UNKNOWN",
           "errors": Array [],
           "externalImportCallbacks": Object {
+            "getExternalImportDocument": [Function],
             "onRegisterExternalImport": [Function],
+            "onRegisterPartialSchema": [Function],
             "onValidateExternalImport": [Function],
           },
           "globalsConfig": Object {
@@ -518,7 +534,9 @@ ObjectASTNode {
               "documentType": "UNKNOWN",
               "errors": Array [],
               "externalImportCallbacks": Object {
+                "getExternalImportDocument": [Function],
                 "onRegisterExternalImport": [Function],
+                "onRegisterPartialSchema": [Function],
                 "onValidateExternalImport": [Function],
               },
               "globalsConfig": Object {
@@ -581,7 +599,9 @@ ObjectASTNode {
               "documentType": "UNKNOWN",
               "errors": Array [],
               "externalImportCallbacks": Object {
+                "getExternalImportDocument": [Function],
                 "onRegisterExternalImport": [Function],
+                "onRegisterPartialSchema": [Function],
                 "onValidateExternalImport": [Function],
               },
               "globalsConfig": Object {
@@ -649,7 +669,9 @@ ObjectASTNode {
         "documentType": "UNKNOWN",
         "errors": Array [],
         "externalImportCallbacks": Object {
+          "getExternalImportDocument": [Function],
           "onRegisterExternalImport": [Function],
+          "onRegisterPartialSchema": [Function],
           "onValidateExternalImport": [Function],
         },
         "globalsConfig": Object {
@@ -706,7 +728,9 @@ ObjectASTNode {
           "documentType": "UNKNOWN",
           "errors": Array [],
           "externalImportCallbacks": Object {
+            "getExternalImportDocument": [Function],
             "onRegisterExternalImport": [Function],
+            "onRegisterPartialSchema": [Function],
             "onValidateExternalImport": [Function],
           },
           "globalsConfig": Object {
@@ -781,7 +805,9 @@ ObjectASTNode {
     "documentType": "UNKNOWN",
     "errors": Array [],
     "externalImportCallbacks": Object {
+      "getExternalImportDocument": [Function],
       "onRegisterExternalImport": [Function],
+      "onRegisterPartialSchema": [Function],
       "onValidateExternalImport": [Function],
     },
     "globalsConfig": Object {
@@ -899,7 +925,9 @@ ObjectASTNode {
           "documentType": "UNKNOWN",
           "errors": Array [],
           "externalImportCallbacks": Object {
+            "getExternalImportDocument": [Function],
             "onRegisterExternalImport": [Function],
+            "onRegisterPartialSchema": [Function],
             "onValidateExternalImport": [Function],
           },
           "globalsConfig": Object {
@@ -969,7 +997,9 @@ ObjectASTNode {
         "documentType": "UNKNOWN",
         "errors": Array [],
         "externalImportCallbacks": Object {
+          "getExternalImportDocument": [Function],
           "onRegisterExternalImport": [Function],
+          "onRegisterPartialSchema": [Function],
           "onValidateExternalImport": [Function],
         },
         "globalsConfig": Object {
@@ -1053,7 +1083,9 @@ ObjectASTNode {
           "documentType": "UNKNOWN",
           "errors": Array [],
           "externalImportCallbacks": Object {
+            "getExternalImportDocument": [Function],
             "onRegisterExternalImport": [Function],
+            "onRegisterPartialSchema": [Function],
             "onValidateExternalImport": [Function],
           },
           "globalsConfig": Object {
@@ -1155,7 +1187,9 @@ ObjectASTNode {
     "documentType": "UNKNOWN",
     "errors": Array [],
     "externalImportCallbacks": Object {
+      "getExternalImportDocument": [Function],
       "onRegisterExternalImport": [Function],
+      "onRegisterPartialSchema": [Function],
       "onValidateExternalImport": [Function],
     },
     "globalsConfig": Object {
@@ -1275,7 +1309,9 @@ ObjectASTNode {
           "documentType": "UNKNOWN",
           "errors": Array [],
           "externalImportCallbacks": Object {
+            "getExternalImportDocument": [Function],
             "onRegisterExternalImport": [Function],
+            "onRegisterPartialSchema": [Function],
             "onValidateExternalImport": [Function],
           },
           "globalsConfig": Object {
@@ -1345,7 +1381,9 @@ ObjectASTNode {
         "documentType": "UNKNOWN",
         "errors": Array [],
         "externalImportCallbacks": Object {
+          "getExternalImportDocument": [Function],
           "onRegisterExternalImport": [Function],
+          "onRegisterPartialSchema": [Function],
           "onValidateExternalImport": [Function],
         },
         "globalsConfig": Object {
@@ -1430,7 +1468,9 @@ ObjectASTNode {
           "documentType": "UNKNOWN",
           "errors": Array [],
           "externalImportCallbacks": Object {
+            "getExternalImportDocument": [Function],
             "onRegisterExternalImport": [Function],
+            "onRegisterPartialSchema": [Function],
             "onValidateExternalImport": [Function],
           },
           "globalsConfig": Object {
@@ -1533,7 +1573,9 @@ ObjectASTNode {
     "documentType": "UNKNOWN",
     "errors": Array [],
     "externalImportCallbacks": Object {
+      "getExternalImportDocument": [Function],
       "onRegisterExternalImport": [Function],
+      "onRegisterPartialSchema": [Function],
       "onValidateExternalImport": [Function],
     },
     "globalsConfig": Object {
@@ -1604,7 +1646,9 @@ ObjectASTNode {
           "documentType": "UNKNOWN",
           "errors": Array [],
           "externalImportCallbacks": Object {
+            "getExternalImportDocument": [Function],
             "onRegisterExternalImport": [Function],
+            "onRegisterPartialSchema": [Function],
             "onValidateExternalImport": [Function],
           },
           "globalsConfig": Object {
@@ -1666,7 +1710,9 @@ ObjectASTNode {
         "documentType": "UNKNOWN",
         "errors": Array [],
         "externalImportCallbacks": Object {
+          "getExternalImportDocument": [Function],
           "onRegisterExternalImport": [Function],
+          "onRegisterPartialSchema": [Function],
           "onValidateExternalImport": [Function],
         },
         "globalsConfig": Object {
@@ -1723,7 +1769,9 @@ ObjectASTNode {
           "documentType": "UNKNOWN",
           "errors": Array [],
           "externalImportCallbacks": Object {
+            "getExternalImportDocument": [Function],
             "onRegisterExternalImport": [Function],
+            "onRegisterPartialSchema": [Function],
             "onValidateExternalImport": [Function],
           },
           "globalsConfig": Object {

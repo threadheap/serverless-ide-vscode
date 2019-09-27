@@ -229,11 +229,11 @@ export class ASTNode<TValue = unknown> {
 		return currMinNode || foundNode
 	}
 
-	validate(
+	async validate(
 		schema: JSONSchema,
 		validationResult: ValidationResult,
 		matchingSchemas: ISchemaCollector
-	): void {
+	): Promise<void> {
 		if (!matchingSchemas.include(this)) {
 			return
 		}
@@ -268,14 +268,22 @@ export class ASTNode<TValue = unknown> {
 			}
 		}
 		if (Array.isArray(schema.allOf)) {
-			schema.allOf.forEach(subSchema => {
-				this.validate(subSchema, validationResult, matchingSchemas)
-			})
+			for (const subSchema of schema.allOf) {
+				await this.validate(
+					subSchema,
+					validationResult,
+					matchingSchemas
+				)
+			}
 		}
 		if (schema.not) {
 			const subValidationResult = new ValidationResult()
 			const subMatchingSchemas = matchingSchemas.newSub()
-			this.validate(schema.not, subValidationResult, subMatchingSchemas)
+			await this.validate(
+				schema.not,
+				subValidationResult,
+				subMatchingSchemas
+			)
 			if (!subValidationResult.hasProblems()) {
 				validationResult.problems.push({
 					location: { start: this.start, end: this.end },
@@ -292,7 +300,7 @@ export class ASTNode<TValue = unknown> {
 			})
 		}
 
-		const testAlternatives = (
+		const testAlternatives = async (
 			alternatives: JSONSchema[],
 			maxOneMatch: boolean
 		) => {
@@ -304,11 +312,12 @@ export class ASTNode<TValue = unknown> {
 				validationResult: ValidationResult
 				matchingSchemas: ISchemaCollector
 			} = null
-			alternatives.forEach(subSchema => {
+
+			for (const subSchema of alternatives) {
 				const subValidationResult = new ValidationResult()
 				const subMatchingSchemas = matchingSchemas.newSub()
 
-				this.validate(
+				await this.validate(
 					subSchema,
 					subValidationResult,
 					subMatchingSchemas
@@ -331,7 +340,7 @@ export class ASTNode<TValue = unknown> {
 						subMatchingSchemas
 					)
 				}
-			})
+			}
 
 			if (matches.length > 1 && maxOneMatch) {
 				validationResult.problems.push({
@@ -354,10 +363,10 @@ export class ASTNode<TValue = unknown> {
 			return matches.length
 		}
 		if (Array.isArray(schema.anyOf)) {
-			testAlternatives(schema.anyOf, false)
+			await testAlternatives(schema.anyOf, false)
 		}
 		if (Array.isArray(schema.oneOf)) {
-			testAlternatives(schema.oneOf, true)
+			await testAlternatives(schema.oneOf, true)
 		}
 
 		if (Array.isArray(schema.enum)) {

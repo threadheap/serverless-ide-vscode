@@ -49,23 +49,24 @@ export class ArrayASTNode extends ASTNode<unknown[]> {
 		return ctn
 	}
 
-	validate(
+	async validate(
 		schema: JSONSchema,
 		validationResult: ValidationResult,
 		matchingSchemas: ISchemaCollector
-	): void {
+	): Promise<void> {
 		if (!matchingSchemas.include(this)) {
 			return
 		}
-		super.validate(schema, validationResult, matchingSchemas)
+		await super.validate(schema, validationResult, matchingSchemas)
 
 		if (Array.isArray(schema.items)) {
 			const subSchemas = schema.items as JSONSchema[]
-			subSchemas.forEach((subSchema, index) => {
+			let index = 0
+			for (const subSchema of subSchemas) {
 				const itemValidationResult = new ValidationResult()
 				const item = this.items[index]
 				if (item) {
-					item.validate(
+					await item.validate(
 						subSchema,
 						itemValidationResult,
 						matchingSchemas
@@ -74,7 +75,8 @@ export class ArrayASTNode extends ASTNode<unknown[]> {
 				} else if (this.items.length >= subSchemas.length) {
 					validationResult.propertiesValueMatches++
 				}
-			})
+				index += 1
+			}
 			if (this.items.length > subSchemas.length) {
 				if (typeof schema.additionalItems === "object") {
 					for (
@@ -83,7 +85,7 @@ export class ArrayASTNode extends ASTNode<unknown[]> {
 						i++
 					) {
 						const itemValidationResult = new ValidationResult()
-						this.items[i].validate(
+						await this.items[i].validate(
 							schema.additionalItems as any,
 							itemValidationResult,
 							matchingSchemas
@@ -105,15 +107,15 @@ export class ArrayASTNode extends ASTNode<unknown[]> {
 				}
 			}
 		} else if (schema.items) {
-			this.items.forEach(item => {
+			for (const item of this.items) {
 				const itemValidationResult = new ValidationResult()
-				item.validate(
+				await item.validate(
 					schema.items as JSONSchema,
 					itemValidationResult,
 					matchingSchemas
 				)
 				validationResult.mergePropertyMatch(itemValidationResult)
-			})
+			}
 		}
 
 		if (schema.minItems && this.items.length < schema.minItems) {
