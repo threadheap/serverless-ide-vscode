@@ -97,7 +97,7 @@ export class ArrayASTNode extends ASTNode<unknown[]> {
 				} else if (schema.additionalItems === false) {
 					validationResult.problems.push({
 						location: { start: this.start, end: this.end },
-						severity: ProblemSeverity.Warning,
+						severity: ProblemSeverity.Error,
 						message: localize(
 							"additionalItemsWarning",
 							"Array has too many items according to schema. Expected {0} or fewer.",
@@ -121,7 +121,7 @@ export class ArrayASTNode extends ASTNode<unknown[]> {
 		if (schema.minItems && this.items.length < schema.minItems) {
 			validationResult.problems.push({
 				location: { start: this.start, end: this.end },
-				severity: ProblemSeverity.Warning,
+				severity: ProblemSeverity.Error,
 				message: localize(
 					"minItemsWarning",
 					"Array has too few items. Expected {0} or more.",
@@ -133,7 +133,7 @@ export class ArrayASTNode extends ASTNode<unknown[]> {
 		if (schema.maxItems && this.items.length > schema.maxItems) {
 			validationResult.problems.push({
 				location: { start: this.start, end: this.end },
-				severity: ProblemSeverity.Warning,
+				severity: ProblemSeverity.Error,
 				message: localize(
 					"maxItemsWarning",
 					"Array has too many items. Expected {0} or fewer.",
@@ -152,7 +152,7 @@ export class ArrayASTNode extends ASTNode<unknown[]> {
 			if (duplicates) {
 				validationResult.problems.push({
 					location: { start: this.start, end: this.end },
-					severity: ProblemSeverity.Warning,
+					severity: ProblemSeverity.Error,
 					message: localize(
 						"uniqueItemsWarning",
 						"Array has duplicate items."

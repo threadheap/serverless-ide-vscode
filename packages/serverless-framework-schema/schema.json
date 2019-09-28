@@ -54298,7 +54298,6 @@
   },
   "required": [
     "service",
-    "provider",
-    "functions"
+    "provider"
   ]
 }

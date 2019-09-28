@@ -145,7 +145,7 @@ export class ObjectASTNode extends ASTNode<null> {
 						: { start: this.start, end: this.start + 1 }
 					validationResult.problems.push({
 						location,
-						severity: ProblemSeverity.Warning,
+						severity: ProblemSeverity.Error,
 						message: localize(
 							"MissingRequiredPropWarning",
 							'Missing property "{0}".',
@@ -243,7 +243,7 @@ export class ObjectASTNode extends ASTNode<null> {
 								start: propertyNode.key.start,
 								end: propertyNode.key.end
 							},
-							severity: ProblemSeverity.Warning,
+							severity: ProblemSeverity.Error,
 							message:
 								schema.errorMessage ||
 								localize(
@@ -261,7 +261,7 @@ export class ObjectASTNode extends ASTNode<null> {
 			if (this.properties.length > schema.maxProperties) {
 				validationResult.problems.push({
 					location: { start: this.start, end: this.end },
-					severity: ProblemSeverity.Warning,
+					severity: ProblemSeverity.Error,
 					message: localize(
 						"MaxPropWarning",
 						"Object has more properties than limit of {0}.",
@@ -275,7 +275,7 @@ export class ObjectASTNode extends ASTNode<null> {
 			if (this.properties.length < schema.minProperties) {
 				validationResult.problems.push({
 					location: { start: this.start, end: this.end },
-					severity: ProblemSeverity.Warning,
+					severity: ProblemSeverity.Error,
 					message: localize(
 						"MinPropWarning",
 						"Object has fewer properties than the required number of {0}",
@@ -298,7 +298,7 @@ export class ObjectASTNode extends ASTNode<null> {
 										start: this.start,
 										end: this.end
 									},
-									severity: ProblemSeverity.Warning,
+									severity: ProblemSeverity.Error,
 									message: localize(
 										"RequiredDependentPropWarning",
 										"Object is missing property {0} required by property {1}.",

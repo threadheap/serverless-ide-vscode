@@ -101,7 +101,7 @@ const buildSchema = async () => {
 				type: "array"
 			}
 		},
-		required: ["service", "provider", "functions"]
+		required: ["service", "provider"]
 	}
 }
 

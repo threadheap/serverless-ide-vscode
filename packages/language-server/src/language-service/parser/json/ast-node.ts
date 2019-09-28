@@ -242,7 +242,7 @@ export class ASTNode<TValue = unknown> {
 			if ((schema.type as string[]).indexOf(this.type) === -1) {
 				validationResult.problems.push({
 					location: { start: this.start, end: this.end },
-					severity: ProblemSeverity.Warning,
+					severity: ProblemSeverity.Error,
 					message:
 						schema.errorMessage ||
 						localize(
@@ -256,7 +256,7 @@ export class ASTNode<TValue = unknown> {
 			if (this.type !== schema.type) {
 				validationResult.problems.push({
 					location: { start: this.start, end: this.end },
-					severity: ProblemSeverity.Warning,
+					severity: ProblemSeverity.Error,
 					message:
 						schema.errorMessage ||
 						localize(

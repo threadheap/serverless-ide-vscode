@@ -50,7 +50,7 @@ export class NumberASTNode extends ASTNode<number> {
 			if (val % schema.multipleOf !== 0) {
 				validationResult.problems.push({
 					location: { start: this.start, end: this.end },
-					severity: ProblemSeverity.Warning,
+					severity: ProblemSeverity.Error,
 					message: localize(
 						"multipleOfWarning",
 						"Value is not divisible by {0}.",
@@ -64,7 +64,7 @@ export class NumberASTNode extends ASTNode<number> {
 			if (schema.exclusiveMinimum && val <= schema.minimum) {
 				validationResult.problems.push({
 					location: { start: this.start, end: this.end },
-					severity: ProblemSeverity.Warning,
+					severity: ProblemSeverity.Error,
 					message: localize(
 						"exclusiveMinimumWarning",
 						"Value is below the exclusive minimum of {0}.",
@@ -75,7 +75,7 @@ export class NumberASTNode extends ASTNode<number> {
 			if (!schema.exclusiveMinimum && val < schema.minimum) {
 				validationResult.problems.push({
 					location: { start: this.start, end: this.end },
-					severity: ProblemSeverity.Warning,
+					severity: ProblemSeverity.Error,
 					message: localize(
 						"minimumWarning",
 						"Value is below the minimum of {0}.",
@@ -89,7 +89,7 @@ export class NumberASTNode extends ASTNode<number> {
 			if (schema.exclusiveMaximum && val >= schema.maximum) {
 				validationResult.problems.push({
 					location: { start: this.start, end: this.end },
-					severity: ProblemSeverity.Warning,
+					severity: ProblemSeverity.Error,
 					message: localize(
 						"exclusiveMaximumWarning",
 						"Value is above the exclusive maximum of {0}.",
@@ -100,7 +100,7 @@ export class NumberASTNode extends ASTNode<number> {
 			if (!schema.exclusiveMaximum && val > schema.maximum) {
 				validationResult.problems.push({
 					location: { start: this.start, end: this.end },
-					severity: ProblemSeverity.Warning,
+					severity: ProblemSeverity.Error,
 					message: localize(
 						"maximumWarning",
 						"Value is above the maximum of {0}.",

@@ -37,7 +37,7 @@ export class StringASTNode extends ASTNode<string> {
 		if (schema.minLength && this.value.length < schema.minLength) {
 			validationResult.problems.push({
 				location: { start: this.start, end: this.end },
-				severity: ProblemSeverity.Warning,
+				severity: ProblemSeverity.Error,
 				message: localize(
 					"minLengthWarning",
 					"String is shorter than the minimum length of {0}.",
@@ -49,7 +49,7 @@ export class StringASTNode extends ASTNode<string> {
 		if (schema.maxLength && this.value.length > schema.maxLength) {
 			validationResult.problems.push({
 				location: { start: this.start, end: this.end },
-				severity: ProblemSeverity.Warning,
+				severity: ProblemSeverity.Error,
 				message: localize(
 					"maxLengthWarning",
 					"String is longer than the maximum length of {0}.",
@@ -63,7 +63,7 @@ export class StringASTNode extends ASTNode<string> {
 			if (!regex.test(this.value)) {
 				validationResult.problems.push({
 					location: { start: this.start, end: this.end },
-					severity: ProblemSeverity.Warning,
+					severity: ProblemSeverity.Error,
 					message:
 						schema.patternErrorMessage ||
 						schema.errorMessage ||
