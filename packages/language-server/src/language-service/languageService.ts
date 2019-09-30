@@ -7,7 +7,6 @@ import {
 	IConnection,
 	TextDocuments,
 	TextDocumentPositionParams,
-	ResponseError,
 	ReferenceParams,
 	Location,
 	DocumentLinkParams
@@ -47,17 +46,12 @@ export interface LanguageService {
 		position: Position
 	): Promise<CompletionList>
 	doValidation(uri: string): Promise<void>
-	doHover(
-		document: TextDocument,
-		position: Position
-	): Promise<Hover | ResponseError<void>>
+	doHover(document: TextDocument, position: Position): Promise<Hover | void>
 	findDocumentSymbols(document: TextDocument): Promise<DocumentSymbol[]>
 	findDefinitions(
 		documentPosition: TextDocumentPositionParams
-	): Promise<Definition | ResponseError<void>>
-	findReferences(
-		params: ReferenceParams
-	): Promise<Location[] | ResponseError<void>>
+	): Promise<Definition | void>
+	findReferences(params: ReferenceParams): Promise<Location[] | void>
 	findLinks(params: DocumentLinkParams): Promise<DocumentLink[]>
 	doResolve(completionItem: CompletionItem): Promise<CompletionItem>
 	clearDocument(uri: string): void
@@ -258,7 +252,7 @@ export class LanguageServiceImpl implements LanguageService {
 
 	async findDefinitions(
 		documentPosition: TextDocumentPositionParams
-	): Promise<Definition | ResponseError<void>> {
+	): Promise<Definition | void> {
 		try {
 			const document = await this.documentService.getTextDocument(
 				documentPosition.textDocument.uri
@@ -270,13 +264,12 @@ export class LanguageServiceImpl implements LanguageService {
 			return getDefinition(documentPosition, document, yamlDocument)
 		} catch (err) {
 			sendException(err)
-			return new ResponseError(1, err.message)
 		}
 	}
 
 	async findReferences(
 		referenceParams: ReferenceParams
-	): Promise<Location[] | ResponseError<void>> {
+	): Promise<Location[] | void> {
 		const document = await this.documentService.getTextDocument(
 			referenceParams.textDocument.uri
 		)
@@ -289,7 +282,6 @@ export class LanguageServiceImpl implements LanguageService {
 			return getReferences(referenceParams, document, yamlDocument)
 		} catch (err) {
 			sendException(err)
-			return new ResponseError(1, err.message)
 		}
 	}
 
@@ -331,7 +323,7 @@ export class LanguageServiceImpl implements LanguageService {
 	async doHover(
 		document: TextDocument,
 		position: Position
-	): Promise<Hover | ResponseError<void>> {
+	): Promise<Hover | void> {
 		try {
 			const yamlDocument = await this.documentService.getYamlDocument(
 				document.uri
@@ -340,7 +332,6 @@ export class LanguageServiceImpl implements LanguageService {
 			return this.hover.doHover(document, position, yamlDocument)
 		} catch (err) {
 			sendException(err)
-			return new ResponseError(1, err.message)
 		}
 	}
 

@@ -1,5 +1,8 @@
 # Change log
 
+## v0.4.9
+- Gracefully handle exceptions when interacting unsupported yaml documents
+
 ## v0.4.8
 - Rename `org` to `tenant` in serverless framework schema
 

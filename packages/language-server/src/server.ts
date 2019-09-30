@@ -144,7 +144,9 @@ connection.onInitialized(() => {
 	})
 
 	connection.onHover(
-		async (textDocumentPositionParams: TextDocumentPositionParams) => {
+		async (
+			textDocumentPositionParams: TextDocumentPositionParams
+		): Promise<any> => {
 			const document = documents.get(
 				textDocumentPositionParams.textDocument.uri
 			)
@@ -170,13 +172,17 @@ connection.onInitialized(() => {
 		return customLanguageService.findDocumentSymbols(document)
 	})
 
-	connection.onDefinition((documentPosition: TextDocumentPositionParams) => {
-		return customLanguageService.findDefinitions(documentPosition)
-	})
+	connection.onDefinition(
+		(documentPosition: TextDocumentPositionParams): Promise<any> => {
+			return customLanguageService.findDefinitions(documentPosition)
+		}
+	)
 
-	connection.onReferences((referenceParams: ReferenceParams) => {
-		return customLanguageService.findReferences(referenceParams)
-	})
+	connection.onReferences(
+		(referenceParams: ReferenceParams): Promise<any> => {
+			return customLanguageService.findReferences(referenceParams)
+		}
+	)
 
 	connection.onDocumentLinks(linkParams => {
 		return customLanguageService.findLinks(linkParams)
