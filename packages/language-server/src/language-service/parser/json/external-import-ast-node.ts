@@ -2,16 +2,15 @@ import { YAMLDocument } from "../index"
 import { ASTNode } from "./ast-node"
 import * as Json from "jsonc-parser"
 import { JSONSchema } from "../../jsonSchema"
-import * as Path from "path"
 import {
 	ValidationResult,
 	IProblem,
 	ProblemSeverity
 } from "./validation-result"
 import { DocumentNotFoundError } from "../../services/document"
+import { resolveRelativePath } from "../../utils/url"
 
 const IMPORT_REGEXP = /^\${file\((.+)\.(yml|yaml)\)(:\w+)?}$/
-const FILE_URI_PREFIX = "file://"
 
 export type OnRegisterExternalImport = (uri: string, parentUri: string) => void
 
@@ -149,20 +148,12 @@ export class ExternalImportASTNode extends ASTNode<string> {
 	}
 
 	private resolvePath(path: string): string | void {
-		if (Path.isAbsolute(path)) {
-			return this.resolveOpts(path)
-		} else {
-			if (this.document.uri.startsWith(FILE_URI_PREFIX)) {
-				return this.resolveOpts(
-					FILE_URI_PREFIX +
-						Path.join(
-							Path.dirname(
-								this.document.uri.replace(FILE_URI_PREFIX, "")
-							),
-							path
-						)
-				)
-			}
+		const uri = resolveRelativePath(path, this.document.uri)
+
+		if (uri) {
+			return this.resolveOpts(uri)
 		}
+
+		return uri
 	}
 }

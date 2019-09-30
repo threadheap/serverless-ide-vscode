@@ -242,6 +242,9 @@ export class YAMLValidation {
 			const currentDocProblems = await yamlDocument.getValidationProblems(
 				schema.schema
 			)
+			currentDocProblems.push(
+				...(await yamlDocument.validateSubStackImports())
+			)
 			currentDocProblems.forEach(problem => {
 				if (
 					problem.message.startsWith("Incorrect type") ||

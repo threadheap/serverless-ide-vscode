@@ -32,6 +32,20 @@ export const findDocumentLinks = (
 
 	if (root) {
 		collectLinks(root)
+
+		yamlDocument.collectSubStacks().forEach(subStack => {
+			if (subStack.uri) {
+				links.push(
+					DocumentLink.create(
+						Range.create(
+							document.positionAt(subStack.templateUrlNode.start),
+							document.positionAt(subStack.templateUrlNode.end)
+						),
+						subStack.uri
+					)
+				)
+			}
+		})
 	}
 
 	return links

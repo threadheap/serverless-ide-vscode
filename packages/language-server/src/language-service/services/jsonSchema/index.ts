@@ -126,12 +126,12 @@ export class ResolvedSchema {
 				schema.additionalProperties,
 				visitor
 			)
-		} else if (next.match("[0-9]+")) {
+		} else if (typeof next === "number" || next.match("[0-9]+")) {
 			if (schema.items) {
 				return this.getSectionRecursive(path, schema.items, visitor)
 			} else if (Array.isArray(schema.items)) {
 				try {
-					const index = parseInt(next, 10)
+					const index = Number(next)
 					if (schema.items[index]) {
 						return this.getSectionRecursive(
 							path,

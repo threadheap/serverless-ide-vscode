@@ -28,10 +28,11 @@ import { BooleanASTNode } from "./boolean-ast-node"
 import { ObjectASTNode } from "./object-ast-node"
 import { ArrayASTNode } from "./array-ast-node"
 import { NullASTNode } from "./null-ast-node"
-import { ErrorCode } from "./validation-result"
+import { ErrorCode, IProblem, ProblemSeverity } from "./validation-result"
 import { getResourceName } from "../../utils/resources"
 import { SubStack } from "../../model/sub-stack"
-import { isRemoteUrl } from "../../utils/url"
+import { isRemoteUrl, resolveRelativePath } from "../../utils/url"
+import { DocumentNotFoundError } from "../../services/document"
 
 interface YamlScalar extends Yaml.YAMLScalar {
 	customTag?: CustomTag
@@ -111,8 +112,7 @@ export class YAMLDocument extends JSONDocument {
 		return this.getNodeFromOffsetEndInclusive(offset)
 	}
 
-	collectSubStacks(): [boolean, SubStack[]] {
-		let failedToParse = false
+	collectSubStacks(): SubStack[] {
 		const subStacks: SubStack[] = []
 
 		if (
@@ -134,15 +134,18 @@ export class YAMLDocument extends JSONDocument {
 
 							if (
 								templateUrlNode &&
-								typeof templateUrlNode.value === "string" &&
+								templateUrlNode instanceof StringASTNode &&
 								!isRemoteUrl(templateUrlNode.value)
 							) {
 								subStacks.push({
 									path: templateUrlNode.value,
-									node: resourceNode
+									uri: resolveRelativePath(
+										templateUrlNode.value,
+										this.uri
+									),
+									node: resourceNode,
+									templateUrlNode
 								})
-							} else {
-								failedToParse = true
 							}
 						} else if (
 							resourceType === "AWS::Serverless::Application"
@@ -158,10 +161,13 @@ export class YAMLDocument extends JSONDocument {
 							) {
 								subStacks.push({
 									path: locationNode.value,
-									node: resourceNode
+									uri: resolveRelativePath(
+										locationNode.value,
+										this.uri
+									),
+									node: resourceNode,
+									templateUrlNode: locationNode
 								})
-							} else {
-								failedToParse = true
 							}
 						}
 					}
@@ -169,7 +175,36 @@ export class YAMLDocument extends JSONDocument {
 			}
 		}
 
-		return [failedToParse, subStacks]
+		return subStacks
+	}
+
+	async validateSubStackImports(): Promise<IProblem[]> {
+		const subStacks = this.collectSubStacks()
+		const problems = []
+
+		for (const subStack of subStacks) {
+			if (subStack.uri) {
+				try {
+					await this.externalImportCallbacks.getExternalImportDocument(
+						subStack.uri,
+						this.uri
+					)
+				} catch (err) {
+					if (err instanceof DocumentNotFoundError) {
+						problems.push({
+							message: "File not found",
+							location: {
+								start: subStack.templateUrlNode.start,
+								end: subStack.templateUrlNode.end
+							},
+							severity: ProblemSeverity.Warning
+						})
+					}
+				}
+			}
+		}
+
+		return problems
 	}
 
 	private recursivelyBuildAst(parent: ASTNode, node: Yaml.YAMLNode): ASTNode {

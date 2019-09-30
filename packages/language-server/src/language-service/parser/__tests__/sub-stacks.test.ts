@@ -42,13 +42,11 @@ test("should collect sub-stacks paths", () => {
 	const doc = parseYaml(document)
 
 	expect(doc.collectSubStacks()).toEqual([
-		false,
-		[
-			{
-				path: "./index.yaml",
-				node: expect.any(Object)
-			}
-		]
+		{
+			path: "./index.yaml",
+			node: expect.any(Object),
+			templateUrlNode: expect.any(Object)
+		}
 	])
 })
 
@@ -62,11 +60,16 @@ test("should collect multiple sub stacks", () => {
 	const doc = parseYaml(document)
 
 	expect(doc.collectSubStacks()).toEqual([
-		false,
-		[
-			{ path: "./index.yaml", node: expect.any(Object) },
-			{ path: "../my-other-app/template.yaml", node: expect.any(Object) }
-		]
+		{
+			path: "./index.yaml",
+			node: expect.any(Object),
+			templateUrlNode: expect.any(Object)
+		},
+		{
+			path: "../my-other-app/template.yaml",
+			node: expect.any(Object),
+			templateUrlNode: expect.any(Object)
+		}
 	])
 })
 
@@ -74,5 +77,5 @@ test("should not collect remote sub stacks", () => {
 	const document = TextDocument.create("", "", 1, templateWithRemoteSubStack)
 	const doc = parseYaml(document)
 
-	expect(doc.collectSubStacks()).toEqual([true, []])
+	expect(doc.collectSubStacks()).toEqual([])
 })
