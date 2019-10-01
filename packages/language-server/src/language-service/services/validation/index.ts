@@ -86,7 +86,7 @@ export class YAMLValidation {
 				documentType === DocumentType.SAM)
 		) {
 			try {
-				await this.validateWithCfnLint(textDocument)
+				return await this.validateWithCfnLint(textDocument)
 			} catch (err) {
 				throw new CfnLintFailedToExecuteError(err.message)
 			}
