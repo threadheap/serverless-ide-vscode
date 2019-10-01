@@ -1,5 +1,8 @@
 # Change log
 
+## v0.4.10
+- Turns off schema validation, when `cfn-lint` option is selected
+
 ## v0.4.9
 - Gracefully handle exceptions when interacting unsupported yaml documents
 
