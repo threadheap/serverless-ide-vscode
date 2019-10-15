@@ -1404,6 +1404,11 @@
               "description": "Optional configuration which specifies if Websockets logs are used"
             }
           }
+        },
+        "variableSyntax": {
+          "type": "string",
+          "description": "A custom syntax to overwrite the default ${xxx} syntax to resolve conflicts with some CloudFormation functionality",
+          "default": "\\${([ ~:a-zA-Z0-9._@\\'\",\\-\\/\\(\\)]+?)}"
         }
       },
       "required": [
