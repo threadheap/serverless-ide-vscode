@@ -1,5 +1,10 @@
 # Change log
 
+## v0.4.11
+- Update SAM/Cloudformation schema with recent updates
+- Small serverless framework schema improvements
+- Allow additional properties for serverless framework schema for better plugins support
+
 ## v0.4.10
 - Turns off schema validation, when `cfn-lint` option is selected
 
