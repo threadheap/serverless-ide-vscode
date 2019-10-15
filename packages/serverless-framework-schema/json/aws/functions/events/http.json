@@ -109,6 +109,9 @@
                                         "WHEN_NO_MATCH",
                                         "WHEN_NO_TEMPLATES"
                                     ]
+                                },
+                                "schema": {
+                                    "type": "object"
                                 }
                             },
                             "additionalProperties": false

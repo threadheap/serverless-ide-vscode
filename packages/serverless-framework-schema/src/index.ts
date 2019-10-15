@@ -54,7 +54,7 @@ const buildSchema = async () => {
 
 	return {
 		$id: "http://json-schema.org/draft-04/schema#",
-		additionalProperties: false,
+		additionalProperties: true,
 		definitions: {
 			...definitions,
 			...cloudFormationSchema.definitions
@@ -101,7 +101,7 @@ const buildSchema = async () => {
 				type: "array"
 			}
 		},
-		required: ["service", "provider", "functions"]
+		required: ["service", "provider"]
 	}
 }
 
