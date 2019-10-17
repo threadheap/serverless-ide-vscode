@@ -1,5 +1,8 @@
 # Change log
 
+## v0.4.12
+- Allow OPTION as a valid HTTP method in Serverless framework schema
+
 ## v0.4.11
 - Update SAM/Cloudformation schema with recent updates
 - Small serverless framework schema improvements
