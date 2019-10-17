@@ -568,6 +568,7 @@
                     "post",
                     "put",
                     "delete",
+                    "options",
                     "trace",
                     "connect",
                     "any",
@@ -576,6 +577,7 @@
                     "POST",
                     "PUT",
                     "DELETE",
+                    "OPTIONS",
                     "TRACE",
                     "CONNECT"
                   ],
