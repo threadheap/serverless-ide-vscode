@@ -270,6 +270,58 @@
         "alexaSmartHome"
       ]
     },
+    "aws:functions:events:cloudFront": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "cloudFront": {
+          "type": "object",
+          "description": "Amazon CloudFront is a content delivery network (CDN) service that allows Lambda functions to be executed at edge locations.",
+          "additionalProperties": false,
+          "properties": {
+            "eventType": {
+              "type": "string",
+              "enum": [
+                "viewer-request",
+                "origin-request",
+                "origin-response",
+                "viewer-response"
+              ]
+            },
+            "origin": {
+              "description": "Origin is the endpoint definition of the service that is delivered, e.g. S3 bucket or a website.",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "DomainName": {
+                      "type": "string"
+                    },
+                    "OriginPath": {
+                      "type": "string"
+                    },
+                    "CustomOriginConfig": {
+                      "type": "object"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "required": [
+            "eventType",
+            "origin"
+          ]
+        }
+      },
+      "required": [
+        "cloudFront"
+      ]
+    },
     "aws:functions:events:cloudwatchEvent": {
       "type": "object",
       "additionalProperties": false,
@@ -1042,6 +1094,9 @@
               },
               {
                 "$ref": "#/definitions/aws:functions:events:eventBridge"
+              },
+              {
+                "$ref": "#/definitions/aws:functions:events:cloudFront"
               }
             ]
           }

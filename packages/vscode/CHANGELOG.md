@@ -3,6 +3,7 @@
 ## v0.5.0
 - Various schemas bugfixes and improvements for Cloudformation and Serverless framework
 - Autocompletion for conditions properties and functions
+- Support for Lambda@Edge in Serverless framework config
 - Minor bug fixes
 
 ## v0.4.12

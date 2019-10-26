@@ -147,6 +147,9 @@
                     },
                     {
                         "$ref": "#/definitions/aws:functions:events:eventBridge"
+                    },
+                    {
+                        "$ref": "#/definitions/aws:functions:events:cloudFront"
                     }
                 ]
             }
