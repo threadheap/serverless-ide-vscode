@@ -77,6 +77,7 @@ export const addCustomTagValueCompletion = (
 			// TODO: add support for !GetAtt attributes
 			case ReferenceType.GET_ATT:
 			case ReferenceType.REF:
+			case ReferenceType.CONDITION:
 			case ReferenceType.DEPENDS_ON: {
 				const options = addReferenceablesOptions(
 					customTag,

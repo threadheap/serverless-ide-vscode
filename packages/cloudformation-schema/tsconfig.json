@@ -3,10 +3,9 @@
         "target": "es6",
         "moduleResolution": "node",
         "module": "commonjs",
-        "allowJs": true,
-        "resolveJsonModule": true,
         "strict": true,
-        "outDir": "./out"
+        "outDir": "./out",
+        "declaration": true
     },
     "include": [
         "src"

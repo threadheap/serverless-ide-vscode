@@ -830,6 +830,50 @@ Object {
       "data": Object {
         "documentType": "CLOUD_FORMATION",
       },
+      "insertText": "!Condition \${1||}",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!Condition",
+      "textEdit": Object {
+        "newText": "!Condition \${1||}",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "data": Object {
+        "documentType": "CLOUD_FORMATION",
+      },
+      "insertText": "Condition: \${1||}",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Condition",
+      "textEdit": Object {
+        "newText": "Condition: \${1||}",
+        "range": Object {
+          "end": Object {
+            "character": 9,
+            "line": 1,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 1,
+          },
+        },
+      },
+    },
+    Object {
+      "data": Object {
+        "documentType": "CLOUD_FORMATION",
+      },
       "documentation": "",
       "insertText": "Conditions:
 	",
@@ -1842,6 +1886,50 @@ Object {
       "label": "DependsOn",
       "textEdit": Object {
         "newText": "DependsOn: \${1||}",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "data": Object {
+        "documentType": "CLOUD_FORMATION",
+      },
+      "insertText": "!Condition \${1||}",
+      "insertTextFormat": 2,
+      "kind": 12,
+      "label": "!Condition",
+      "textEdit": Object {
+        "newText": "!Condition \${1||}",
+        "range": Object {
+          "end": Object {
+            "character": 0,
+            "line": 4,
+          },
+          "start": Object {
+            "character": 0,
+            "line": 4,
+          },
+        },
+      },
+    },
+    Object {
+      "data": Object {
+        "documentType": "CLOUD_FORMATION",
+      },
+      "insertText": "Condition: \${1||}",
+      "insertTextFormat": 2,
+      "kind": 10,
+      "label": "Condition",
+      "textEdit": Object {
+        "newText": "Condition: \${1||}",
         "range": Object {
           "end": Object {
             "character": 0,

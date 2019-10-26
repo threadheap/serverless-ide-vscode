@@ -4,6 +4,7 @@ import fs = require("fs")
 import stringify = require("json-stable-stringify")
 import pick = require("lodash/pick")
 import path = require("path")
+import { enrichResources } from "@serverless-ide/cloudformation-schema"
 import request = require("request-promise")
 
 const downloadSchema = async (): Promise<object> => {
@@ -161,6 +162,7 @@ const generateSchema = (schema: any): any => {
 	}
 
 	processEventSources(schema.definitions)
+	enrichResources(schema)
 
 	return schema
 }

@@ -268,9 +268,6 @@ const resolveSchemaContent = async (
 	return new ResolvedSchema(schema, resolveErrors)
 }
 
-const CLOUD_FORMATION_SCHEMA_URL =
-	"https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json"
-
 interface PartialSchema {
 	properties: {
 		[key: string]: ResolvedSchema
@@ -286,14 +283,13 @@ export class JSONSchemaService {
 
 	constructor() {
 		const samSchema = require("@serverless-ide/sam-schema/schema.json") as JSONSchema
+		const cloudformationSchema = require("@serverless-ide/cloudformation-schema/schema.json") as JSONSchema
 		const serverlessFrameworkSchema = require("@serverless-ide/serverless-framework-schema/schema.json") as JSONSchema
 
 		this.schemas = {
-			[DocumentType.CLOUD_FORMATION]: this.loadSchema(
-				CLOUD_FORMATION_SCHEMA_URL
-			).then(unresolvedSchema => {
-				return resolveSchemaContent(unresolvedSchema)
-			}),
+			[DocumentType.CLOUD_FORMATION]: resolveSchemaContent(
+				new UnresolvedSchema(cloudformationSchema)
+			),
 			[DocumentType.SAM]: resolveSchemaContent(
 				new UnresolvedSchema(samSchema)
 			),

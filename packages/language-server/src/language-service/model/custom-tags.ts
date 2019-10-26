@@ -169,6 +169,15 @@ export const CUSTOM_TAGS: CustomTag[] = [
 		description:
 			"With the DependsOn attribute you can specify that the creation of a specific resource follows another.",
 		referenceEntityTypes: [ReferenceEntityType.RESOURCE]
+	},
+	{
+		type: ReferenceType.CONDITION,
+		tag: "!Condition",
+		kind: "scalar",
+		propertyName: "Condition",
+		description:
+			"The optional Conditions section contains statements that define the circumstances under which entities are created or configured.",
+		referenceEntityTypes: [ReferenceEntityType.CONDITION]
 	}
 ]
 

@@ -1,15 +1,13 @@
 {
-    "name": "@serverless-ide/serverless-framework-schema",
+    "name": "@serverless-ide/cloudformation-schema",
     "version": "0.4.12",
     "description": "Json schema for AWS SAM template configuration",
-    "main": "index.js",
+    "main": "out/index.js",
     "repository": "git@github.com:threadheap/aws-sam-json-schema.git",
     "author": "Pavel Vlasov <freakycue@gmail.com>",
     "keywords": [
         "aws",
-        "serverless",
-        "serverless framework",
-        "sls",
+        "sam",
         "cloudformation",
         "json",
         "schema",
@@ -25,14 +23,11 @@
         "typescript": "^3.2.2"
     },
     "devDependencies": {
-        "@types/glob": "^7.1.1",
         "@types/json-stable-stringify": "^1.0.32",
         "@types/lodash": "^4.14.119",
         "@types/node": "^10.12.18",
         "@types/request": "^2.48.1",
-        "@types/request-promise": "^4.1.42",
-        "glob": "^7.1.4",
-        "@serverless-ide/sam-schema": "^0.4.11"
+        "@types/request-promise": "^4.1.42"
     },
     "scripts": {
         "build": "rm -rf ./out && tsc -p .",
@@ -43,5 +38,6 @@
     },
     "publishConfig": {
         "access": "public"
-    }
+    },
+    "gitHead": "4bc5eddda35b9e7cc28f2580da1960b017881f33"
 }

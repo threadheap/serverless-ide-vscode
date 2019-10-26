@@ -1,31 +1,7 @@
 import glob = require("glob")
-import * as https from "https"
 import * as path from "path"
 import { readFileSync, writeFileSync } from "fs"
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const loadCloudFormationSchema = (): Promise<any> => {
-	return new Promise((resolve, reject) => {
-		https
-			.get(
-				"https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json",
-				resp => {
-					let data = ""
-
-					// A chunk of data has been recieved.
-					resp.on("data", chunk => {
-						data += chunk
-					})
-
-					// The whole response has been received. Print out the result.
-					resp.on("end", () => {
-						resolve(JSON.parse(data))
-					})
-				}
-			)
-			.on("error", reject)
-	})
-}
+import samSchema = require("@serverless-ide/sam-schema/schema.json")
 
 const readDefinitions = () => {
 	const files = glob.sync("./json/**/*.json")
@@ -50,14 +26,13 @@ const readDefinitions = () => {
 
 const buildSchema = async () => {
 	const definitions = readDefinitions()
-	const cloudFormationSchema = await loadCloudFormationSchema()
 
 	return {
 		$id: "http://json-schema.org/draft-04/schema#",
 		additionalProperties: true,
 		definitions: {
 			...definitions,
-			...cloudFormationSchema.definitions
+			...samSchema.definitions
 		},
 		properties: {
 			app: {
@@ -85,14 +60,21 @@ const buildSchema = async () => {
 				$ref: "#/definitions/aws:layers"
 			},
 			resources: {
-				type: "object",
-				properties: {
-					Resources: cloudFormationSchema.properties.Resources,
-					Parameters: cloudFormationSchema.properties.Parameters,
-					Metadata: cloudFormationSchema.properties.Metadata,
-					Outputs: cloudFormationSchema.properties.Outputs
-				},
-				additionalProperties: false
+				oneOf: [
+					{
+						type: "object",
+						properties: samSchema.properties,
+						additionalProperties: false
+					},
+					{
+						type: "array",
+						item: {
+							type: "object",
+							properties: samSchema.properties,
+							additionalProperties: false
+						}
+					}
+				]
 			},
 			custom: {
 				type: "object"

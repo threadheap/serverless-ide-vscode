@@ -9,14 +9,17 @@ export enum ReferenceType {
 	// ref/sub
 	REF = "REF",
 	// depends on
-	DEPENDS_ON = "DEPENDS_ON"
+	DEPENDS_ON = "DEPENDS_ON",
+	// conditions
+	CONDITION = "CONDITION"
 }
 
 export const enum ReferenceEntityType {
 	RESOURCE = "RESOURCE",
 	PARAMETER = "PARAMETER",
 	OUTPUT = "OUTPUT",
-	MAPPING = "MAPPING"
+	MAPPING = "MAPPING",
+	CONDITION = "CONDITION"
 }
 
 export interface Reference {

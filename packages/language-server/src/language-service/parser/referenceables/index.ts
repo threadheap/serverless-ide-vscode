@@ -15,7 +15,8 @@ export const generateEmptyReferenceables = (): Referenceables => ({
 		[ReferenceEntityType.PARAMETER]: new SortedHash(),
 		[ReferenceEntityType.RESOURCE]: new SortedHash(),
 		[ReferenceEntityType.MAPPING]: new SortedHash(),
-		[ReferenceEntityType.OUTPUT]: new SortedHash()
+		[ReferenceEntityType.OUTPUT]: new SortedHash(),
+		[ReferenceEntityType.CONDITION]: new SortedHash()
 	},
 	lookup: new WeakMap()
 })
@@ -113,6 +114,12 @@ const collectCfnReferenceables = (
 	collectReferenceablesFromNode(
 		ReferenceEntityType.OUTPUT,
 		getNodeItemByKey(node, "Output"),
+		referenceables
+	)
+
+	collectReferenceablesFromNode(
+		ReferenceEntityType.CONDITION,
+		getNodeItemByKey(node, "Conditions"),
 		referenceables
 	)
 

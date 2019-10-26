@@ -1,6 +1,6 @@
-# @serverless-ide/sam-schema
+# @serverless-ide/cloudformation-schema
 
-## Json schema for AWS SAM template configuration
+## Json schema for Cloudformation template configuration
 
 Based on [awslabs/goformation](https://raw.githubusercontent.com/awslabs/goformation/master/schema/sam.schema.json)
 and adds support of globals configuration

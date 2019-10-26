@@ -1,5 +1,285 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`custom tags parse smoke tests CONDITION CONDITION 1`] = `
+ObjectASTNode {
+  "_value": null,
+  "customTag": undefined,
+  "document": YAMLDocument {
+    "documentType": "UNKNOWN",
+    "errors": Array [],
+    "externalImportCallbacks": Object {
+      "onRegisterExternalImport": [Function],
+      "onValidateExternalImport": [Function],
+    },
+    "globalsConfig": Object {
+      "Api": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::Api",
+      },
+      "Function": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::Function",
+      },
+      "SimpleTable": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::SimpleTable",
+      },
+    },
+    "parameters": Array [],
+    "parentParams": undefined,
+    "referenceables": Object {
+      "hash": Object {
+        "CONDITION": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "MAPPING": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "OUTPUT": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "PARAMETER": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "RESOURCE": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+      },
+      "lookup": WeakMap {},
+    },
+    "references": Object {
+      "hash": Object {},
+      "lookup": WeakMap {},
+    },
+    "root": [Circular],
+    "syntaxErrors": Array [],
+    "uri": "",
+    "warnings": Array [],
+  },
+  "end": 34,
+  "location": null,
+  "parent": null,
+  "properties": Array [
+    PropertyASTNode {
+      "_value": StringASTNode {
+        "_value": "logicVariable",
+        "customTag": Object {
+          "description": "The optional Conditions section contains statements that define the circumstances under which entities are created or configured.",
+          "kind": "scalar",
+          "propertyName": "Condition",
+          "referenceEntityTypes": Array [
+            "CONDITION",
+          ],
+          "tag": "!Condition",
+          "type": "CONDITION",
+        },
+        "document": YAMLDocument {
+          "documentType": "UNKNOWN",
+          "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
+          "globalsConfig": Object {
+            "Api": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Api",
+            },
+            "Function": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Function",
+            },
+            "SimpleTable": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::SimpleTable",
+            },
+          },
+          "parameters": Array [],
+          "parentParams": undefined,
+          "referenceables": Object {
+            "hash": Object {
+              "CONDITION": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+            },
+            "lookup": WeakMap {},
+          },
+          "references": Object {
+            "hash": Object {},
+            "lookup": WeakMap {},
+          },
+          "root": [Circular],
+          "syntaxErrors": Array [],
+          "uri": "",
+          "warnings": Array [],
+        },
+        "end": 34,
+        "isKey": false,
+        "location": "property",
+        "parent": [Circular],
+        "start": 21,
+        "type": "string",
+      },
+      "colonOffset": -1,
+      "customTag": undefined,
+      "document": YAMLDocument {
+        "documentType": "UNKNOWN",
+        "errors": Array [],
+        "externalImportCallbacks": Object {
+          "onRegisterExternalImport": [Function],
+          "onValidateExternalImport": [Function],
+        },
+        "globalsConfig": Object {
+          "Api": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::Api",
+          },
+          "Function": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::Function",
+          },
+          "SimpleTable": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::SimpleTable",
+          },
+        },
+        "parameters": Array [],
+        "parentParams": undefined,
+        "referenceables": Object {
+          "hash": Object {
+            "CONDITION": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "MAPPING": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "OUTPUT": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "PARAMETER": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "RESOURCE": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+          },
+          "lookup": WeakMap {},
+        },
+        "references": Object {
+          "hash": Object {},
+          "lookup": WeakMap {},
+        },
+        "root": [Circular],
+        "syntaxErrors": Array [],
+        "uri": "",
+        "warnings": Array [],
+      },
+      "end": 34,
+      "key": StringASTNode {
+        "_value": "property",
+        "customTag": undefined,
+        "document": YAMLDocument {
+          "documentType": "UNKNOWN",
+          "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
+          "globalsConfig": Object {
+            "Api": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Api",
+            },
+            "Function": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Function",
+            },
+            "SimpleTable": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::SimpleTable",
+            },
+          },
+          "parameters": Array [],
+          "parentParams": undefined,
+          "referenceables": Object {
+            "hash": Object {
+              "CONDITION": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+            },
+            "lookup": WeakMap {},
+          },
+          "references": Object {
+            "hash": Object {},
+            "lookup": WeakMap {},
+          },
+          "root": [Circular],
+          "syntaxErrors": Array [],
+          "uri": "",
+          "warnings": Array [],
+        },
+        "end": 8,
+        "isKey": true,
+        "location": "property",
+        "parent": [Circular],
+        "start": 0,
+        "type": "string",
+      },
+      "location": null,
+      "parent": [Circular],
+      "start": 0,
+      "type": "property",
+    },
+  ],
+  "start": 0,
+  "type": "object",
+}
+`;
+
 exports[`custom tags parse smoke tests DEPENDS_ON DEPENDS_ON 1`] = `
 ObjectASTNode {
   "_value": null,
@@ -29,6 +309,10 @@ ObjectASTNode {
     "parentParams": undefined,
     "referenceables": Object {
       "hash": Object {
+        "CONDITION": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
         "MAPPING": SortedHash {
           "hash": Object {},
           "sequence": Array [],
@@ -90,6 +374,10 @@ ObjectASTNode {
           "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
+              "CONDITION": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
               "MAPPING": SortedHash {
                 "hash": Object {},
                 "sequence": Array [],
@@ -148,6 +436,10 @@ ObjectASTNode {
               "parentParams": undefined,
               "referenceables": Object {
                 "hash": Object {
+                  "CONDITION": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
                   "MAPPING": SortedHash {
                     "hash": Object {},
                     "sequence": Array [],
@@ -211,6 +503,10 @@ ObjectASTNode {
               "parentParams": undefined,
               "referenceables": Object {
                 "hash": Object {
+                  "CONDITION": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
                   "MAPPING": SortedHash {
                     "hash": Object {},
                     "sequence": Array [],
@@ -279,6 +575,10 @@ ObjectASTNode {
         "parentParams": undefined,
         "referenceables": Object {
           "hash": Object {
+            "CONDITION": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
             "MAPPING": SortedHash {
               "hash": Object {},
               "sequence": Array [],
@@ -336,6 +636,10 @@ ObjectASTNode {
           "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
+              "CONDITION": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
               "MAPPING": SortedHash {
                 "hash": Object {},
                 "sequence": Array [],
@@ -411,6 +715,10 @@ ObjectASTNode {
     "parentParams": undefined,
     "referenceables": Object {
       "hash": Object {
+        "CONDITION": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
         "MAPPING": SortedHash {
           "hash": Object {},
           "sequence": Array [],
@@ -481,6 +789,10 @@ ObjectASTNode {
           "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
+              "CONDITION": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
               "MAPPING": SortedHash {
                 "hash": Object {},
                 "sequence": Array [],
@@ -539,6 +851,10 @@ ObjectASTNode {
               "parentParams": undefined,
               "referenceables": Object {
                 "hash": Object {
+                  "CONDITION": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
                   "MAPPING": SortedHash {
                     "hash": Object {},
                     "sequence": Array [],
@@ -602,6 +918,10 @@ ObjectASTNode {
               "parentParams": undefined,
               "referenceables": Object {
                 "hash": Object {
+                  "CONDITION": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
                   "MAPPING": SortedHash {
                     "hash": Object {},
                     "sequence": Array [],
@@ -670,6 +990,10 @@ ObjectASTNode {
         "parentParams": undefined,
         "referenceables": Object {
           "hash": Object {
+            "CONDITION": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
             "MAPPING": SortedHash {
               "hash": Object {},
               "sequence": Array [],
@@ -727,6 +1051,10 @@ ObjectASTNode {
           "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
+              "CONDITION": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
               "MAPPING": SortedHash {
                 "hash": Object {},
                 "sequence": Array [],
@@ -802,6 +1130,10 @@ ObjectASTNode {
     "parentParams": undefined,
     "referenceables": Object {
       "hash": Object {
+        "CONDITION": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
         "MAPPING": SortedHash {
           "hash": Object {},
           "sequence": Array [],
@@ -920,6 +1252,10 @@ ObjectASTNode {
           "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
+              "CONDITION": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
               "MAPPING": SortedHash {
                 "hash": Object {},
                 "sequence": Array [],
@@ -990,6 +1326,10 @@ ObjectASTNode {
         "parentParams": undefined,
         "referenceables": Object {
           "hash": Object {
+            "CONDITION": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
             "MAPPING": SortedHash {
               "hash": Object {},
               "sequence": Array [],
@@ -1074,6 +1414,10 @@ ObjectASTNode {
           "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
+              "CONDITION": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
               "MAPPING": SortedHash {
                 "hash": Object {},
                 "sequence": Array [],
@@ -1176,6 +1520,10 @@ ObjectASTNode {
     "parentParams": undefined,
     "referenceables": Object {
       "hash": Object {
+        "CONDITION": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
         "MAPPING": SortedHash {
           "hash": Object {},
           "sequence": Array [],
@@ -1296,6 +1644,10 @@ ObjectASTNode {
           "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
+              "CONDITION": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
               "MAPPING": SortedHash {
                 "hash": Object {},
                 "sequence": Array [],
@@ -1366,6 +1718,10 @@ ObjectASTNode {
         "parentParams": undefined,
         "referenceables": Object {
           "hash": Object {
+            "CONDITION": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
             "MAPPING": SortedHash {
               "hash": Object {},
               "sequence": Array [],
@@ -1451,6 +1807,10 @@ ObjectASTNode {
           "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
+              "CONDITION": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
               "MAPPING": SortedHash {
                 "hash": Object {},
                 "sequence": Array [],
@@ -1554,6 +1914,10 @@ ObjectASTNode {
     "parentParams": undefined,
     "referenceables": Object {
       "hash": Object {
+        "CONDITION": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
         "MAPPING": SortedHash {
           "hash": Object {},
           "sequence": Array [],
@@ -1625,6 +1989,10 @@ ObjectASTNode {
           "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
+              "CONDITION": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
               "MAPPING": SortedHash {
                 "hash": Object {},
                 "sequence": Array [],
@@ -1687,6 +2055,10 @@ ObjectASTNode {
         "parentParams": undefined,
         "referenceables": Object {
           "hash": Object {
+            "CONDITION": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
             "MAPPING": SortedHash {
               "hash": Object {},
               "sequence": Array [],
@@ -1744,6 +2116,10 @@ ObjectASTNode {
           "parentParams": undefined,
           "referenceables": Object {
             "hash": Object {
+              "CONDITION": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
               "MAPPING": SortedHash {
                 "hash": Object {},
                 "sequence": Array [],

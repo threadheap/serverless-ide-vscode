@@ -9,7 +9,10 @@ AWSTemplateFormatVersion: 2010-09-09
 Transform: AWS::Serverless-2016-10-31
 Globals:
     Function:
-        Runtime: nodejs8.10
+		Runtime: nodejs8.10
+Conditions:
+    MyCondition:
+        Fn::Equals: [{"Ref" : "EnvType"}, "prod"]
 Resources:
     Function:
         Type: AWS::Serverless::Function
@@ -103,6 +106,21 @@ describe("referenceables", () => {
 						}
 					},
 					sequence: ["Function", "FunctionRole"]
+				})
+			)
+
+			expect(
+				referenceables.hash[ReferenceEntityType.CONDITION].serialize()
+			).toEqual(
+				expect.objectContaining({
+					hash: {
+						MyCondition: {
+							id: "MyCondition",
+							node: expect.any(Object),
+							entityType: ReferenceEntityType.CONDITION,
+							resourceName: undefined
+						}
+					}
 				})
 			)
 		})
