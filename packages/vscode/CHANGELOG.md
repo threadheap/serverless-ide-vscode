@@ -1,5 +1,8 @@
 # Change log
 
+## v0.5.1
+- Fix error thrown by hover method, when a path contains number
+
 ## v0.5.0
 - Various schemas bugfixes and improvements for Cloudformation and Serverless framework
 - Autocompletion for conditions properties and functions

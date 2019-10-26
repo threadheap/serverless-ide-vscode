@@ -75,7 +75,7 @@ export class YAMLHover {
 
 		if (path.length > 1) {
 			const description = schema.getLastDescription(
-				node.getPath() as string[]
+				node.getPath().map(String)
 			)
 
 			if (description) {
