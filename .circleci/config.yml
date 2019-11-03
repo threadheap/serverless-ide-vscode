@@ -14,8 +14,8 @@ jobs:
                       - v3-dependencies-
 
             - run: sudo npm install lerna -g
-            - run: npm install
             - run: lerna bootstrap
+            - run: npm install
 
             - save_cache:
                   paths:
