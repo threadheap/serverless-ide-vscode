@@ -1,6 +1,6 @@
 import glob = require("glob")
-import * as path from "path"
 import { readFileSync, writeFileSync } from "fs"
+import * as path from "path"
 import samSchema = require("@serverless-ide/sam-schema/schema.json")
 
 const readDefinitions = () => {

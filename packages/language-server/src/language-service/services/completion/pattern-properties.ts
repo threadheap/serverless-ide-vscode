@@ -1,14 +1,15 @@
+import { JSONSchema } from "@serverless-ide/config"
 import { last, map } from "lodash"
 import {
 	CompletionItemKind,
 	InsertTextFormat,
 	MarkupKind
 } from "vscode-languageserver-types"
+
 import { CompletionsCollector } from "../../jsonContributions"
-import { JSONSchema } from "../../jsonSchema"
+import { sendException } from "../analytics"
 import documentationService from "../documentation"
 import { getInsertTextForObject } from "./text"
-import { sendException } from "../analytics"
 
 const getResourceType = (schema: JSONSchema): string | null => {
 	if (schema.properties && schema.properties.Type) {

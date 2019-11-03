@@ -1,7 +1,8 @@
 import cloneDeep = require("lodash/cloneDeep")
 import toArray = require("lodash/toArray")
 import without = require("lodash/without")
-import { GlobalsConfig } from "../../../model/globals"
+import { GlobalsConfig } from "@serverless-ide/config"
+
 import { ResolvedSchema } from ".."
 import { sendException } from "../../analytics"
 

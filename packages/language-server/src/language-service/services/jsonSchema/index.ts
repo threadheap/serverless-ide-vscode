@@ -1,15 +1,19 @@
 import * as Json from "jsonc-parser"
 import forEach = require("lodash/forEach")
 import noop = require("lodash/noop")
+import {
+	DocumentType,
+	JSONSchema,
+	JSONSchemaMap,
+	YAMLDocument
+} from "@serverless-ide/config"
 import { TextDocument } from "vscode-languageserver"
 import * as nls from "vscode-nls"
 import URI from "vscode-uri"
-import { DocumentType } from "../../model/document"
-import { YAMLDocument } from "../../parser"
-import requestService from "../request"
-import { JSONSchema, JSONSchemaMap } from "./../../jsonSchema"
-import { applyDocumentMutations } from "./mutation"
+
 import { sendException } from "../analytics"
+import requestService from "../request"
+import { applyDocumentMutations } from "./mutation"
 
 const localize = nls.loadMessageBundle()
 

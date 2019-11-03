@@ -1,9 +1,10 @@
-import { AnalyticsReporter } from "vscode-extension-analytics"
-import * as vscode from "vscode"
-import * as nls from "vscode-nls"
 import * as os from "os"
-import { INSTALL_CFN_LITN } from "../commands"
+import * as vscode from "vscode"
+import { AnalyticsReporter } from "vscode-extension-analytics"
+import * as nls from "vscode-nls"
+
 import { AnalyticsEvent } from "../analytics"
+import { INSTALL_CFN_LITN } from "../commands"
 const localize = nls.loadMessageBundle()
 
 const MISSING_CFN_LINT_MESSAGE = `

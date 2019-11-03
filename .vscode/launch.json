@@ -13,9 +13,9 @@
 			"stopOnEntry": false,
 			"sourceMaps": true,
 			"outFiles": [
-				"${workspaceRoot}/packages/vscode/out/**/*.js"
+				"${workspaceRoot}/packages/vscode/dist/**/*.js"
 			],
-			"preLaunchTask": "compile"
+			"preLaunchTask": "build"
 		},
 		{
 			"name": "Attach Server",
@@ -24,7 +24,7 @@
 			"port": 6009,
 			"sourceMaps": true,
 			"outFiles": [
-				"${workspaceRoot}/packages/server/out/server/**/*.js"
+				"${workspaceRoot}/packages/language-server/dist/**/*.js"
 			],
 			"protocol": "inspector",
 			"trace": true

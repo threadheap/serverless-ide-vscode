@@ -1,11 +1,13 @@
-import { CUSTOM_TAGS_BY_TYPE } from "./../../model/custom-tags"
 import {
-	TextDocument,
+	CUSTOM_TAGS_BY_TYPE,
+	ReferenceEntityType,
+	YAMLDocument
+} from "@serverless-ide/config"
+import {
 	Diagnostic,
-	DiagnosticSeverity
+	DiagnosticSeverity,
+	TextDocument
 } from "vscode-languageserver"
-import { YAMLDocument } from "./../../parser/index"
-import { ReferenceEntityType } from "../../model/references"
 
 export const validateReferences = async (
 	document: TextDocument,

@@ -1,6 +1,6 @@
 import { exec } from "child_process"
 import join = require("lodash/join")
-import { workspace, Uri } from "vscode"
+import { Uri, workspace } from "vscode"
 
 export const filterGitIgnoredFiles = async (uris: Uri[]): Promise<Uri[]> => {
 	const workspaceRelativePaths = uris.map(uri =>

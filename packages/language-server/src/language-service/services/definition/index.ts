@@ -1,15 +1,18 @@
-import { CustomTag } from "./../../model/custom-tags"
-import { ASTNode } from "./../../parser/json/ast-node"
-import { YAMLDocument } from "./../../parser/json/document"
+import { CustomTag } from "@serverless-ide/config"
+import { ASTNode } from "@serverless-ide/config"
 import {
-	TextDocument,
-	Range,
-	Location,
+	collectReferencesFromStringNode,
+	PropertyASTNode,
+	StringASTNode,
+	YAMLDocument
+} from "@serverless-ide/config"
+import {
 	Definition,
+	Location,
+	Range,
+	TextDocument,
 	TextDocumentPositionParams
 } from "vscode-languageserver"
-import { StringASTNode, PropertyASTNode } from "../../parser/json"
-import { collectReferencesFromStringNode } from "../../parser/references"
 
 export const getDefinition = (
 	documentPosition: TextDocumentPositionParams,

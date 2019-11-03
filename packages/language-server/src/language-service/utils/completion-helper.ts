@@ -1,4 +1,5 @@
 import { Position, TextDocument } from "vscode-languageserver"
+
 import { getLineOffsets } from "./arrayUtils"
 
 const isEOL = (c: number) => {

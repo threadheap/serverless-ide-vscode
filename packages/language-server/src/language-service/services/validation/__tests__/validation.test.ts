@@ -1,12 +1,13 @@
-import { TextDocument, IConnection, Diagnostic } from "vscode-languageserver"
+import { parse as parseYAML } from "@serverless-ide/config"
+import { Diagnostic, IConnection, TextDocument } from "vscode-languageserver"
+
+import { YAMLValidation } from ".."
 import {
 	getDefaultLanguageSettings,
 	ValidationProvider
 } from "../../../model/settings"
-import { parse as parseYAML } from "../../../parser"
 import { LanguageSettings } from "../../../model/settings"
 import { JSONSchemaService } from "../../jsonSchema"
-import { YAMLValidation } from ".."
 
 const schemaService = new JSONSchemaService()
 

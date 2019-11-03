@@ -1,4 +1,5 @@
-import { JSONSchema } from "../../jsonSchema"
+import { JSONSchema } from "@serverless-ide/config"
+
 import { RUNTIMES } from "./constants"
 
 export const getInsertTextForPlainText = (text: string): string => {

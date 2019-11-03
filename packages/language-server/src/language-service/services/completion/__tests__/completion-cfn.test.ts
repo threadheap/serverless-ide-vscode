@@ -1,8 +1,9 @@
+import { parse as parseYAML } from "@serverless-ide/config"
+import { TextDocument } from "vscode-languageserver"
+
+import { completionHelper } from "../../../utils/completion-helper"
 import { JSONSchemaService } from "./../../jsonSchema/index"
 import { YAMLCompletion } from "./../index"
-import { TextDocument } from "vscode-languageserver"
-import { parse as parseYAML } from "../../../parser"
-import { completionHelper } from "../../../utils/completion-helper"
 
 const schemaService = new JSONSchemaService()
 const completionProvider = new YAMLCompletion(schemaService)

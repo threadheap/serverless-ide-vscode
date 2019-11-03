@@ -1,11 +1,9 @@
-import * as Parser from "../../parser/json"
-import { YAMLDocument } from "./../../parser/index"
-
+import * as Parser from "@serverless-ide/config"
 import {
+	DocumentSymbol,
 	Range,
 	SymbolKind,
-	TextDocument,
-	DocumentSymbol
+	TextDocument
 } from "vscode-languageserver-types"
 
 const filterChildren = (
@@ -16,7 +14,7 @@ const filterChildren = (
 
 export const findDocumentSymbols = (
 	document: TextDocument,
-	yamlDocument: YAMLDocument
+	yamlDocument: Parser.YAMLDocument
 ): DocumentSymbol[] => {
 	const { root } = yamlDocument
 

@@ -1,6 +1,10 @@
-import { YAMLDocument, parse, ExternalImportsCallbacks } from "../../parser"
-import { TextDocument, TextDocuments, IConnection } from "vscode-languageserver"
-import { isSupportedDocument } from "../../utils/document"
+import {
+	ExternalImportsCallbacks,
+	isSupportedDocument,
+	parse,
+	YAMLDocument
+} from "@serverless-ide/config"
+import { IConnection, TextDocument, TextDocuments } from "vscode-languageserver"
 
 interface CacheEntry {
 	uri: string

@@ -1,6 +1,6 @@
-import { DocumentType } from "../../../model/document"
-import { YAMLDocument } from "../../../parser/index"
-import { isEmpty } from "../../../model/globals"
+import { DocumentType, isEmpty } from "@serverless-ide/config"
+import { YAMLDocument } from "@serverless-ide/config"
+
 import { ResolvedSchema } from ".."
 import { applyGlobalsConfigMutations } from "./sam"
 import { applyProviderMutations } from "./serverless"

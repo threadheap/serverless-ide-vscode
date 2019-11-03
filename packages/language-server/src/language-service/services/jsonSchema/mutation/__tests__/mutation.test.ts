@@ -1,10 +1,14 @@
+import {
+	DocumentType,
+	FUNCTION,
+	getDefaultGlobalsConfig,
+	parse,
+	YAMLDocument
+} from "@serverless-ide/config"
 import { TextDocument } from "vscode-languageserver-types"
-import { DocumentType } from "../../../../model/document"
-import { ResolvedSchema } from "../.."
-import { FUNCTION } from "../../../../model/globals"
-import { YAMLDocument, parse } from "../../../../parser"
+
 import { applyDocumentMutations } from ".."
-import { getDefaultGlobalsConfig } from "../../../../parser/json/globals"
+import { ResolvedSchema } from "../.."
 
 describe("sam", () => {
 	test("should do nothing if schema was not resolved", () => {

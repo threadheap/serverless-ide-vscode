@@ -1,24 +1,29 @@
-import { CfnLintFailedToExecuteError } from "./errors"
-import { StringASTNode, ErrorCode } from "./../../parser/json"
-import { DocumentType } from "./../../model/document"
+import {
+	DocumentType,
+	ErrorCode,
+	Problem,
+	StringASTNode,
+	YAMLDocument
+} from "@serverless-ide/config"
 import { spawn } from "child_process"
 import {
 	Diagnostic,
 	DiagnosticSeverity,
 	Files,
-	TextDocument,
-	IConnection
+	IConnection,
+	TextDocument
 } from "vscode-languageserver"
-import { Problem, YAMLDocument } from "../../parser"
+
+import { removeDuplicatesObj } from "../../utils/arrayUtils"
+import { sendAnalytics } from "../analytics"
 import { JSONSchemaService, ResolvedSchema } from "../jsonSchema"
 import {
 	CFNLintSettings,
 	LanguageSettings,
 	ValidationProvider
 } from "./../../model/settings"
-import { sendAnalytics } from "../analytics"
+import { CfnLintFailedToExecuteError } from "./errors"
 import { validateReferences } from "./references"
-import { removeDuplicatesObj } from "../../utils/arrayUtils"
 
 const transformCfnLintSeverity = (errorType: string): DiagnosticSeverity => {
 	switch (errorType) {

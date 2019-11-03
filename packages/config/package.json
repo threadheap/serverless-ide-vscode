@@ -1,0 +1,55 @@
+{
+    "name": "@serverless-ide/config",
+    "description": "Serverless IDE config model and parser",
+    "version": "0.5.1",
+    "author": "Pavel Vlasov <freakycue@gmail.com>",
+    "license": "MIT",
+    "engines": {
+        "node": "*"
+    },
+    "main": "dist/index.js",
+    "keywords": [
+        "aws",
+        "sam",
+        "cloudformation",
+        "cfn",
+        "serverless",
+        "yaml",
+        "autocompletion",
+        "validation",
+        "LSP"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/threadheap/serverless-ide-vscode.git"
+    },
+    "scripts": {
+        "build": "npm run clean && npm run compile && node dist/index.js",
+        "clean": "rm -rf ./dist",
+        "compile": "tsc",
+        "prepublishOnly": "npm run build",
+        "lint:types": "tsc --noEmit",
+        "lint:ts": "eslint ./src/**/*.ts",
+        "lint:ts:fix": "eslint ./src/**/*.ts --fix",
+        "test": "jest"
+    },
+    "dependencies": {
+        "js-yaml": "^3.13.1",
+        "jsonc-parser": "^1.0.3",
+        "vscode-json-languageservice": "3.0.12",
+        "vscode-languageserver-types": "^3.14.0",
+        "yaml-ast-parser": "0.0.43"
+    },
+    "devDependencies": {
+        "@types/js-yaml": "^3.12.1",
+        "@types/lru-cache": "^4.1.1",
+        "@types/node": "^9.4.7",
+        "@types/vscode": "^1.37.0",
+        "source-map-support": "^0.5.4",
+        "@types/lodash": "^4.14.144"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "gitHead": "0ad06a7e4d561e4bc90344eb4fd72ad3d2d12538"
+}

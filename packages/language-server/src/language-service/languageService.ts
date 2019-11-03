@@ -1,43 +1,44 @@
-import { JSONSchema } from "./jsonSchema"
-import { CompletionItem } from "vscode-json-languageservice"
+import { JSONSchema } from "@serverless-ide/config"
 import * as PromisePool from "es6-promise-pool"
+import { CompletionItem } from "vscode-json-languageservice"
 import noop = require("lodash/noop")
-import { CfnLintFailedToExecuteError } from "./services/validation/errors"
+import { parse } from "@serverless-ide/config"
 import {
+	DocumentLinkParams,
 	IConnection,
-	TextDocuments,
-	TextDocumentPositionParams,
-	ReferenceParams,
 	Location,
-	DocumentLinkParams
+	ReferenceParams,
+	TextDocumentPositionParams,
+	TextDocuments
 } from "vscode-languageserver"
 import {
 	CompletionList,
-	Position,
-	TextDocument,
+	Definition,
+	DocumentLink,
 	DocumentSymbol,
 	Hover,
-	Definition,
-	DocumentLink
+	Position,
+	TextDocument
 } from "vscode-languageserver-types"
+
 import { LanguageSettings } from "./model/settings"
-import { parse } from "./parser"
+import { sendAnalytics, sendException } from "./services/analytics"
 import { YAMLCompletion } from "./services/completion"
+import { getDefinition } from "./services/definition"
+import {
+	DocumentService,
+	LifecycleCallbacks,
+	WorkplaceFiles
+} from "./services/document"
 import { findDocumentSymbols } from "./services/documentSymbols"
 import { YAMLHover } from "./services/hover"
 import { JSONSchemaService } from "./services/jsonSchema"
-import { YAMLValidation } from "./services/validation"
-import {
-	DocumentService,
-	WorkplaceFiles,
-	LifecycleCallbacks
-} from "./services/document"
-import { sendAnalytics, sendException } from "./services/analytics"
-import { completionHelper } from "./utils/completion-helper"
-import { getDefinition } from "./services/definition"
-import { getReferences } from "./services/reference"
-import { promiseRejectionHandler } from "./utils/errorHandler"
 import { findDocumentLinks } from "./services/links"
+import { getReferences } from "./services/reference"
+import { YAMLValidation } from "./services/validation"
+import { CfnLintFailedToExecuteError } from "./services/validation/errors"
+import { completionHelper } from "./utils/completion-helper"
+import { promiseRejectionHandler } from "./utils/errorHandler"
 
 export interface LanguageService {
 	configure(settings: LanguageSettings): void

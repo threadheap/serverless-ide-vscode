@@ -1,4 +1,5 @@
 import { getErrorStatusDescription, xhr, XHROptions } from "request-light"
+
 import { sendException } from "../analytics"
 
 export default async (

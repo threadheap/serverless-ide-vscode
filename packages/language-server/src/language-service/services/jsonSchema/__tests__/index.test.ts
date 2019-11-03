@@ -1,7 +1,7 @@
+import { getDocumentType, YAMLDocument } from "@serverless-ide/config"
 import { TextDocument } from "vscode-languageserver"
-import { YAMLDocument } from "../../../parser"
+
 import { JSONSchemaService } from "./../index"
-import { getDocumentType } from "../../../utils/document"
 
 const slsTemplate = `
 service:
