@@ -161,7 +161,6 @@
         "vscode:prepublish": "rm -rf node_modules && npm install && npm run compile"
     },
     "devDependencies": {
-        "@types/amplitude-js": "^4.4.2",
         "@types/node": "^6.0.52",
         "@types/vscode": "^1.37.0",
         "ts-node": "^3.3.0",
@@ -171,7 +170,6 @@
         "@sentry/node": "5.5.0",
         "@serverless-ide/language-server": "^0.5.1",
         "amplitude-client-node": "^0.2.0",
-        "amplitude-js": "^5.2.2",
         "node-machine-id": "^1.1.12",
         "vscode-extension-analytics": "^0.0.4",
         "vscode-languageclient": "5.1.1",
