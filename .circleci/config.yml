@@ -22,6 +22,7 @@ jobs:
                       - node_modules
                   key: v3-dependencies-{{ checksum "package-lock.json" }}
 
+            - run: npm run build
             - run: npm run lint:types
             - run: npm run lint:ts
             - run: npm test
