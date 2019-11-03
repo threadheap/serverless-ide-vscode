@@ -23,14 +23,12 @@
         "url": "https://github.com/threadheap/serverless-ide-language-server.git"
     },
     "dependencies": {
+        "@serverless-ide/config": "^0.5.1",
         "@serverless-ide/cloudformation-schema": "^0.5.0",
         "@serverless-ide/sam-schema": "^0.5.0",
         "@serverless-ide/serverless-framework-schema": "^0.5.0",
         "es6-promise-pool": "^2.5.0",
-        "js-yaml": "^3.13.1",
-        "jsonc-parser": "^1.0.3",
         "lru-cache": "^5.1.1",
-        "prettier": "^1.15.2",
         "request-light": "^0.2.3",
         "ts-get": "^1.0.3",
         "vscode-json-languageservice": "3.0.12",
@@ -38,18 +36,22 @@
         "vscode-languageserver-types": "^3.14.0",
         "vscode-nls": "^3.2.2",
         "vscode-uri": "^1.0.6",
-        "yaml-ast-parser": "0.0.43"
+        "jsonc-parser": "^1.0.3"
     },
     "devDependencies": {
         "@types/js-yaml": "^3.12.1",
+        "@types/lodash": "^4.14.144",
         "@types/lru-cache": "^4.1.1",
         "@types/node": "^9.4.7",
         "@types/vscode": "^1.37.0",
         "source-map-support": "^0.5.4"
     },
     "scripts": {
-        "compile": "tsc -p .",
-        "watch": "tsc --watch -p .",
+        "build": "npm run clean && npm run compile",
+        "clean": "rm -rf ./dist",
+        "compile": "tsc",
+        "watch": "npm run build --watch",
+        "prepublishOnly": "npm run build",
         "lint:types": "tsc --noEmit",
         "lint:ts": "eslint ./src/**/*.ts",
         "lint:ts:fix": "eslint ./src/**/*.ts --fix",

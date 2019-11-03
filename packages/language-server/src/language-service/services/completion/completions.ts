@@ -1,17 +1,22 @@
 import {
+	ASTNode,
+	JSONSchema,
+	ObjectASTNode,
+	PropertyASTNode,
+	YAMLDocument
+} from "@serverless-ide/config"
+import {
 	CompletionItemKind,
 	InsertTextFormat,
 	TextDocument
 } from "vscode-languageserver-types"
 import * as nls from "vscode-nls"
-import { YAMLDocument } from "../../parser"
+
 import { ResolvedSchema } from "../jsonSchema"
 import {
 	CompletionsCollector,
 	JSONWorkerContribution
 } from "./../../jsonContributions"
-import { JSONSchema } from "./../../jsonSchema"
-import { ASTNode, ObjectASTNode, PropertyASTNode } from "./../../parser/json"
 import { getDefaultPropertyCompletions } from "./defaultPropertyCompletions"
 import * as helpers from "./helpers"
 import { addPatternPropertiesCompletions } from "./pattern-properties"

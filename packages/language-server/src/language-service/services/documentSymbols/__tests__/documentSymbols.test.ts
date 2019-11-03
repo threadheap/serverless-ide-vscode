@@ -1,6 +1,7 @@
-import { findDocumentSymbols } from "../"
+import { parse as parseYAML } from "@serverless-ide/config"
 import { TextDocument } from "vscode-languageserver"
-import { parse as parseYAML } from "../../../parser"
+
+import { findDocumentSymbols } from "../"
 
 describe("Document Symbols Tests", () => {
 	function setup(content: string) {

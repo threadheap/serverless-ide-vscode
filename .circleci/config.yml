@@ -14,14 +14,15 @@ jobs:
                       - v3-dependencies-
 
             - run: sudo npm install lerna -g
+            - run: lerna bootstrap --no-ci
             - run: npm install
-            - run: lerna bootstrap
 
             - save_cache:
                   paths:
                       - node_modules
                   key: v3-dependencies-{{ checksum "package-lock.json" }}
 
+            - run: npm run build
             - run: npm run lint:types
             - run: npm run lint:ts
             - run: npm test

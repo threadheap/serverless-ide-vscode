@@ -1,7 +1,7 @@
 import cloneDeep = require("lodash/cloneDeep")
 import without = require("lodash/without")
-import { DocumentType } from "../../../model/document"
-import { YAMLDocument } from "./../../../parser/json/document"
+import { DocumentType, YAMLDocument } from "@serverless-ide/config"
+
 import { ResolvedSchema } from ".."
 import { sendException } from "../../analytics"
 

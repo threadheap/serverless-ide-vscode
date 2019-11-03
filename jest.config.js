@@ -6,6 +6,9 @@ module.exports = {
 	],
 	testMatch: ["**/__tests__/**/?(*.)+(spec|test).+(ts|js)"],
 	modulePathIgnorePatterns: ["node_modules"],
+	moduleNameMapper: {
+		"@serverless-ide/(.*)$": "<rootDir>/packages/$1"
+	},
 	preset: "ts-jest",
 	testEnvironment: "node",
 	verbose: false

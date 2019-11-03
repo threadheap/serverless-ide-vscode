@@ -42,7 +42,7 @@
         "cfn",
         "yaml"
     ],
-    "main": "./out/src/extension",
+    "main": "./dist/src/extension",
     "contributes": {
         "languages": [
             {
@@ -151,16 +151,16 @@
         }
     },
     "scripts": {
-        "vscode:prepublish": "rm -rf node_modules && npm install && npm run compile",
-        "compile": "tsc -p ./",
-        "lint:types": "tsc --noEmit",
-        "watch": "npm run compile --watch",
-        "prepublish": "npm run compile",
+        "build": "npm run clean && npm run compile",
+        "clean": "rm -rf ./dist",
+        "compile": "tsc",
+        "watch": "rm -rf ./dist && npm run build --watch",
+        "prepublishOnly": "npm run build",
         "marketplace:package": "vsce package",
-        "marketplace:publish": "vsce publish"
+        "marketplace:publish": "vsce publish",
+        "vscode:prepublish": "rm -rf node_modules && npm install && npm run compile"
     },
     "devDependencies": {
-        "@types/amplitude-js": "^4.4.2",
         "@types/node": "^6.0.52",
         "@types/vscode": "^1.37.0",
         "ts-node": "^3.3.0",
@@ -170,7 +170,6 @@
         "@sentry/node": "5.5.0",
         "@serverless-ide/language-server": "^0.5.1",
         "amplitude-client-node": "^0.2.0",
-        "amplitude-js": "^5.2.2",
         "node-machine-id": "^1.1.12",
         "vscode-extension-analytics": "^0.0.4",
         "vscode-languageclient": "5.1.1",

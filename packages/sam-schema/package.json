@@ -31,11 +31,11 @@
         "@types/request-promise": "^4.1.42"
     },
     "scripts": {
-        "build": "rm -rf ./out && tsc -p .",
-        "lint:types": "tsc --noEmit",
-        "watch": "rm -rf ./out && npm run build --watch",
-        "generate": "npm run build && node out/index.js",
-        "prepublish": "npm run generate"
+        "build": "npm run clean && npm run compile && node dist/index.js",
+        "clean": "rm -rf ./dist",
+        "compile": "tsc",
+        "prepublishOnly": "npm run generate",
+        "lint:types": "tsc --noEmit"
     },
     "publishConfig": {
         "access": "public"

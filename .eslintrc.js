@@ -1,6 +1,6 @@
 module.exports = {
 	parser: "@typescript-eslint/parser",
-	plugins: ["@typescript-eslint"],
+	plugins: ["@typescript-eslint", "simple-import-sort"],
 	extends: [
 		"plugin:@typescript-eslint/recommended",
 		"prettier/@typescript-eslint",
@@ -13,6 +13,7 @@ module.exports = {
 	rules: {
 		"no-console": 2,
 		"prettier/prettier": "error",
+		"simple-import-sort/sort": "error",
 		"@typescript-eslint/explicit-member-accessibility": [
 			2,
 			{
@@ -26,6 +27,8 @@ module.exports = {
 		"@typescript-eslint/interface-name-prefix": 0,
 		"@typescript-eslint/explicit-function-return-type": "off",
 		"@typescript-eslint/no-non-null-assertion": "off",
-		"@typescript-eslint/no-use-before-define": "off"
+		"@typescript-eslint/no-use-before-define": "off",
+		"sort-imports": "off",
+		"import/order": "off"
 	}
 }

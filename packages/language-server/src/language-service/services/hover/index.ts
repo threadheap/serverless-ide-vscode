@@ -1,8 +1,4 @@
-import * as Parser from "../../parser/json"
-import documentationService, { DocumentationService } from "../documentation"
-import * as SchemaService from "../jsonSchema"
-import { LanguageSettings } from "./../../model/settings"
-
+import * as Parser from "@serverless-ide/config"
 import {
 	Hover,
 	MarkedString,
@@ -10,8 +6,10 @@ import {
 	Range,
 	TextDocument
 } from "vscode-languageserver-types"
-import { YAMLDocument } from "../../parser"
-import { getResourceName, getRelativeNodePath } from "../../utils/resources"
+
+import documentationService, { DocumentationService } from "../documentation"
+import * as SchemaService from "../jsonSchema"
+import { LanguageSettings } from "./../../model/settings"
 
 const createHover = (contents: MarkedString[], hoverRange: Range): Hover => {
 	const result: Hover = {
@@ -40,7 +38,7 @@ export class YAMLHover {
 	async doHover(
 		document: TextDocument,
 		position: Position,
-		doc: YAMLDocument
+		doc: Parser.YAMLDocument
 	): Promise<Hover> {
 		const contents = []
 		if (!this.shouldHover || !document) {
@@ -84,7 +82,7 @@ export class YAMLHover {
 		}
 
 		if (node.getPath().length >= 2) {
-			const resourceType = getResourceName(node)
+			const resourceType = Parser.getResourceName(node)
 			const propertyName = this.getPropertyName(node)
 
 			if (resourceType) {
@@ -115,7 +113,7 @@ export class YAMLHover {
 	}
 
 	private getPropertyName(node: Parser.ASTNode): string | void {
-		const path = getRelativeNodePath(node)
+		const path = Parser.getRelativeNodePath(node)
 
 		if (
 			path.length >= 4 &&

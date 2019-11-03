@@ -1,13 +1,7 @@
 "use strict"
 
+import * as Parser from "@serverless-ide/config"
 import { PromiseConstructor } from "vscode-json-languageservice"
-import {
-	CompletionsCollector,
-	JSONWorkerContribution
-} from "../../jsonContributions"
-import * as Parser from "../../parser/json"
-import * as SchemaService from "../jsonSchema"
-
 import {
 	CompletionItem,
 	CompletionList,
@@ -17,12 +11,16 @@ import {
 	TextEdit
 } from "vscode-languageserver-types"
 
+import {
+	CompletionsCollector,
+	JSONWorkerContribution
+} from "../../jsonContributions"
 import { LanguageSettings } from "../../model/settings"
-import { YAMLDocument } from "../../parser"
-import * as completions from "./completions"
-import * as helpers from "./helpers"
 import { sendException } from "../analytics"
+import * as SchemaService from "../jsonSchema"
+import * as completions from "./completions"
 import { getCustomTagValueCompletions } from "./custom-tags"
+import * as helpers from "./helpers"
 
 export class YAMLCompletion {
 	private schemaService: SchemaService.JSONSchemaService
@@ -62,7 +60,7 @@ export class YAMLCompletion {
 	async doComplete(
 		document: TextDocument,
 		position: Position,
-		doc: YAMLDocument
+		doc: Parser.YAMLDocument
 	): Promise<CompletionList> {
 		const result: CompletionList = {
 			items: [],

@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "lib": [
+            "es2016",
+            "dom"
+        ],
+        "sourceMap": true,
+        "resolveJsonModule": true,
+        "strict": false,
+        "declaration": true
+    },
+    "exclude": [
+        "node_modules",
+        "**/node_modules/**",
+        "**/__tests__/**"
+    ]
+}

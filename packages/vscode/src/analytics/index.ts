@@ -1,11 +1,12 @@
-import { AmplitudeClient, AmplitudeEventData } from "./amplitude"
 import * as Sentry from "@sentry/node"
-import { AnalyticsReporter, IAnalyticsClient } from "vscode-extension-analytics"
-import { Event as AnalyticsEvent, Exception } from "vscode-extension-analytics"
+import * as crypto from "crypto"
 import { machineIdSync } from "node-machine-id"
 import { userInfo } from "os"
-import * as crypto from "crypto"
+import { AnalyticsReporter, IAnalyticsClient } from "vscode-extension-analytics"
+import { Event as AnalyticsEvent, Exception } from "vscode-extension-analytics"
+
 import * as packageJson from "../../package.json"
+import { AmplitudeClient, AmplitudeEventData } from "./amplitude"
 export { AnalyticsEvent, Exception }
 
 class AnalyticsClient implements IAnalyticsClient {

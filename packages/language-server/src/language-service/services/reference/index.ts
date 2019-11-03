@@ -1,12 +1,14 @@
-import { YAMLDocument } from "./../../parser/json/document"
 import {
-	TextDocument,
+	CUSTOM_TAGS_BY_TYPE,
+	PropertyASTNode,
+	YAMLDocument
+} from "@serverless-ide/config"
+import {
 	Location,
 	Range,
+	TextDocument,
 	TextDocumentPositionParams
 } from "vscode-languageserver"
-import { PropertyASTNode } from "../../parser/json"
-import { CUSTOM_TAGS_BY_TYPE } from "../../model/custom-tags"
 
 export const getReferences = (
 	documentPosition: TextDocumentPositionParams,

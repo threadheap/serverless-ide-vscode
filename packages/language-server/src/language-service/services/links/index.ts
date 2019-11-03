@@ -1,11 +1,9 @@
-import * as Parser from "../../parser/json"
-import { YAMLDocument } from "./../../parser/index"
-
-import { Range, TextDocument, DocumentLink } from "vscode-languageserver-types"
+import * as Parser from "@serverless-ide/config"
+import { DocumentLink, Range, TextDocument } from "vscode-languageserver-types"
 
 export const findDocumentLinks = (
 	document: TextDocument,
-	yamlDocument: YAMLDocument
+	yamlDocument: Parser.YAMLDocument
 ): DocumentLink[] => {
 	const { root } = yamlDocument
 	const links: DocumentLink[] = []

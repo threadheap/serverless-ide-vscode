@@ -1,18 +1,18 @@
 "use strict"
 
 import * as path from "path"
-
-import { ExtensionContext, languages, workspace, Uri } from "vscode"
+import { ExtensionContext, languages, Uri, workspace } from "vscode"
 import {
 	LanguageClient,
 	LanguageClientOptions,
 	ServerOptions,
 	TransportKind
 } from "vscode-languageclient"
+
 import * as packageJSON from "../package.json"
-import { createReporter, AnalyticsEvent, Exception } from "./analytics"
-import createValidationErrorDialog from "./validation-error-dialog"
+import { AnalyticsEvent, createReporter, Exception } from "./analytics"
 import registerCommands from "./commands"
+import createValidationErrorDialog from "./validation-error-dialog"
 import { filterGitIgnoredFiles } from "./workplace/find.js"
 
 let client: LanguageClient
@@ -48,7 +48,7 @@ export async function activate(context: ExtensionContext) {
 		path.join(
 			"node_modules",
 			"@serverless-ide/language-server",
-			"out",
+			"dist",
 			"server.js"
 		)
 	)

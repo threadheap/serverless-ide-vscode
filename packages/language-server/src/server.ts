@@ -1,5 +1,6 @@
 "use strict"
 
+import { configure as configureHttpRequests } from "request-light"
 import get from "ts-get"
 import {
 	createConnection,
@@ -7,13 +8,12 @@ import {
 	InitializeParams,
 	InitializeResult,
 	ProposedFeatures,
+	ReferenceParams,
 	TextDocumentPositionParams,
-	TextDocuments,
-	ReferenceParams
+	TextDocuments
 } from "vscode-languageserver"
-
-import { configure as configureHttpRequests } from "request-light"
 import * as nls from "vscode-nls"
+
 import {
 	LanguageService,
 	LanguageServiceImpl

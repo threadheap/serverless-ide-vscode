@@ -2,27 +2,9 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "Watch client",
+			"label": "build",
 			"type": "shell",
-			"command": "lerna run --scope serverless-ide-vscode watch",
-			"group": "build"
-		},
-		{
-			"label": "compile",
-			"type": "shell",
-			"command": "lerna run --scope serverless-ide-vscode compile; and lerna run --scope @serverless-ide/language-server compile",
-			"group": "build"
-		},
-		{
-			"label": "Compile client",
-			"type": "shell",
-			"command": "lerna run --scope serverless-ide-vscode compile",
-			"group": "build"
-		},
-		{
-			"label": "Compile server",
-			"type": "shell",
-			"command": "lerna run --scope @serverless-ide/language-server compile",
+			"command": "lerna run build",
 			"group": "build"
 		}
 	]

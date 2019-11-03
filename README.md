@@ -1,7 +1,6 @@
 [![Marketplace Version](https://vsmarketplacebadge.apphb.com/version/ThreadHeap.serverless-ide-vscode.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
 [![Rating](https://vsmarketplacebadge.apphb.com/rating-star/ThreadHeap.serverless-ide-vscode.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
 [![Installs](https://vsmarketplacebadge.apphb.com/installs/ThreadHeap.serverless-ide-vscode.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
-[![Downloads](https://vsmarketplacebadge.apphb.com/downloads/ThreadHeap.serverless-ide-vscode.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
 
 # Serverless IDE: Enhanced support of AWS SAM, CloudFormation and Serverless Framework in Visual Studio Code
 
@@ -83,10 +82,6 @@ IMPORTANT: This option requires a restart of VS Code to take effect.
 
 NOTE: We also respect the global telemetry setting telemetry.enableTelemetry; if that is set to false, ServerlessIDE telemetry is disabled. For more information see [Microsoft’s documentation](https://code.visualstudio.com/docs/supporting/faq#_how-to-disable-telemetry-reporting).
 
-## Contributions
-
-You can find [the code on GitHub repository](https://github.com/threadheap/serverless-ide-vscode)
-
 ## Questions and feedback
 
 Feature requests and feedback are very appreciated
@@ -97,6 +92,33 @@ Check out [public roadmap board](https://github.com/threadheap/serverless-ide-vs
 
 DM or follow me on [twitter](https://twitter.com/pvl4sov) or [medium](https://medium.com/@pvlasov)
 or contact [by email](mailto:hello@serverless-ide.com)
+
+## Contributions
+
+You can find [the code on GitHub repository](https://github.com/threadheap/serverless-ide-vscode)
+
+### Setup
+
+The project is split between packages backed by lerna.
+You can explore source code in `packages` folder.
+
+#### Prerequisites
+
+NodeJS >= 8.x
+VSCode
+
+```sh
+npm install lerna -g
+npm install
+lerna bootstrap
+```
+
+#### Test run
+
+To test your changes in VSCode
+
+Use `Launch Extension` command to build and start extension
+Use `Attach Server` command to attach debugger
 
 ### Author
 

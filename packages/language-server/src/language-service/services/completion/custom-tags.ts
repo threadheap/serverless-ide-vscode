@@ -1,11 +1,15 @@
 import {
+	CUSTOM_TAGS,
+	CustomTag,
+	Referenceables,
+	ReferenceType
+} from "@serverless-ide/config"
+import {
 	CompletionItemKind,
 	InsertTextFormat
 } from "vscode-languageserver-types"
-import { ReferenceType } from "./../../model/references"
-import { CUSTOM_TAGS, CustomTag } from "./../../model/custom-tags"
+
 import { CompletionsCollector } from "./../../jsonContributions"
-import { Referenceables } from "../../model/referenceables"
 
 export const getCustomTagValueCompletions = (
 	collector: CompletionsCollector,

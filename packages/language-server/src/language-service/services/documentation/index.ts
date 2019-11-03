@@ -1,5 +1,6 @@
 import map = require("lodash/map")
 import Cache = require("lru-cache")
+import { sendAnalytics, sendException } from "../analytics"
 import requestService from "../request"
 import {
 	ItemType,
@@ -10,7 +11,6 @@ import {
 	Specification
 } from "./model"
 import SamSpecification from "./samDocumentation"
-import { sendException, sendAnalytics } from "../analytics"
 
 const isPropertyKey = (propertyName: string | void): boolean => {
 	return propertyName && propertyName.startsWith("AWS::")
