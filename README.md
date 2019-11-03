@@ -2,6 +2,7 @@
 [![Rating](https://vsmarketplacebadge.apphb.com/rating-star/ThreadHeap.serverless-ide-vscode.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
 [![Installs](https://vsmarketplacebadge.apphb.com/installs/ThreadHeap.serverless-ide-vscode.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
 [![Downloads](https://vsmarketplacebadge.apphb.com/downloads/ThreadHeap.serverless-ide-vscode.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fthreadheap%2Fserverless-ide-vscode.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fthreadheap%2Fserverless-ide-vscode?ref=badge_shield)
 
 # Serverless IDE: Enhanced support of AWS SAM, CloudFormation and Serverless Framework in Visual Studio Code
 
@@ -107,3 +108,6 @@ or contact [by email](mailto:hello@serverless-ide.com)
 Apache License 2.0
 
 All documentation provided has copyright by Amazon Web Services, Inc. or its affiliates, and was published under the terms that can be found at https://aws.amazon.com/terms/
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fthreadheap%2Fserverless-ide-vscode.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fthreadheap%2Fserverless-ide-vscode?ref=badge_large)
