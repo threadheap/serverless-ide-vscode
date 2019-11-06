@@ -783,25 +783,7 @@
                   "type": "object"
                 }
               },
-              "oneOf": [
-                {
-                  "required": [
-                    "input"
-                  ]
-                },
-                {
-                  "required": [
-                    "inputPath"
-                  ]
-                },
-                {
-                  "required": [
-                    "inputTransformer"
-                  ]
-                }
-              ],
               "require": [
-                "name",
                 "rate"
               ]
             },
