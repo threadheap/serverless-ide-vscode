@@ -34,7 +34,7 @@
         "build": "npm run clean && npm run compile && node dist/index.js",
         "clean": "rm -rf ./dist",
         "compile": "tsc",
-        "prepublishOnly": "npm run generate",
+        "prepublishOnly": "npm run build",
         "lint:types": "tsc --noEmit"
     },
     "publishConfig": {
