@@ -19,15 +19,15 @@
         "json-stable-stringify": "^1.0.1",
         "lodash": "^4.17.11",
         "request": "^2.88.0",
-        "request-promise": "^4.2.2",
-        "typescript": "^3.2.2"
+        "request-promise": "^4.2.2"
     },
     "devDependencies": {
         "@types/json-stable-stringify": "^1.0.32",
         "@types/lodash": "^4.14.119",
         "@types/node": "^10.12.18",
         "@types/request": "^2.48.1",
-        "@types/request-promise": "^4.1.42"
+        "@types/request-promise": "^4.1.42",
+        "typescript": "^3.2.2"
     },
     "scripts": {
         "build": "npm run clean && npm run compile && node dist/index.js",
@@ -39,5 +39,5 @@
     "publishConfig": {
         "access": "public"
     },
-    "gitHead": "4bc5eddda35b9e7cc28f2580da1960b017881f33"
+    "gitHead": "68c911d563c6bc98f9dd87dd265e8b5f4b8f6353"
 }
