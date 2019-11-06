@@ -1,7 +1,7 @@
 {
     "name": "@serverless-ide/config",
     "description": "Serverless IDE config model and parser",
-    "version": "0.5.1",
+    "version": "0.5.2",
     "author": "Pavel Vlasov <freakycue@gmail.com>",
     "license": "MIT",
     "engines": {
@@ -42,11 +42,11 @@
     },
     "devDependencies": {
         "@types/js-yaml": "^3.12.1",
+        "@types/lodash": "^4.14.144",
         "@types/lru-cache": "^4.1.1",
         "@types/node": "^9.4.7",
         "@types/vscode": "^1.37.0",
-        "source-map-support": "^0.5.4",
-        "@types/lodash": "^4.14.144"
+        "source-map-support": "^0.5.4"
     },
     "publishConfig": {
         "access": "public"
