@@ -1,5 +1,8 @@
 # Change log
 
+## v0.5.2
+- Fix required properties for serverless framework schedule event
+
 ## v0.5.1
 - Fix error thrown by hover method, when a path contains number
 

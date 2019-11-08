@@ -1,7 +1,7 @@
 {
     "name": "@serverless-ide/language-server",
     "description": "Serverless IDE language server",
-    "version": "0.5.1",
+    "version": "0.5.5",
     "author": "Pavel Vlasov <freakycue@gmail.com>",
     "license": "MIT",
     "engines": {
@@ -23,11 +23,12 @@
         "url": "https://github.com/threadheap/serverless-ide-language-server.git"
     },
     "dependencies": {
-        "@serverless-ide/config": "^0.5.1",
-        "@serverless-ide/cloudformation-schema": "^0.5.0",
-        "@serverless-ide/sam-schema": "^0.5.0",
-        "@serverless-ide/serverless-framework-schema": "^0.5.0",
+        "@serverless-ide/cloudformation-schema": "^0.5.5",
+        "@serverless-ide/config": "^0.5.5",
+        "@serverless-ide/sam-schema": "^0.5.5",
+        "@serverless-ide/serverless-framework-schema": "^0.5.5",
         "es6-promise-pool": "^2.5.0",
+        "jsonc-parser": "^1.0.3",
         "lru-cache": "^5.1.1",
         "request-light": "^0.2.3",
         "ts-get": "^1.0.3",
@@ -35,8 +36,7 @@
         "vscode-languageserver": "^5.2.1",
         "vscode-languageserver-types": "^3.14.0",
         "vscode-nls": "^3.2.2",
-        "vscode-uri": "^1.0.6",
-        "jsonc-parser": "^1.0.3"
+        "vscode-uri": "^1.0.6"
     },
     "devDependencies": {
         "@types/js-yaml": "^3.12.1",
@@ -44,7 +44,8 @@
         "@types/lru-cache": "^4.1.1",
         "@types/node": "^9.4.7",
         "@types/vscode": "^1.37.0",
-        "source-map-support": "^0.5.4"
+        "source-map-support": "^0.5.4",
+        "typescript": "^3.2.2"
     },
     "scripts": {
         "build": "npm run clean && npm run compile",
@@ -60,5 +61,5 @@
     "publishConfig": {
         "access": "public"
     },
-    "gitHead": "0ad06a7e4d561e4bc90344eb4fd72ad3d2d12538"
+    "gitHead": "390fa05ac004e80dd92b96e08eded82c162ffcd9"
 }
