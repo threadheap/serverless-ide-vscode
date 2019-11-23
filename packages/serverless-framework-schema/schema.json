@@ -154,18 +154,18 @@
     "aws:common:runtime": {
       "type": "string",
       "enum": [
+        "nodejs12.x",
         "nodejs10.x",
         "nodejs8.10",
-        "nodejs6.10",
+        "python3.8",
         "python3.6",
         "python3.7",
         "python2.7",
         "ruby2.5",
+        "java11",
         "java8",
         "go1.x",
         "dotnetcore2.1",
-        "dotnetcore2.0",
-        "dotnetcore1.0",
         "provided"
       ],
       "default": "nodejs10.x"
@@ -1090,12 +1090,27 @@
       ]
     },
     "aws:functions:functions": {
-      "type": "object",
-      "patternProperties": {
-        "^[a-zA-Z0-9]+$": {
-          "$ref": "#/definitions/aws:functions:function"
+      "oneOf": [
+        {
+          "type": "object",
+          "patternProperties": {
+            "^[a-zA-Z0-9]+$": {
+              "$ref": "#/definitions/aws:functions:function"
+            }
+          }
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "patternProperties": {
+              "^[a-zA-Z0-9]+$": {
+                "$ref": "#/definitions/aws:functions:function"
+              }
+            }
+          }
         }
-      }
+      ]
     },
     "aws:layers": {
       "type": "object",

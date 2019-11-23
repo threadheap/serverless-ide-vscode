@@ -969,14 +969,12 @@ Object {
         "documentType": "SERVERLESS_FRAMEWORK",
       },
       "documentation": "",
-      "insertText": "functions:
-	",
+      "insertText": "functions",
       "insertTextFormat": 2,
       "kind": 10,
       "label": "functions",
       "textEdit": Object {
-        "newText": "functions:
-	",
+        "newText": "functions",
         "range": Object {
           "end": Object {
             "character": 4,

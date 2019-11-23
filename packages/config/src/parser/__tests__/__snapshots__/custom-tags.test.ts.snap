@@ -53,7 +53,55 @@ ObjectASTNode {
       "lookup": WeakMap {},
     },
     "references": Object {
-      "hash": Object {},
+      "hash": Object {
+        "logicVariable": Array [
+          Object {
+            "key": "logicVariable",
+            "node": StringASTNode {
+              "_value": "logicVariable",
+              "customTag": Object {
+                "description": "The optional Conditions section contains statements that define the circumstances under which entities are created or configured.",
+                "kind": "scalar",
+                "propertyName": "Condition",
+                "referenceEntityTypes": Array [
+                  "CONDITION",
+                ],
+                "tag": "!Condition",
+                "type": "CONDITION",
+              },
+              "document": [Circular],
+              "end": 34,
+              "isKey": false,
+              "location": "property",
+              "parent": PropertyASTNode {
+                "_value": [Circular],
+                "colonOffset": -1,
+                "customTag": undefined,
+                "document": [Circular],
+                "end": 34,
+                "key": StringASTNode {
+                  "_value": "property",
+                  "customTag": undefined,
+                  "document": [Circular],
+                  "end": 8,
+                  "isKey": true,
+                  "location": "property",
+                  "parent": [Circular],
+                  "start": 0,
+                  "type": "string",
+                },
+                "location": null,
+                "parent": [Circular],
+                "start": 0,
+                "type": "property",
+              },
+              "start": 21,
+              "type": "string",
+            },
+            "type": "CONDITION",
+          },
+        ],
+      },
       "lookup": WeakMap {},
     },
     "root": [Circular],
@@ -127,7 +175,15 @@ ObjectASTNode {
             "lookup": WeakMap {},
           },
           "references": Object {
-            "hash": Object {},
+            "hash": Object {
+              "logicVariable": Array [
+                Object {
+                  "key": "logicVariable",
+                  "node": [Circular],
+                  "type": "CONDITION",
+                },
+              ],
+            },
             "lookup": WeakMap {},
           },
           "root": [Circular],
@@ -193,7 +249,34 @@ ObjectASTNode {
           "lookup": WeakMap {},
         },
         "references": Object {
-          "hash": Object {},
+          "hash": Object {
+            "logicVariable": Array [
+              Object {
+                "key": "logicVariable",
+                "node": StringASTNode {
+                  "_value": "logicVariable",
+                  "customTag": Object {
+                    "description": "The optional Conditions section contains statements that define the circumstances under which entities are created or configured.",
+                    "kind": "scalar",
+                    "propertyName": "Condition",
+                    "referenceEntityTypes": Array [
+                      "CONDITION",
+                    ],
+                    "tag": "!Condition",
+                    "type": "CONDITION",
+                  },
+                  "document": [Circular],
+                  "end": 34,
+                  "isKey": false,
+                  "location": "property",
+                  "parent": [Circular],
+                  "start": 21,
+                  "type": "string",
+                },
+                "type": "CONDITION",
+              },
+            ],
+          },
           "lookup": WeakMap {},
         },
         "root": [Circular],
@@ -254,7 +337,34 @@ ObjectASTNode {
             "lookup": WeakMap {},
           },
           "references": Object {
-            "hash": Object {},
+            "hash": Object {
+              "logicVariable": Array [
+                Object {
+                  "key": "logicVariable",
+                  "node": StringASTNode {
+                    "_value": "logicVariable",
+                    "customTag": Object {
+                      "description": "The optional Conditions section contains statements that define the circumstances under which entities are created or configured.",
+                      "kind": "scalar",
+                      "propertyName": "Condition",
+                      "referenceEntityTypes": Array [
+                        "CONDITION",
+                      ],
+                      "tag": "!Condition",
+                      "type": "CONDITION",
+                    },
+                    "document": [Circular],
+                    "end": 34,
+                    "isKey": false,
+                    "location": "property",
+                    "parent": [Circular],
+                    "start": 21,
+                    "type": "string",
+                  },
+                  "type": "CONDITION",
+                },
+              ],
+            },
             "lookup": WeakMap {},
           },
           "root": [Circular],

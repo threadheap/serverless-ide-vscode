@@ -166,6 +166,22 @@ describe("references collector", () => {
 					]
 				})
 			})
+
+			test("should collect references from conditions properties", () => {
+				const text = ["Condition: MyCondition"].join("\n")
+				const root = generateNode(text)
+
+				const references = collectReferences(root)
+				expect(references.hash).toEqual({
+					MyCondition: [
+						{
+							type: ReferenceType.CONDITION,
+							key: "MyCondition",
+							node: expect.any(Object)
+						}
+					]
+				})
+			})
 		})
 	})
 

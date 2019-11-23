@@ -33,6 +33,8 @@ export const collectReferencesFromStringNode = (
 			return utils.getSub(node)
 		case ReferenceType.DEPENDS_ON:
 			return utils.getDependsOn(node)
+		case ReferenceType.CONDITION:
+			return utils.getCondition(node)
 		default:
 			return []
 	}

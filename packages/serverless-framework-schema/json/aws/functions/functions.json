@@ -1,8 +1,23 @@
 {
-    "type": "object",
-    "patternProperties": {
-        "^[a-zA-Z0-9]+$": {
-            "$ref": "#/definitions/aws:functions:function"
+    "oneOf": [
+        {
+            "type": "object",
+            "patternProperties": {
+                "^[a-zA-Z0-9]+$": {
+                    "$ref": "#/definitions/aws:functions:function"
+                }
+            }
+        },
+        {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "patternProperties": {
+                    "^[a-zA-Z0-9]+$": {
+                        "$ref": "#/definitions/aws:functions:function"
+                    }
+                }
+            }
         }
-    }
+    ]
 }

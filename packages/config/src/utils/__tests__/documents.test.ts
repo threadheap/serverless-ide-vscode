@@ -1,5 +1,4 @@
-import { DocumentType } from "@serverless-ide/config"
-
+import { DocumentType } from "../../model/document"
 import {
 	getDocumentType,
 	isCloudFormationTemplate,

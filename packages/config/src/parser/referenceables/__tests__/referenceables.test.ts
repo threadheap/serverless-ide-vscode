@@ -9,17 +9,18 @@ const SAM_DOCUMENT = `
 AWSTemplateFormatVersion: 2010-09-09
 Transform: AWS::Serverless-2016-10-31
 Globals:
-    Function:
-		Runtime: nodejs8.10
+  Function:
+    Runtime: nodejs8.10
 Conditions:
-    MyCondition:
-        Fn::Equals: [{"Ref" : "EnvType"}, "prod"]
+  MyCondition:
+    Fn::Equals: [{"Ref" : "EnvType"}, "prod"]
 Resources:
-    Function:
-        Type: AWS::Serverless::Function
-        Properties:
-            CodeUri: blah
-            Handler: index.js
+  Function:
+    Type: AWS::Serverless::Function
+    Condition: MyCondition
+    Properties:
+      CodeUri: blah
+      Handler: index.js
 `
 
 const EMPTY_SAM_DOCUMENT = `
@@ -87,10 +88,14 @@ describe("referenceables", () => {
 				DocumentType.SAM,
 				doc.root
 			)
+			const resources = referenceables.hash[
+				ReferenceEntityType.RESOURCE
+			].serialize()
+			const conditions = referenceables.hash[
+				ReferenceEntityType.CONDITION
+			].serialize()
 
-			expect(
-				referenceables.hash[ReferenceEntityType.RESOURCE].serialize()
-			).toEqual(
+			expect(resources).toEqual(
 				expect.objectContaining({
 					hash: {
 						Function: {
@@ -110,9 +115,7 @@ describe("referenceables", () => {
 				})
 			)
 
-			expect(
-				referenceables.hash[ReferenceEntityType.CONDITION].serialize()
-			).toEqual(
+			expect(conditions).toEqual(
 				expect.objectContaining({
 					hash: {
 						MyCondition: {

@@ -1,9 +1,20 @@
 import cloneDeep = require("lodash/cloneDeep")
 import without = require("lodash/without")
-import { DocumentType, YAMLDocument } from "@serverless-ide/config"
+import { DocumentType, JSONSchema, YAMLDocument } from "@serverless-ide/config"
 
 import { ResolvedSchema } from ".."
 import { sendException } from "../../analytics"
+
+const updateFunctionProperties = (
+	functionProperties: JSONSchema
+): JSONSchema => {
+	functionProperties.required = without(
+		functionProperties.required,
+		"runtime"
+	)
+
+	return functionProperties
+}
 
 export const applyProviderMutations = (
 	schema: ResolvedSchema,
@@ -20,13 +31,13 @@ export const applyProviderMutations = (
 
 		if (runtimeNode) {
 			try {
-				const functionProperties =
-					clonedSchema.properties.functions.patternProperties[
-						"^[a-zA-Z0-9]+$"
-					]
-				functionProperties.required = without(
-					functionProperties.required,
-					"runtime"
+				updateFunctionProperties(
+					clonedSchema.properties.functions.oneOf[0]
+						.patternProperties["^[a-zA-Z0-9]+$"]
+				)
+				updateFunctionProperties(
+					clonedSchema.properties.functions.oneOf[1].items
+						.patternProperties["^[a-zA-Z0-9]+$"]
 				)
 			} catch (err) {
 				sendException(err)

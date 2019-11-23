@@ -76,3 +76,15 @@ export const getDependsOn = (node: StringASTNode): Reference[] => {
 	}
 	return []
 }
+
+export const getCondition = (node: StringASTNode): Reference[] => {
+	const referencedCondition = node.value
+
+	return [
+		{
+			key: referencedCondition,
+			type: ReferenceType.CONDITION,
+			node
+		}
+	]
+}

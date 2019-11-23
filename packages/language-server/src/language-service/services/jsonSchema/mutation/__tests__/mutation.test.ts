@@ -104,11 +104,24 @@ Resources:
 		const schema = {
 			properties: {
 				functions: {
-					patternProperties: {
-						["^[a-zA-Z0-9]+$"]: {
-							required: ["handler", "runtime"]
+					oneOf: [
+						{
+							patternProperties: {
+								["^[a-zA-Z0-9]+$"]: {
+									required: ["handler", "runtime"]
+								}
+							}
+						},
+						{
+							items: {
+								patternProperties: {
+									["^[a-zA-Z0-9]+$"]: {
+										required: ["handler", "runtime"]
+									}
+								}
+							}
 						}
-					}
+					]
 				}
 			}
 		}
@@ -125,11 +138,24 @@ Resources:
 		expect(newResolvedSchema.schema).toEqual({
 			properties: {
 				functions: {
-					patternProperties: {
-						["^[a-zA-Z0-9]+$"]: {
-							required: ["handler"]
+					oneOf: [
+						{
+							patternProperties: {
+								["^[a-zA-Z0-9]+$"]: {
+									required: ["handler"]
+								}
+							}
+						},
+						{
+							items: {
+								patternProperties: {
+									["^[a-zA-Z0-9]+$"]: {
+										required: ["handler"]
+									}
+								}
+							}
 						}
-					}
+					]
 				}
 			}
 		})
@@ -139,11 +165,24 @@ Resources:
 		const schema = {
 			properties: {
 				functions: {
-					patternProperties: {
-						["^[a-zA-Z0-9]+$"]: {
-							required: ["handler", "runtime"]
+					oneOf: [
+						{
+							patternProperties: {
+								["^[a-zA-Z0-9]+$"]: {
+									required: ["handler", "runtime"]
+								}
+							}
+						},
+						{
+							items: {
+								patternProperties: {
+									["^[a-zA-Z0-9]+$"]: {
+										required: ["handler", "runtime"]
+									}
+								}
+							}
 						}
-					}
+					]
 				}
 			}
 		}
@@ -160,11 +199,24 @@ Resources:
 		expect(newResolvedSchema.schema).toEqual({
 			properties: {
 				functions: {
-					patternProperties: {
-						["^[a-zA-Z0-9]+$"]: {
-							required: ["handler", "runtime"]
+					oneOf: [
+						{
+							patternProperties: {
+								["^[a-zA-Z0-9]+$"]: {
+									required: ["handler", "runtime"]
+								}
+							}
+						},
+						{
+							items: {
+								patternProperties: {
+									["^[a-zA-Z0-9]+$"]: {
+										required: ["handler", "runtime"]
+									}
+								}
+							}
 						}
-					}
+					]
 				}
 			}
 		})
