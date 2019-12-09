@@ -34,7 +34,8 @@ const globalFunctionProperties = [
 	"KmsKeyArn",
 	"Layers",
 	"AutoPublishAlias",
-	"DeploymentPreference"
+	"DeploymentPreference",
+	"ProvisionedConcurrencyConfig"
 ]
 
 const globalApiProperties = [
@@ -104,6 +105,11 @@ const generateSchema = (schema: any): any => {
 				$ref: "#/definitions/AWS::ApiGateway::Stage.MethodSetting"
 			},
 			type: "array"
+		}
+
+		functionProperties.ProvisionedConcurrencyConfig = {
+			$ref:
+				"#/definitions/AWS::Lambda::Alias.ProvisionedConcurrencyConfiguration"
 		}
 
 		schema.properties.Globals = {

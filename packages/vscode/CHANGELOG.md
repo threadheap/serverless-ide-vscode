@@ -1,5 +1,8 @@
 # Change log
 
+## v0.5.7
+- Update Cloudformation and serverless framework schemas
+
 ## v0.5.6
 - Update supported runtime values, resolves [#55](https://github.com/threadheap/serverless-ide-vscode/issues/55)
 - Allow for multiple imports in serverless functions definitions, resolves [#54](https://github.com/threadheap/serverless-ide-vscode/issues/54)
