@@ -8,12 +8,14 @@ import { INSTALL_CFN_LITN } from "../commands"
 const localize = nls.loadMessageBundle()
 
 const MISSING_CFN_LINT_MESSAGE = `
-cfn-lint is not installed or could not be find in $PATH
+cfn-lint is not installed or could not be found in $PATH
 `
 
 const RESPONSE_YES = "Install now"
 
 const RESPONSE_LEARN_MORE = "Learn more"
+
+const SUPPORTED_PLATFORMS = ["darwin", "linux", "win32"]
 
 export class CfnValidationMessage {
 	private context: vscode.ExtensionContext
@@ -80,7 +82,7 @@ export class CfnValidationMessage {
 			new AnalyticsEvent("cfnLintErrorDialogYesAnswered", {})
 		)
 
-		if (os.platform() === "darwin") {
+		if (SUPPORTED_PLATFORMS.includes(os.platform())) {
 			vscode.commands.executeCommand(INSTALL_CFN_LITN)
 		} else {
 			vscode.commands.executeCommand(

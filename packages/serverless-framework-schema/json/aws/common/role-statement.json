@@ -1,6 +1,9 @@
 {
     "additionalProperties": false,
     "properties": {
+        "Sid": {
+            "type": "string"
+        },
         "Effect": {
             "type": "string",
             "enum": [
@@ -26,7 +29,6 @@
     },
     "required": [
         "Effect",
-        "Action",
-        "Resource"
+        "Action"
     ]
 }
