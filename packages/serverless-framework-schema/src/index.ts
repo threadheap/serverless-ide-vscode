@@ -27,6 +27,17 @@ const readDefinitions = () => {
 const buildSchema = async () => {
 	const definitions = readDefinitions()
 
+	const resourcesProperties = {
+		type: "object",
+		properties: {
+			...samSchema.properties,
+			Transform: {
+				type: ["object", "string"]
+			}
+		},
+		additionalProperties: false
+	}
+
 	return {
 		$id: "http://json-schema.org/draft-04/schema#",
 		additionalProperties: true,
@@ -61,18 +72,10 @@ const buildSchema = async () => {
 			},
 			resources: {
 				oneOf: [
-					{
-						type: "object",
-						properties: samSchema.properties,
-						additionalProperties: false
-					},
+					resourcesProperties,
 					{
 						type: "array",
-						item: {
-							type: "object",
-							properties: samSchema.properties,
-							additionalProperties: false
-						}
+						item: resourcesProperties
 					}
 				]
 			},
