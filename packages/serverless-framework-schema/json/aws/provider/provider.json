@@ -81,10 +81,7 @@
                     "$ref": "#/definitions/common:tags",
                     "description": "Tags that will be added to each of the deployment resources"
                 }
-            },
-            "required": [
-                "name"
-            ]
+            }
         },
         "deploymentPrefix": {
             "type": "string",
