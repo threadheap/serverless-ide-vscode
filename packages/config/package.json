@@ -1,7 +1,7 @@
 {
     "name": "@serverless-ide/config",
     "description": "Serverless IDE config model and parser",
-    "version": "0.5.8",
+    "version": "0.5.11",
     "author": "Pavel Vlasov <freakycue@gmail.com>",
     "license": "MIT",
     "engines": {
@@ -36,12 +36,12 @@
     "dependencies": {
         "js-yaml": "^3.13.1",
         "jsonc-parser": "^1.0.3",
+        "lodash": "^4.17.11",
         "vscode-json-languageservice": "3.0.12",
         "vscode-languageserver": "^5.2.1",
         "vscode-languageserver-types": "^3.14.0",
-        "yaml-ast-parser": "0.0.43",
-        "lodash": "^4.17.11",
-        "vscode-nls": "^3.2.2"
+        "vscode-nls": "^3.2.2",
+        "yaml-ast-parser": "0.0.43"
     },
     "devDependencies": {
         "@types/js-yaml": "^3.12.1",

@@ -5,7 +5,7 @@
     "author": "Pavel Vlasov <pavel@serverless-ide.com>",
     "publisher": "ThreadHeap",
     "license": "MIT",
-    "version": "0.5.10",
+    "version": "0.5.11",
     "preview": false,
     "bugs": "https://github.com/threadheap/serverless-ide-vscode/issues",
     "repository": {
@@ -168,14 +168,14 @@
     },
     "dependencies": {
         "@sentry/node": "5.5.0",
-        "@serverless-ide/language-server": "^0.5.10",
+        "@serverless-ide/language-server": "^0.5.11",
         "amplitude-client-node": "^0.2.0",
+        "lodash": "^4.17.11",
         "node-machine-id": "^1.1.12",
         "vscode-extension-analytics": "^0.0.4",
         "vscode-languageclient": "5.1.1",
         "vscode-nls": "^3.2.1",
-        "vscode-uri": "^1.0.5",
-        "lodash": "^4.17.11"
+        "vscode-uri": "^1.0.5"
     },
     "publishConfig": {
         "access": "public"
