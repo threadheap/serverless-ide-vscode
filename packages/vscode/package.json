@@ -174,7 +174,8 @@
         "vscode-extension-analytics": "^0.0.4",
         "vscode-languageclient": "5.1.1",
         "vscode-nls": "^3.2.1",
-        "vscode-uri": "^1.0.5"
+        "vscode-uri": "^1.0.5",
+        "lodash": "^4.17.11"
     },
     "publishConfig": {
         "access": "public"

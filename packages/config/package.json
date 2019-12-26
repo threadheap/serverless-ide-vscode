@@ -39,7 +39,9 @@
         "vscode-json-languageservice": "3.0.12",
         "vscode-languageserver": "^5.2.1",
         "vscode-languageserver-types": "^3.14.0",
-        "yaml-ast-parser": "0.0.43"
+        "yaml-ast-parser": "0.0.43",
+        "lodash": "^4.17.11",
+        "vscode-nls": "^3.2.2"
     },
     "devDependencies": {
         "@types/js-yaml": "^3.12.1",

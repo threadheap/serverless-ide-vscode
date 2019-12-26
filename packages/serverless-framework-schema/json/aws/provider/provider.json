@@ -118,7 +118,25 @@
         "apiKeys": {
             "type": "array",
             "items": {
-                "type": "string"
+                "oneOf": [
+                    {
+                        "type": "string"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "value": {
+                                "type": "string"
+                            },
+                            "description": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ]
             }
         },
         "apiGateway": {
@@ -288,11 +306,11 @@
                 }
             }
         },
-		"variableSyntax": {
+        "variableSyntax": {
             "type": "string",
             "description": "A custom syntax to overwrite the default ${xxx} syntax to resolve conflicts with some CloudFormation functionality",
             "default": "\\${([ ~:a-zA-Z0-9._@\\'\",\\-\\/\\(\\)]+?)}"
-		}
+        }
     },
     "required": [
         "name"

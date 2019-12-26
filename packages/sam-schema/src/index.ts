@@ -1,7 +1,6 @@
 "use strict"
 
 import fs = require("fs")
-import stringify = require("json-stable-stringify")
 import pick = require("lodash/pick")
 import path = require("path")
 import { enrichResources } from "@serverless-ide/cloudformation-schema"
@@ -178,7 +177,7 @@ const main = async () => {
 
 	fs.writeFileSync(
 		path.join(process.cwd(), "schema.json"),
-		stringify(generateSchema(schema), { space: 4 }),
+		JSON.stringify(generateSchema(schema), null, 4),
 		"utf-8"
 	)
 }

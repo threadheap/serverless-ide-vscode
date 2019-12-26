@@ -32,6 +32,7 @@
         "lru-cache": "^5.1.1",
         "request-light": "^0.2.3",
         "ts-get": "^1.0.3",
+        "lodash": "^4.17.11",
         "vscode-json-languageservice": "3.0.12",
         "vscode-languageserver": "^5.2.1",
         "vscode-languageserver-types": "^3.14.0",

@@ -1,8 +1,8 @@
 "use strict"
 
 import fs = require("fs")
-import stringify = require("json-stable-stringify")
 import map = require("lodash/map")
+import cloneDeep = require("lodash/cloneDeep")
 import path = require("path")
 import request = require("request-promise")
 
@@ -17,15 +17,36 @@ const downloadSchema = async (): Promise<object> => {
 
 export const enrichResources = (schema: any) => {
 	map(schema.definitions, definition => {
-		if (definition.properties && definition.properties.DeletionPolicy) {
-			definition.properties.UpdateReplacePolicy =
+		if (
+			definition.properties &&
+			definition.properties.DeletionPolicy &&
+			!definition.properties.UpdateReplacePolicy
+		) {
+			definition.properties.UpdateReplacePolicy = cloneDeep(
 				definition.properties.DeletionPolicy
-			definition.properties.Condition = {
-				type: "string"
-			}
+			)
 		}
-		if (definition.properties && definition.properties.DependsOn) {
-			definition.properties.Condition = definition.properties.DependsOn
+
+		if (
+			definition.properties &&
+			definition.properties.DependsOn &&
+			!definition.properties.Condition
+		) {
+			definition.properties.Condition = {
+				anyOf: [
+					{
+						pattern: "^[a-zA-Z0-9]+$",
+						type: "string"
+					},
+					{
+						items: {
+							pattern: "^[a-zA-Z0-9]+$",
+							type: "string"
+						},
+						type: "array"
+					}
+				]
+			}
 		}
 	})
 }
@@ -41,7 +62,7 @@ const main = async () => {
 
 	fs.writeFileSync(
 		path.join(process.cwd(), "schema.json"),
-		stringify(generateSchema(schema), { space: 4 }),
+		JSON.stringify(generateSchema(schema), null, 4),
 		"utf-8"
 	)
 }
