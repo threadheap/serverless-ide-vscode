@@ -1,5 +1,9 @@
 # Change log
 
+## v0.5.11
+- Bundle lodash into all lerna packages
+- Small schemas updates
+
 ## v0.5.7
 - Update Cloudformation and serverless framework schemas
 
