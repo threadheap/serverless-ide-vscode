@@ -884,6 +884,12 @@
                   "type": "string",
                   "default": "LATEST"
                 },
+                "maximumRetryAttempts": {
+                  "type": "number"
+                },
+                "parallelizationFactor": {
+                  "type": "number"
+                },
                 "enabled": {
                   "type": "boolean"
                 }
