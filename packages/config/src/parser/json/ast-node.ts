@@ -105,6 +105,12 @@ export class ASTNode<TValue = unknown> {
 		this._value = newValue
 	}
 
+	get nodeType(): string {
+		return this.customTag
+			? this.customTag.returnType || this.type
+			: this.type
+	}
+
 	getPath(): Json.JSONPath {
 		const path = this.parent ? this.parent.getPath() : []
 
@@ -233,7 +239,7 @@ export class ASTNode<TValue = unknown> {
 		}
 
 		if (Array.isArray(schema.type)) {
-			if ((schema.type as string[]).indexOf(this.type) === -1) {
+			if ((schema.type as string[]).indexOf(this.nodeType) === -1) {
 				validationResult.problems.push({
 					location: { start: this.start, end: this.end },
 					severity: ProblemSeverity.Warning,
@@ -247,7 +253,7 @@ export class ASTNode<TValue = unknown> {
 				})
 			}
 		} else if (schema.type) {
-			if (this.type !== schema.type) {
+			if (this.nodeType !== schema.type) {
 				validationResult.problems.push({
 					location: { start: this.start, end: this.end },
 					severity: ProblemSeverity.Warning,

@@ -72105,6 +72105,18 @@
       "additionalProperties": false,
       "properties": {},
       "type": "object"
+    },
+    "CustomResource": {
+      "additionalProperties": true,
+      "properties": {
+        "Type": {
+          "type": "string",
+          "pattern": "^Custom::[a-zA-Z0-9]+$"
+        },
+        "Properties": {
+          "type": "object"
+        }
+      }
     }
   },
   "properties": {
@@ -73667,6 +73679,9 @@
                     },
                     {
                       "$ref": "#/definitions/Alexa::ASK::Skill"
+                    },
+                    {
+                      "$ref": "#/definitions/CustomResource"
                     }
                   ]
                 }
@@ -75367,6 +75382,9 @@
                       },
                       {
                         "$ref": "#/definitions/Alexa::ASK::Skill"
+                      },
+                      {
+                        "$ref": "#/definitions/CustomResource"
                       }
                     ]
                   }

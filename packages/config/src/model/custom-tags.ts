@@ -10,6 +10,7 @@ export interface CustomTag {
 	propertyName: string
 	description: string
 	referenceEntityTypes: ReferenceEntityType[]
+	returnType?: string
 }
 
 export const CUSTOM_TAGS: CustomTag[] = [
@@ -110,7 +111,8 @@ export const CUSTOM_TAGS: CustomTag[] = [
 		propertyName: "Fn::Join",
 		description:
 			"The intrinsic function Fn::Join appends a set of values into a single value, separated by the specified delimiter.",
-		referenceEntityTypes: []
+		referenceEntityTypes: [],
+		returnType: "string"
 	},
 	{
 		tag: "!Select",
@@ -138,7 +140,8 @@ export const CUSTOM_TAGS: CustomTag[] = [
 		referenceEntityTypes: [
 			ReferenceEntityType.RESOURCE,
 			ReferenceEntityType.PARAMETER
-		]
+		],
+		returnType: "string"
 	},
 	{
 		tag: "!Transform",
@@ -159,7 +162,8 @@ export const CUSTOM_TAGS: CustomTag[] = [
 		referenceEntityTypes: [
 			ReferenceEntityType.PARAMETER,
 			ReferenceEntityType.RESOURCE
-		]
+		],
+		returnType: "string"
 	},
 	{
 		type: ReferenceType.DEPENDS_ON,
@@ -168,7 +172,8 @@ export const CUSTOM_TAGS: CustomTag[] = [
 		propertyName: "DependsOn",
 		description:
 			"With the DependsOn attribute you can specify that the creation of a specific resource follows another.",
-		referenceEntityTypes: [ReferenceEntityType.RESOURCE]
+		referenceEntityTypes: [ReferenceEntityType.RESOURCE],
+		returnType: "string"
 	},
 	{
 		type: ReferenceType.CONDITION,
@@ -177,7 +182,8 @@ export const CUSTOM_TAGS: CustomTag[] = [
 		propertyName: "Condition",
 		description:
 			"The optional Conditions section contains statements that define the circumstances under which entities are created or configured.",
-		referenceEntityTypes: [ReferenceEntityType.CONDITION]
+		referenceEntityTypes: [ReferenceEntityType.CONDITION],
+		returnType: "string"
 	}
 ]
 

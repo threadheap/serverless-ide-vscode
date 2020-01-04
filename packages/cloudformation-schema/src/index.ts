@@ -16,6 +16,23 @@ const downloadSchema = async (): Promise<object> => {
 }
 
 export const enrichResources = (schema: any) => {
+	schema.definitions["CustomResource"] = {
+		additionalProperties: true,
+		properties: {
+			Type: {
+				type: "string",
+				pattern: "^Custom::[a-zA-Z0-9]+$"
+			},
+			Properties: {
+				type: "object"
+			}
+		}
+	}
+
+	schema.properties.Resources.patternProperties["^[a-zA-Z0-9]+$"].anyOf.push({
+		$ref: "#/definitions/CustomResource"
+	})
+
 	map(schema.definitions, definition => {
 		if (
 			definition.properties &&
