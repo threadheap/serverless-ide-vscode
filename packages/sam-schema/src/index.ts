@@ -7,12 +7,28 @@ import { enrichResources } from "@serverless-ide/cloudformation-schema"
 import request = require("request-promise")
 
 const downloadSchema = async (): Promise<object> => {
-	const response = await request.get(
-		"https://raw.githubusercontent.com/awslabs/goformation/master/schema/sam.schema.json",
-		{ json: true }
-	)
+	const requestSchema = async () => {
+		return await request.get(
+			"https://raw.githubusercontent.com/awslabs/goformation/master/schema/sam.schema.json",
+			{ json: true }
+		)
+	}
 
-	return response
+	let attempt = 1
+
+	while (attempt < 3) {
+		// eslint-disable-next-line no-console
+		console.log("Requesting schema, attempt " + attempt)
+		const schema = await requestSchema()
+
+		if (JSON.stringify(schema).indexOf("AWS::Serverless::Api") !== -1) {
+			return schema
+		}
+		// eslint-disable-next-line no-console
+		console.log("No serverless resources found, trying again")
+	}
+
+	throw new Error("Could not download valid SAM schema")
 }
 
 // https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
