@@ -17,7 +17,8 @@
                         "integration": {
                             "type": "string",
                             "enum": [
-                                "lambda"
+								"lambda",
+								"lambda-proxy"
                             ]
                         },
                         "request": {
