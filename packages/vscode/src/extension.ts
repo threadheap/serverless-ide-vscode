@@ -110,22 +110,28 @@ export async function activate(context: ExtensionContext) {
 		)
 
 		client.onRequest("workplace/list", async pattern => {
-			const exclude = [
-				...Object.keys(
-					(await workspace
-						.getConfiguration("search", null)
-						.get("exclude")) || {}
-				),
-				...Object.keys(
-					(await workspace
-						.getConfiguration("files", null)
-						.get("exclude")) || {}
-				)
-			].join(",")
+			try {
+				const exclude = [
+					...Object.keys(
+						(await workspace
+							.getConfiguration("search", null)
+							.get("exclude")) || {}
+					),
+					...Object.keys(
+						(await workspace
+							.getConfiguration("files", null)
+							.get("exclude")) || {}
+					)
+				].join(",")
 
-			const uris = await workspace.findFiles(pattern, `{${exclude}}`)
+				const uris = await workspace.findFiles(pattern, `{${exclude}}`)
 
-			return (await filterGitIgnoredFiles(uris)).map(String)
+				return (await filterGitIgnoredFiles(uris)).map(String)
+			} catch (error) {
+				analytics.sendException(new Exception(error, {}))
+
+				return []
+			}
 		})
 
 		client.onRequest("workplace/file", async (uri: string) => {
