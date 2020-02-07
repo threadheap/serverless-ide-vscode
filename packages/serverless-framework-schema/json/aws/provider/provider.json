@@ -277,7 +277,7 @@
         },
         "tracing": {
             "type": "object",
-            "additionalPropeties": false,
+            "additionalProperties": false,
             "properties": {
                 "apiGateway": {
                     "type": "boolean",
@@ -297,12 +297,76 @@
             "additionalProperties": false,
             "properties": {
                 "restApi": {
-                    "type": "boolean",
-                    "description": "Optional configuration which specifies if API Gateway logs are used"
+                    "description": "Optional configuration which specifies if API Gateway logs are used. This can either be set to `true` to use defaults, or configured via subproperties.",
+                    "oneOf": [
+                        {
+                            "type": "boolean"
+                        },
+                        {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "accessLogging": {
+                                    "type": "boolean",
+                                    "description": "Optional configuration which enables or disables access logging. Defaults to true.",
+                                    "default": true
+                                },
+                                "format": {
+                                    "type": "string",
+                                    "description": "Optional configuration which specifies the log format to use for access logging",
+                                    "default": "requestId: $context.requestId"
+                                },
+                                "executionLogging": {
+                                    "type": "boolean",
+                                    "description": "Optional configuration which enables or disables execution logging. Defaults to true.",
+                                    "default": true
+                                },
+                                "level": {
+                                    "type": "string",
+                                    "enum": [
+                                        "INFO",
+                                        "ERROR"
+                                    ],
+                                    "description": "Optional configuration which specifies the log level to use for execution logging. May be set to either INFO or ERROR.",
+                                    "default": "INFO"
+                                },
+                                "fullExecutionData": {
+                                    "type": "boolean",
+                                    "description": "Optional configuration which specifies whether or not to log full requests/responses for execution logging. Defaults to true.",
+                                    "default": true
+								},
+								"role": {
+									"type": "string",
+									"description": "Optional IAM role for ApiGateway to use when managing CloudWatch Logs",
+									"default": "arn:aws:iam::XXXXXX:role/role"
+								}
+                            }
+                        }
+                    ]
                 },
                 "websocket": {
+					"description": "Optional configuration which specifies if Websocket logs are used. This can either be set to `true` to use defaults, or configured via subproperties.",
+					"oneOf": [
+                        {
+                            "type": "boolean"
+                        },
+                        {
+							"level": {
+								"type": "string",
+								"enum": [
+									"INFO",
+									"ERROR"
+								],
+								"description": "Optional configuration which specifies the log level to use for execution logging. May be set to either INFO or ERROR.",
+								"default": "INFO"
+							}
+						}
+					]
+                },
+                "frameworkLambda": {
                     "type": "boolean",
-                    "description": "Optional configuration which specifies if Websockets logs are used"
+                    "description": "Optional, whether to write CloudWatch logs for custom resource lambdas as added by the framework",
+                    "default": true
                 }
             }
         },
