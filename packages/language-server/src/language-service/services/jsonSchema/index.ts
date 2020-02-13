@@ -101,6 +101,25 @@ export class ResolvedSchema {
 		if (!schema || path.length === 0) {
 			return schema
 		}
+
+		// independently process each "oneOf" entry to see if our path matches any of them
+		if (schema.oneOf && Array.isArray(schema.oneOf)) {
+			for (const oneOfEntry of schema.oneOf) {
+				const result = this.getSectionRecursive(
+					path.slice(),
+					oneOfEntry,
+					visitor
+				)
+
+				if (result) {
+					// found a match, no need to look further
+					return result
+				}
+			}
+
+			return null
+		}
+
 		const next = path.shift()
 
 		if (!next) {
