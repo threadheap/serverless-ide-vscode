@@ -19,6 +19,9 @@
                     "items": {
                         "type": "object"
                     }
+                },
+                "existing": {
+                    "type": "boolean"
                 }
             },
             "require": [

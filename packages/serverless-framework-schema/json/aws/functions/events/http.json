@@ -7,7 +7,7 @@
             "oneOf": [
                 {
                     "type": "object",
-                    "additionalProperties": false,
+                    "additionalProperties": true,
                     "properties": {
                         "path": {
                             "type": "string",
@@ -17,8 +17,8 @@
                         "integration": {
                             "type": "string",
                             "enum": [
-								"lambda",
-								"lambda-proxy"
+                                "lambda",
+                                "lambda-proxy"
                             ]
                         },
                         "request": {

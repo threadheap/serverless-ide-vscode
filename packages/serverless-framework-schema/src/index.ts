@@ -1,5 +1,6 @@
 import glob = require("glob")
 import { readFileSync, writeFileSync } from "fs"
+import { forEach } from "lodash"
 import * as path from "path"
 import samSchema = require("@serverless-ide/sam-schema/schema.json")
 
@@ -37,6 +38,24 @@ const buildSchema = async () => {
 		},
 		additionalProperties: false
 	}
+
+	forEach(samSchema.definitions, (definition: any) => {
+		if (definition.properties && definition.properties.DependsOn) {
+			definition.properties.DependsOn = {
+				oneOf: [
+					{
+						type: "string"
+					},
+					{
+						type: "array",
+						items: {
+							type: "string"
+						}
+					}
+				]
+			}
+		}
+	})
 
 	return {
 		$id: "http://json-schema.org/draft-04/schema#",

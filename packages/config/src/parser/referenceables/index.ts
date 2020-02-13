@@ -28,7 +28,7 @@ const addReferenceable = (
 	referenceables.lookup.set(referenceable.node, referenceable)
 }
 
-const getResourceName = (resourceNode: ASTNode): string | void => {
+const getResourceType = (resourceNode: ASTNode): string | void => {
 	if (resourceNode) {
 		const resourceValue = resourceNode.get(["Type"])
 
@@ -51,7 +51,7 @@ const collectReferenceablesFromNode = (
 				const key = property.key.value
 				const resourceName =
 					entityType === ReferenceEntityType.RESOURCE
-						? getResourceName(property.value)
+						? getResourceType(property.value)
 						: undefined
 
 				const referenceable = {

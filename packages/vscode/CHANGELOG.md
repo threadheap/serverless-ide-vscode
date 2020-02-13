@@ -1,5 +1,9 @@
 # Change log
 
+## v0.5.14
+- Cloudformation resources updates
+- Minor changes and bugfixes
+
 ## v0.5.11
 - Bundle lodash into all lerna packages
 - Small schemas updates
