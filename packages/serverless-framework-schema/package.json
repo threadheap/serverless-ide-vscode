@@ -1,6 +1,6 @@
 {
     "name": "@serverless-ide/serverless-framework-schema",
-    "version": "0.5.14",
+    "version": "0.5.15",
     "description": "Json schema for AWS SAM template configuration",
     "main": "index.js",
     "repository": "git@github.com:threadheap/aws-sam-json-schema.git",
@@ -18,7 +18,7 @@
     "license": "MIT",
     "private": false,
     "devDependencies": {
-        "@serverless-ide/sam-schema": "^0.5.14",
+        "@serverless-ide/sam-schema": "^0.5.15",
         "@types/glob": "^7.1.1",
         "@types/json-stable-stringify": "^1.0.32",
         "@types/lodash": "^4.14.119",
