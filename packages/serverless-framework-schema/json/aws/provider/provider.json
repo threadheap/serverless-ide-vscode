@@ -337,9 +337,14 @@
 								},
 								"role": {
 									"type": "string",
-									"description": "Optional IAM role for ApiGateway to use when managing CloudWatch Logs",
+									"description": "Existing IAM role for ApiGateway to use when managing CloudWatch Logs. If 'role' is not configured, a new role is automatically created.",
 									"default": "arn:aws:iam::XXXXXX:role/role"
-								}
+                                },
+                                "roleManagedExternally": {
+                                    "type": "boolean",
+                                    "description": "Specifies whether the ApiGateway CloudWatch Logs role setting is not managed by Serverless. Defaults to false.",
+                                    "default": false
+                                }
                             }
                         }
                     ]
