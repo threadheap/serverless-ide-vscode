@@ -13,7 +13,11 @@
                 "trigger": {
                     "type": "string",
                     "default": "PreSignUp"
-                }
+                },
+				"existing":{
+					"type":"boolean",
+					"default":false
+				},
             },
             "require": [
                 "logGroup",
