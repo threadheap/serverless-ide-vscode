@@ -14,10 +14,10 @@
                     "type": "string",
                     "default": "PreSignUp"
                 },
-				"existing":{
-					"type":"boolean",
-					"default":false
-				},
+                "existing": {
+                    "type": "boolean",
+                    "default": false
+                }
             },
             "require": [
                 "logGroup",
