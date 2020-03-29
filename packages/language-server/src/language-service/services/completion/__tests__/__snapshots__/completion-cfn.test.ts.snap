@@ -1048,14 +1048,12 @@ Object {
         "documentType": "CLOUD_FORMATION",
       },
       "documentation": "",
-      "insertText": "Transform:
-	",
+      "insertText": "Transform",
       "insertTextFormat": 2,
       "kind": 10,
       "label": "Transform",
       "textEdit": Object {
-        "newText": "Transform:
-	",
+        "newText": "Transform",
         "range": Object {
           "end": Object {
             "character": 9,
@@ -2095,14 +2093,12 @@ Object {
         "documentType": "CLOUD_FORMATION",
       },
       "documentation": "",
-      "insertText": "Transform:
-	",
+      "insertText": "Transform",
       "insertTextFormat": 2,
       "kind": 10,
       "label": "Transform",
       "textEdit": Object {
-        "newText": "Transform:
-	",
+        "newText": "Transform",
         "range": Object {
           "end": Object {
             "character": 0,

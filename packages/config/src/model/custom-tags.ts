@@ -6,7 +6,7 @@ export type TagKind = "sequence" | "scalar" | "mapping"
 export interface CustomTag {
 	type?: ReferenceType
 	tag: string
-	kind: TagKind
+	kind: TagKind[]
 	propertyName: string
 	description: string
 	referenceEntityTypes: ReferenceEntityType[]
@@ -16,7 +16,7 @@ export interface CustomTag {
 export const CUSTOM_TAGS: CustomTag[] = [
 	{
 		tag: "!Base64",
-		kind: "sequence",
+		kind: ["scalar", "sequence", "mapping"],
 		propertyName: "Fn::Base64",
 		description:
 			"The intrinsic function Fn::Base64 returns the Base64 representation of the input string.",
@@ -24,7 +24,7 @@ export const CUSTOM_TAGS: CustomTag[] = [
 	},
 	{
 		tag: "!Cidr",
-		kind: "sequence",
+		kind: ["sequence", "mapping"],
 		propertyName: "Fn::Cidr",
 		description:
 			"The intrinsic function Fn::Cidr returns an array of CIDR address blocks.",
@@ -33,48 +33,53 @@ export const CUSTOM_TAGS: CustomTag[] = [
 	// logical
 	{
 		tag: "!And",
-		kind: "sequence",
+		kind: ["sequence", "mapping"],
 		propertyName: "Fn::And",
 		description:
 			"Returns true if all the specified conditions evaluate to true, or returns false if any one of the conditions evaluates to false.",
-		referenceEntityTypes: []
+		referenceEntityTypes: [],
+		returnType: "any"
 	},
 	{
 		tag: "!If",
-		kind: "sequence",
+		kind: ["sequence", "mapping"],
 		propertyName: "Fn::If",
 		description:
 			"Returns one value if the specified condition evaluates to true and another value if the specified condition evaluates to false.",
-		referenceEntityTypes: []
+		referenceEntityTypes: [],
+		returnType: "any"
 	},
 	{
 		tag: "!Not",
-		kind: "sequence",
+		kind: ["sequence", "mapping"],
 		propertyName: "Fn::Not",
 		description:
 			"Returns true for a condition that evaluates to false or returns false for a condition that evaluates to true.",
-		referenceEntityTypes: []
+		referenceEntityTypes: [],
+		returnType: "any"
 	},
 	{
 		tag: "!Or",
-		kind: "sequence",
+		kind: ["sequence", "mapping"],
 		propertyName: "Fn::Or",
 		description:
 			"Returns true if any one of the specified conditions evaluate to true, or returns false if all of the conditions evaluates to false.",
-		referenceEntityTypes: []
+		referenceEntityTypes: [],
+		returnType: "any"
 	},
 	{
 		tag: "!Equals",
-		kind: "sequence",
+		kind: ["sequence", "mapping"],
 		propertyName: "Fn::Equals",
 		description: "Compares if two values are equal.",
-		referenceEntityTypes: []
+		referenceEntityTypes: [],
+		returnType: "any"
 	},
 	// getters
 	{
 		type: ReferenceType.FIND_IN_MAP,
 		tag: "!FindInMap",
-		kind: "sequence",
+		kind: ["sequence", "mapping"],
 		propertyName: "Fn::FindInMap",
 		description:
 			"The intrinsic function Fn::FindInMap returns the value corresponding to keys in a two-level map that is declared in the Mappings section.",
@@ -83,7 +88,7 @@ export const CUSTOM_TAGS: CustomTag[] = [
 	{
 		type: ReferenceType.GET_ATT,
 		tag: "!GetAtt",
-		kind: "scalar",
+		kind: ["scalar", "sequence", "mapping"],
 		propertyName: "Fn::GetAtt",
 		description:
 			"The Fn::GetAtt intrinsic function returns the value of an attribute from a resource in the template.",
@@ -91,7 +96,7 @@ export const CUSTOM_TAGS: CustomTag[] = [
 	},
 	{
 		tag: "!GetAZs",
-		kind: "scalar",
+		kind: ["scalar", "mapping"],
 		propertyName: "Fn::GetAZs",
 		description:
 			"The intrinsic function Fn::GetAZs returns an array that lists Availability Zones for a specified region.",
@@ -99,7 +104,7 @@ export const CUSTOM_TAGS: CustomTag[] = [
 	},
 	{
 		tag: "!ImportValue",
-		kind: "mapping",
+		kind: ["mapping", "scalar"],
 		propertyName: "Fn::ImportValue",
 		description:
 			"The intrinsic function Fn::ImportValue returns the value of an output exported by another stack.",
@@ -107,7 +112,7 @@ export const CUSTOM_TAGS: CustomTag[] = [
 	},
 	{
 		tag: "!Join",
-		kind: "sequence",
+		kind: ["sequence"],
 		propertyName: "Fn::Join",
 		description:
 			"The intrinsic function Fn::Join appends a set of values into a single value, separated by the specified delimiter.",
@@ -116,7 +121,7 @@ export const CUSTOM_TAGS: CustomTag[] = [
 	},
 	{
 		tag: "!Select",
-		kind: "sequence",
+		kind: ["sequence"],
 		propertyName: "Fn::Select",
 		description:
 			"The intrinsic function Fn::Select returns a single object from a list of objects by index.",
@@ -124,7 +129,7 @@ export const CUSTOM_TAGS: CustomTag[] = [
 	},
 	{
 		tag: "!Split",
-		kind: "sequence",
+		kind: ["sequence"],
 		propertyName: "Fn::Split",
 		description:
 			"To split a string into a list of string values so that you can select an element from the resulting string list, use the Fn::Split intrinsic function.",
@@ -133,7 +138,7 @@ export const CUSTOM_TAGS: CustomTag[] = [
 	{
 		type: ReferenceType.SUB,
 		tag: "!Sub",
-		kind: "scalar",
+		kind: ["scalar", "sequence"],
 		propertyName: "Fn::Sub",
 		description:
 			"The intrinsic function Fn::Sub substitutes variables in an input string with values that you specify.",
@@ -145,7 +150,7 @@ export const CUSTOM_TAGS: CustomTag[] = [
 	},
 	{
 		tag: "!Transform",
-		kind: "mapping",
+		kind: ["mapping"],
 		propertyName: "Fn::Transform",
 		description:
 			"The intrinsic function Fn::Transform specifies a macro to perform custom processing on part of a stack template.",
@@ -155,7 +160,7 @@ export const CUSTOM_TAGS: CustomTag[] = [
 	{
 		type: ReferenceType.REF,
 		tag: "!Ref",
-		kind: "scalar",
+		kind: ["scalar"],
 		propertyName: "Ref",
 		description:
 			"The intrinsic function Ref returns the value of the specified parameter or resource.",
@@ -168,7 +173,7 @@ export const CUSTOM_TAGS: CustomTag[] = [
 	{
 		type: ReferenceType.DEPENDS_ON,
 		tag: "",
-		kind: "sequence",
+		kind: ["sequence"],
 		propertyName: "DependsOn",
 		description:
 			"With the DependsOn attribute you can specify that the creation of a specific resource follows another.",
@@ -178,7 +183,7 @@ export const CUSTOM_TAGS: CustomTag[] = [
 	{
 		type: ReferenceType.CONDITION,
 		tag: "!Condition",
-		kind: "scalar",
+		kind: ["scalar"],
 		propertyName: "Condition",
 		description:
 			"The optional Conditions section contains statements that define the circumstances under which entities are created or configured.",

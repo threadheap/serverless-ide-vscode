@@ -334,11 +334,11 @@
                                     "type": "boolean",
                                     "description": "Optional configuration which specifies whether or not to log full requests/responses for execution logging. Defaults to true.",
                                     "default": true
-								},
-								"role": {
-									"type": "string",
-									"description": "Existing IAM role for ApiGateway to use when managing CloudWatch Logs. If 'role' is not configured, a new role is automatically created.",
-									"default": "arn:aws:iam::XXXXXX:role/role"
+                                },
+                                "role": {
+                                    "type": "string",
+                                    "description": "Existing IAM role for ApiGateway to use when managing CloudWatch Logs. If 'role' is not configured, a new role is automatically created.",
+                                    "default": "arn:aws:iam::XXXXXX:role/role"
                                 },
                                 "roleManagedExternally": {
                                     "type": "boolean",
@@ -349,24 +349,43 @@
                         }
                     ]
                 },
-                "websocket": {
-					"description": "Optional configuration which specifies if Websocket logs are used. This can either be set to `true` to use defaults, or configured via subproperties.",
-					"oneOf": [
+                "httpApi": {
+                    "description": "Optional configuration which specifies if API Gateway logs are used. This can either be set to `true` to use defaults, or configured via subproperties.",
+                    "oneOf": [
                         {
                             "type": "boolean"
                         },
                         {
-							"level": {
-								"type": "string",
-								"enum": [
-									"INFO",
-									"ERROR"
-								],
-								"description": "Optional configuration which specifies the log level to use for execution logging. May be set to either INFO or ERROR.",
-								"default": "INFO"
-							}
-						}
-					]
+                            "type": "object",
+                            "additionalProperties": true,
+                            "properties": {
+                                "format": {
+                                    "type": "string",
+                                    "description": "Optional configuration which specifies the log format to use for access logging",
+                                    "default": "requestId: $context.requestId"
+                                }
+                            }
+                        }
+                    ]
+                },
+                "websocket": {
+                    "description": "Optional configuration which specifies if Websocket logs are used. This can either be set to `true` to use defaults, or configured via subproperties.",
+                    "oneOf": [
+                        {
+                            "type": "boolean"
+                        },
+                        {
+                            "level": {
+                                "type": "string",
+                                "enum": [
+                                    "INFO",
+                                    "ERROR"
+                                ],
+                                "description": "Optional configuration which specifies the log level to use for execution logging. May be set to either INFO or ERROR.",
+                                "default": "INFO"
+                            }
+                        }
+                    ]
                 },
                 "frameworkLambda": {
                     "type": "boolean",
@@ -379,6 +398,16 @@
             "type": "string",
             "description": "A custom syntax to overwrite the default ${xxx} syntax to resolve conflicts with some CloudFormation functionality",
             "default": "\\${([ ~:a-zA-Z0-9._@\\'\",\\-\\/\\(\\)]+?)}"
+        },
+        "httpApi": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "ID of externally created HTTP API to which endpoints should be attached."
+                }
+            },
+            "additionalProperties": true
         }
     },
     "required": [

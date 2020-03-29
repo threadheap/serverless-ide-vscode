@@ -139,8 +139,12 @@ export class YAMLValidation {
 
 		return new Promise((resolve, reject) => {
 			let output = ""
+			let errorOutput = ""
 			child.stdout.on("data", (data: Buffer) => {
 				output = output.concat(data.toString())
+			})
+			child.stderr.on("data", (data: Buffer) => {
+				errorOutput = errorOutput.concat(data.toString())
 			})
 
 			child.on("error", reject)
@@ -153,7 +157,26 @@ export class YAMLValidation {
 
 			child.on("exit", () => {
 				const tmp = output.toString()
-				const errors = JSON.parse(tmp)
+				let errors = tmp
+
+				try {
+					errors = JSON.parse(tmp)
+				} catch (err) {
+					diagnostics.push({
+						range: {
+							start: {
+								line: 0,
+								character: 1
+							},
+							end: {
+								line: 0,
+								character: 1
+							}
+						},
+						severity: DiagnosticSeverity.Error,
+						message: `[Serverless IDE]: cfn-lint error: ${errorOutput}`
+					})
+				}
 
 				if (Array.isArray(errors)) {
 					errors.map(error => {

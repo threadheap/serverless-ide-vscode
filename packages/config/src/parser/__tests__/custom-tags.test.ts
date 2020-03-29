@@ -19,14 +19,16 @@ describe("custom tags parse", () => {
 		CUSTOM_TAGS.forEach(tag => {
 			describe(tag.type, () => {
 				if (tag.type) {
-					test(`${tag.type}`, () => {
-						const text = [
-							`property: ${tag.tag} `,
-							optionsMapping[tag.kind]
-						].join("")
-						const node = generateNode(text)
+					tag.kind.forEach(kind => {
+						test(`${tag.type} ${kind}`, () => {
+							const text = [
+								`property: ${tag.tag} `,
+								optionsMapping[kind]
+							].join("")
+							const node = generateNode(text)
 
-						expect(node).toMatchSnapshot()
+							expect(node).toMatchSnapshot()
+						})
 					})
 				}
 			})

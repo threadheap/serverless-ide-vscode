@@ -10,7 +10,7 @@ import noop = require("lodash/noop")
 
 import { Schema, Type } from "js-yaml"
 import { TextDocument } from "vscode-languageserver-types"
-import * as Yaml from "yaml-ast-parser"
+import * as Yaml from "yaml-ast-parser-custom-tags"
 
 import { DocumentType } from "../model"
 import { getDocumentType } from "../utils"
@@ -109,8 +109,10 @@ export const parse = (
 
 	CUSTOM_TAGS.forEach(customTag => {
 		if (customTag.tag) {
+			const [kind, ...additionalKinds] = customTag.kind
+
 			compiledTypeMap[customTag.tag] = new Type(customTag.tag, {
-				kind: customTag.kind,
+				kind,
 				construct: data => {
 					if (data) {
 						data.customTag = customTag
@@ -121,6 +123,8 @@ export const parse = (
 					return null
 				}
 			})
+			// @ts-ignore
+			compiledTypeMap[customTag.tag].additionalKinds = additionalKinds
 		}
 	})
 

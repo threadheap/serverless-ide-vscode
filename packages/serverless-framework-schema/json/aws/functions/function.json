@@ -112,6 +112,9 @@
                         "$ref": "#/definitions/aws:functions:events:http"
                     },
                     {
+                        "$ref": "#/definitions/aws:functions:events:httpApi"
+                    },
+                    {
                         "$ref": "#/definitions/aws:functions:events:websocket"
                     },
                     {

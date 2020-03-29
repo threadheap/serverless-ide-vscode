@@ -1,6 +1,6 @@
 import { JSONDocument } from "./json-document"
 import noop = require("lodash/noop")
-import * as Yaml from "yaml-ast-parser"
+import * as Yaml from "yaml-ast-parser-custom-tags"
 
 import {
 	CUSTOM_TAGS_BY_PROPERTY_NAME,

@@ -1,0 +1,70 @@
+{
+    "description": "This creates an API Gateway HTTP endpoint which can be used to trigger this function.",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "httpApi": {
+            "oneOf": [
+                {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "properties": {
+                        "method": {
+                            "type": "string",
+                            "description": "HTTP method for this endpoint",
+                            "enum": [
+                                "get",
+                                "head",
+                                "post",
+                                "put",
+                                "delete",
+                                "options",
+                                "trace",
+                                "connect",
+                                "any",
+                                "GET",
+                                "HEAD",
+                                "POST",
+                                "PUT",
+                                "DELETE",
+                                "OPTIONS",
+                                "TRACE",
+                                "CONNECT"
+                            ],
+                            "default": "get"
+                        },
+                        "path": {
+                            "type": "string",
+                            "description": "Path for this endpoint",
+                            "default": "users/create"
+                        },
+                        "cors": {
+                            "description": "Turn on CORS for this endpoint, but don't forget to return the right header in your response",
+                            "oneOf": [
+                                {
+                                    "type": "boolean"
+                                },
+                                {
+                                    "type": "object"
+                                }
+                            ]
+                        },
+                        "authorizer": {
+                            "$ref": "#/definitions/aws:common:authorizer"
+                        }
+                    },
+                    "require": [
+                        "path",
+                        "method"
+                    ]
+                },
+                {
+                    "type": "string"
+                }
+            ]
+        }
+    },
+    "required": [
+        "httpApi"
+    ]
+}

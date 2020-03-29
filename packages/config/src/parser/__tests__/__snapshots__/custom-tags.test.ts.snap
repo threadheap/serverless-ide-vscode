@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`custom tags parse smoke tests CONDITION CONDITION 1`] = `
+exports[`custom tags parse smoke tests CONDITION CONDITION scalar 1`] = `
 ObjectASTNode {
   "_value": null,
   "customTag": undefined,
@@ -61,7 +61,9 @@ ObjectASTNode {
               "_value": "logicVariable",
               "customTag": Object {
                 "description": "The optional Conditions section contains statements that define the circumstances under which entities are created or configured.",
-                "kind": "scalar",
+                "kind": Array [
+                  "scalar",
+                ],
                 "propertyName": "Condition",
                 "referenceEntityTypes": Array [
                   "CONDITION",
@@ -119,7 +121,9 @@ ObjectASTNode {
         "_value": "logicVariable",
         "customTag": Object {
           "description": "The optional Conditions section contains statements that define the circumstances under which entities are created or configured.",
-          "kind": "scalar",
+          "kind": Array [
+            "scalar",
+          ],
           "propertyName": "Condition",
           "referenceEntityTypes": Array [
             "CONDITION",
@@ -259,7 +263,9 @@ ObjectASTNode {
                   "_value": "logicVariable",
                   "customTag": Object {
                     "description": "The optional Conditions section contains statements that define the circumstances under which entities are created or configured.",
-                    "kind": "scalar",
+                    "kind": Array [
+                      "scalar",
+                    ],
                     "propertyName": "Condition",
                     "referenceEntityTypes": Array [
                       "CONDITION",
@@ -348,7 +354,9 @@ ObjectASTNode {
                     "_value": "logicVariable",
                     "customTag": Object {
                       "description": "The optional Conditions section contains statements that define the circumstances under which entities are created or configured.",
-                      "kind": "scalar",
+                      "kind": Array [
+                        "scalar",
+                      ],
                       "propertyName": "Condition",
                       "referenceEntityTypes": Array [
                         "CONDITION",
@@ -394,7 +402,7 @@ ObjectASTNode {
 }
 `;
 
-exports[`custom tags parse smoke tests DEPENDS_ON DEPENDS_ON 1`] = `
+exports[`custom tags parse smoke tests DEPENDS_ON DEPENDS_ON sequence 1`] = `
 ObjectASTNode {
   "_value": null,
   "customTag": undefined,
@@ -800,7 +808,679 @@ ObjectASTNode {
 }
 `;
 
-exports[`custom tags parse smoke tests FIND_IN_MAP FIND_IN_MAP 1`] = `
+exports[`custom tags parse smoke tests FIND_IN_MAP FIND_IN_MAP mapping 1`] = `
+ObjectASTNode {
+  "_value": null,
+  "customTag": undefined,
+  "document": YAMLDocument {
+    "documentType": "UNKNOWN",
+    "errors": Array [],
+    "externalImportCallbacks": Object {
+      "onRegisterExternalImport": [Function],
+      "onValidateExternalImport": [Function],
+    },
+    "globalsConfig": Object {
+      "Api": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::Api",
+      },
+      "Function": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::Function",
+      },
+      "SimpleTable": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::SimpleTable",
+      },
+    },
+    "parameters": Array [],
+    "parentParams": undefined,
+    "referenceables": Object {
+      "hash": Object {
+        "CONDITION": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "MAPPING": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "OUTPUT": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "PARAMETER": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "RESOURCE": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+      },
+      "lookup": WeakMap {},
+    },
+    "references": Object {
+      "hash": Object {},
+      "lookup": WeakMap {},
+    },
+    "root": [Circular],
+    "syntaxErrors": Array [],
+    "uri": "",
+    "warnings": Array [],
+  },
+  "end": 71,
+  "location": null,
+  "parent": null,
+  "properties": Array [
+    PropertyASTNode {
+      "_value": ObjectASTNode {
+        "_value": null,
+        "customTag": undefined,
+        "document": YAMLDocument {
+          "documentType": "UNKNOWN",
+          "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
+          "globalsConfig": Object {
+            "Api": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Api",
+            },
+            "Function": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Function",
+            },
+            "SimpleTable": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::SimpleTable",
+            },
+          },
+          "parameters": Array [],
+          "parentParams": undefined,
+          "referenceables": Object {
+            "hash": Object {
+              "CONDITION": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+            },
+            "lookup": WeakMap {},
+          },
+          "references": Object {
+            "hash": Object {},
+            "lookup": WeakMap {},
+          },
+          "root": [Circular],
+          "syntaxErrors": Array [],
+          "uri": "",
+          "warnings": Array [],
+        },
+        "end": 71,
+        "location": "property",
+        "parent": [Circular],
+        "properties": Array [
+          PropertyASTNode {
+            "_value": StringASTNode {
+              "_value": "logicalVariable1",
+              "customTag": undefined,
+              "document": YAMLDocument {
+                "documentType": "UNKNOWN",
+                "errors": Array [],
+                "externalImportCallbacks": Object {
+                  "onRegisterExternalImport": [Function],
+                  "onValidateExternalImport": [Function],
+                },
+                "globalsConfig": Object {
+                  "Api": Object {
+                    "properties": Array [],
+                    "resourceType": "AWS::Serverless::Api",
+                  },
+                  "Function": Object {
+                    "properties": Array [],
+                    "resourceType": "AWS::Serverless::Function",
+                  },
+                  "SimpleTable": Object {
+                    "properties": Array [],
+                    "resourceType": "AWS::Serverless::SimpleTable",
+                  },
+                },
+                "parameters": Array [],
+                "parentParams": undefined,
+                "referenceables": Object {
+                  "hash": Object {
+                    "CONDITION": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "MAPPING": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "OUTPUT": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "PARAMETER": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "RESOURCE": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                  },
+                  "lookup": WeakMap {},
+                },
+                "references": Object {
+                  "hash": Object {},
+                  "lookup": WeakMap {},
+                },
+                "root": [Circular],
+                "syntaxErrors": Array [],
+                "uri": "",
+                "warnings": Array [],
+              },
+              "end": 45,
+              "isKey": false,
+              "location": "val1",
+              "parent": [Circular],
+              "start": 29,
+              "type": "string",
+            },
+            "colonOffset": -1,
+            "customTag": undefined,
+            "document": YAMLDocument {
+              "documentType": "UNKNOWN",
+              "errors": Array [],
+              "externalImportCallbacks": Object {
+                "onRegisterExternalImport": [Function],
+                "onValidateExternalImport": [Function],
+              },
+              "globalsConfig": Object {
+                "Api": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Api",
+                },
+                "Function": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Function",
+                },
+                "SimpleTable": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::SimpleTable",
+                },
+              },
+              "parameters": Array [],
+              "parentParams": undefined,
+              "referenceables": Object {
+                "hash": Object {
+                  "CONDITION": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "MAPPING": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "OUTPUT": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "PARAMETER": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "RESOURCE": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                },
+                "lookup": WeakMap {},
+              },
+              "references": Object {
+                "hash": Object {},
+                "lookup": WeakMap {},
+              },
+              "root": [Circular],
+              "syntaxErrors": Array [],
+              "uri": "",
+              "warnings": Array [],
+            },
+            "end": 45,
+            "key": StringASTNode {
+              "_value": "val1",
+              "customTag": undefined,
+              "document": YAMLDocument {
+                "documentType": "UNKNOWN",
+                "errors": Array [],
+                "externalImportCallbacks": Object {
+                  "onRegisterExternalImport": [Function],
+                  "onValidateExternalImport": [Function],
+                },
+                "globalsConfig": Object {
+                  "Api": Object {
+                    "properties": Array [],
+                    "resourceType": "AWS::Serverless::Api",
+                  },
+                  "Function": Object {
+                    "properties": Array [],
+                    "resourceType": "AWS::Serverless::Function",
+                  },
+                  "SimpleTable": Object {
+                    "properties": Array [],
+                    "resourceType": "AWS::Serverless::SimpleTable",
+                  },
+                },
+                "parameters": Array [],
+                "parentParams": undefined,
+                "referenceables": Object {
+                  "hash": Object {
+                    "CONDITION": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "MAPPING": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "OUTPUT": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "PARAMETER": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "RESOURCE": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                  },
+                  "lookup": WeakMap {},
+                },
+                "references": Object {
+                  "hash": Object {},
+                  "lookup": WeakMap {},
+                },
+                "root": [Circular],
+                "syntaxErrors": Array [],
+                "uri": "",
+                "warnings": Array [],
+              },
+              "end": 27,
+              "isKey": true,
+              "location": "val1",
+              "parent": [Circular],
+              "start": 23,
+              "type": "string",
+            },
+            "location": null,
+            "parent": [Circular],
+            "start": 23,
+            "type": "property",
+          },
+          PropertyASTNode {
+            "_value": StringASTNode {
+              "_value": "logicalVariable2",
+              "customTag": undefined,
+              "document": YAMLDocument {
+                "documentType": "UNKNOWN",
+                "errors": Array [],
+                "externalImportCallbacks": Object {
+                  "onRegisterExternalImport": [Function],
+                  "onValidateExternalImport": [Function],
+                },
+                "globalsConfig": Object {
+                  "Api": Object {
+                    "properties": Array [],
+                    "resourceType": "AWS::Serverless::Api",
+                  },
+                  "Function": Object {
+                    "properties": Array [],
+                    "resourceType": "AWS::Serverless::Function",
+                  },
+                  "SimpleTable": Object {
+                    "properties": Array [],
+                    "resourceType": "AWS::Serverless::SimpleTable",
+                  },
+                },
+                "parameters": Array [],
+                "parentParams": undefined,
+                "referenceables": Object {
+                  "hash": Object {
+                    "CONDITION": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "MAPPING": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "OUTPUT": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "PARAMETER": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "RESOURCE": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                  },
+                  "lookup": WeakMap {},
+                },
+                "references": Object {
+                  "hash": Object {},
+                  "lookup": WeakMap {},
+                },
+                "root": [Circular],
+                "syntaxErrors": Array [],
+                "uri": "",
+                "warnings": Array [],
+              },
+              "end": 69,
+              "isKey": false,
+              "location": "val2",
+              "parent": [Circular],
+              "start": 53,
+              "type": "string",
+            },
+            "colonOffset": -1,
+            "customTag": undefined,
+            "document": YAMLDocument {
+              "documentType": "UNKNOWN",
+              "errors": Array [],
+              "externalImportCallbacks": Object {
+                "onRegisterExternalImport": [Function],
+                "onValidateExternalImport": [Function],
+              },
+              "globalsConfig": Object {
+                "Api": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Api",
+                },
+                "Function": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Function",
+                },
+                "SimpleTable": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::SimpleTable",
+                },
+              },
+              "parameters": Array [],
+              "parentParams": undefined,
+              "referenceables": Object {
+                "hash": Object {
+                  "CONDITION": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "MAPPING": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "OUTPUT": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "PARAMETER": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "RESOURCE": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                },
+                "lookup": WeakMap {},
+              },
+              "references": Object {
+                "hash": Object {},
+                "lookup": WeakMap {},
+              },
+              "root": [Circular],
+              "syntaxErrors": Array [],
+              "uri": "",
+              "warnings": Array [],
+            },
+            "end": 69,
+            "key": StringASTNode {
+              "_value": "val2",
+              "customTag": undefined,
+              "document": YAMLDocument {
+                "documentType": "UNKNOWN",
+                "errors": Array [],
+                "externalImportCallbacks": Object {
+                  "onRegisterExternalImport": [Function],
+                  "onValidateExternalImport": [Function],
+                },
+                "globalsConfig": Object {
+                  "Api": Object {
+                    "properties": Array [],
+                    "resourceType": "AWS::Serverless::Api",
+                  },
+                  "Function": Object {
+                    "properties": Array [],
+                    "resourceType": "AWS::Serverless::Function",
+                  },
+                  "SimpleTable": Object {
+                    "properties": Array [],
+                    "resourceType": "AWS::Serverless::SimpleTable",
+                  },
+                },
+                "parameters": Array [],
+                "parentParams": undefined,
+                "referenceables": Object {
+                  "hash": Object {
+                    "CONDITION": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "MAPPING": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "OUTPUT": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "PARAMETER": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "RESOURCE": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                  },
+                  "lookup": WeakMap {},
+                },
+                "references": Object {
+                  "hash": Object {},
+                  "lookup": WeakMap {},
+                },
+                "root": [Circular],
+                "syntaxErrors": Array [],
+                "uri": "",
+                "warnings": Array [],
+              },
+              "end": 51,
+              "isKey": true,
+              "location": "val2",
+              "parent": [Circular],
+              "start": 47,
+              "type": "string",
+            },
+            "location": null,
+            "parent": [Circular],
+            "start": 47,
+            "type": "property",
+          },
+        ],
+        "start": 21,
+        "type": "object",
+      },
+      "colonOffset": -1,
+      "customTag": undefined,
+      "document": YAMLDocument {
+        "documentType": "UNKNOWN",
+        "errors": Array [],
+        "externalImportCallbacks": Object {
+          "onRegisterExternalImport": [Function],
+          "onValidateExternalImport": [Function],
+        },
+        "globalsConfig": Object {
+          "Api": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::Api",
+          },
+          "Function": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::Function",
+          },
+          "SimpleTable": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::SimpleTable",
+          },
+        },
+        "parameters": Array [],
+        "parentParams": undefined,
+        "referenceables": Object {
+          "hash": Object {
+            "CONDITION": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "MAPPING": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "OUTPUT": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "PARAMETER": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "RESOURCE": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+          },
+          "lookup": WeakMap {},
+        },
+        "references": Object {
+          "hash": Object {},
+          "lookup": WeakMap {},
+        },
+        "root": [Circular],
+        "syntaxErrors": Array [],
+        "uri": "",
+        "warnings": Array [],
+      },
+      "end": 71,
+      "key": StringASTNode {
+        "_value": "property",
+        "customTag": undefined,
+        "document": YAMLDocument {
+          "documentType": "UNKNOWN",
+          "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
+          "globalsConfig": Object {
+            "Api": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Api",
+            },
+            "Function": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Function",
+            },
+            "SimpleTable": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::SimpleTable",
+            },
+          },
+          "parameters": Array [],
+          "parentParams": undefined,
+          "referenceables": Object {
+            "hash": Object {
+              "CONDITION": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+            },
+            "lookup": WeakMap {},
+          },
+          "references": Object {
+            "hash": Object {},
+            "lookup": WeakMap {},
+          },
+          "root": [Circular],
+          "syntaxErrors": Array [],
+          "uri": "",
+          "warnings": Array [],
+        },
+        "end": 8,
+        "isKey": true,
+        "location": "property",
+        "parent": [Circular],
+        "start": 0,
+        "type": "string",
+      },
+      "location": null,
+      "parent": [Circular],
+      "start": 0,
+      "type": "property",
+    },
+  ],
+  "start": 0,
+  "type": "object",
+}
+`;
+
+exports[`custom tags parse smoke tests FIND_IN_MAP FIND_IN_MAP sequence 1`] = `
 ObjectASTNode {
   "_value": null,
   "customTag": undefined,
@@ -870,7 +1550,10 @@ ObjectASTNode {
         "_value": null,
         "customTag": Object {
           "description": "The intrinsic function Fn::FindInMap returns the value corresponding to keys in a two-level map that is declared in the Mappings section.",
-          "kind": "sequence",
+          "kind": Array [
+            "sequence",
+            "mapping",
+          ],
           "propertyName": "Fn::FindInMap",
           "referenceEntityTypes": Array [
             "MAPPING",
@@ -1215,7 +1898,679 @@ ObjectASTNode {
 }
 `;
 
-exports[`custom tags parse smoke tests GET_ATT GET_ATT 1`] = `
+exports[`custom tags parse smoke tests GET_ATT GET_ATT mapping 1`] = `
+ObjectASTNode {
+  "_value": null,
+  "customTag": undefined,
+  "document": YAMLDocument {
+    "documentType": "UNKNOWN",
+    "errors": Array [],
+    "externalImportCallbacks": Object {
+      "onRegisterExternalImport": [Function],
+      "onValidateExternalImport": [Function],
+    },
+    "globalsConfig": Object {
+      "Api": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::Api",
+      },
+      "Function": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::Function",
+      },
+      "SimpleTable": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::SimpleTable",
+      },
+    },
+    "parameters": Array [],
+    "parentParams": undefined,
+    "referenceables": Object {
+      "hash": Object {
+        "CONDITION": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "MAPPING": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "OUTPUT": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "PARAMETER": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "RESOURCE": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+      },
+      "lookup": WeakMap {},
+    },
+    "references": Object {
+      "hash": Object {},
+      "lookup": WeakMap {},
+    },
+    "root": [Circular],
+    "syntaxErrors": Array [],
+    "uri": "",
+    "warnings": Array [],
+  },
+  "end": 68,
+  "location": null,
+  "parent": null,
+  "properties": Array [
+    PropertyASTNode {
+      "_value": ObjectASTNode {
+        "_value": null,
+        "customTag": undefined,
+        "document": YAMLDocument {
+          "documentType": "UNKNOWN",
+          "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
+          "globalsConfig": Object {
+            "Api": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Api",
+            },
+            "Function": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Function",
+            },
+            "SimpleTable": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::SimpleTable",
+            },
+          },
+          "parameters": Array [],
+          "parentParams": undefined,
+          "referenceables": Object {
+            "hash": Object {
+              "CONDITION": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+            },
+            "lookup": WeakMap {},
+          },
+          "references": Object {
+            "hash": Object {},
+            "lookup": WeakMap {},
+          },
+          "root": [Circular],
+          "syntaxErrors": Array [],
+          "uri": "",
+          "warnings": Array [],
+        },
+        "end": 68,
+        "location": "property",
+        "parent": [Circular],
+        "properties": Array [
+          PropertyASTNode {
+            "_value": StringASTNode {
+              "_value": "logicalVariable1",
+              "customTag": undefined,
+              "document": YAMLDocument {
+                "documentType": "UNKNOWN",
+                "errors": Array [],
+                "externalImportCallbacks": Object {
+                  "onRegisterExternalImport": [Function],
+                  "onValidateExternalImport": [Function],
+                },
+                "globalsConfig": Object {
+                  "Api": Object {
+                    "properties": Array [],
+                    "resourceType": "AWS::Serverless::Api",
+                  },
+                  "Function": Object {
+                    "properties": Array [],
+                    "resourceType": "AWS::Serverless::Function",
+                  },
+                  "SimpleTable": Object {
+                    "properties": Array [],
+                    "resourceType": "AWS::Serverless::SimpleTable",
+                  },
+                },
+                "parameters": Array [],
+                "parentParams": undefined,
+                "referenceables": Object {
+                  "hash": Object {
+                    "CONDITION": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "MAPPING": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "OUTPUT": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "PARAMETER": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "RESOURCE": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                  },
+                  "lookup": WeakMap {},
+                },
+                "references": Object {
+                  "hash": Object {},
+                  "lookup": WeakMap {},
+                },
+                "root": [Circular],
+                "syntaxErrors": Array [],
+                "uri": "",
+                "warnings": Array [],
+              },
+              "end": 42,
+              "isKey": false,
+              "location": "val1",
+              "parent": [Circular],
+              "start": 26,
+              "type": "string",
+            },
+            "colonOffset": -1,
+            "customTag": undefined,
+            "document": YAMLDocument {
+              "documentType": "UNKNOWN",
+              "errors": Array [],
+              "externalImportCallbacks": Object {
+                "onRegisterExternalImport": [Function],
+                "onValidateExternalImport": [Function],
+              },
+              "globalsConfig": Object {
+                "Api": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Api",
+                },
+                "Function": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Function",
+                },
+                "SimpleTable": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::SimpleTable",
+                },
+              },
+              "parameters": Array [],
+              "parentParams": undefined,
+              "referenceables": Object {
+                "hash": Object {
+                  "CONDITION": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "MAPPING": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "OUTPUT": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "PARAMETER": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "RESOURCE": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                },
+                "lookup": WeakMap {},
+              },
+              "references": Object {
+                "hash": Object {},
+                "lookup": WeakMap {},
+              },
+              "root": [Circular],
+              "syntaxErrors": Array [],
+              "uri": "",
+              "warnings": Array [],
+            },
+            "end": 42,
+            "key": StringASTNode {
+              "_value": "val1",
+              "customTag": undefined,
+              "document": YAMLDocument {
+                "documentType": "UNKNOWN",
+                "errors": Array [],
+                "externalImportCallbacks": Object {
+                  "onRegisterExternalImport": [Function],
+                  "onValidateExternalImport": [Function],
+                },
+                "globalsConfig": Object {
+                  "Api": Object {
+                    "properties": Array [],
+                    "resourceType": "AWS::Serverless::Api",
+                  },
+                  "Function": Object {
+                    "properties": Array [],
+                    "resourceType": "AWS::Serverless::Function",
+                  },
+                  "SimpleTable": Object {
+                    "properties": Array [],
+                    "resourceType": "AWS::Serverless::SimpleTable",
+                  },
+                },
+                "parameters": Array [],
+                "parentParams": undefined,
+                "referenceables": Object {
+                  "hash": Object {
+                    "CONDITION": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "MAPPING": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "OUTPUT": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "PARAMETER": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "RESOURCE": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                  },
+                  "lookup": WeakMap {},
+                },
+                "references": Object {
+                  "hash": Object {},
+                  "lookup": WeakMap {},
+                },
+                "root": [Circular],
+                "syntaxErrors": Array [],
+                "uri": "",
+                "warnings": Array [],
+              },
+              "end": 24,
+              "isKey": true,
+              "location": "val1",
+              "parent": [Circular],
+              "start": 20,
+              "type": "string",
+            },
+            "location": null,
+            "parent": [Circular],
+            "start": 20,
+            "type": "property",
+          },
+          PropertyASTNode {
+            "_value": StringASTNode {
+              "_value": "logicalVariable2",
+              "customTag": undefined,
+              "document": YAMLDocument {
+                "documentType": "UNKNOWN",
+                "errors": Array [],
+                "externalImportCallbacks": Object {
+                  "onRegisterExternalImport": [Function],
+                  "onValidateExternalImport": [Function],
+                },
+                "globalsConfig": Object {
+                  "Api": Object {
+                    "properties": Array [],
+                    "resourceType": "AWS::Serverless::Api",
+                  },
+                  "Function": Object {
+                    "properties": Array [],
+                    "resourceType": "AWS::Serverless::Function",
+                  },
+                  "SimpleTable": Object {
+                    "properties": Array [],
+                    "resourceType": "AWS::Serverless::SimpleTable",
+                  },
+                },
+                "parameters": Array [],
+                "parentParams": undefined,
+                "referenceables": Object {
+                  "hash": Object {
+                    "CONDITION": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "MAPPING": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "OUTPUT": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "PARAMETER": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "RESOURCE": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                  },
+                  "lookup": WeakMap {},
+                },
+                "references": Object {
+                  "hash": Object {},
+                  "lookup": WeakMap {},
+                },
+                "root": [Circular],
+                "syntaxErrors": Array [],
+                "uri": "",
+                "warnings": Array [],
+              },
+              "end": 66,
+              "isKey": false,
+              "location": "val2",
+              "parent": [Circular],
+              "start": 50,
+              "type": "string",
+            },
+            "colonOffset": -1,
+            "customTag": undefined,
+            "document": YAMLDocument {
+              "documentType": "UNKNOWN",
+              "errors": Array [],
+              "externalImportCallbacks": Object {
+                "onRegisterExternalImport": [Function],
+                "onValidateExternalImport": [Function],
+              },
+              "globalsConfig": Object {
+                "Api": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Api",
+                },
+                "Function": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Function",
+                },
+                "SimpleTable": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::SimpleTable",
+                },
+              },
+              "parameters": Array [],
+              "parentParams": undefined,
+              "referenceables": Object {
+                "hash": Object {
+                  "CONDITION": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "MAPPING": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "OUTPUT": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "PARAMETER": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "RESOURCE": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                },
+                "lookup": WeakMap {},
+              },
+              "references": Object {
+                "hash": Object {},
+                "lookup": WeakMap {},
+              },
+              "root": [Circular],
+              "syntaxErrors": Array [],
+              "uri": "",
+              "warnings": Array [],
+            },
+            "end": 66,
+            "key": StringASTNode {
+              "_value": "val2",
+              "customTag": undefined,
+              "document": YAMLDocument {
+                "documentType": "UNKNOWN",
+                "errors": Array [],
+                "externalImportCallbacks": Object {
+                  "onRegisterExternalImport": [Function],
+                  "onValidateExternalImport": [Function],
+                },
+                "globalsConfig": Object {
+                  "Api": Object {
+                    "properties": Array [],
+                    "resourceType": "AWS::Serverless::Api",
+                  },
+                  "Function": Object {
+                    "properties": Array [],
+                    "resourceType": "AWS::Serverless::Function",
+                  },
+                  "SimpleTable": Object {
+                    "properties": Array [],
+                    "resourceType": "AWS::Serverless::SimpleTable",
+                  },
+                },
+                "parameters": Array [],
+                "parentParams": undefined,
+                "referenceables": Object {
+                  "hash": Object {
+                    "CONDITION": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "MAPPING": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "OUTPUT": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "PARAMETER": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                    "RESOURCE": SortedHash {
+                      "hash": Object {},
+                      "sequence": Array [],
+                    },
+                  },
+                  "lookup": WeakMap {},
+                },
+                "references": Object {
+                  "hash": Object {},
+                  "lookup": WeakMap {},
+                },
+                "root": [Circular],
+                "syntaxErrors": Array [],
+                "uri": "",
+                "warnings": Array [],
+              },
+              "end": 48,
+              "isKey": true,
+              "location": "val2",
+              "parent": [Circular],
+              "start": 44,
+              "type": "string",
+            },
+            "location": null,
+            "parent": [Circular],
+            "start": 44,
+            "type": "property",
+          },
+        ],
+        "start": 18,
+        "type": "object",
+      },
+      "colonOffset": -1,
+      "customTag": undefined,
+      "document": YAMLDocument {
+        "documentType": "UNKNOWN",
+        "errors": Array [],
+        "externalImportCallbacks": Object {
+          "onRegisterExternalImport": [Function],
+          "onValidateExternalImport": [Function],
+        },
+        "globalsConfig": Object {
+          "Api": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::Api",
+          },
+          "Function": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::Function",
+          },
+          "SimpleTable": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::SimpleTable",
+          },
+        },
+        "parameters": Array [],
+        "parentParams": undefined,
+        "referenceables": Object {
+          "hash": Object {
+            "CONDITION": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "MAPPING": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "OUTPUT": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "PARAMETER": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "RESOURCE": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+          },
+          "lookup": WeakMap {},
+        },
+        "references": Object {
+          "hash": Object {},
+          "lookup": WeakMap {},
+        },
+        "root": [Circular],
+        "syntaxErrors": Array [],
+        "uri": "",
+        "warnings": Array [],
+      },
+      "end": 68,
+      "key": StringASTNode {
+        "_value": "property",
+        "customTag": undefined,
+        "document": YAMLDocument {
+          "documentType": "UNKNOWN",
+          "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
+          "globalsConfig": Object {
+            "Api": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Api",
+            },
+            "Function": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Function",
+            },
+            "SimpleTable": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::SimpleTable",
+            },
+          },
+          "parameters": Array [],
+          "parentParams": undefined,
+          "referenceables": Object {
+            "hash": Object {
+              "CONDITION": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+            },
+            "lookup": WeakMap {},
+          },
+          "references": Object {
+            "hash": Object {},
+            "lookup": WeakMap {},
+          },
+          "root": [Circular],
+          "syntaxErrors": Array [],
+          "uri": "",
+          "warnings": Array [],
+        },
+        "end": 8,
+        "isKey": true,
+        "location": "property",
+        "parent": [Circular],
+        "start": 0,
+        "type": "string",
+      },
+      "location": null,
+      "parent": [Circular],
+      "start": 0,
+      "type": "property",
+    },
+  ],
+  "start": 0,
+  "type": "object",
+}
+`;
+
+exports[`custom tags parse smoke tests GET_ATT GET_ATT scalar 1`] = `
 ObjectASTNode {
   "_value": null,
   "customTag": undefined,
@@ -1276,7 +2631,11 @@ ObjectASTNode {
               "_value": "logicVariable",
               "customTag": Object {
                 "description": "The Fn::GetAtt intrinsic function returns the value of an attribute from a resource in the template.",
-                "kind": "scalar",
+                "kind": Array [
+                  "scalar",
+                  "sequence",
+                  "mapping",
+                ],
                 "propertyName": "Fn::GetAtt",
                 "referenceEntityTypes": Array [
                   "RESOURCE",
@@ -1333,7 +2692,11 @@ ObjectASTNode {
         "_value": "logicVariable",
         "customTag": Object {
           "description": "The Fn::GetAtt intrinsic function returns the value of an attribute from a resource in the template.",
-          "kind": "scalar",
+          "kind": Array [
+            "scalar",
+            "sequence",
+            "mapping",
+          ],
           "propertyName": "Fn::GetAtt",
           "referenceEntityTypes": Array [
             "RESOURCE",
@@ -1472,7 +2835,11 @@ ObjectASTNode {
                   "_value": "logicVariable",
                   "customTag": Object {
                     "description": "The Fn::GetAtt intrinsic function returns the value of an attribute from a resource in the template.",
-                    "kind": "scalar",
+                    "kind": Array [
+                      "scalar",
+                      "sequence",
+                      "mapping",
+                    ],
                     "propertyName": "Fn::GetAtt",
                     "referenceEntityTypes": Array [
                       "RESOURCE",
@@ -1560,7 +2927,11 @@ ObjectASTNode {
                     "_value": "logicVariable",
                     "customTag": Object {
                       "description": "The Fn::GetAtt intrinsic function returns the value of an attribute from a resource in the template.",
-                      "kind": "scalar",
+                      "kind": Array [
+                        "scalar",
+                        "sequence",
+                        "mapping",
+                      ],
                       "propertyName": "Fn::GetAtt",
                       "referenceEntityTypes": Array [
                         "RESOURCE",
@@ -1605,7 +2976,653 @@ ObjectASTNode {
 }
 `;
 
-exports[`custom tags parse smoke tests REF REF 1`] = `
+exports[`custom tags parse smoke tests GET_ATT GET_ATT sequence 1`] = `
+ObjectASTNode {
+  "_value": null,
+  "customTag": undefined,
+  "document": YAMLDocument {
+    "documentType": "UNKNOWN",
+    "errors": Array [],
+    "externalImportCallbacks": Object {
+      "onRegisterExternalImport": [Function],
+      "onValidateExternalImport": [Function],
+    },
+    "globalsConfig": Object {
+      "Api": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::Api",
+      },
+      "Function": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::Function",
+      },
+      "SimpleTable": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::SimpleTable",
+      },
+    },
+    "parameters": Array [],
+    "parentParams": undefined,
+    "referenceables": Object {
+      "hash": Object {
+        "CONDITION": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "MAPPING": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "OUTPUT": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "PARAMETER": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "RESOURCE": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+      },
+      "lookup": WeakMap {},
+    },
+    "references": Object {
+      "hash": Object {
+        "logicalVariable1": Array [
+          Object {
+            "key": "logicalVariable1",
+            "node": StringASTNode {
+              "_value": "logicalVariable1",
+              "customTag": undefined,
+              "document": [Circular],
+              "end": 40,
+              "isKey": false,
+              "location": 0,
+              "parent": ArrayASTNode {
+                "_value": null,
+                "customTag": Object {
+                  "description": "The Fn::GetAtt intrinsic function returns the value of an attribute from a resource in the template.",
+                  "kind": Array [
+                    "scalar",
+                    "sequence",
+                    "mapping",
+                  ],
+                  "propertyName": "Fn::GetAtt",
+                  "referenceEntityTypes": Array [
+                    "RESOURCE",
+                  ],
+                  "tag": "!GetAtt",
+                  "type": "GET_ATT",
+                },
+                "document": [Circular],
+                "end": 63,
+                "items": Array [
+                  [Circular],
+                  StringASTNode {
+                    "_value": "logicalVariable2",
+                    "customTag": undefined,
+                    "document": [Circular],
+                    "end": 62,
+                    "isKey": false,
+                    "location": 1,
+                    "parent": [Circular],
+                    "start": 46,
+                    "type": "string",
+                  },
+                ],
+                "location": "property",
+                "parent": PropertyASTNode {
+                  "_value": [Circular],
+                  "colonOffset": -1,
+                  "customTag": undefined,
+                  "document": [Circular],
+                  "end": 63,
+                  "key": StringASTNode {
+                    "_value": "property",
+                    "customTag": undefined,
+                    "document": [Circular],
+                    "end": 8,
+                    "isKey": true,
+                    "location": "property",
+                    "parent": [Circular],
+                    "start": 0,
+                    "type": "string",
+                  },
+                  "location": null,
+                  "parent": [Circular],
+                  "start": 0,
+                  "type": "property",
+                },
+                "start": 22,
+                "type": "array",
+              },
+              "start": 24,
+              "type": "string",
+            },
+            "type": "GET_ATT",
+          },
+        ],
+      },
+      "lookup": WeakMap {},
+    },
+    "root": [Circular],
+    "syntaxErrors": Array [],
+    "uri": "",
+    "warnings": Array [],
+  },
+  "end": 62,
+  "location": null,
+  "parent": null,
+  "properties": Array [
+    PropertyASTNode {
+      "_value": ArrayASTNode {
+        "_value": null,
+        "customTag": Object {
+          "description": "The Fn::GetAtt intrinsic function returns the value of an attribute from a resource in the template.",
+          "kind": Array [
+            "scalar",
+            "sequence",
+            "mapping",
+          ],
+          "propertyName": "Fn::GetAtt",
+          "referenceEntityTypes": Array [
+            "RESOURCE",
+          ],
+          "tag": "!GetAtt",
+          "type": "GET_ATT",
+        },
+        "document": YAMLDocument {
+          "documentType": "UNKNOWN",
+          "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
+          "globalsConfig": Object {
+            "Api": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Api",
+            },
+            "Function": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Function",
+            },
+            "SimpleTable": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::SimpleTable",
+            },
+          },
+          "parameters": Array [],
+          "parentParams": undefined,
+          "referenceables": Object {
+            "hash": Object {
+              "CONDITION": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+            },
+            "lookup": WeakMap {},
+          },
+          "references": Object {
+            "hash": Object {
+              "logicalVariable1": Array [
+                Object {
+                  "key": "logicalVariable1",
+                  "node": StringASTNode {
+                    "_value": "logicalVariable1",
+                    "customTag": undefined,
+                    "document": [Circular],
+                    "end": 40,
+                    "isKey": false,
+                    "location": 0,
+                    "parent": [Circular],
+                    "start": 24,
+                    "type": "string",
+                  },
+                  "type": "GET_ATT",
+                },
+              ],
+            },
+            "lookup": WeakMap {},
+          },
+          "root": [Circular],
+          "syntaxErrors": Array [],
+          "uri": "",
+          "warnings": Array [],
+        },
+        "end": 63,
+        "items": Array [
+          StringASTNode {
+            "_value": "logicalVariable1",
+            "customTag": undefined,
+            "document": YAMLDocument {
+              "documentType": "UNKNOWN",
+              "errors": Array [],
+              "externalImportCallbacks": Object {
+                "onRegisterExternalImport": [Function],
+                "onValidateExternalImport": [Function],
+              },
+              "globalsConfig": Object {
+                "Api": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Api",
+                },
+                "Function": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Function",
+                },
+                "SimpleTable": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::SimpleTable",
+                },
+              },
+              "parameters": Array [],
+              "parentParams": undefined,
+              "referenceables": Object {
+                "hash": Object {
+                  "CONDITION": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "MAPPING": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "OUTPUT": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "PARAMETER": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "RESOURCE": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                },
+                "lookup": WeakMap {},
+              },
+              "references": Object {
+                "hash": Object {
+                  "logicalVariable1": Array [
+                    Object {
+                      "key": "logicalVariable1",
+                      "node": [Circular],
+                      "type": "GET_ATT",
+                    },
+                  ],
+                },
+                "lookup": WeakMap {},
+              },
+              "root": [Circular],
+              "syntaxErrors": Array [],
+              "uri": "",
+              "warnings": Array [],
+            },
+            "end": 40,
+            "isKey": false,
+            "location": 0,
+            "parent": [Circular],
+            "start": 24,
+            "type": "string",
+          },
+          StringASTNode {
+            "_value": "logicalVariable2",
+            "customTag": undefined,
+            "document": YAMLDocument {
+              "documentType": "UNKNOWN",
+              "errors": Array [],
+              "externalImportCallbacks": Object {
+                "onRegisterExternalImport": [Function],
+                "onValidateExternalImport": [Function],
+              },
+              "globalsConfig": Object {
+                "Api": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Api",
+                },
+                "Function": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Function",
+                },
+                "SimpleTable": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::SimpleTable",
+                },
+              },
+              "parameters": Array [],
+              "parentParams": undefined,
+              "referenceables": Object {
+                "hash": Object {
+                  "CONDITION": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "MAPPING": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "OUTPUT": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "PARAMETER": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "RESOURCE": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                },
+                "lookup": WeakMap {},
+              },
+              "references": Object {
+                "hash": Object {
+                  "logicalVariable1": Array [
+                    Object {
+                      "key": "logicalVariable1",
+                      "node": StringASTNode {
+                        "_value": "logicalVariable1",
+                        "customTag": undefined,
+                        "document": [Circular],
+                        "end": 40,
+                        "isKey": false,
+                        "location": 0,
+                        "parent": [Circular],
+                        "start": 24,
+                        "type": "string",
+                      },
+                      "type": "GET_ATT",
+                    },
+                  ],
+                },
+                "lookup": WeakMap {},
+              },
+              "root": [Circular],
+              "syntaxErrors": Array [],
+              "uri": "",
+              "warnings": Array [],
+            },
+            "end": 62,
+            "isKey": false,
+            "location": 1,
+            "parent": [Circular],
+            "start": 46,
+            "type": "string",
+          },
+        ],
+        "location": "property",
+        "parent": [Circular],
+        "start": 22,
+        "type": "array",
+      },
+      "colonOffset": -1,
+      "customTag": undefined,
+      "document": YAMLDocument {
+        "documentType": "UNKNOWN",
+        "errors": Array [],
+        "externalImportCallbacks": Object {
+          "onRegisterExternalImport": [Function],
+          "onValidateExternalImport": [Function],
+        },
+        "globalsConfig": Object {
+          "Api": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::Api",
+          },
+          "Function": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::Function",
+          },
+          "SimpleTable": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::SimpleTable",
+          },
+        },
+        "parameters": Array [],
+        "parentParams": undefined,
+        "referenceables": Object {
+          "hash": Object {
+            "CONDITION": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "MAPPING": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "OUTPUT": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "PARAMETER": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "RESOURCE": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+          },
+          "lookup": WeakMap {},
+        },
+        "references": Object {
+          "hash": Object {
+            "logicalVariable1": Array [
+              Object {
+                "key": "logicalVariable1",
+                "node": StringASTNode {
+                  "_value": "logicalVariable1",
+                  "customTag": undefined,
+                  "document": [Circular],
+                  "end": 40,
+                  "isKey": false,
+                  "location": 0,
+                  "parent": ArrayASTNode {
+                    "_value": null,
+                    "customTag": Object {
+                      "description": "The Fn::GetAtt intrinsic function returns the value of an attribute from a resource in the template.",
+                      "kind": Array [
+                        "scalar",
+                        "sequence",
+                        "mapping",
+                      ],
+                      "propertyName": "Fn::GetAtt",
+                      "referenceEntityTypes": Array [
+                        "RESOURCE",
+                      ],
+                      "tag": "!GetAtt",
+                      "type": "GET_ATT",
+                    },
+                    "document": [Circular],
+                    "end": 63,
+                    "items": Array [
+                      [Circular],
+                      StringASTNode {
+                        "_value": "logicalVariable2",
+                        "customTag": undefined,
+                        "document": [Circular],
+                        "end": 62,
+                        "isKey": false,
+                        "location": 1,
+                        "parent": [Circular],
+                        "start": 46,
+                        "type": "string",
+                      },
+                    ],
+                    "location": "property",
+                    "parent": [Circular],
+                    "start": 22,
+                    "type": "array",
+                  },
+                  "start": 24,
+                  "type": "string",
+                },
+                "type": "GET_ATT",
+              },
+            ],
+          },
+          "lookup": WeakMap {},
+        },
+        "root": [Circular],
+        "syntaxErrors": Array [],
+        "uri": "",
+        "warnings": Array [],
+      },
+      "end": 63,
+      "key": StringASTNode {
+        "_value": "property",
+        "customTag": undefined,
+        "document": YAMLDocument {
+          "documentType": "UNKNOWN",
+          "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
+          "globalsConfig": Object {
+            "Api": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Api",
+            },
+            "Function": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Function",
+            },
+            "SimpleTable": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::SimpleTable",
+            },
+          },
+          "parameters": Array [],
+          "parentParams": undefined,
+          "referenceables": Object {
+            "hash": Object {
+              "CONDITION": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+            },
+            "lookup": WeakMap {},
+          },
+          "references": Object {
+            "hash": Object {
+              "logicalVariable1": Array [
+                Object {
+                  "key": "logicalVariable1",
+                  "node": StringASTNode {
+                    "_value": "logicalVariable1",
+                    "customTag": undefined,
+                    "document": [Circular],
+                    "end": 40,
+                    "isKey": false,
+                    "location": 0,
+                    "parent": ArrayASTNode {
+                      "_value": null,
+                      "customTag": Object {
+                        "description": "The Fn::GetAtt intrinsic function returns the value of an attribute from a resource in the template.",
+                        "kind": Array [
+                          "scalar",
+                          "sequence",
+                          "mapping",
+                        ],
+                        "propertyName": "Fn::GetAtt",
+                        "referenceEntityTypes": Array [
+                          "RESOURCE",
+                        ],
+                        "tag": "!GetAtt",
+                        "type": "GET_ATT",
+                      },
+                      "document": [Circular],
+                      "end": 63,
+                      "items": Array [
+                        [Circular],
+                        StringASTNode {
+                          "_value": "logicalVariable2",
+                          "customTag": undefined,
+                          "document": [Circular],
+                          "end": 62,
+                          "isKey": false,
+                          "location": 1,
+                          "parent": [Circular],
+                          "start": 46,
+                          "type": "string",
+                        },
+                      ],
+                      "location": "property",
+                      "parent": [Circular],
+                      "start": 22,
+                      "type": "array",
+                    },
+                    "start": 24,
+                    "type": "string",
+                  },
+                  "type": "GET_ATT",
+                },
+              ],
+            },
+            "lookup": WeakMap {},
+          },
+          "root": [Circular],
+          "syntaxErrors": Array [],
+          "uri": "",
+          "warnings": Array [],
+        },
+        "end": 8,
+        "isKey": true,
+        "location": "property",
+        "parent": [Circular],
+        "start": 0,
+        "type": "string",
+      },
+      "location": null,
+      "parent": [Circular],
+      "start": 0,
+      "type": "property",
+    },
+  ],
+  "start": 0,
+  "type": "object",
+}
+`;
+
+exports[`custom tags parse smoke tests REF REF scalar 1`] = `
 ObjectASTNode {
   "_value": null,
   "customTag": undefined,
@@ -1666,7 +3683,9 @@ ObjectASTNode {
               "_value": "logicVariable",
               "customTag": Object {
                 "description": "The intrinsic function Ref returns the value of the specified parameter or resource.",
-                "kind": "scalar",
+                "kind": Array [
+                  "scalar",
+                ],
                 "propertyName": "Ref",
                 "referenceEntityTypes": Array [
                   "PARAMETER",
@@ -1725,7 +3744,9 @@ ObjectASTNode {
         "_value": "logicVariable",
         "customTag": Object {
           "description": "The intrinsic function Ref returns the value of the specified parameter or resource.",
-          "kind": "scalar",
+          "kind": Array [
+            "scalar",
+          ],
           "propertyName": "Ref",
           "referenceEntityTypes": Array [
             "PARAMETER",
@@ -1866,7 +3887,9 @@ ObjectASTNode {
                   "_value": "logicVariable",
                   "customTag": Object {
                     "description": "The intrinsic function Ref returns the value of the specified parameter or resource.",
-                    "kind": "scalar",
+                    "kind": Array [
+                      "scalar",
+                    ],
                     "propertyName": "Ref",
                     "referenceEntityTypes": Array [
                       "PARAMETER",
@@ -1956,7 +3979,9 @@ ObjectASTNode {
                     "_value": "logicVariable",
                     "customTag": Object {
                       "description": "The intrinsic function Ref returns the value of the specified parameter or resource.",
-                      "kind": "scalar",
+                      "kind": Array [
+                        "scalar",
+                      ],
                       "propertyName": "Ref",
                       "referenceEntityTypes": Array [
                         "PARAMETER",
@@ -2003,7 +4028,7 @@ ObjectASTNode {
 }
 `;
 
-exports[`custom tags parse smoke tests SUB SUB 1`] = `
+exports[`custom tags parse smoke tests SUB SUB scalar 1`] = `
 ObjectASTNode {
   "_value": null,
   "customTag": undefined,
@@ -2073,7 +4098,10 @@ ObjectASTNode {
         "_value": "logicVariable",
         "customTag": Object {
           "description": "The intrinsic function Fn::Sub substitutes variables in an input string with values that you specify.",
-          "kind": "scalar",
+          "kind": Array [
+            "scalar",
+            "sequence",
+          ],
           "propertyName": "Fn::Sub",
           "referenceEntityTypes": Array [
             "RESOURCE",
@@ -2207,6 +4235,426 @@ ObjectASTNode {
         "warnings": Array [],
       },
       "end": 28,
+      "key": StringASTNode {
+        "_value": "property",
+        "customTag": undefined,
+        "document": YAMLDocument {
+          "documentType": "UNKNOWN",
+          "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
+          "globalsConfig": Object {
+            "Api": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Api",
+            },
+            "Function": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Function",
+            },
+            "SimpleTable": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::SimpleTable",
+            },
+          },
+          "parameters": Array [],
+          "parentParams": undefined,
+          "referenceables": Object {
+            "hash": Object {
+              "CONDITION": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+            },
+            "lookup": WeakMap {},
+          },
+          "references": Object {
+            "hash": Object {},
+            "lookup": WeakMap {},
+          },
+          "root": [Circular],
+          "syntaxErrors": Array [],
+          "uri": "",
+          "warnings": Array [],
+        },
+        "end": 8,
+        "isKey": true,
+        "location": "property",
+        "parent": [Circular],
+        "start": 0,
+        "type": "string",
+      },
+      "location": null,
+      "parent": [Circular],
+      "start": 0,
+      "type": "property",
+    },
+  ],
+  "start": 0,
+  "type": "object",
+}
+`;
+
+exports[`custom tags parse smoke tests SUB SUB sequence 1`] = `
+ObjectASTNode {
+  "_value": null,
+  "customTag": undefined,
+  "document": YAMLDocument {
+    "documentType": "UNKNOWN",
+    "errors": Array [],
+    "externalImportCallbacks": Object {
+      "onRegisterExternalImport": [Function],
+      "onValidateExternalImport": [Function],
+    },
+    "globalsConfig": Object {
+      "Api": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::Api",
+      },
+      "Function": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::Function",
+      },
+      "SimpleTable": Object {
+        "properties": Array [],
+        "resourceType": "AWS::Serverless::SimpleTable",
+      },
+    },
+    "parameters": Array [],
+    "parentParams": undefined,
+    "referenceables": Object {
+      "hash": Object {
+        "CONDITION": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "MAPPING": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "OUTPUT": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "PARAMETER": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+        "RESOURCE": SortedHash {
+          "hash": Object {},
+          "sequence": Array [],
+        },
+      },
+      "lookup": WeakMap {},
+    },
+    "references": Object {
+      "hash": Object {},
+      "lookup": WeakMap {},
+    },
+    "root": [Circular],
+    "syntaxErrors": Array [],
+    "uri": "",
+    "warnings": Array [],
+  },
+  "end": 59,
+  "location": null,
+  "parent": null,
+  "properties": Array [
+    PropertyASTNode {
+      "_value": ArrayASTNode {
+        "_value": null,
+        "customTag": Object {
+          "description": "The intrinsic function Fn::Sub substitutes variables in an input string with values that you specify.",
+          "kind": Array [
+            "scalar",
+            "sequence",
+          ],
+          "propertyName": "Fn::Sub",
+          "referenceEntityTypes": Array [
+            "RESOURCE",
+            "PARAMETER",
+          ],
+          "returnType": "string",
+          "tag": "!Sub",
+          "type": "SUB",
+        },
+        "document": YAMLDocument {
+          "documentType": "UNKNOWN",
+          "errors": Array [],
+          "externalImportCallbacks": Object {
+            "onRegisterExternalImport": [Function],
+            "onValidateExternalImport": [Function],
+          },
+          "globalsConfig": Object {
+            "Api": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Api",
+            },
+            "Function": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::Function",
+            },
+            "SimpleTable": Object {
+              "properties": Array [],
+              "resourceType": "AWS::Serverless::SimpleTable",
+            },
+          },
+          "parameters": Array [],
+          "parentParams": undefined,
+          "referenceables": Object {
+            "hash": Object {
+              "CONDITION": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "MAPPING": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "OUTPUT": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "PARAMETER": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+              "RESOURCE": SortedHash {
+                "hash": Object {},
+                "sequence": Array [],
+              },
+            },
+            "lookup": WeakMap {},
+          },
+          "references": Object {
+            "hash": Object {},
+            "lookup": WeakMap {},
+          },
+          "root": [Circular],
+          "syntaxErrors": Array [],
+          "uri": "",
+          "warnings": Array [],
+        },
+        "end": 60,
+        "items": Array [
+          StringASTNode {
+            "_value": "logicalVariable1",
+            "customTag": undefined,
+            "document": YAMLDocument {
+              "documentType": "UNKNOWN",
+              "errors": Array [],
+              "externalImportCallbacks": Object {
+                "onRegisterExternalImport": [Function],
+                "onValidateExternalImport": [Function],
+              },
+              "globalsConfig": Object {
+                "Api": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Api",
+                },
+                "Function": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Function",
+                },
+                "SimpleTable": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::SimpleTable",
+                },
+              },
+              "parameters": Array [],
+              "parentParams": undefined,
+              "referenceables": Object {
+                "hash": Object {
+                  "CONDITION": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "MAPPING": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "OUTPUT": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "PARAMETER": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "RESOURCE": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                },
+                "lookup": WeakMap {},
+              },
+              "references": Object {
+                "hash": Object {},
+                "lookup": WeakMap {},
+              },
+              "root": [Circular],
+              "syntaxErrors": Array [],
+              "uri": "",
+              "warnings": Array [],
+            },
+            "end": 37,
+            "isKey": false,
+            "location": 0,
+            "parent": [Circular],
+            "start": 21,
+            "type": "string",
+          },
+          StringASTNode {
+            "_value": "logicalVariable2",
+            "customTag": undefined,
+            "document": YAMLDocument {
+              "documentType": "UNKNOWN",
+              "errors": Array [],
+              "externalImportCallbacks": Object {
+                "onRegisterExternalImport": [Function],
+                "onValidateExternalImport": [Function],
+              },
+              "globalsConfig": Object {
+                "Api": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Api",
+                },
+                "Function": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::Function",
+                },
+                "SimpleTable": Object {
+                  "properties": Array [],
+                  "resourceType": "AWS::Serverless::SimpleTable",
+                },
+              },
+              "parameters": Array [],
+              "parentParams": undefined,
+              "referenceables": Object {
+                "hash": Object {
+                  "CONDITION": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "MAPPING": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "OUTPUT": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "PARAMETER": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                  "RESOURCE": SortedHash {
+                    "hash": Object {},
+                    "sequence": Array [],
+                  },
+                },
+                "lookup": WeakMap {},
+              },
+              "references": Object {
+                "hash": Object {},
+                "lookup": WeakMap {},
+              },
+              "root": [Circular],
+              "syntaxErrors": Array [],
+              "uri": "",
+              "warnings": Array [],
+            },
+            "end": 59,
+            "isKey": false,
+            "location": 1,
+            "parent": [Circular],
+            "start": 43,
+            "type": "string",
+          },
+        ],
+        "location": "property",
+        "parent": [Circular],
+        "start": 19,
+        "type": "array",
+      },
+      "colonOffset": -1,
+      "customTag": undefined,
+      "document": YAMLDocument {
+        "documentType": "UNKNOWN",
+        "errors": Array [],
+        "externalImportCallbacks": Object {
+          "onRegisterExternalImport": [Function],
+          "onValidateExternalImport": [Function],
+        },
+        "globalsConfig": Object {
+          "Api": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::Api",
+          },
+          "Function": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::Function",
+          },
+          "SimpleTable": Object {
+            "properties": Array [],
+            "resourceType": "AWS::Serverless::SimpleTable",
+          },
+        },
+        "parameters": Array [],
+        "parentParams": undefined,
+        "referenceables": Object {
+          "hash": Object {
+            "CONDITION": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "MAPPING": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "OUTPUT": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "PARAMETER": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+            "RESOURCE": SortedHash {
+              "hash": Object {},
+              "sequence": Array [],
+            },
+          },
+          "lookup": WeakMap {},
+        },
+        "references": Object {
+          "hash": Object {},
+          "lookup": WeakMap {},
+        },
+        "root": [Circular],
+        "syntaxErrors": Array [],
+        "uri": "",
+        "warnings": Array [],
+      },
+      "end": 60,
       "key": StringASTNode {
         "_value": "property",
         "customTag": undefined,

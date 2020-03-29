@@ -1,5 +1,11 @@
 # Change log
 
+## v0.5.17
+- Improved intrinsic functions support
+- HTTP API support for serverless framework
+- Fix bug that prevents VSCode failure when cfn-lint fails with an error
+- Small improvements and fixes
+
 ## v0.5.14
 - Cloudformation resources updates
 - Minor changes and bugfixes

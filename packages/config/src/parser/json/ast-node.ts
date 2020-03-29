@@ -238,6 +238,10 @@ export class ASTNode<TValue = unknown> {
 			return
 		}
 
+		if (this.nodeType === "any") {
+			return
+		}
+
 		if (Array.isArray(schema.type)) {
 			if ((schema.type as string[]).indexOf(this.nodeType) === -1) {
 				validationResult.problems.push({
