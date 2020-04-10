@@ -162,6 +162,7 @@
                             "enum": [
                                 "get",
                                 "head",
+                                "patch",
                                 "post",
                                 "put",
                                 "delete",
@@ -171,6 +172,7 @@
                                 "any",
                                 "GET",
                                 "HEAD",
+                                "PATCH",
                                 "POST",
                                 "PUT",
                                 "DELETE",
