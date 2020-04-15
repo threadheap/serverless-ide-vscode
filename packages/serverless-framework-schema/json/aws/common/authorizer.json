@@ -17,7 +17,7 @@
                 },
 				"authorizerId": {
                     "type": "string",
-                    "description": "Can be used instead of name or arn to reference a an authorizer defined elsewhere",
+                    "description": "Can be used instead of name or arn to reference an authorizer defined elsewhere",
                     "default": "AuthorizerID"
                 },
                 "resultTtlInSeconds": {
@@ -49,7 +49,7 @@
                     "enum": [
                         "token",
                         "request",
-						"cognito_user_pools"
+                        "cognito_user_pools"
                     ],
                     "default": "token",
                     "description": "token or request. Determines input to the authorier function, called with the auth token or the entire request event. Defaults to token"
