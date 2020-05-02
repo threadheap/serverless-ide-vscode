@@ -15,6 +15,11 @@
                     "description": "Can be used instead of name to reference a function outside of service",
                     "default": "xxx:xxx:Lambda-Name"
                 },
+				"authorizerId": {
+                    "type": "string",
+                    "description": "Can be used instead of name or arn to reference an authorizer defined elsewhere",
+                    "default": "AuthorizerID"
+                },
                 "resultTtlInSeconds": {
                     "type": "number",
                     "default": 0
@@ -43,7 +48,8 @@
                     "type": "string",
                     "enum": [
                         "token",
-                        "request"
+                        "request",
+                        "cognito_user_pools"
                     ],
                     "default": "token",
                     "description": "token or request. Determines input to the authorier function, called with the auth token or the entire request event. Defaults to token"
@@ -58,6 +64,11 @@
                 {
                     "required": [
                         "arn"
+                    ]
+                },
+                {
+                    "required": [
+                        "authorizerId"
                     ]
                 }
             ]
