@@ -7,7 +7,7 @@
             "additionalProperties": false,
             "properties": {
                 "arn": {
-                    "$ref": "aws/common/arn",
+                    "$ref": "#/definitions/aws:common:arn",
                     "default": "arn:aws:sqs:region:XXXXXX:myQueue"
                 },
                 "batchSize": {

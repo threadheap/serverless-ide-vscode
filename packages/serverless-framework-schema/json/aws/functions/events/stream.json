@@ -17,7 +17,7 @@
                             "default": "dynamodb"
                         },
                         "arn": {
-                            "$ref": "aws/common/arn",
+                            "$ref": "#/definitions/aws:common:arn",
                             "default": "arn:aws:kinesis:region:XXXXXX:stream/foo"
                         },
                         "batchSize": {

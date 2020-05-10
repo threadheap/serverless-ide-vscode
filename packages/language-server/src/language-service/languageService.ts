@@ -3,6 +3,7 @@ import * as PromisePool from "es6-promise-pool"
 import { CompletionItem } from "vscode-json-languageservice"
 import noop = require("lodash/noop")
 import { parse } from "@serverless-ide/config"
+import * as os from "os"
 import {
 	DocumentLinkParams,
 	IConnection,
@@ -79,6 +80,8 @@ export class LanguageServiceImpl implements LanguageService {
 		const externalImportsCallbacks = {
 			onRegisterExternalImport: (uri: string, parentUri: string) => {
 				this.documentService.registerChildParentRelation(uri, parentUri)
+
+				this.doValidation(uri)
 			},
 			onValidateExternalImport: promiseRejectionHandler(
 				async (
@@ -127,7 +130,7 @@ export class LanguageServiceImpl implements LanguageService {
 				return promise
 			}
 
-			const pool = new (PromisePool as any)(nextPromise, 3)
+			const pool = new (PromisePool as any)(nextPromise, os.cpus().length)
 
 			pool.start()
 		}

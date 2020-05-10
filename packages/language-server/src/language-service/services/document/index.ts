@@ -176,33 +176,6 @@ export class DocumentService {
 		textDocument: TextDocument,
 		parentUri?: string
 	): Promise<YAMLDocument> {
-		// const cacheEntry = this.cache[textDocument.uri]
-
-		// if (
-		// 	cacheEntry &&
-		// 	cacheEntry.version === textDocument.version &&
-		// 	cacheEntry.isSupported
-		// ) {
-		// 	return this.cache[textDocument.uri].yamlDocument
-		// } else {
-		// 	delete this.cache[textDocument.uri]
-
-		// 	const newEntry = {
-		// 		uri: textDocument.uri,
-		// 		version: textDocument.version,
-		// 		yamlDocument: this.parseDocument(textDocument, parentUri),
-		// 		isSupported: true
-		// 	}
-		// 	this.cache[textDocument.uri] = newEntry
-		// 	newEntry.yamlDocument.catch(err => {
-		// 		if (err instanceof DocumentNotSupportedError) {
-		// 			newEntry.isSupported = false
-		// 		}
-		// 	})
-
-		// 	return newEntry.yamlDocument
-		// }
-
 		return this.parseDocument(textDocument, parentUri)
 	}
 

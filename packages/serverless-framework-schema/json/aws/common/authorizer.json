@@ -11,11 +11,11 @@
                     "default": "authorizerFunc"
                 },
                 "arn": {
-                    "$ref": "aws/common/arn",
+                    "$ref": "#/definitions/aws:common:arn",
                     "description": "Can be used instead of name to reference a function outside of service",
                     "default": "xxx:xxx:Lambda-Name"
                 },
-				"authorizerId": {
+                "authorizerId": {
                     "type": "string",
                     "description": "Can be used instead of name or arn to reference an authorizer defined elsewhere",
                     "default": "AuthorizerID"
