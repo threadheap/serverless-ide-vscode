@@ -1,5 +1,9 @@
 # Change log
 
+## v0.5.20
+- Fixed the bug with validation of subsequent files in serverless.yml
+- Small improvemants of serverless json schema
+
 ## v0.5.17
 - Improved intrinsic functions support
 - HTTP API support for serverless framework
