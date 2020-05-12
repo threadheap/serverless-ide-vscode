@@ -66,7 +66,7 @@
                 },
                 {
                     "required": [
-                        "packages"
+                        "package"
                     ]
                 }
             ]
