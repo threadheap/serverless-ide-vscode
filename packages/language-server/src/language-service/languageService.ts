@@ -2,6 +2,7 @@ import { JSONSchema } from "@serverless-ide/config"
 import * as PromisePool from "es6-promise-pool"
 import { CompletionItem } from "vscode-json-languageservice"
 import noop = require("lodash/noop")
+import omit = require("lodash/omit")
 import { parse } from "@serverless-ide/config"
 import * as os from "os"
 import {
@@ -69,6 +70,7 @@ export class LanguageServiceImpl implements LanguageService {
 	private hover: YAMLHover
 	private validation: YAMLValidation
 	private pendingValidationRequests: { [uri: string]: NodeJS.Timer } = {}
+	private settings: LanguageSettings
 
 	constructor(
 		settings: LanguageSettings,
@@ -76,6 +78,7 @@ export class LanguageServiceImpl implements LanguageService {
 		documents: TextDocuments
 	) {
 		this.connection = connection
+		this.settings = settings
 
 		const externalImportsCallbacks = {
 			onRegisterExternalImport: (uri: string, parentUri: string) => {
@@ -181,6 +184,8 @@ export class LanguageServiceImpl implements LanguageService {
 	}
 
 	configure(newSettings: LanguageSettings) {
+		this.settings = newSettings
+
 		this.validation.configure(newSettings)
 		this.hover.configure(newSettings)
 		this.completer.configure(newSettings)
@@ -363,7 +368,9 @@ export class LanguageServiceImpl implements LanguageService {
 			sendAnalytics({
 				action: "validateDocument",
 				attributes: {
-					documentType: yamlDocument.documentType
+					documentType: yamlDocument.documentType,
+					fileName: document.uri,
+					settings: omit(this.settings, "workspaceRoot")
 				}
 			})
 

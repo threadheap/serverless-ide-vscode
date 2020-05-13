@@ -15,7 +15,6 @@ import {
 } from "vscode-languageserver"
 
 import { removeDuplicatesObj } from "../../utils/arrayUtils"
-import { sendAnalytics } from "../analytics"
 import { JSONSchemaService, ResolvedSchema } from "../jsonSchema"
 import {
 	CFNLintSettings,
@@ -106,14 +105,6 @@ export class YAMLValidation {
 		const args = ["--format", "json"]
 		const filePath = Files.uriToFilePath(textDocument.uri)
 		const fileName = textDocument.uri
-
-		sendAnalytics({
-			action: "requestCfnLintValidation",
-			attributes: {
-				fileName,
-				...this.settings
-			}
-		})
 
 		this.settings.ignoreRules.map(rule => {
 			args.push("--ignore-checks", rule)
@@ -208,15 +199,6 @@ export class YAMLValidation {
 					})
 				}
 
-				sendAnalytics({
-					action: "finishedCfnLintValidation",
-					attributes: {
-						fileName,
-						errorsCount: diagnostics.length,
-						...this.settings
-					}
-				})
-
 				delete this.inProgressMap[fileName]
 			})
 
@@ -241,14 +223,6 @@ export class YAMLValidation {
 	) {
 		let diagnostics = []
 		const added = {}
-
-		sendAnalytics({
-			action: "requestSchemaValidation",
-			attributes: {
-				fileName: textDocument.uri,
-				...this.settings
-			}
-		})
 
 		const schema =
 			documentSchema ||
@@ -342,15 +316,6 @@ export class YAMLValidation {
 
 		yamlDocument.warnings.forEach(warning => {
 			addProblem(warning, DiagnosticSeverity.Warning)
-		})
-
-		sendAnalytics({
-			action: "finishedSchemaValidation",
-			attributes: {
-				fileName: textDocument.uri,
-				errorsCount: diagnostics.length,
-				...this.settings
-			}
 		})
 
 		this.sendDiagnostics(textDocument.uri, diagnostics)
