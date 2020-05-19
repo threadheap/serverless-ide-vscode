@@ -3,7 +3,7 @@
     "oneOf": [
         {
             "type": "object",
-            "additionalProperties": false,
+            "additionalProperties": true,
             "properties": {
                 "name": {
                     "type": "string",
@@ -53,6 +53,12 @@
                     ],
                     "default": "token",
                     "description": "token or request. Determines input to the authorier function, called with the auth token or the entire request event. Defaults to token"
+                },
+                "scopes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             },
             "oneOf": [

@@ -4,13 +4,17 @@
     "properties": {
         "sqs": {
             "type": "object",
-            "additionalProperties": false,
+            "additionalProperties": true,
             "properties": {
                 "arn": {
                     "$ref": "#/definitions/aws:common:arn",
                     "default": "arn:aws:sqs:region:XXXXXX:myQueue"
                 },
                 "batchSize": {
+                    "type": "number",
+                    "default": 10
+                },
+                "maximumRetryAttempts": {
                     "type": "number",
                     "default": 10
                 }

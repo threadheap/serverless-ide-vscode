@@ -34,9 +34,14 @@ const buildSchema = async () => {
 			...samSchema.properties,
 			Transform: {
 				type: ["object", "string"]
+			},
+			extensions: {
+				type: "object",
+				description:
+					"Override Properties or other attributes of Framework-created resources. \nSee https://serverless.com/framework/docs/providers/aws/guide/resources#override-aws-cloudformation-resource for more details"
 			}
 		},
-		additionalProperties: false
+		additionalProperties: true
 	}
 
 	forEach(samSchema.definitions, (definition: any) => {

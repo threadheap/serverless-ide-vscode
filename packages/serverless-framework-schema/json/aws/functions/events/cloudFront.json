@@ -5,7 +5,7 @@
         "cloudFront": {
             "type": "object",
             "description": "Amazon CloudFront is a content delivery network (CDN) service that allows Lambda functions to be executed at edge locations.",
-            "additionalProperties": false,
+            "additionalProperties": true,
             "properties": {
                 "eventType": {
                     "type": "string",
@@ -38,6 +38,12 @@
                             }
                         }
                     ]
+                },
+                "includeBody": {
+                    "type": "boolean"
+                },
+                "pathPattern": {
+                    "type": "string"
                 }
             },
             "required": [

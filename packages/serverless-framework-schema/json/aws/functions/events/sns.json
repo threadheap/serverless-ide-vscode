@@ -4,7 +4,7 @@
     "properties": {
         "sns": {
             "type": "object",
-            "additionalProperties": false,
+            "additionalProperties": true,
             "properties": {
                 "topicName": {
                     "type": "string",
@@ -13,6 +13,38 @@
                 "displayName": {
                     "type": "string",
                     "default": "Data aggregation pipeline"
+                },
+                "filterPolicy": {
+                    "type": "object"
+                },
+                "redrivePolicy": {
+                    "type": "object",
+                    "oneOf": [
+                        {
+                            "properties": {
+                                "deadLetterTargetArn": {
+                                    "type": "string",
+                                    "description": "ARN"
+                                }
+                            }
+                        },
+                        {
+                            "properties": {
+                                "deadLetterTargetRef": {
+                                    "type": "string",
+                                    "description": "Ref (resource defined in same CF stack)"
+                                }
+                            }
+                        },
+                        {
+                            "properties": {
+                                "deadLetterTargetImport": {
+                                    "type": "object",
+                                    "description": "Import (resource defined in outer CF stack)"
+                                }
+                            }
+                        }
+                    ]
                 }
             },
             "require": [

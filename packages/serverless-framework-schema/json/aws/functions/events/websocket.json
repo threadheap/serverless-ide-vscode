@@ -4,7 +4,7 @@
     "properties": {
         "websocket": {
             "type": "object",
-            "additionalProperties": false,
+            "additionalProperties": true,
             "properties": {
                 "route": {
                     "type": "string",
@@ -12,6 +12,11 @@
                 },
                 "authorizer": {
                     "$ref": "#/definitions/aws:common:authorizer"
+                },
+                "routeResponseSelectionExpression": {
+                    "type": "string",
+                    "description": "optional, setting this enables callbacks on websocket requests for two-way communication",
+                    "default": "$default"
                 }
             },
             "require": [
