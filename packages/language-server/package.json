@@ -1,7 +1,7 @@
 {
     "name": "@serverless-ide/language-server",
     "description": "Serverless IDE language server",
-    "version": "0.5.22",
+    "version": "0.5.23",
     "author": "Pavel Vlasov <freakycue@gmail.com>",
     "license": "MIT",
     "engines": {
@@ -26,7 +26,7 @@
         "@serverless-ide/cloudformation-schema": "^0.5.17",
         "@serverless-ide/config": "^0.5.17",
         "@serverless-ide/sam-schema": "^0.5.17",
-        "@serverless-ide/serverless-framework-schema": "^0.5.22",
+        "@serverless-ide/serverless-framework-schema": "^0.5.23",
         "es6-promise-pool": "^2.5.0",
         "jsonc-parser": "^1.0.3",
         "lodash": "^4.17.11",
