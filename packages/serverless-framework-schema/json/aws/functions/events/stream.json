@@ -38,6 +38,9 @@
                         },
                         "enabled": {
                             "type": "boolean"
+                        },
+                        "consumer": {
+                            "type": "boolean"
                         }
                     },
                     "require": [

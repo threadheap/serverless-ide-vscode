@@ -2,7 +2,6 @@ import { JSONSchema } from "@serverless-ide/config"
 import * as PromisePool from "es6-promise-pool"
 import { CompletionItem } from "vscode-json-languageservice"
 import noop = require("lodash/noop")
-import omit = require("lodash/omit")
 import { parse } from "@serverless-ide/config"
 import * as os from "os"
 import {
@@ -365,14 +364,6 @@ export class LanguageServiceImpl implements LanguageService {
 			const yamlDocument = await this.documentService.getYamlDocument(
 				document.uri
 			)
-			sendAnalytics({
-				action: "validateDocument",
-				attributes: {
-					documentType: yamlDocument.documentType,
-					fileName: document.uri,
-					settings: omit(this.settings, "workspaceRoot")
-				}
-			})
 
 			await this.validation.doValidation(document, yamlDocument)
 		} catch (err) {
