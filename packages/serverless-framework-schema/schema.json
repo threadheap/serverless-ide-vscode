@@ -185,6 +185,7 @@
         "java8",
         "go1.x",
         "dotnetcore2.1",
+        "dotnetcore3.1",
         "provided"
       ],
       "default": "nodejs10.x"
