@@ -399,23 +399,6 @@
               "type": "object"
             }
           },
-          "oneOf": [
-            {
-              "required": [
-                "input"
-              ]
-            },
-            {
-              "required": [
-                "inputPath"
-              ]
-            },
-            {
-              "required": [
-                "inputTransformer"
-              ]
-            }
-          ],
           "required": [
             "event"
           ]
