@@ -10,8 +10,18 @@
             "default": "Allow"
         },
         "Principal": {
-            "type": "string",
-            "default": "*"
+            "oneOf": [
+                {
+                    "type": "string",
+                    "default": "*"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            ]
         },
         "Action": {
             "oneOf": [
