@@ -112,8 +112,8 @@
         "Principal": {
           "oneOf": [
             {
-			  "type": "string",
-			  "default": "*"
+              "type": "string",
+              "default": "*"
             },
             {
               "type": "array",
