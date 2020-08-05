@@ -82,7 +82,8 @@
                 "serverSideEncryption": {
                     "type": "string",
                     "enum": [
-                        "AES256"
+                        "AES256",
+                        "aws:kms"
                     ],
                     "description": "when using server-side encryption"
                 },
