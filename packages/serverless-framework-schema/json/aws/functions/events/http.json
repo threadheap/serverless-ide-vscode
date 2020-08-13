@@ -178,7 +178,8 @@
                                 "DELETE",
                                 "OPTIONS",
                                 "TRACE",
-                                "CONNECT"
+                                "CONNECT",
+								"ANY"
                             ],
                             "default": "get"
                         },
