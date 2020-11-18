@@ -20,18 +20,14 @@
                                 "put",
                                 "delete",
                                 "options",
-                                "trace",
-                                "connect",
-                                "any",
+                                "*",
                                 "GET",
                                 "HEAD",
                                 "PATCH",
                                 "POST",
                                 "PUT",
                                 "DELETE",
-                                "OPTIONS",
-                                "TRACE",
-                                "CONNECT"
+                                "OPTIONS"
                             ],
                             "default": "get"
                         },
