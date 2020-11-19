@@ -47,12 +47,12 @@
                 "type": {
                     "type": "string",
                     "enum": [
-                        "token",
-                        "request",
-                        "cognito_user_pools"
+                        "TOKEN",
+                        "REQUEST",
+                        "COGNITO_USER_POOLS"
                     ],
-                    "default": "token",
-                    "description": "token or request. Determines input to the authorier function, called with the auth token or the entire request event. Defaults to token"
+                    "default": "TOKEN",
+                    "description": "Determines input to the authorizer function, called with the auth token or the entire request event. Defaults to TOKEN"
                 },
                 "scopes": {
                     "type": "array",
