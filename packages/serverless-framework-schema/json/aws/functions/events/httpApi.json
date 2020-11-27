@@ -23,6 +23,7 @@
                                 "trace",
                                 "connect",
                                 "any",
+                                "*",
                                 "GET",
                                 "HEAD",
                                 "PATCH",
@@ -31,7 +32,8 @@
                                 "DELETE",
                                 "OPTIONS",
                                 "TRACE",
-                                "CONNECT"
+                                "CONNECT",
+                                "ANY"
                             ],
                             "default": "get"
                         },

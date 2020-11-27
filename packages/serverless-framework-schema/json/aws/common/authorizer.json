@@ -45,14 +45,28 @@
                     "default": "someRegex"
                 },
                 "type": {
-                    "type": "string",
-                    "enum": [
-                        "token",
-                        "request",
-                        "cognito_user_pools"
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "enum": [
+                                "token",
+                                "request",
+                                "cognito_user_pools",
+                                "TOKEN",
+                                "REQUEST",
+                                "COGNITO_USER_POOLS",
+                                "JWT",
+                                "NONE",
+                                "AWS_IAM",
+                                "AWS_CROSS_ACCOUNT_IAM"
+                            ]
+                        },
+                        {
+                            "type": "string"
+                        }
                     ],
                     "default": "token",
-                    "description": "token or request. Determines input to the authorier function, called with the auth token or the entire request event. Defaults to token"
+                    "description": "Determines input to the authorier function. Defaults to token."
                 },
                 "scopes": {
                     "type": "array",
