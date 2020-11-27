@@ -1,5 +1,8 @@
 # Change log
 
+## v0.5.28
+- Small updates and fixes for base json schemas
+
 ## v0.5.27
 - Small updates and fixes for base json schemas
 
