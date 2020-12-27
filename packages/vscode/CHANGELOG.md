@@ -1,5 +1,8 @@
 # Change log
 
+## v0.5.29
+- Fix "Matches multiple schemas when only one must validate" bug when using authorizers config
+
 ## v0.5.28
 - Small updates and fixes for base json schemas
 

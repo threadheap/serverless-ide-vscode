@@ -45,7 +45,7 @@
                     "default": "someRegex"
                 },
                 "type": {
-                    "oneOf": [
+                    "anyOf": [
                         {
                             "type": "string",
                             "enum": [
