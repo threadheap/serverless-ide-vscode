@@ -107,7 +107,22 @@ const buildSchema = async () => {
 				type: "object"
 			},
 			plugins: {
-				type: "array"
+				oneOf: [
+					{
+						type: "array"
+					},
+					{
+						type: "object",
+						properties: {
+							localPath: {
+								type: "string"
+							},
+							modules: {
+								type: "array"
+							}
+						}
+					}
+				]
 			}
 		},
 		required: ["service", "provider"]
