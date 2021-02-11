@@ -1,6 +1,7 @@
 {
     "type": "string",
     "enum": [
+		"nodejs14.x",
         "nodejs12.x",
         "nodejs10.x",
         "nodejs8.10",
