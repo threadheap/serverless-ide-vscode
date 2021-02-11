@@ -1,7 +1,7 @@
 {
     "type": "string",
     "enum": [
-		"nodejs14.x",
+        "nodejs14.x",
         "nodejs12.x",
         "nodejs10.x",
         "nodejs8.10",
@@ -18,5 +18,5 @@
         "dotnetcore3.1",
         "provided"
     ],
-    "default": "nodejs10.x"
+    "default": "nodejs14.x"
 }
