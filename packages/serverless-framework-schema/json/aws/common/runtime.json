@@ -16,7 +16,8 @@
         "go1.x",
         "dotnetcore2.1",
         "dotnetcore3.1",
-        "provided"
+        "provided",
+        "provided.al2"
     ],
     "default": "nodejs14.x"
 }

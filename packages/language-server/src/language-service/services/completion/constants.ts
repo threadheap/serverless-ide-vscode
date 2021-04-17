@@ -11,5 +11,6 @@ export const RUNTIMES = [
 	"java8",
 	"go1.x",
 	"dotnetcore2.1",
-	"provided"
+	"provided",
+	"provided.al2"
 ]

@@ -1042,14 +1042,12 @@ Object {
         "documentType": "SERVERLESS_FRAMEWORK",
       },
       "documentation": "",
-      "insertText": "plugins:
-	- ",
+      "insertText": "plugins",
       "insertTextFormat": 2,
       "kind": 10,
       "label": "plugins",
       "textEdit": Object {
-        "newText": "plugins:
-	- ",
+        "newText": "plugins",
         "range": Object {
           "end": Object {
             "character": 4,
