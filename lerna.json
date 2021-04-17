@@ -2,7 +2,7 @@
 	"packages": [
 		"packages/*"
 	],
-	"version": "0.5.31",
+	"version": "0.5.32-alpha.0",
 	"npmClient": "npm",
 	"ignoreChanges": [
 		"*.md",
