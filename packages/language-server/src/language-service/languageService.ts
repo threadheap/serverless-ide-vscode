@@ -1,9 +1,9 @@
 import { JSONSchema } from "@serverless-ide/config"
-import * as PromisePool from "es6-promise-pool"
+// import * as PromisePool from "es6-promise-pool"
 import { CompletionItem } from "vscode-json-languageservice"
 import noop = require("lodash/noop")
 import { parse } from "@serverless-ide/config"
-import * as os from "os"
+// import * as os from "os"
 import {
 	DocumentLinkParams,
 	IConnection,
@@ -28,8 +28,8 @@ import { YAMLCompletion } from "./services/completion"
 import { getDefinition } from "./services/definition"
 import {
 	DocumentService,
-	LifecycleCallbacks,
-	WorkplaceFiles
+	LifecycleCallbacks
+	// WorkplaceFiles
 } from "./services/document"
 import { findDocumentSymbols } from "./services/documentSymbols"
 import { YAMLHover } from "./services/hover"
@@ -114,32 +114,32 @@ export class LanguageServiceImpl implements LanguageService {
 			)
 		}
 
-		const triggerValidationForWorkspaceFiles = (files: WorkplaceFiles) => {
-			const uris = Object.keys(files)
-			let currentIndex = 0
+		// const triggerValidationForWorkspaceFiles = (files: WorkplaceFiles) => {
+		// 	const uris = Object.keys(files)
+		// 	let currentIndex = 0
 
-			const nextPromise = () => {
-				if (currentIndex >= uris.length) {
-					return null
-				}
+		// 	const nextPromise = () => {
+		// 		if (currentIndex >= uris.length) {
+		// 			return null
+		// 		}
 
-				const promise = this.doValidation(uris[currentIndex]).catch(
-					sendException
-				)
+		// 		const promise = this.doValidation(uris[currentIndex]).catch(
+		// 			sendException
+		// 		)
 
-				currentIndex += 1
+		// 		currentIndex += 1
 
-				return promise
-			}
+		// 		return promise
+		// 	}
 
-			const pool = new (PromisePool as any)(nextPromise, os.cpus().length)
+		// 	const pool = new (PromisePool as any)(nextPromise, os.cpus().length)
 
-			pool.start()
-		}
+		// 	pool.start()
+		// }
 
 		const lifecycleCallbacks: LifecycleCallbacks = {
-			onWorkplaceFilesInitialized: triggerValidationForWorkspaceFiles,
-			onWorkplaceFilesChanged: triggerValidationForWorkspaceFiles,
+			onWorkplaceFilesInitialized: noop,
+			onWorkplaceFilesChanged: noop,
 			onFileCreated: (uri: string) => {
 				this.doValidation(uri)
 			},
