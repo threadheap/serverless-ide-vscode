@@ -82,8 +82,6 @@ export class LanguageServiceImpl implements LanguageService {
 		const externalImportsCallbacks = {
 			onRegisterExternalImport: (uri: string, parentUri: string) => {
 				this.documentService.registerChildParentRelation(uri, parentUri)
-
-				this.doValidation(uri)
 			},
 			onValidateExternalImport: promiseRejectionHandler(
 				async (
