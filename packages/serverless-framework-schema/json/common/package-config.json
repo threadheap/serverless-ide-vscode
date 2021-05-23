@@ -3,6 +3,13 @@
     "additionalProperties": false,
     "description": "Optional deployment packaging configuration",
     "properties": {
+        "patterns": {
+            "type": "array",
+            "description": "Specify patterns to include or exclude files from the deployment package",
+            "items": {
+                "type": "string"
+            }
+        },
         "include": {
             "type": "array",
             "description": "Specify the directories and files which should be included in the deployment package",
