@@ -1841,7 +1841,7 @@
       "properties": {
         "patterns": {
           "type": "array",
-          "description": "Specify patterns to include or exclude files from the resulting artifact",
+          "description": "Specify patterns to include or exclude files from the deployment package",
           "items": {
             "type": "string"
           }
