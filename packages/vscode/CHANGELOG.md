@@ -1,5 +1,9 @@
 # Change log
 
+## v0.5.32
+- Add support for package patterns property
+- Other small schema updates
+
 ## v0.5.30
 - Update schemas, small bug fixes
 
