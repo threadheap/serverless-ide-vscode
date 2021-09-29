@@ -99856,6 +99856,9 @@
             "Endpoint": {
               "$ref": "#/definitions/AWS::Redshift::Cluster.Endpoint"
             },
+            "EnhancedVpcRouting": {
+                "type": "boolean"
+            },
             "HsmClientCertificateIdentifier": {
               "type": "string"
             },
