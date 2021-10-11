@@ -1,19 +1,34 @@
 {
-    "type": "object",
-    "description": "Optional VPC. But if you use VPC then both subproperties (securityGroupIds and subnetIds) are required",
-    "additionalProperties": false,
-    "properties": {
-        "securityGroupIds": {
-            "type": "array",
-            "items": {
-                "type": "string"
+    "description": "Optional VPC. If you use VPC then both subproperties (securityGroupIds and subnetIds) are required. Can be set to ~ to specify no VPC.",
+    "oneOf": [
+        {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "securityGroupIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "subnetIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
             }
         },
-        "subnetIds": {
-            "type": "array",
-            "items": {
-                "type": "string"
-            }
+        {
+            "type": "null"
+        },
+        {
+            "type": "boolean",
+            "enum": [false]
+        },
+        {
+            "type": "string",
+            "enum": [""]
         }
-    }
+    ]
 }
