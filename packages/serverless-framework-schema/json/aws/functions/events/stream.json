@@ -26,6 +26,9 @@
                         "batchWindow": {
                             "type": "number"
                         },
+                        "bisectBatchOnFunctionError": {
+                            "type": "boolean"
+                        },
                         "startingPosition": {
                             "type": "string",
                             "default": "LATEST"
