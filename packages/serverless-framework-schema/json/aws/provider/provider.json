@@ -311,8 +311,19 @@
                     "default": true
                 },
                 "lambda": {
-                    "type": "boolean",
-                    "description": "Optional, can be true (true equals 'Active'), 'Active' or 'PassThrough'"
+                    "description": "Optional, can be true (true equals 'Active'), 'Active' or 'PassThrough'",
+                    "oneOf": [
+                        {
+                            "type": "boolean"
+                        },
+                        {
+                            "type": "string",
+                            "enum": [
+                                "Active",
+                                "PassThrough"
+                            ]
+                        }
+                    ]
                 }
             },
             "required": [
