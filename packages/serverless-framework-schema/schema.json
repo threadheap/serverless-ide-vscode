@@ -197,6 +197,7 @@
     "aws:common:runtime": {
       "type": "string",
       "enum": [
+        "nodejs16.x",
         "nodejs14.x",
         "nodejs12.x",
         "nodejs10.x",
@@ -216,7 +217,7 @@
         "provided",
         "provided.al2"
       ],
-      "default": "nodejs14.x"
+      "default": "nodejs16.x"
     },
     "aws:common:vpc": {
       "description": "Optional VPC. If you use VPC then both subproperties (securityGroupIds and subnetIds) are required. Can be set to ~ to specify no VPC.",
