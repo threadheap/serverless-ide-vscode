@@ -1208,6 +1208,53 @@
             "type": "string"
           }
         },
+        "image": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "uri": {
+                  "description": "Image URI in the registry",
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "workingDirectory": {
+                  "description": "Overrides the container's WORKDIR",
+                  "type": "string"
+                },
+                "command": {
+                  "description": "Overrides the container's CMD",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "entryPoint": {
+                  "description": "Overrides the container's ENTRYPOINT",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": {
+                "oneOf": [
+                  [
+                    "uri"
+                  ],
+                  [
+                    "name"
+                  ]
+                ]
+              }
+            }
+          ]
+        },
         "tracing": {
           "type": "string",
           "description": "optional, can be 'Active' or 'PassThrough' (overwrites the one defined on the provider level)",
@@ -1287,10 +1334,17 @@
           }
         }
       },
-      "required": [
-        "handler",
-        "runtime"
-      ]
+      "required": {
+        "oneOf": [
+          [
+            "handler",
+            "runtime"
+          ],
+          [
+            "image"
+          ]
+        ]
+      }
     },
     "aws:functions:functions": {
       "oneOf": [
