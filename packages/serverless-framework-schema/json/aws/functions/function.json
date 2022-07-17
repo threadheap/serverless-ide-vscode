@@ -35,6 +35,53 @@
             "$ref": "#/definitions/aws:common:runtime",
             "description": "Runtime for this specific function. Overrides the default which is set on the provider level"
         },
+        "image": {
+            "oneOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "uri": {
+                            "description": "Image URI in the registry",
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "string"
+                        },
+                        "workingDirectory": {
+                            "description": "Overrides the container's WORKDIR",
+                            "type": "string"
+                        },
+                        "command": {
+                            "description": "Overrides the container's CMD",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "entryPoint": {
+                            "description": "Overrides the container's ENTRYPOINT",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "required": {
+                        "oneOf": [
+                            [
+                                "uri"
+                            ],
+                            [
+                                "name"
+                            ]
+                        ]
+                    }
+                }
+            ]
+        },
         "timeout": {
             "type": "number",
             "description": "Timeout for this specific function.  Overrides the default set above.",
@@ -163,8 +210,15 @@
             }
         }
     },
-    "required": [
-        "handler",
-        "runtime"
-    ]
+    "required": {
+        "oneOf": [
+            [
+                "handler",
+                "runtime"
+            ],
+            [
+                "image"
+            ]
+        ]
+    }
 }
