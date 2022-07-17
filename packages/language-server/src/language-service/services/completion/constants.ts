@@ -1,4 +1,5 @@
 export const RUNTIMES = [
+	"nodejs16.x",
 	"nodejs14.x",
 	"nodejs12.x",
 	"nodejs10.x",
