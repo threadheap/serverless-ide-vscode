@@ -34,7 +34,7 @@ Get easy access to AWS documentation right from the template. Just hover over re
 
 ### Serverless Framework Support
 
-Extetion provides limited serverless framework support:
+Extension provides limited serverless framework support:
 ![ServerlessIDE Serverless Framework Support](https://raw.githubusercontent.com/threadheap/serverless-ide-vscode/master/packages/vscode/demo/serverless_framework.gif)
 
 Note: ServerlessIDE does not support validation of resources and external imports and parameters for Serverless Framework
