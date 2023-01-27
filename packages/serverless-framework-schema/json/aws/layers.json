@@ -46,16 +46,7 @@
                     "default": false
                 },
                 "package": {
-                    "type": "string",
-                    "properties": {
-                        "package": {
-                            "type": "any"
-                        },
-                        "artifact": {
-                            "type": "string",
-                            "description": "You can also specify a prebuilt archive to create your layer. When you do this, you do not need to specify the path element of your layer."
-                        }
-                    }
+                    "$ref": "#/definitions/common:package-config"
                 }
             },
             "anyOf": [
