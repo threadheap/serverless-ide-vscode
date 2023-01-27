@@ -18,7 +18,8 @@
                             "type": "string",
                             "enum": [
                                 "lambda",
-                                "lambda-proxy"
+                                "lambda-proxy",
+                                "mock"
                             ]
                         },
                         "request": {
@@ -112,6 +113,9 @@
                                     ]
                                 },
                                 "schema": {
+                                    "type": "object"
+                                },
+                                "schemas": {
                                     "type": "object"
                                 }
                             },

@@ -44,6 +44,9 @@
                         },
                         "consumer": {
                             "type": "boolean"
+                        },
+                        "destinations": {
+                            "type": "object"
                         }
                     },
                     "require": [

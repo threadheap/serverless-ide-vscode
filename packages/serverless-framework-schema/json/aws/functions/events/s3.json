@@ -22,6 +22,9 @@
                 },
                 "existing": {
                     "type": "boolean"
+                },
+                "forceDeploy": {
+                    "type": "boolean"
                 }
             },
             "require": [

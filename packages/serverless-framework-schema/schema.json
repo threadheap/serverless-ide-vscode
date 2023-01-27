@@ -208,17 +208,17 @@
         "python3.6",
         "python3.7",
         "python2.7",
-        "ruby2.5",
         "ruby2.7",
         "java11",
         "java8",
+        "java8.al2",
         "go1.x",
-        "dotnetcore2.1",
         "dotnetcore3.1",
+        "dotnet6",
         "provided",
         "provided.al2"
       ],
-      "default": "nodejs16.x"
+      "default": "nodejs18.x"
     },
     "aws:common:vpc": {
       "description": "Optional VPC. If you use VPC then both subproperties (securityGroupIds and subnetIds) are required. Can be set to ~ to specify no VPC.",
@@ -536,7 +536,8 @@
                   "type": "string",
                   "enum": [
                     "lambda",
-                    "lambda-proxy"
+                    "lambda-proxy",
+                    "mock"
                   ]
                 },
                 "request": {
@@ -630,6 +631,9 @@
                       ]
                     },
                     "schema": {
+                      "type": "object"
+                    },
+                    "schemas": {
                       "type": "object"
                     }
                   },
@@ -878,6 +882,9 @@
             },
             "existing": {
               "type": "boolean"
+            },
+            "forceDeploy": {
+              "type": "boolean"
             }
           },
           "require": [
@@ -1076,6 +1083,9 @@
                 },
                 "consumer": {
                   "type": "boolean"
+                },
+                "destinations": {
+                  "type": "object"
                 }
               },
               "require": [

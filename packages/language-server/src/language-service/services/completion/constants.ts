@@ -10,13 +10,13 @@ export const RUNTIMES = [
 	"python3.6",
 	"python3.7",
 	"python2.7",
-	"ruby2.5",
 	"ruby2.7",
 	"java11",
 	"java8",
+	"java8.al2",
 	"go1.x",
-	"dotnetcore2.1",
 	"dotnetcore3.1",
+	"dotnet6",
 	"provided",
 	"provided.al2"
 ]
