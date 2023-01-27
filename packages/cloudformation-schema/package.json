@@ -1,6 +1,6 @@
 {
     "name": "@serverless-ide/cloudformation-schema",
-    "version": "0.5.36",
+    "version": "0.5.35",
     "description": "Json schema for AWS SAM template configuration",
     "main": "dist/index.js",
     "repository": "git@github.com:threadheap/aws-sam-json-schema.git",
