@@ -2,7 +2,7 @@
 	"packages": [
 		"packages/*"
 	],
-	"version": "0.5.35",
+	"version": "0.5.36",
 	"npmClient": "npm",
 	"ignoreChanges": [
 		"*.md",
