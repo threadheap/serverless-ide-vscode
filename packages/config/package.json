@@ -49,7 +49,7 @@
         "@types/lru-cache": "^4.1.1",
         "@types/node": "^9.4.7",
         "@types/vscode": "^1.37.0",
-        "typescript": "^3.2.2"
+        "typescript": "^4.9.4"
     },
     "publishConfig": {
         "access": "public"

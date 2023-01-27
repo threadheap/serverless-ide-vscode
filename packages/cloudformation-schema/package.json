@@ -23,7 +23,7 @@
         "lodash": "^4.17.11",
         "request": "^2.88.0",
         "request-promise": "^4.2.2",
-        "typescript": "^3.2.2"
+        "typescript": "^4.9.4"
     },
     "scripts": {
         "build": "npm run clean && npm run compile && node dist/index.js",

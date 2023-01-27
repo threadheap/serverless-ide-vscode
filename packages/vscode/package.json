@@ -164,7 +164,7 @@
         "@types/node": "^6.0.52",
         "@types/vscode": "^1.37.0",
         "ts-node": "^3.3.0",
-        "typescript": "^3.2.2"
+        "typescript": "^4.9.4"
     },
     "dependencies": {
         "@sentry/node": "5.5.0",
