@@ -14,7 +14,7 @@ export const getRelativeNodePath = (node: ASTNode): Segment[] => {
 }
 
 export const getResourceName = (node: ASTNode): void | string => {
-	const path = this.getRelativeNodePath(node)
+	const path = getRelativeNodePath(node)
 
 	const getResourceName = (targetNode: ASTNode): string | void => {
 		if (targetNode.type !== "object") {

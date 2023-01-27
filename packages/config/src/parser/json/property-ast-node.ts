@@ -9,7 +9,6 @@ import { ValidationResult } from "./validation-result"
 
 export class PropertyASTNode extends ASTNode<ASTNode> {
 	key: StringASTNode
-	value: ASTNode
 	colonOffset: number
 
 	constructor(
