@@ -1,6 +1,6 @@
-[![Marketplace Version](https://vsmarketplacebadges.dev/version/ThreadHeap.serverless-ide-vscode.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
-[![Rating](https://vsmarketplacebadges.dev/rating-star/ThreadHeap.serverless-ide-vscode.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
-[![Installs](https://vsmarketplacebadges.dev/installs/ThreadHeap.serverless-ide-vscode.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
+[![Marketplace Version](https://vsmarketplacebadges.dev/version/ThreadHeap.serverless-ide-vscode.png 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
+[![Rating](https://vsmarketplacebadges.dev/rating-star/ThreadHeap.serverless-ide-vscode.png 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
+[![Installs](https://vsmarketplacebadges.dev/installs/ThreadHeap.serverless-ide-vscode.png 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
 
 # Serverless IDE: Enhanced support of AWS SAM, CloudFormation and Serverless Framework in Visual Studio Code
 
