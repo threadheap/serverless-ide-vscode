@@ -1,7 +1,7 @@
 {
     "name": "@serverless-ide/config",
     "description": "Serverless IDE config model and parser",
-    "version": "0.5.35",
+    "version": "0.5.38",
     "author": "Pavel Vlasov <freakycue@gmail.com>",
     "license": "MIT",
     "engines": {
