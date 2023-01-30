@@ -23,8 +23,8 @@
         "url": "https://github.com/threadheap/serverless-ide-language-server.git"
     },
     "dependencies": {
-        "@serverless-ide/cloudformation-schema": "^0.5.36",
-        "@serverless-ide/config": "^0.5.35",
+        "@serverless-ide/cloudformation-schema": "^0.5.34",
+        "@serverless-ide/config": "^0.5.32",
         "@serverless-ide/sam-schema": "^0.5.36",
         "@serverless-ide/serverless-framework-schema": "^0.5.37",
         "es6-promise-pool": "^2.5.0",

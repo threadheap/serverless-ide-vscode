@@ -16,7 +16,7 @@
     "license": "MIT",
     "private": false,
     "devDependencies": {
-        "@serverless-ide/cloudformation-schema": "^0.5.36",
+        "@serverless-ide/cloudformation-schema": "^0.5.34",
         "@types/json-stable-stringify": "^1.0.32",
         "@types/lodash": "^4.14.119",
         "@types/node": "^10.12.18",
