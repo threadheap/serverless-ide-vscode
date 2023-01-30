@@ -1,6 +1,6 @@
-[![Marketplace Version](https://vsmarketplacebadge.apphb.com/version/ThreadHeap.serverless-ide-vscode.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
-[![Rating](https://vsmarketplacebadge.apphb.com/rating-star/ThreadHeap.serverless-ide-vscode.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
-[![Installs](https://vsmarketplacebadge.apphb.com/installs/ThreadHeap.serverless-ide-vscode.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
+[![Marketplace Version](https://vsmarketplacebadges.dev/version/ThreadHeap.serverless-ide-vscode.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
+[![Rating](https://vsmarketplacebadges.dev/rating-star/ThreadHeap.serverless-ide-vscode.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
+[![Installs](https://vsmarketplacebadges.dev/installs/ThreadHeap.serverless-ide-vscode.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=ThreadHeap.serverless-ide-vscode)
 
 # Serverless IDE: Enhanced support of AWS SAM, CloudFormation and Serverless Framework in Visual Studio Code
 
@@ -42,25 +42,26 @@ Note: ServerlessIDE does not support validation of resources and external import
 ## Settings
 
 The following settings are supported:
--   `serverlessIDE.validate`: Enable/disable validation feature
--   `serverlessIDE.hover`: Enable/disable hover documentation
--   `serverlessIDE.completion`: Enable/disable autocompletion
--   `serverlessIDE.validationProvider` : Validation provider. Can be `default` (uses json schema) or [`cfn-lint`](https://github.com/aws-cloudformation/cfn-python-lint)
--   `serverlessIDE.telemetry.enableTelemetry` : Enable/disable telemetry and crash reporting
+
+- `serverlessIDE.validate`: Enable/disable validation feature
+- `serverlessIDE.hover`: Enable/disable hover documentation
+- `serverlessIDE.completion`: Enable/disable autocompletion
+- `serverlessIDE.validationProvider` : Validation provider. Can be `default` (uses json schema) or [`cfn-lint`](https://github.com/aws-cloudformation/cfn-python-lint)
+- `serverlessIDE.telemetry.enableTelemetry` : Enable/disable telemetry and crash reporting
 
 [cfn-lint](https://github.com/aws-cloudformation/cfn-python-lint) is used as default validator
 More information about installation and configuration can be found [here](https://github.com/aws-cloudformation/cfn-python-lint)
 
--    `serverlessIDE.cfnLint.path` : Path to cfn-lint command (default to `cfn-lint`)
--    `serverlessIDE.cfnLint.appendRules` : Additional cfn-lint rules
--    `serverlessIDE.cfnLint.ignoreRules` : Array of rules to ignore
+- `serverlessIDE.cfnLint.path` : Path to cfn-lint command (default to `cfn-lint`)
+- `serverlessIDE.cfnLint.appendRules` : Additional cfn-lint rules
+- `serverlessIDE.cfnLint.ignoreRules` : Array of rules to ignore
 
 Language settings:
 
--   `[yaml]`: VSCode-YAML adds default configuration for all yaml files. More specifically it converts tabs to spaces to ensure valid yaml, sets the tab size, and allows live typing autocompletion. These settings can be modified via the corresponding settings inside the `[yaml]` section in the settings:
-    -   `editor.insertSpaces`
-    -   `editor.tabSize`
-    -   `editor.quickSuggestions`
+- `[yaml]`: VSCode-YAML adds default configuration for all yaml files. More specifically it converts tabs to spaces to ensure valid yaml, sets the tab size, and allows live typing autocompletion. These settings can be modified via the corresponding settings inside the `[yaml]` section in the settings:
+  - `editor.insertSpaces`
+  - `editor.tabSize`
+  - `editor.quickSuggestions`
 
 ## Telemetry
 
@@ -128,4 +129,4 @@ Use `Attach Server` command to attach debugger
 
 Apache License 2.0
 
-All documentation provided has copyright by Amazon Web Services, Inc. or its affiliates, and was published under the terms that can be found at https://aws.amazon.com/terms/
+All documentation provided has copyright by Amazon Web Services, Inc. or its affiliates, and was published under the terms that can be found at <https://aws.amazon.com/terms/>
