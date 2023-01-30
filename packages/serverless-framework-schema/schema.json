@@ -9420,6 +9420,9 @@
         "Marketo": {
           "$ref": "#/definitions/AWS::AppFlow::ConnectorProfile.MarketoConnectorProfileCredentials"
         },
+        "Pardot": {
+          "$ref": "#/definitions/AWS::AppFlow::ConnectorProfile.PardotConnectorProfileCredentials"
+        },
         "Redshift": {
           "$ref": "#/definitions/AWS::AppFlow::ConnectorProfile.RedshiftConnectorProfileCredentials"
         },
@@ -9470,6 +9473,9 @@
         },
         "Marketo": {
           "$ref": "#/definitions/AWS::AppFlow::ConnectorProfile.MarketoConnectorProfileProperties"
+        },
+        "Pardot": {
+          "$ref": "#/definitions/AWS::AppFlow::ConnectorProfile.PardotConnectorProfileProperties"
         },
         "Redshift": {
           "$ref": "#/definitions/AWS::AppFlow::ConnectorProfile.RedshiftConnectorProfileProperties"
@@ -9787,6 +9793,42 @@
           "type": "string"
         }
       },
+      "type": "object"
+    },
+    "AWS::AppFlow::ConnectorProfile.PardotConnectorProfileCredentials": {
+      "additionalProperties": false,
+      "properties": {
+        "AccessToken": {
+          "type": "string"
+        },
+        "ClientCredentialsArn": {
+          "type": "string"
+        },
+        "ConnectorOAuthRequest": {
+          "$ref": "#/definitions/AWS::AppFlow::ConnectorProfile.ConnectorOAuthRequest"
+        },
+        "RefreshToken": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "AWS::AppFlow::ConnectorProfile.PardotConnectorProfileProperties": {
+      "additionalProperties": false,
+      "properties": {
+        "BusinessUnitId": {
+          "type": "string"
+        },
+        "InstanceUrl": {
+          "type": "string"
+        },
+        "IsSandboxEnvironment": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "BusinessUnitId"
+      ],
       "type": "object"
     },
     "AWS::AppFlow::ConnectorProfile.RedshiftConnectorProfileCredentials": {
@@ -10251,6 +10293,9 @@
         "Marketo": {
           "type": "string"
         },
+        "Pardot": {
+          "type": "string"
+        },
         "S3": {
           "type": "string"
         },
@@ -10546,6 +10591,18 @@
           "$ref": "#/definitions/AWS::AppFlow::Flow.GlueDataCatalog"
         }
       },
+      "type": "object"
+    },
+    "AWS::AppFlow::Flow.PardotSourceProperties": {
+      "additionalProperties": false,
+      "properties": {
+        "Object": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Object"
+      ],
       "type": "object"
     },
     "AWS::AppFlow::Flow.PrefixConfig": {
@@ -10853,6 +10910,9 @@
         },
         "Marketo": {
           "$ref": "#/definitions/AWS::AppFlow::Flow.MarketoSourceProperties"
+        },
+        "Pardot": {
+          "$ref": "#/definitions/AWS::AppFlow::Flow.PardotSourceProperties"
         },
         "S3": {
           "$ref": "#/definitions/AWS::AppFlow::Flow.S3SourceProperties"
@@ -34591,6 +34651,73 @@
       ],
       "type": "object"
     },
+    "AWS::Connect::ApprovedOrigin": {
+      "additionalProperties": false,
+      "properties": {
+        "Condition": {
+          "type": "string"
+        },
+        "DeletionPolicy": {
+          "enum": [
+            "Delete",
+            "Retain",
+            "Snapshot"
+          ],
+          "type": "string"
+        },
+        "DependsOn": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "Metadata": {
+          "type": "object"
+        },
+        "Properties": {
+          "additionalProperties": false,
+          "properties": {
+            "InstanceId": {
+              "type": "string"
+            },
+            "Origin": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "InstanceId",
+            "Origin"
+          ],
+          "type": "object"
+        },
+        "Type": {
+          "enum": [
+            "AWS::Connect::ApprovedOrigin"
+          ],
+          "type": "string"
+        },
+        "UpdateReplacePolicy": {
+          "enum": [
+            "Delete",
+            "Retain",
+            "Snapshot"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "Type",
+        "Properties"
+      ],
+      "type": "object"
+    },
     "AWS::Connect::ContactFlow": {
       "additionalProperties": false,
       "properties": {
@@ -35149,6 +35276,77 @@
       ],
       "type": "object"
     },
+    "AWS::Connect::IntegrationAssociation": {
+      "additionalProperties": false,
+      "properties": {
+        "Condition": {
+          "type": "string"
+        },
+        "DeletionPolicy": {
+          "enum": [
+            "Delete",
+            "Retain",
+            "Snapshot"
+          ],
+          "type": "string"
+        },
+        "DependsOn": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "Metadata": {
+          "type": "object"
+        },
+        "Properties": {
+          "additionalProperties": false,
+          "properties": {
+            "InstanceId": {
+              "type": "string"
+            },
+            "IntegrationArn": {
+              "type": "string"
+            },
+            "IntegrationType": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "InstanceId",
+            "IntegrationArn",
+            "IntegrationType"
+          ],
+          "type": "object"
+        },
+        "Type": {
+          "enum": [
+            "AWS::Connect::IntegrationAssociation"
+          ],
+          "type": "string"
+        },
+        "UpdateReplacePolicy": {
+          "enum": [
+            "Delete",
+            "Retain",
+            "Snapshot"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "Type",
+        "Properties"
+      ],
+      "type": "object"
+    },
     "AWS::Connect::PhoneNumber": {
       "additionalProperties": false,
       "properties": {
@@ -35612,6 +35810,73 @@
       "required": [
         "ContactFlowArn",
         "Name"
+      ],
+      "type": "object"
+    },
+    "AWS::Connect::SecurityKey": {
+      "additionalProperties": false,
+      "properties": {
+        "Condition": {
+          "type": "string"
+        },
+        "DeletionPolicy": {
+          "enum": [
+            "Delete",
+            "Retain",
+            "Snapshot"
+          ],
+          "type": "string"
+        },
+        "DependsOn": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "Metadata": {
+          "type": "object"
+        },
+        "Properties": {
+          "additionalProperties": false,
+          "properties": {
+            "InstanceId": {
+              "type": "string"
+            },
+            "Key": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "InstanceId",
+            "Key"
+          ],
+          "type": "object"
+        },
+        "Type": {
+          "enum": [
+            "AWS::Connect::SecurityKey"
+          ],
+          "type": "string"
+        },
+        "UpdateReplacePolicy": {
+          "enum": [
+            "Delete",
+            "Retain",
+            "Snapshot"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "Type",
+        "Properties"
       ],
       "type": "object"
     },
@@ -44767,6 +45032,9 @@
             "BgpAsn": {
               "type": "number"
             },
+            "DeviceName": {
+              "type": "string"
+            },
             "IpAddress": {
               "type": "string"
             },
@@ -47972,8 +48240,26 @@
             "ConnectivityType": {
               "type": "string"
             },
+            "MaxDrainDurationSeconds": {
+              "type": "number"
+            },
             "PrivateIpAddress": {
               "type": "string"
+            },
+            "SecondaryAllocationIds": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "SecondaryPrivateIpAddressCount": {
+              "type": "number"
+            },
+            "SecondaryPrivateIpAddresses": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
             },
             "SubnetId": {
               "type": "string"
@@ -59140,6 +59426,9 @@
             "AutoStopConfiguration": {
               "$ref": "#/definitions/AWS::EMRServerless::Application.AutoStopConfiguration"
             },
+            "ImageConfiguration": {
+              "$ref": "#/definitions/AWS::EMRServerless::Application.ImageConfigurationInput"
+            },
             "InitialCapacity": {
               "items": {
                 "$ref": "#/definitions/AWS::EMRServerless::Application.InitialCapacityConfigKeyValuePair"
@@ -59166,6 +59455,15 @@
             },
             "Type": {
               "type": "string"
+            },
+            "WorkerTypeSpecifications": {
+              "additionalProperties": false,
+              "patternProperties": {
+                "^[a-zA-Z0-9]+$": {
+                  "$ref": "#/definitions/AWS::EMRServerless::Application.WorkerTypeSpecificationInput"
+                }
+              },
+              "type": "object"
             }
           },
           "required": [
@@ -59212,6 +59510,15 @@
         },
         "IdleTimeoutMinutes": {
           "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "AWS::EMRServerless::Application.ImageConfigurationInput": {
+      "additionalProperties": false,
+      "properties": {
+        "ImageUri": {
+          "type": "string"
         }
       },
       "type": "object"
@@ -59302,6 +59609,15 @@
         "Cpu",
         "Memory"
       ],
+      "type": "object"
+    },
+    "AWS::EMRServerless::Application.WorkerTypeSpecificationInput": {
+      "additionalProperties": false,
+      "properties": {
+        "ImageConfiguration": {
+          "$ref": "#/definitions/AWS::EMRServerless::Application.ImageConfigurationInput"
+        }
+      },
       "type": "object"
     },
     "AWS::ElastiCache::CacheCluster": {
@@ -74689,6 +75005,12 @@
         "Properties": {
           "additionalProperties": false,
           "properties": {
+            "ContactPostPassDurationSeconds": {
+              "type": "number"
+            },
+            "ContactPrePassDurationSeconds": {
+              "type": "number"
+            },
             "EndpointDetails": {
               "items": {
                 "$ref": "#/definitions/AWS::GroundStation::DataflowEndpointGroup.EndpointDetails"
@@ -77848,6 +78170,9 @@
             "ImageRecipeArn": {
               "type": "string"
             },
+            "ImageScanningConfiguration": {
+              "$ref": "#/definitions/AWS::ImageBuilder::Image.ImageScanningConfiguration"
+            },
             "ImageTestsConfiguration": {
               "$ref": "#/definitions/AWS::ImageBuilder::Image.ImageTestsConfiguration"
             },
@@ -77888,6 +78213,33 @@
         "Type",
         "Properties"
       ],
+      "type": "object"
+    },
+    "AWS::ImageBuilder::Image.EcrConfiguration": {
+      "additionalProperties": false,
+      "properties": {
+        "ContainerTags": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "RepositoryName": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "AWS::ImageBuilder::Image.ImageScanningConfiguration": {
+      "additionalProperties": false,
+      "properties": {
+        "EcrConfiguration": {
+          "$ref": "#/definitions/AWS::ImageBuilder::Image.EcrConfiguration"
+        },
+        "ImageScanningEnabled": {
+          "type": "boolean"
+        }
+      },
       "type": "object"
     },
     "AWS::ImageBuilder::Image.ImageTestsConfiguration": {
@@ -77950,6 +78302,9 @@
             "ImageRecipeArn": {
               "type": "string"
             },
+            "ImageScanningConfiguration": {
+              "$ref": "#/definitions/AWS::ImageBuilder::ImagePipeline.ImageScanningConfiguration"
+            },
             "ImageTestsConfiguration": {
               "$ref": "#/definitions/AWS::ImageBuilder::ImagePipeline.ImageTestsConfiguration"
             },
@@ -78000,6 +78355,33 @@
         "Type",
         "Properties"
       ],
+      "type": "object"
+    },
+    "AWS::ImageBuilder::ImagePipeline.EcrConfiguration": {
+      "additionalProperties": false,
+      "properties": {
+        "ContainerTags": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "RepositoryName": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "AWS::ImageBuilder::ImagePipeline.ImageScanningConfiguration": {
+      "additionalProperties": false,
+      "properties": {
+        "EcrConfiguration": {
+          "$ref": "#/definitions/AWS::ImageBuilder::ImagePipeline.EcrConfiguration"
+        },
+        "ImageScanningEnabled": {
+          "type": "boolean"
+        }
+      },
       "type": "object"
     },
     "AWS::ImageBuilder::ImagePipeline.ImageTestsConfiguration": {
@@ -95834,6 +96216,9 @@
             "Runtime": {
               "type": "string"
             },
+            "RuntimeManagementConfig": {
+              "$ref": "#/definitions/AWS::Lambda::Function.RuntimeManagementConfig"
+            },
             "SnapStart": {
               "$ref": "#/definitions/AWS::Lambda::Function.SnapStart"
             },
@@ -95972,6 +96357,21 @@
           "type": "string"
         }
       },
+      "type": "object"
+    },
+    "AWS::Lambda::Function.RuntimeManagementConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "RuntimeVersionArn": {
+          "type": "string"
+        },
+        "UpdateRuntimeOn": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "UpdateRuntimeOn"
+      ],
       "type": "object"
     },
     "AWS::Lambda::Function.SnapStart": {
@@ -96788,6 +97188,64 @@
       ],
       "type": "object"
     },
+    "AWS::Lex::Bot.Condition": {
+      "additionalProperties": false,
+      "properties": {
+        "ExpressionString": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "ExpressionString"
+      ],
+      "type": "object"
+    },
+    "AWS::Lex::Bot.ConditionalBranch": {
+      "additionalProperties": false,
+      "properties": {
+        "Condition": {
+          "$ref": "#/definitions/AWS::Lex::Bot.Condition"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "NextStep": {
+          "$ref": "#/definitions/AWS::Lex::Bot.DialogState"
+        },
+        "Response": {
+          "$ref": "#/definitions/AWS::Lex::Bot.ResponseSpecification"
+        }
+      },
+      "required": [
+        "Condition",
+        "Name",
+        "NextStep"
+      ],
+      "type": "object"
+    },
+    "AWS::Lex::Bot.ConditionalSpecification": {
+      "additionalProperties": false,
+      "properties": {
+        "ConditionalBranches": {
+          "items": {
+            "$ref": "#/definitions/AWS::Lex::Bot.ConditionalBranch"
+          },
+          "type": "array"
+        },
+        "DefaultBranch": {
+          "$ref": "#/definitions/AWS::Lex::Bot.DefaultConditionalBranch"
+        },
+        "IsActive": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "ConditionalBranches",
+        "DefaultBranch",
+        "IsActive"
+      ],
+      "type": "object"
+    },
     "AWS::Lex::Bot.ConversationLogSettings": {
       "additionalProperties": false,
       "properties": {
@@ -96884,6 +97342,59 @@
       ],
       "type": "object"
     },
+    "AWS::Lex::Bot.DefaultConditionalBranch": {
+      "additionalProperties": false,
+      "properties": {
+        "NextStep": {
+          "$ref": "#/definitions/AWS::Lex::Bot.DialogState"
+        },
+        "Response": {
+          "$ref": "#/definitions/AWS::Lex::Bot.ResponseSpecification"
+        }
+      },
+      "type": "object"
+    },
+    "AWS::Lex::Bot.DialogAction": {
+      "additionalProperties": false,
+      "properties": {
+        "SlotToElicit": {
+          "type": "string"
+        },
+        "SuppressNextMessage": {
+          "type": "boolean"
+        },
+        "Type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Type"
+      ],
+      "type": "object"
+    },
+    "AWS::Lex::Bot.DialogCodeHookInvocationSetting": {
+      "additionalProperties": false,
+      "properties": {
+        "EnableCodeHookInvocation": {
+          "type": "boolean"
+        },
+        "InvocationLabel": {
+          "type": "string"
+        },
+        "IsActive": {
+          "type": "boolean"
+        },
+        "PostCodeHookSpecification": {
+          "$ref": "#/definitions/AWS::Lex::Bot.PostDialogCodeHookInvocationSpecification"
+        }
+      },
+      "required": [
+        "EnableCodeHookInvocation",
+        "IsActive",
+        "PostCodeHookSpecification"
+      ],
+      "type": "object"
+    },
     "AWS::Lex::Bot.DialogCodeHookSetting": {
       "additionalProperties": false,
       "properties": {
@@ -96893,6 +97404,39 @@
       },
       "required": [
         "Enabled"
+      ],
+      "type": "object"
+    },
+    "AWS::Lex::Bot.DialogState": {
+      "additionalProperties": false,
+      "properties": {
+        "DialogAction": {
+          "$ref": "#/definitions/AWS::Lex::Bot.DialogAction"
+        },
+        "Intent": {
+          "$ref": "#/definitions/AWS::Lex::Bot.IntentOverride"
+        },
+        "SessionAttributes": {
+          "items": {
+            "$ref": "#/definitions/AWS::Lex::Bot.SessionAttribute"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "AWS::Lex::Bot.ElicitationCodeHookInvocationSetting": {
+      "additionalProperties": false,
+      "properties": {
+        "EnableCodeHookInvocation": {
+          "type": "boolean"
+        },
+        "InvocationLabel": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "EnableCodeHookInvocation"
       ],
       "type": "object"
     },
@@ -96913,6 +97457,9 @@
         },
         "FulfillmentUpdatesSpecification": {
           "$ref": "#/definitions/AWS::Lex::Bot.FulfillmentUpdatesSpecification"
+        },
+        "IsActive": {
+          "type": "boolean"
         },
         "PostFulfillmentStatusSpecification": {
           "$ref": "#/definitions/AWS::Lex::Bot.PostFulfillmentStatusSpecification"
@@ -97040,6 +97587,24 @@
       ],
       "type": "object"
     },
+    "AWS::Lex::Bot.InitialResponseSetting": {
+      "additionalProperties": false,
+      "properties": {
+        "CodeHook": {
+          "$ref": "#/definitions/AWS::Lex::Bot.DialogCodeHookInvocationSetting"
+        },
+        "Conditional": {
+          "$ref": "#/definitions/AWS::Lex::Bot.ConditionalSpecification"
+        },
+        "InitialResponse": {
+          "$ref": "#/definitions/AWS::Lex::Bot.ResponseSpecification"
+        },
+        "NextStep": {
+          "$ref": "#/definitions/AWS::Lex::Bot.DialogState"
+        }
+      },
+      "type": "object"
+    },
     "AWS::Lex::Bot.InputContext": {
       "additionalProperties": false,
       "properties": {
@@ -97063,6 +97628,9 @@
         },
         "FulfillmentCodeHook": {
           "$ref": "#/definitions/AWS::Lex::Bot.FulfillmentCodeHookSetting"
+        },
+        "InitialResponseSetting": {
+          "$ref": "#/definitions/AWS::Lex::Bot.InitialResponseSetting"
         },
         "InputContexts": {
           "items": {
@@ -97121,19 +97689,52 @@
         "ClosingResponse": {
           "$ref": "#/definitions/AWS::Lex::Bot.ResponseSpecification"
         },
+        "Conditional": {
+          "$ref": "#/definitions/AWS::Lex::Bot.ConditionalSpecification"
+        },
         "IsActive": {
           "type": "boolean"
+        },
+        "NextStep": {
+          "$ref": "#/definitions/AWS::Lex::Bot.DialogState"
         }
       },
-      "required": [
-        "ClosingResponse"
-      ],
       "type": "object"
     },
     "AWS::Lex::Bot.IntentConfirmationSetting": {
       "additionalProperties": false,
       "properties": {
+        "CodeHook": {
+          "$ref": "#/definitions/AWS::Lex::Bot.DialogCodeHookInvocationSetting"
+        },
+        "ConfirmationConditional": {
+          "$ref": "#/definitions/AWS::Lex::Bot.ConditionalSpecification"
+        },
+        "ConfirmationNextStep": {
+          "$ref": "#/definitions/AWS::Lex::Bot.DialogState"
+        },
+        "ConfirmationResponse": {
+          "$ref": "#/definitions/AWS::Lex::Bot.ResponseSpecification"
+        },
+        "DeclinationConditional": {
+          "$ref": "#/definitions/AWS::Lex::Bot.ConditionalSpecification"
+        },
+        "DeclinationNextStep": {
+          "$ref": "#/definitions/AWS::Lex::Bot.DialogState"
+        },
         "DeclinationResponse": {
+          "$ref": "#/definitions/AWS::Lex::Bot.ResponseSpecification"
+        },
+        "ElicitationCodeHook": {
+          "$ref": "#/definitions/AWS::Lex::Bot.ElicitationCodeHookInvocationSetting"
+        },
+        "FailureConditional": {
+          "$ref": "#/definitions/AWS::Lex::Bot.ConditionalSpecification"
+        },
+        "FailureNextStep": {
+          "$ref": "#/definitions/AWS::Lex::Bot.DialogState"
+        },
+        "FailureResponse": {
           "$ref": "#/definitions/AWS::Lex::Bot.ResponseSpecification"
         },
         "IsActive": {
@@ -97144,9 +97745,23 @@
         }
       },
       "required": [
-        "DeclinationResponse",
         "PromptSpecification"
       ],
+      "type": "object"
+    },
+    "AWS::Lex::Bot.IntentOverride": {
+      "additionalProperties": false,
+      "properties": {
+        "Name": {
+          "type": "string"
+        },
+        "Slots": {
+          "items": {
+            "$ref": "#/definitions/AWS::Lex::Bot.SlotValueOverrideMap"
+          },
+          "type": "array"
+        }
+      },
       "type": "object"
     },
     "AWS::Lex::Bot.KendraConfiguration": {
@@ -97272,14 +97887,65 @@
       ],
       "type": "object"
     },
-    "AWS::Lex::Bot.PostFulfillmentStatusSpecification": {
+    "AWS::Lex::Bot.PostDialogCodeHookInvocationSpecification": {
       "additionalProperties": false,
       "properties": {
+        "FailureConditional": {
+          "$ref": "#/definitions/AWS::Lex::Bot.ConditionalSpecification"
+        },
+        "FailureNextStep": {
+          "$ref": "#/definitions/AWS::Lex::Bot.DialogState"
+        },
         "FailureResponse": {
           "$ref": "#/definitions/AWS::Lex::Bot.ResponseSpecification"
         },
+        "SuccessConditional": {
+          "$ref": "#/definitions/AWS::Lex::Bot.ConditionalSpecification"
+        },
+        "SuccessNextStep": {
+          "$ref": "#/definitions/AWS::Lex::Bot.DialogState"
+        },
         "SuccessResponse": {
           "$ref": "#/definitions/AWS::Lex::Bot.ResponseSpecification"
+        },
+        "TimeoutConditional": {
+          "$ref": "#/definitions/AWS::Lex::Bot.ConditionalSpecification"
+        },
+        "TimeoutNextStep": {
+          "$ref": "#/definitions/AWS::Lex::Bot.DialogState"
+        },
+        "TimeoutResponse": {
+          "$ref": "#/definitions/AWS::Lex::Bot.ResponseSpecification"
+        }
+      },
+      "type": "object"
+    },
+    "AWS::Lex::Bot.PostFulfillmentStatusSpecification": {
+      "additionalProperties": false,
+      "properties": {
+        "FailureConditional": {
+          "$ref": "#/definitions/AWS::Lex::Bot.ConditionalSpecification"
+        },
+        "FailureNextStep": {
+          "$ref": "#/definitions/AWS::Lex::Bot.DialogState"
+        },
+        "FailureResponse": {
+          "$ref": "#/definitions/AWS::Lex::Bot.ResponseSpecification"
+        },
+        "SuccessConditional": {
+          "$ref": "#/definitions/AWS::Lex::Bot.ConditionalSpecification"
+        },
+        "SuccessNextStep": {
+          "$ref": "#/definitions/AWS::Lex::Bot.DialogState"
+        },
+        "SuccessResponse": {
+          "$ref": "#/definitions/AWS::Lex::Bot.ResponseSpecification"
+        },
+        "TimeoutConditional": {
+          "$ref": "#/definitions/AWS::Lex::Bot.ConditionalSpecification"
+        },
+        "TimeoutNextStep": {
+          "$ref": "#/definitions/AWS::Lex::Bot.DialogState"
         },
         "TimeoutResponse": {
           "$ref": "#/definitions/AWS::Lex::Bot.ResponseSpecification"
@@ -97446,6 +98112,21 @@
       ],
       "type": "object"
     },
+    "AWS::Lex::Bot.SessionAttribute": {
+      "additionalProperties": false,
+      "properties": {
+        "Key": {
+          "type": "string"
+        },
+        "Value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Key"
+      ],
+      "type": "object"
+    },
     "AWS::Lex::Bot.Slot": {
       "additionalProperties": false,
       "properties": {
@@ -97473,6 +98154,36 @@
         "SlotTypeName",
         "ValueElicitationSetting"
       ],
+      "type": "object"
+    },
+    "AWS::Lex::Bot.SlotCaptureSetting": {
+      "additionalProperties": false,
+      "properties": {
+        "CaptureConditional": {
+          "$ref": "#/definitions/AWS::Lex::Bot.ConditionalSpecification"
+        },
+        "CaptureNextStep": {
+          "$ref": "#/definitions/AWS::Lex::Bot.DialogState"
+        },
+        "CaptureResponse": {
+          "$ref": "#/definitions/AWS::Lex::Bot.ResponseSpecification"
+        },
+        "CodeHook": {
+          "$ref": "#/definitions/AWS::Lex::Bot.DialogCodeHookInvocationSetting"
+        },
+        "ElicitationCodeHook": {
+          "$ref": "#/definitions/AWS::Lex::Bot.ElicitationCodeHookInvocationSetting"
+        },
+        "FailureConditional": {
+          "$ref": "#/definitions/AWS::Lex::Bot.ConditionalSpecification"
+        },
+        "FailureNextStep": {
+          "$ref": "#/definitions/AWS::Lex::Bot.DialogState"
+        },
+        "FailureResponse": {
+          "$ref": "#/definitions/AWS::Lex::Bot.ResponseSpecification"
+        }
+      },
       "type": "object"
     },
     "AWS::Lex::Bot.SlotDefaultValue": {
@@ -97566,6 +98277,15 @@
       ],
       "type": "object"
     },
+    "AWS::Lex::Bot.SlotValue": {
+      "additionalProperties": false,
+      "properties": {
+        "InterpretedValue": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "AWS::Lex::Bot.SlotValueElicitationSetting": {
       "additionalProperties": false,
       "properties": {
@@ -97581,6 +98301,9 @@
           },
           "type": "array"
         },
+        "SlotCaptureSetting": {
+          "$ref": "#/definitions/AWS::Lex::Bot.SlotCaptureSetting"
+        },
         "SlotConstraint": {
           "type": "string"
         },
@@ -97591,6 +98314,36 @@
       "required": [
         "SlotConstraint"
       ],
+      "type": "object"
+    },
+    "AWS::Lex::Bot.SlotValueOverride": {
+      "additionalProperties": false,
+      "properties": {
+        "Shape": {
+          "type": "string"
+        },
+        "Value": {
+          "$ref": "#/definitions/AWS::Lex::Bot.SlotValue"
+        },
+        "Values": {
+          "items": {
+            "$ref": "#/definitions/AWS::Lex::Bot.SlotValueOverride"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "AWS::Lex::Bot.SlotValueOverrideMap": {
+      "additionalProperties": false,
+      "properties": {
+        "SlotName": {
+          "type": "string"
+        },
+        "SlotValueOverride": {
+          "$ref": "#/definitions/AWS::Lex::Bot.SlotValueOverride"
+        }
+      },
       "type": "object"
     },
     "AWS::Lex::Bot.SlotValueRegexFilter": {
@@ -100022,12 +100775,6 @@
               "type": "string"
             },
             "KmsKeyId": {
-              "type": "string"
-            },
-            "PricingPlan": {
-              "type": "string"
-            },
-            "PricingPlanDataSource": {
               "type": "string"
             }
           },
@@ -113672,6 +114419,12 @@
     "AWS::OpenSearchService::Domain.AdvancedSecurityOptionsInput": {
       "additionalProperties": false,
       "properties": {
+        "AnonymousAuthDisableDate": {
+          "type": "string"
+        },
+        "AnonymousAuthEnabled": {
+          "type": "boolean"
+        },
         "Enabled": {
           "type": "boolean"
         },
@@ -113680,6 +114433,9 @@
         },
         "MasterUserOptions": {
           "$ref": "#/definitions/AWS::OpenSearchService::Domain.MasterUserOptions"
+        },
+        "SAMLOptions": {
+          "$ref": "#/definitions/AWS::OpenSearchService::Domain.SAMLOptions"
         }
       },
       "type": "object"
@@ -113792,6 +114548,22 @@
       },
       "type": "object"
     },
+    "AWS::OpenSearchService::Domain.Idp": {
+      "additionalProperties": false,
+      "properties": {
+        "EntityId": {
+          "type": "string"
+        },
+        "MetadataContent": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "EntityId",
+        "MetadataContent"
+      ],
+      "type": "object"
+    },
     "AWS::OpenSearchService::Domain.LogPublishingOption": {
       "additionalProperties": false,
       "properties": {
@@ -113824,6 +114596,33 @@
       "properties": {
         "Enabled": {
           "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "AWS::OpenSearchService::Domain.SAMLOptions": {
+      "additionalProperties": false,
+      "properties": {
+        "Enabled": {
+          "type": "boolean"
+        },
+        "Idp": {
+          "$ref": "#/definitions/AWS::OpenSearchService::Domain.Idp"
+        },
+        "MasterBackendRole": {
+          "type": "string"
+        },
+        "MasterUserName": {
+          "type": "string"
+        },
+        "RolesKey": {
+          "type": "string"
+        },
+        "SessionTimeoutMinutes": {
+          "type": "number"
+        },
+        "SubjectKey": {
+          "type": "string"
         }
       },
       "type": "object"
@@ -124739,6 +125538,9 @@
             "AppMonitorConfiguration": {
               "$ref": "#/definitions/AWS::RUM::AppMonitor.AppMonitorConfiguration"
             },
+            "CustomEvents": {
+              "$ref": "#/definitions/AWS::RUM::AppMonitor.CustomEvents"
+            },
             "CwLogEnabled": {
               "type": "boolean"
             },
@@ -124829,6 +125631,15 @@
             "type": "string"
           },
           "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "AWS::RUM::AppMonitor.CustomEvents": {
+      "additionalProperties": false,
+      "properties": {
+        "Status": {
+          "type": "string"
         }
       },
       "type": "object"
@@ -130541,6 +131352,9 @@
             "PreferredInstanceType": {
               "type": "string"
             },
+            "ResolverEndpointType": {
+              "type": "string"
+            },
             "SecurityGroupIds": {
               "items": {
                 "type": "string"
@@ -130586,6 +131400,9 @@
       "additionalProperties": false,
       "properties": {
         "Ip": {
+          "type": "string"
+        },
+        "Ipv6": {
           "type": "string"
         },
         "SubnetId": {
@@ -138164,6 +138981,9 @@
             "AuthMode": {
               "type": "string"
             },
+            "DefaultSpaceSettings": {
+              "$ref": "#/definitions/AWS::SageMaker::Domain.DefaultSpaceSettings"
+            },
             "DefaultUserSettings": {
               "$ref": "#/definitions/AWS::SageMaker::Domain.UserSettings"
             },
@@ -138239,6 +139059,27 @@
         "AppImageConfigName",
         "ImageName"
       ],
+      "type": "object"
+    },
+    "AWS::SageMaker::Domain.DefaultSpaceSettings": {
+      "additionalProperties": false,
+      "properties": {
+        "ExecutionRole": {
+          "type": "string"
+        },
+        "JupyterServerAppSettings": {
+          "$ref": "#/definitions/AWS::SageMaker::Domain.JupyterServerAppSettings"
+        },
+        "KernelGatewayAppSettings": {
+          "$ref": "#/definitions/AWS::SageMaker::Domain.KernelGatewayAppSettings"
+        },
+        "SecurityGroups": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
       "type": "object"
     },
     "AWS::SageMaker::Domain.DomainSettings": {
@@ -157609,6 +158450,9 @@
                       "$ref": "#/definitions/AWS::Config::StoredQuery"
                     },
                     {
+                      "$ref": "#/definitions/AWS::Connect::ApprovedOrigin"
+                    },
+                    {
                       "$ref": "#/definitions/AWS::Connect::ContactFlow"
                     },
                     {
@@ -157624,6 +158468,9 @@
                       "$ref": "#/definitions/AWS::Connect::InstanceStorageConfig"
                     },
                     {
+                      "$ref": "#/definitions/AWS::Connect::IntegrationAssociation"
+                    },
+                    {
                       "$ref": "#/definitions/AWS::Connect::PhoneNumber"
                     },
                     {
@@ -157631,6 +158478,9 @@
                     },
                     {
                       "$ref": "#/definitions/AWS::Connect::Rule"
+                    },
+                    {
+                      "$ref": "#/definitions/AWS::Connect::SecurityKey"
                     },
                     {
                       "$ref": "#/definitions/AWS::Connect::TaskTemplate"
@@ -161000,6 +161850,9 @@
                         "$ref": "#/definitions/AWS::Config::StoredQuery"
                       },
                       {
+                        "$ref": "#/definitions/AWS::Connect::ApprovedOrigin"
+                      },
+                      {
                         "$ref": "#/definitions/AWS::Connect::ContactFlow"
                       },
                       {
@@ -161015,6 +161868,9 @@
                         "$ref": "#/definitions/AWS::Connect::InstanceStorageConfig"
                       },
                       {
+                        "$ref": "#/definitions/AWS::Connect::IntegrationAssociation"
+                      },
+                      {
                         "$ref": "#/definitions/AWS::Connect::PhoneNumber"
                       },
                       {
@@ -161022,6 +161878,9 @@
                       },
                       {
                         "$ref": "#/definitions/AWS::Connect::Rule"
+                      },
+                      {
+                        "$ref": "#/definitions/AWS::Connect::SecurityKey"
                       },
                       {
                         "$ref": "#/definitions/AWS::Connect::TaskTemplate"
