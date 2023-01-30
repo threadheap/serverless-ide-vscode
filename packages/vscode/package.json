@@ -5,7 +5,7 @@
     "author": "Pavel Vlasov <pavel@serverless-ide.com>",
     "publisher": "ThreadHeap",
     "license": "MIT",
-    "version": "0.6.0",
+    "version": "0.6.1",
     "preview": false,
     "bugs": "https://github.com/threadheap/serverless-ide-vscode/issues",
     "repository": {
