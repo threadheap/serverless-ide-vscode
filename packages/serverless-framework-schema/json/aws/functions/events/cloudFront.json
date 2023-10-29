@@ -29,10 +29,23 @@
                                 "DomainName": {
                                     "type": "string"
                                 },
+								"OriginAccessControlId" {
+									"oneOf": [
+										{
+											"type": "string"
+										},
+										{
+											"type": "object"
+										}
+									]
+								},
                                 "OriginPath": {
                                     "type": "string"
                                 },
                                 "CustomOriginConfig": {
+                                    "type": "object"
+                                },
+                                "S3OriginConfig": {
                                     "type": "object"
                                 }
                             }
