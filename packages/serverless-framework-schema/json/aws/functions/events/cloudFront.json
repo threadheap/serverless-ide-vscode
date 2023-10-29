@@ -29,16 +29,16 @@
                                 "DomainName": {
                                     "type": "string"
                                 },
-								"OriginAccessControlId" {
-									"oneOf": [
-										{
-											"type": "string"
-										},
-										{
-											"type": "object"
-										}
-									]
-								},
+                                "OriginAccessControlId": {
+                                    "oneOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "object"
+                                        }
+                                    ]
+                                },
                                 "OriginPath": {
                                     "type": "string"
                                 },
