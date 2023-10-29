@@ -105,6 +105,7 @@ export class YAMLValidation {
 		const args = ["--format", "json"]
 		const filePath = Files.uriToFilePath(textDocument.uri)
 		const fileName = textDocument.uri
+		const cfnLintPath = this.settings.path || "cfn-lint"
 
 		this.settings.ignoreRules.map(rule => {
 			args.push("--ignore-checks", rule)
@@ -118,11 +119,15 @@ export class YAMLValidation {
 			args.push("--override-spec", this.settings.overrideSpecPath)
 		}
 
+		if (!(cfnLintPath.includes(' --include-checks ') || cfnLintPath.includes(' -c '))) {
+			args.push("--include-checks", "I")
+		}
+
 		args.push("--", filePath)
 
 		this.inProgressMap[fileName] = true
 
-		const child = spawn(this.settings.path || "cfn-lint", args, {
+		const child = spawn(cfnLintPath, args, {
 			cwd: this.workspaceRoot
 		})
 
