@@ -25,7 +25,14 @@
                             "default": true
                         },
                         "input": {
-                            "type": "object"
+                            "oneOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "object"
+                                }
+                            ]
                         },
                         "inputPath": {
                             "type": "string",

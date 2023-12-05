@@ -27,6 +27,16 @@
                     },
                     "description": "optional, a list of runtimes this layer is compatible with"
                 },
+                "compatibleArchitectures": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "x86_64",
+                            "arm64"
+                        ]
+                    }
+                },
                 "licenseInfo": {
                     "type": "string",
                     "description": "optional, a string specifying license information",
