@@ -17,6 +17,10 @@
                 "existing": {
                     "type": "boolean",
                     "default": false
+                },
+                "forceDeploy": {
+                    "type": "boolean",
+                    "default": false
                 }
             },
             "require": [
