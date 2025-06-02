@@ -47,7 +47,15 @@
                         },
                         "destinations": {
                             "type": "object"
-                        }
+                        },
+						"filterPatterns": {
+                  			"type": "array",
+                 			"items": [
+                    			{
+                      				"type": "object"
+                    			}
+                  			]
+                		}
                     },
                     "require": [
                         "type",
